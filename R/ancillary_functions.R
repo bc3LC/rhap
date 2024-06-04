@@ -140,7 +140,7 @@ create_panel <- function() {
 
 
   # AAP
-  AAP <- read.csv(file.path(datadir, "/socioeconomic/pm2.5.csv"))
+  AAP <- read.csv(file.path(datadir, "/concentrations/pm2.5.csv"))
 
   colnames(AAP) <- c("Country.Name", "Country.Code", "Indicator.Name", "Indicator.Code", as.character(1960:2019))
 
@@ -154,13 +154,13 @@ create_panel <- function() {
     dplyr::left_join(AAP_long, by = c("iso", "year"))
 
   # Floorspace
-  flsp <- read.csv(file.path(datadir, "/socioeconomic/Floorspace.csv"))
+  flsp <- read.csv(file.path(datadir, "/socioeconomic/floorspace.csv"))
 
   flsp_long <- flsp %>%
     tidyr::pivot_longer(cols = starts_with("X"),
                  names_to = "year",
                  values_to = "flsp") %>%
-    dplyr::mutate(year = as.integer(str_remove(year, "X")),
+    dplyr::mutate(year = as.integer(stringr::str_remove(year, "X")),
            iso = tolower(iso)) %>%
     dplyr::select(iso, year, flsp)
 
@@ -185,7 +185,7 @@ create_panel <- function() {
   # Apply interpolation to the specified columns grouping by 'iso'
   data_fin <- data_fin %>%
     dplyr::group_by(iso) %>%
-    do(interpolate_columns(., columns_with_na)) %>%
+    dplyr::do(interpolate_columns(., columns_with_na)) %>%
     dplyr::ungroup()
 
 
