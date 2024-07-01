@@ -31,7 +31,7 @@ create_panel <- function() {
   mort<-tibble::as_tibble(dplyr::bind_rows(read.csv(file.path(datadir, "/mort/IHME-GBD_2019_DATA-15769af1-1.csv")),
                                            read.csv(file.path(datadir, "/mort/IHME-GBD_2019_DATA-15769af1-2.csv")))) %>%
     dplyr::select(country_name = location_name, rei_name, measure_name, cause_name, year, sex_name, val) %>%
-    dplyr::filter(sex_name == "Both") %>%
+    dplyr::filter(sex_name %in% c("Male", "Female")) %>%
     tidyr::spread(measure_name, val) %>%
     gcamdata::left_join_error_no_match(reg_iso, by = "country_name")
 
