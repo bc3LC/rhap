@@ -137,7 +137,20 @@ create_panel <- function() {
     dplyr::left_join(pr1, by = c("iso", "year")) %>%
     dplyr::left_join(tasmax1, by = c("iso", "year")) %>%
     dplyr::left_join(tasmin1, by = c("iso", "year"))
+  
+  #HDD and CDD variables
+   HDD <- read.csv(paste0(datadir, "/climate/HDD.csv")) %>%
+    dplyr::select(iso, year, HDD_value = value) %>%
+    dplyr::mutate(iso = tolower(iso))
+  
+  CDD <- read.csv(paste0(datadir, "/climate/CDD.csv")) %>%
+    dplyr::select(iso, year, CDD_value = value) %>%
+    dplyr::mutate(iso = tolower(iso))
 
+  data_fin <- data_fin %>%
+    dplyr::left_join(HDD, by = c("iso", "year")) %>%
+    dplyr::left_join(CDD, by = c("iso", "year"))
+  
 
   # AAP
   AAP <- read.csv(file.path(datadir, "/concentrations/pm2.5.csv"))
