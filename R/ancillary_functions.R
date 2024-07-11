@@ -35,6 +35,13 @@ create_panel <- function() {
     tidyr::spread(measure_name, val) %>%
     gcamdata::left_join_error_no_match(reg_iso, by = "country_name")
 
+  # Aggregate mort (Disaggregations to be tested in the future)
+  mort <- mort %>%
+    dplyr::group_by(country_name, rei_name, year, sex_name, iso) %>%
+    dplyr::summarise(Deaths = sum(Deaths), `DALYs (Disability-Adjusted Life Years)` = sum(`DALYs (Disability-Adjusted Life Years)`), `YLLs (Years of Life Lost)` = sum(`YLLs (Years of Life Lost)`)) %>%
+    dplyr::ungroup()
+
+
   #-------------
   # Check the country names that need to be manually adjusted
   names_ok<-mort %>%  dplyr::filter(complete.cases(.)) %>% dplyr::select(country_name) %>% dplyr::distinct()
@@ -62,7 +69,7 @@ create_panel <- function() {
   pop<- read.csv(file.path(datadir, "/socioeconomic/population.csv")) %>%
     dplyr::filter(year %in% unique(data$year)) %>%
     dplyr::mutate(iso = tolower(iso)) %>%
-    dplyr::select(-country_name) %>%
+    dplyr::select(-country) %>%
     # erase empty iso codes (e.g., the ones that belong to "Africa" or "North America")
     dplyr::filter(!is.na(iso), iso != "")
 
@@ -73,6 +80,13 @@ create_panel <- function() {
     dplyr::select(-country_name) %>%
     # erase empty iso codes (e.g., the ones that belong to "Africa" or "North America")
     dplyr::filter(!is.na(iso), iso != "")
+
+  # Adjust 2019 GDP
+  gdp_2019 <- gdp %>%
+    filter(year == 2018) %>%
+    mutate(year = 2019)
+
+  gdp <- bind_rows(gdp, gdp_2019)
 
   urbrur<-read.csv(file.path(datadir, "/socioeconomic/urb_rur_shares.csv"))%>%
     dplyr::filter(year %in% unique(data$year)) %>%
@@ -137,12 +151,12 @@ create_panel <- function() {
     dplyr::left_join(pr1, by = c("iso", "year")) %>%
     dplyr::left_join(tasmax1, by = c("iso", "year")) %>%
     dplyr::left_join(tasmin1, by = c("iso", "year"))
-  
+
   #HDD and CDD variables
    HDD <- read.csv(paste0(datadir, "/climate/HDD.csv")) %>%
     dplyr::select(iso, year, HDD_value = value) %>%
     dplyr::mutate(iso = tolower(iso))
-  
+
   CDD <- read.csv(paste0(datadir, "/climate/CDD.csv")) %>%
     dplyr::select(iso, year, CDD_value = value) %>%
     dplyr::mutate(iso = tolower(iso))
@@ -150,7 +164,7 @@ create_panel <- function() {
   data_fin <- data_fin %>%
     dplyr::left_join(HDD, by = c("iso", "year")) %>%
     dplyr::left_join(CDD, by = c("iso", "year"))
-  
+
 
   # AAP
   AAP <- read.csv(file.path(datadir, "/concentrations/pm2.5.csv"))
@@ -175,7 +189,8 @@ create_panel <- function() {
                  values_to = "flsp") %>%
     dplyr::mutate(year = as.integer(stringr::str_remove(year, "X")),
            iso = tolower(iso)) %>%
-    dplyr::select(iso, year, flsp)
+    dplyr::select(iso, year, flsp)  %>%
+    mutate(year = if_else(year == 2020, 2019, year))
 
   data_fin <- data_fin %>%
     dplyr::left_join(flsp_long, by = c("iso", "year"))
@@ -200,6 +215,15 @@ create_panel <- function() {
     dplyr::group_by(iso) %>%
     dplyr::do(interpolate_columns(., columns_with_na)) %>%
     dplyr::ungroup()
+
+  # Normalied deaths
+  mort <- mort %>%
+    left_join(pop, by = c("iso", "year")) %>%
+    mutate(deaths_per_100k = (Deaths / pop) * 100000)
+
+  #deathsper100k merged into panel
+  data_fin <- data_fin %>%
+    left_join(mort %>% select(iso, year, deaths_per_100k), by = c("iso", "year"))
 
 
   return(data_fin)
