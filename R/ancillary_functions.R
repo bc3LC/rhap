@@ -1,4 +1,3 @@
-
 #' create_panel
 #'
 #' @return data panel to do the econometric analysis
@@ -31,12 +30,14 @@ create_panel <- function() {
   mort<-tibble::as_tibble(dplyr::bind_rows(read.csv(file.path(datadir, "/mort/IHME-GBD_2019_DATA-15769af1-1.csv")),
                                            read.csv(file.path(datadir, "/mort/IHME-GBD_2019_DATA-15769af1-2.csv")))) %>%
     dplyr::select(country_name = location_name, rei_name, measure_name, cause_name, year, sex_name, val) %>%
-    dplyr::filter(sex_name %in% c("Male", "Female")) %>%
+    dplyr::filter(sex_name %in% c("Both")) %>%
     tidyr::spread(measure_name, val) %>%
     gcamdata::left_join_error_no_match(reg_iso, by = "country_name")
 
   # Aggregate mort (Disaggregations to be tested in the future)
   mort <- mort %>%
+    tidyr::replace_na(list(Deaths = 0)) %>%
+    tidyr::replace_na(list(`YLLs (Years of Life Lost)` = 0)) %>%
     dplyr::group_by(country_name, rei_name, year, sex_name, iso) %>%
     dplyr::summarise(Deaths = sum(Deaths), `DALYs (Disability-Adjusted Life Years)` = sum(`DALYs (Disability-Adjusted Life Years)`), `YLLs (Years of Life Lost)` = sum(`YLLs (Years of Life Lost)`)) %>%
     dplyr::ungroup()
@@ -216,16 +217,46 @@ create_panel <- function() {
     dplyr::do(interpolate_columns(., columns_with_na)) %>%
     dplyr::ungroup()
 
-  # Normalied deaths
-  mort <- mort %>%
-    left_join(pop, by = c("iso", "year")) %>%
-    mutate(deaths_per_100k = (Deaths / pop) * 100000)
 
-  #deathsper100k merged into panel
-  data_fin <- data_fin %>%
-    left_join(mort %>% select(iso, year, deaths_per_100k), by = c("iso", "year"))
+  # Add GCAM_region
+  iso_GCAM_regID <- read.csv(paste0(datadir, "/iso_GCAM_regID.csv")) %>%
+    select(iso, GCAM_region)
 
+  data_fin_ret <- data_fin %>%
+    left_join(iso_GCAM_regID, by = "iso") %>%
+    dplyr::filter(!is.na(GCAM_region)) %>%
+    # normalize emissions and deaths
+    mutate(BC_per_100k = (BC / pop) * 100000,
+           OC_per_100k = (OC / pop) * 100000,
+           PrimPM25_per_100k = (PrimPM25 / pop) * 100000,
+           NOx_per_100k = (NOx / pop) * 100000,
+           CO_per_100k = (CO / pop) * 100000,
+           Deaths_per_100k = (Deaths / pop) * 100000,
+           YLL_per_100k = (`YLLs (Years of Life Lost)` / pop) * 100000,
+           DALY_per_100k = (`DALYs (Disability-Adjusted Life Years)` / pop) * 100000) %>%
+    # add small numbers to 0 emisisons for log
+    mutate(BC_per_100k = if_else(BC_per_100k == 0, 1E-9, BC_per_100k),
+           OC_per_100k = if_else(OC_per_100k == 0, 1E-9, OC_per_100k),
+           PrimPM25_per_100k = if_else(PrimPM25_per_100k == 0, 1E-9, PrimPM25_per_100k),
+           NOx_per_100k = if_else(NOx_per_100k == 0, 1E-9, NOx_per_100k),
+           CO_per_100k = if_else(CO_per_100k == 0, 1E-9, CO_per_100k),
+           HDD_value = if_else(HDD_value == 0, 1E-9, HDD_value),
+           CDD_value = if_else(CDD_value == 0, 1E-9, CDD_value)) %>%
+    # add logs for numeric variables
+    mutate(log_BC_per_100k = log(BC_per_100k),
+           log_OC_per_100k = log(OC_per_100k),
+           log_PrimPM25_per_100k = log(PrimPM25_per_100k),
+           log_NOx_per_100k = log(NOx_per_100k),
+           log_CO_per_100k = log(CO_per_100k),
+           log_Deaths_per_100k = log(Deaths_per_100k),
+           log_YLL_per_100k = log(YLL_per_100k),
+           log_DALY_per_100k = log(DALY_per_100k),
+           log_gdppc_ppp_dol2011 = log(gdppc_ppp_dol2011),
+           log_AAP = log(AAP),
+           log_flsp = log(flsp),
+           log_HDD_value = log(HDD_value),
+           log_CDD_value = log(CDD_value))
 
-  return(data_fin)
+  return(data_fin_ret)
 
 }
