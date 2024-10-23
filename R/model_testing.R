@@ -1,41 +1,60 @@
 library(dplyr)
 library(plm)
 library(ggplot2)
+library(countrycode)
 
 datadir <- paste0(getwd(),"/inst/extdata")
 # ----------------------------------------------
 # Adjust the data
 data <- a %>%
-  select(iso, country_name, year, pop, starts_with("log")) %>%
+  select(iso, country_name, year, pop, starts_with("log"), continent, dev) %>%
   select(-log_AAP) %>%
-  filter(complete.cases(.)) %>%
-  # adjust Taiwan Flsp
-  mutate(log_flsp = if_else(year == 2019 & iso == "twn", 1.729749, log_flsp))
+  filter(complete.cases(.))
+
+# data.europe <- data %>% filter(continent == "Europe")
+# data.africa <- data %>% filter(continent == "Africa")
+# data.america <- data %>% filter(continent == "Americas")
+# data.asia <- data %>% filter(continent == "Asia & Oceania")
+
+# data.dev <- data %>% filter(dev == "Developed")
+# data.nonDev <- data %>% filter(dev == "Developing")
+
+# data.kmeans2 <- kmeans(x = data[, c("log_gdppc_ppp_dol2011")], centers = 2)
+#
+# data <- data %>%
+#   mutate(cluster = data.kmeans2$cluster) %>%
+#   mutate(cluster = as.factor(cluster))
+#
+# data.c1 <- data %>% filter(cluster == "1")
+# data.c2 <- data %>% filter(cluster == "2")
 
 # ----------------------------------------------
 # ----------------------------------------------
 # FIT THE MODEL
 # ----------------------------------------------
 # 1- Test the fixed effects model
-fixed <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k + log_NOx_per_100k +
-               log_gdppc_ppp_dol2011 +
-               log_flsp +
-                log_HDD_value +
-               log_CDD_value,
+fixed <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k +
+             log_NOx_per_100k +
+             log_VOC_per_100k +
+             log_gdppc_ppp_dol2011 +
+             log_flsp,
              data = data,
-             index=c("country_name", "year"), model="within")
+             index = c("country_name", "year"), model="within")
 summary(fixed)
-# HDD is non-significative and CDD has a strange effect
-fixed_noDD <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k + log_NOx_per_100k +
-                   log_gdppc_ppp_dol2011 +
-                   log_flsp,
-                 data = data,
-                 index=c("country_name", "year"), model="within")
-summary(fixed_noDD)
+
+# # HDD is non-significative and CDD has a strange effect
+# fixed_noDD <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k + log_NOx_per_100k +
+#                    log_gdppc_ppp_dol2011 +
+#                    log_flsp,
+#                  data = data,
+#                  index=c("country_name", "year"), model="within")
+# summary(fixed_noDD)
 
 # AIC cannot be directly used with panel data
 # R2 does is not largely reduced, so we select the no_DD model
-fixed_fin <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k + log_NOx_per_100k +
+fixed_fin <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k +
+               log_NOx_per_100k +
+               log_VOC_per_100k +
                log_gdppc_ppp_dol2011 +
                log_flsp,
              data = data,
@@ -45,10 +64,12 @@ summary(fixed_fin)
 # ----------------------------------------------
 # 2- Use the Hausman test to check fixed effects are more accurate than random
 # Fit a RE model
-random <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k + log_NOx_per_100k +
-                   log_gdppc_ppp_dol2011 +
-                   log_flsp,
-                 data = data,
+random <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k +
+                log_NOx_per_100k +
+                log_VOC_per_100k +
+                log_gdppc_ppp_dol2011 +
+                log_flsp,
+              data = data,
                  index=c("country_name", "year"), model = "random")
 summary(random)
 
@@ -59,10 +80,12 @@ phtest(fixed_fin,random) #Hausman test
 # ----------------------------------------------
 # 3- Check multicolineality
 # VIF does not work for FE or RE models -> need pooled model and check
-pooled <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k + log_NOx_per_100k +
-               log_gdppc_ppp_dol2011 +
-               log_flsp,
-             data = data,
+pooled <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k +
+                log_NOx_per_100k +
+                log_VOC_per_100k +
+                log_gdppc_ppp_dol2011 +
+                log_flsp,
+              data = data,
              index=c("country_name", "year"), model="pooling")
 summary(pooled)
 car::vif(pooled)
@@ -89,20 +112,32 @@ abline(v = 5, lwd = 3, lty = 2)
 
 # ----------------------------------------------
 # Ver el resumen del modelo
-fixed_fin <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k + log_NOx_per_100k +
+fixed_fin <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k +
+                   log_NOx_per_100k +
+                   log_VOC_per_100k +
                    log_gdppc_ppp_dol2011 +
                    log_flsp,
                  data = data,
                  index=c("country_name", "year"), model="within")
 summary(fixed_fin)
 
+
+# Fit by continent
+fixed_fin_c1 <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k + log_NOx_per_100k + log_gdppc_ppp_dol2011 + log_flsp,
+                        data = data.c1,
+                        index=c("country_name", "year"), model="within")
+summary(fixed_fin_dev)
+
+
+
+
 # ----------------------------------------------
 # ----------------------------------------------
 # PREDICTIONS
 # ----------------------------------------------
-#data.panel <- plm::pdata.frame(data, index = c("country_name", "year"))
+data.panel <- plm::pdata.frame(data, index = c("country_name", "year"))
 
-data$pred_log_Deaths_per_100k <- predict(fixed_fin, data)
+data$pred_log_Deaths_per_100k <- predict(fixed_fin, data.panel)
 
 # Add GCAM_region
 iso_GCAM_regID <- read.csv(paste0(datadir, "/iso_GCAM_regID.csv")) %>%
@@ -149,12 +184,12 @@ data_check_fin <- data_check %>%
 selected_regions <- c("Africa_Eastern", "China", "Europe_Eastern", "India",
                       "Indonesia", "South Asia", "EU-15", "USA")
 
-ggplot(data_check_fin, aes(x = Deaths, y = pred_Deaths, colour = GCAM_region)) +
+ggplot(data_check_fin %>% filter(GCAM_region %in% selected_regions), aes(x = Deaths, y = pred_Deaths, colour = GCAM_region)) +
   geom_point(size = 1) +
   geom_abline(intercept = 0,
               slope = 1) +
   theme_bw() +
-  theme(legend.position = "none")
+  theme(legend.position = "bottom")
 
 
 
