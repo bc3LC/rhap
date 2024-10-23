@@ -293,3 +293,29 @@ create_panel <- function() {
   return(data_fin_ret)
 
 }
+
+#' fit_model
+#'
+#' @return panel regression model for prediction
+
+fit_model <- function() {
+
+  # Adjust the data
+  data <- create_panel() %>%
+    select(iso, country_name, year, pop, starts_with("log"), continent, dev) %>%
+    select(-log_AAP) %>%
+    filter(complete.cases(.))
+
+  # Fit the fixed effect model
+  model.fixed <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k +
+        log_NOx_per_100k +
+        log_VOC_per_100k +
+        log_gdppc_ppp_dol2011 +
+        log_flsp,
+      data = data,
+      index = c("country_name", "year"), model = "within")
+
+  return(model.fixed)
+
+}
+
