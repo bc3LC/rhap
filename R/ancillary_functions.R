@@ -278,7 +278,16 @@ create_panel <- function() {
            log_OC_per_flsp = log(OC_per_flsp),
            log_PrimPM25_per_flsp = log(PrimPM25_per_flsp),
            log_NOx_per_flsp = log(NOx_per_flsp),
-           log_CO_per_flsp = log(CO_per_flsp))
+           log_CO_per_flsp = log(CO_per_flsp)) %>%
+    # Add continent and development degree
+    mutate(continent = countrycode(sourcevar = iso,
+                                   origin = "iso3c",
+                                   destination = "continent")) %>%
+    mutate(continent = if_else(grepl("Asia", continent) | grepl("Oceania", continent), "Asia & Oceania", continent)) %>%
+    mutate(dev = if_else(grepl("Europe", continent) |
+                           grepl("Japan", country_name) |
+                           grepl("usa", iso) |
+                           grepl("can", country_name), "Developed", "Developing"))
 
 
   return(data_fin_ret)
