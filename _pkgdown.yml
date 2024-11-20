@@ -1,0 +1,35 @@
+title: rhap
+url: https://bc3lc.github.io/rhap/
+template:
+  params:
+    bootswatch: flatly
+development:
+  model: auto
+
+navbar:
+  type: inverse
+  left:
+    - icon: fa-home
+      href: index.html
+    - text: "Guides"
+      icon: fas fa-clipboard-list
+      menu:
+      -  text: Running rhap
+         href: articles/run_rhap.html
+      -  text: Fitting the econometric model
+         href: articles/fit_model.html
+    - icon: fa-file-code-o
+      text: "Reference"
+      href: reference/index.html
+    - icon: fa-newspaper-o
+      text: "News"
+      href: news/index.html
+
+  right:
+   - icon: fa-github fa-lg
+     href: https://github.com/bc3LC/rhap
+
+
+      
+toc:
+  depth: 2

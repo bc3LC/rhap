@@ -1,0 +1,59 @@
+Package: rhap
+Title: rhap
+Version: 0.1.0
+Authors@R: c(person("Jon", "Sampedro", email = "jon.sampedro@bc3research.org", role = c("aut", "cre"),
+		   comment = c(ORCID ="0000-0002-2277-1530")),
+		   person("Clàudia", "Rodés-Bachs", email = "claudia.rodes@bc3research.org", role = c("aut"),
+		   comment = c(ORCID ="0000-0001-6696-7685")),
+		   person("Steven", "Smith", email = "ssmith@pnnl.gov", role = c("aut"),
+		   comment = c(ORCID ="0000-0003-3248-5607")),
+		   person("Manuel", "Tomas", email = "manuel.tomas@bc3research.org", role = c("aut"),
+		   comment = c(ORCID ="0000-0003-1725-7702")),
+		   person("Ismael", "Urrutia", email = "iurrutia034@ikasle.ehu.eus", role = c("aut")),
+		   person("Dirk-Jan", "Van de Ven", email = "dj.vandeven@bc3research.org", role = c("aut"),
+		   comment = c(ORCID ="0000-0001-9120-564X")))
+Description: A package to compute health impacts attributable to indoor air pollution within an integrated assessment modelling framework.
+URL: https://github.com/bc3LC/rhap
+BugReports: https://github.com/bc3LC/rhap/issues
+Depends: R (>= 2.10)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Imports:
+    usethis,
+    knitr,
+    markdown,
+    rlang,
+    readr,
+    data.table,
+    magrittr,
+    dplyr (>= 1.1.2),
+    tidyr,
+    stringr,
+    stringi,
+    here,
+    plm,
+    writexl,
+    readxl,
+    rrapply (>= 1.2.6),
+    tibble,
+    rgcam,
+    rmap,
+    rpackageutils,
+    gcamdata,
+    rworldmap,
+    assertthat,
+    countrycode
+Suggests: 
+    rmarkdown,
+    rprojroot,
+    testthat (>= 3.0.0)	
+Remotes: 
+    github::JGCRI/rgcam,
+    github::JGCRI/rmap,
+    github::JGCRI/rpackageutils,
+    github::JGCRI/gcamdata
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3

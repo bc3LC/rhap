@@ -1,6 +1,8 @@
 # Converting raw data into package data
 library(usethis)
 library(magrittr)
+library(dplyr)
+library(countrycode)
 
 #=========================================================
 #=========================================================

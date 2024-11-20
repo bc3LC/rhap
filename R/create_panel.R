@@ -1,6 +1,33 @@
 #' create_panel
 #'
-#' @return data panel to do the econometric analysis
+#'@description
+#' Create a panel data to fit the econometric model for the analysis. The panel includes information of the different nations of the world and covers the period 1990-2019.
+#'
+#' In terms of variables, the panel includes:
+#'
+#' - Premature deaths, YLLs, and DALYs, attributable to indoor air pollution (IHME)
+#'
+#' - Emissions from the residential sector of different pollutants, namely BC, OC, CH4, N2O, CO, NOx, NMVOC, NH3 and NMVOC. They are collected from the Community Emissions Database System (CEDS)
+#'
+#' - Regionally-averaged ambient air pollution levels (World Bank, WB)
+#'
+#' - Gross Domestic Product (GDP) in PPP (Our World in Data)
+#'
+#' - Urban/Rural shares by region (WB)
+#'
+#' - Share of population with access to electricity and clean cooking fuels (World Health Organization, WHO)
+#'
+#' - Residential floorspace, from multiple sources: India NSSO, Chinese Statistical Yearbook (CSY), Residential Energy Consumption Survey (RECS), EU statistics on income and living conditions (EU-SILC), Odysee
+#'
+#' - Temperature and precipitation time series  (Climate Change Knowledge Portal (CCKP))
+#'
+#' - Heating and cooling degree days (Community Climate System Model (CCSM))
+#'
+#' @source  Multiple sources (described above). These include IHME, CEDS, WB, Our World in Data, WHO, NSSO, CSY, RECS, EU-SILC, Odysee, CCK, CCSM,
+#' @keywords Panel data
+#' @importFrom magrittr %>%
+#' @export
+#' @return A multinational and multi-year data panel to complete the econometric analysis
 create_panel <- function() {
   datadir <- paste0(getwd(),"/inst/extdata")
 
@@ -293,29 +320,3 @@ create_panel <- function() {
   return(data_fin_ret)
 
 }
-
-#' fit_model
-#'
-#' @return panel regression model for prediction
-
-fit_model <- function() {
-
-  # Adjust the data
-  data <- create_panel() %>%
-    select(iso, country_name, year, pop, starts_with("log"), continent, dev) %>%
-    select(-log_AAP) %>%
-    filter(complete.cases(.))
-
-  # Fit the fixed effect model
-  model.fixed <- plm(log_Deaths_per_100k ~ log_PrimPM25_per_100k +
-        log_NOx_per_100k +
-        log_VOC_per_100k +
-        log_gdppc_ppp_dol2011 +
-        log_flsp,
-      data = data,
-      index = c("country_name", "year"), model = "within")
-
-  return(model.fixed)
-
-}
-
