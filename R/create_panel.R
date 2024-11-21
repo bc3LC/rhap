@@ -29,6 +29,9 @@
 #' @export
 #' @return A multinational and multi-year data panel to complete the econometric analysis
 create_panel <- function() {
+
+  rlang::inform('Generating panel ...')
+
   datadir <- paste0(getwd(),"/inst/extdata")
 
 
