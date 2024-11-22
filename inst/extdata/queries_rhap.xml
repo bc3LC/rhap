@@ -2,72 +2,24 @@
 <queries>
 
 
- <aQuery>
+  <aQuery>
 		<all-regions/>
-<supplyDemandQuery title="building floorspace per capita">
-                    <axis1 name="Floorspace">input[@name]</axis1>
-                    <axis2 name="Year">demand-physical[@vintage]</axis2>
-                    <xPath buildList="true" dataName="percapita floorspace" group="false" sumAll="false"><![CDATA[
-                         
-                     declare function local:append-heirarchy($parent as node(), $append as node()) as node() {
-                         let $scn := $parent/ancestor::scenario,
-                              $rgn := $parent/ancestor::region,
-                             $consumer := $parent/ancestor::gcam-consumer
-                           return
-                              document { element scenario {
-                                                $scn/@*,
-                                                element region {
-                                                    $rgn/@*,
-                                                    element gcam-consumer {
-                                                        $consumer/@*,
-                                                        $append
-                                                    }
-                                                }
-                                            }
-                            }
-                     };  
-                     declare function local:get-percapita($inputs as node()*) as node()* {
-                     unordered {    
-                     for $input in $inputs
-                     let $new_input :=  
-                     element input {
-                         attribute type {'input'},
-                         attribute name { $input/@name },
-                         for $demand in $input/floorspace
-                         return 
-                             element demand-physical {
-                             attribute vintage {$demand/@year},
-                             (: TODO: hard coding units :)
-                             attribute unit { 'm^2/person'},
-                             (: floorspace is billion m^2 and population is 1000 people and we want m^2/persion :)
-                             text { $demand/text() div $input/ancestor::gcam-consumer/subregional-population[@year=$demand/@year] * 1000000 }
-                         }
-                     },
-                     $new_root := local:append-heirarchy($input/parent::*, $new_input)
-                     return $new_root//text()
-                     } 
-                     };
-                     declare function local:run-get-percapita($scenarios as xs:string*, $regions as xs:string*, $collection as xs:string) as node()* {     
-                     let $regionsG := if(not($regions[1] = 'Global'))
-                              then $regions
-                              else distinct-values(collection($collection)/scenario/world/*[@type='region']/@name)
-                     return
-                     for $scenario in $scenarios,       
-                     $region in $regionsG   
-                     let $scenario_split := tokenize($scenario, ' '),       
-                     $scenario_name := string-join($scenario_split[position() < last()], ' '),
-			 	 	 $scenario_date := $scenario_split[last()],
-			 	 	 $currTree := collection($collection)/scenario[@name = $scenario_name and @date = $scenario_date]/world/*[@type = 'region' and @name=$region]
-                     return 
-                        local:get-percapita($currTree/gcam-consumer//building-node-input)
-                        
-         }; 
-                 local:run-get-percapita((:scenarios:), (:regions:), (:collection:))
-                 
-            
-                    ]]></xPath>
+                <supplyDemandQuery title="building floorspace">
+                    <axis1 name="building">gcam-consumer[@name]</axis1>
+                    <axis2 name="Year">floorspace[@year]</axis2>
+                    <xPath buildList="true" dataName="floorspace" group="false" sumAll="false">gcam-consumer//floorspace/node()</xPath>
                     <comments/>
                 </supplyDemandQuery>
+ </aQuery>
+
+ <aQuery>
+		<all-regions/>
+        <demographicsQuery title="subregional population">
+            <axis1 name="region">region</axis1>
+            <axis2 name="Year">subregional-population</axis2>
+            <xPath buildList="true" dataName="subregional-population" group="false" sumAll="false">gcam-consumer/subregional-population/node()</xPath>
+            <comments/>
+        </demographicsQuery>
  </aQuery>
 
  
