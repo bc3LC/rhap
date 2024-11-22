@@ -7,7 +7,7 @@ library(countrycode)
 #=========================================================
 #=========================================================
 # POllutants to be included in the model
-panel_pollutants <- c("PrimPM25", "NOx", "VOC")
+panel_pollutants <- c("BC", "OC", "PrimPM25", "NOx", "VOC", "NMVOC")
 usethis::use_data(panel_pollutants, overwrite = T)
 
 # Panel data

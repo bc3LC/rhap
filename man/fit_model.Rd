@@ -7,7 +7,10 @@
 Details on plm estimation can be found here: https://cran.r-project.org/web/packages/plm/plm.pdf#'
 }
 \usage{
-fit_model()
+fit_model(HIA_var)
+}
+\arguments{
+\item{HIA_var}{Health metric to be predicted. c("deaths", "yll", "dalys")}
 }
 \value{
 Regression model and coefficients for prediction
