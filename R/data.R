@@ -58,8 +58,8 @@
 #'
 #'
 #' \dontrun{
-#'  library(rfasst);
-#'  rfasst::Percen
+#'  library(rhap);
+#'  rhap::Percen
 #' }
 #'
 #'
@@ -67,6 +67,82 @@
 
 
 
+#' Raw SSP data
+#'
+#' @description Country level population and GDP data per SSP (SSP_database_2024.csv).
+#' @source  IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::raw.ssp.data
+#' }
+"raw.ssp.data"
+
+
+#'GDP-SSP database
+#'
+#' @description Filtered er capita GDP data per SSP1 (SSP_database_2024.csv).
+#' @source IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::gdp_pc.SSP1
+#' }
+"gdp_pc.SSP1"
+
+
+#'GDP-SSP database
+#'
+#' @description Filtered er capita GDP data per SSP2 (SSP_database_2024.csv).
+#' @source IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::gdp_pc.SSP2
+#' }
+"gdp_pc.SSP2"
+
+
+#'GDP-SSP database
+#'
+#' @description Filtered er capita GDP data per SSP3 (SSP_database_2024.csv).
+#' @source IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::gdp_pc.SSP3
+#' }
+"gdp_pc.SSP3"
+
+
+#'GDP-SSP database
+#'
+#' @description Filtered er capita GDP data per SSP4 (SSP_database_2024.csv).
+#' @source IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::gdp_pc.SSP4
+#' }
+"gdp_pc.SSP4"
+
+
+#'GDP-SSP database
+#'
+#' @description Filtered er capita GDP data per SSP5 (SSP_database_2024.csv).
+#' @source IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::gdp_pc.SSP5
+#' }
+"gdp_pc.SSP5"
 
 
 

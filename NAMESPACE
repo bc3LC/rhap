@@ -2,5 +2,6 @@
 
 export(create_panel)
 export(fit_model)
+export(get_gdppc)
 export(run)
 importFrom(magrittr,"%>%")
