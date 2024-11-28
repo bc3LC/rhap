@@ -9,7 +9,6 @@ run(
   query_path = "./inst/extdata",
   db_name = NULL,
   prj_name,
-  ssp = "SSP2",
   scen_name,
   queries = "queries_rhap.xml",
   final_db_year = 2100,
@@ -27,8 +26,6 @@ run(
 \item{db_name}{Name of the GCAM database}
 
 \item{prj_name}{Name of the rgcam project. This can be an existing project, or, if not, this will be the name}
-
-\item{ssp}{SSP scenario c("SSP1", "SSP2", "SSP3", "SSP4", "SSP5")}
 
 \item{scen_name}{Vector names of the GCAM scenarios to be processed}
 

@@ -1,4 +1,4 @@
-#' get_gdppc
+#' get_gdp_ctry
 #'
 #'@description
 #' Ancillary function to get country-level GDPpc from SSP database
@@ -12,10 +12,9 @@
 #' @export
 #' @return Per capita GDP by country
 
-get_gdppc <- function(ssp) {
+get_gdp_ctry <- function(ssp) {
 
   # Set some constants
-  conv_M_people <- 1E6
   conv_bil_dol <- 1E9
 
   # Ancillary Functions
@@ -40,23 +39,15 @@ get_gdppc <- function(ssp) {
     dplyr::rename(model = Model, scenario = Scenario, region = Region, variable = Variable, unit = Unit) %>%
     dplyr::filter(year >= max_base_year)
 
-  # Substract country-level population data:
-  pop <- tibble::as_tibble(ssp.data) %>%
-    dplyr::filter(variable == "Population") %>%
-    dplyr::mutate(pop = value * conv_M_people) %>%
-    dplyr::select(scenario, region, year, pop)
-
-  # Calculate per capita GDP
-  gdp_pc <- tibble::as_tibble(ssp.data) %>%
+  # Extract GDP
+  gdp <- tibble::as_tibble(ssp.data) %>%
     dplyr::filter(variable == "GDP|PPP") %>%
   # Transfrom units to dol2011PPP
     dplyr::mutate(gdp = value * conv_bil_dol * gcamdata::gdp_deflator(2011, 2019)) %>%
-    gcamdata::left_join_error_no_match(pop, by = c("scenario", "region", "year")) %>%
-    dplyr::mutate(gdp_pc_dol2011_ppp = gdp / pop) %>%
-    dplyr::select(region, scenario, year, gdp_pc_dol2011_ppp)
+    dplyr::select(region, scenario, year, gdp_dol2011_ppp = gdp)
 
 
-  invisible(gdp_pc)
+  invisible(gdp)
 
 }
 

@@ -2,6 +2,7 @@
 
 export(create_panel)
 export(fit_model)
-export(get_gdppc)
+export(get_gdp_ctry)
+export(get_pop_ctry)
 export(run)
 importFrom(magrittr,"%>%")

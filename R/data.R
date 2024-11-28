@@ -82,69 +82,144 @@
 
 #'GDP-SSP database
 #'
-#' @description Filtered er capita GDP data per SSP1 (SSP_database_2024.csv).
+#' @description Filtered GDP data per SSP1 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
 #'  library(rhap);
-#'  rhap::gdp_pc.SSP1
+#'  rhap::gdp_ctry.SSP1
 #' }
-"gdp_pc.SSP1"
+"gdp_ctry.SSP1"
 
 
 #'GDP-SSP database
 #'
-#' @description Filtered er capita GDP data per SSP2 (SSP_database_2024.csv).
+#' @description Filtered GDP data per SSP2 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
 #'  library(rhap);
-#'  rhap::gdp_pc.SSP2
+#'  rhap::gdp_ctry.SSP2
 #' }
-"gdp_pc.SSP2"
+"gdp_ctry.SSP2"
 
 
 #'GDP-SSP database
 #'
-#' @description Filtered er capita GDP data per SSP3 (SSP_database_2024.csv).
+#' @description Filtered GDP data per SSP3 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
 #'  library(rhap);
-#'  rhap::gdp_pc.SSP3
+#'  rhap::gdp_ctry.SSP3
 #' }
-"gdp_pc.SSP3"
+"gdp_ctry.SSP3"
 
 
 #'GDP-SSP database
 #'
-#' @description Filtered er capita GDP data per SSP4 (SSP_database_2024.csv).
+#' @description Filtered GDP data per SSP4 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
 #'  library(rhap);
-#'  rhap::gdp_pc.SSP4
+#'  rhap::gdp_ctry.SSP4
 #' }
-"gdp_pc.SSP4"
+"gdp_ctry.SSP4"
 
 
 #'GDP-SSP database
 #'
-#' @description Filtered er capita GDP data per SSP5 (SSP_database_2024.csv).
+#' @description Filtered GDP data per SSP5 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
 #'  library(rhap);
-#'  rhap::gdp_pc.SSP5
+#'  rhap::gdp_ctry.SSP5
 #' }
-"gdp_pc.SSP5"
+"gdp_ctry.SSP5"
 
 
+#'Pop-SSP database
+#'
+#' @description Filtered Population data per SSP1 (SSP_database_2024.csv).
+#' @source IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::pop_ctry.SSP1
+#' }
+"pop_ctry.SSP1"
 
+
+#'Pop-SSP database
+#'
+#' @description Filtered Population data per SSP2 (SSP_database_2024.csv).
+#' @source IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::pop_ctry.SSP2
+#' }
+"pop_ctry.SSP2"
+
+
+#'Pop-SSP database
+#'
+#' @description Filtered Population data per SSP3 (SSP_database_2024.csv).
+#' @source IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::pop_ctry.SSP3
+#' }
+"pop_ctry.SSP3"
+
+
+#'Pop-SSP database
+#'
+#' @description Filtered Population data per SSP4 (SSP_database_2024.csv).
+#' @source IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::pop_ctry.SSP4
+#' }
+"pop_ctry.SSP4"
+
+
+#'Pop-SSP database
+#'
+#' @description Filtered Population data per SSP5 (SSP_database_2024.csv).
+#' @source IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::pop_ctry.SSP5
+#' }
+"pop_ctry.SSP5"
+
+
+#' adj_ctry
+#'
+#' @description File to adjust country names and homogenize differences across datasets
+#' @source IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::adj_ctry
+#' }
+"adj_ctry "
 
 
