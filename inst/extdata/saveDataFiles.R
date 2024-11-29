@@ -46,7 +46,9 @@ usethis::use_data(pop_ctry.SSP5, overwrite = T)
 adj_ctry = read.csv("./inst/extdata/adj_ctry.csv")
 usethis::use_data(adj_ctry, overwrite = T)
 
-
+# Load GDP data for some missing countries from a previous dataset (SSP-v9)
+ssp_gdp_adj = read.csv("./inst/extdata/socioeconomic/SSP_adj.csv", skip = 8)
+usethis::use_data(ssp_gdp_adj, overwrite = T)
 
 
 

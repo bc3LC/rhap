@@ -27,9 +27,6 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
 
   rlang::inform('Running rhap ...')
 
-  # First: Get model to substract coefficients
-  model.fixed <- fit_model(HIA_var = HIA_var)
-
   # Then, load the rgcam project if prj not passed as a parameter:
     if (!is.null(db_path) & !is.null(db_name)) {
       rlang::inform('Creating project ...')
@@ -176,7 +173,20 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     rename(ssp = scenario,
            country = region)
 
-  pop_ctry <- dplyr::bind_rows(
+  # Add missing countries
+  gdp_adj <- ssp_gdp_adj %>%
+    tidyr::gather(year, value, -Model, -Scenario, -Region, -Variable, -Unit) %>%
+    dplyr::mutate(year=gsub("X", "", year)) %>%
+    dplyr::filter(year %in% unique(gdp_ctry$year),
+                  Scenario != "Historical Reference") %>%
+    dplyr::rename(model = Model, scenario = Scenario, region = Region, variable = Variable, unit = Unit) %>%
+    dplyr::mutate(gdp = value * 1E9 * gcamdata::gdp_deflator(2011, 2017)) %>%
+    dplyr::select(country = region, ssp= scenario, year, gdp_dol2011_ppp = gdp)
+
+  gdp_ctry <- dplyr::bind_rows(gdp_ctry, gdp_adj)
+
+
+      pop_ctry <- dplyr::bind_rows(
     get(paste0('pop_ctry.',"SSP1")),
     get(paste0('pop_ctry.',"SSP2")),
     get(paste0('pop_ctry.',"SSP3")),
@@ -290,16 +300,24 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
   # COMBINE THE DATA AND TRANSFORM IT TO MODEL VARIABLES
 
    output <- em_ctry_gr %>%
-    gcamdata::left_join_error_no_match(flsp_pc_ctry, by = c("scenario", "ssp", "country", "group", "year")) %>%
-    dplyr::filter(year >= max_base_year) %>%
+    gcamdata::left_join_error_no_match(flsp_pc_ctry_gr, by = c("scenario", "ssp", "country", "group", "year")) %>%
+    dplyr::filter(year >= min(unique(gdp_pc_ctry_gr$year))) %>%
     dplyr::mutate(year = as.character(year)) %>%
-    dplyr::left_join(gdp_pc_ctry_gr)
-    #gcamdata::left_join_error_no_match(gdp_pc_ctry_gr)
+    # Manually adust some names to make country names match
+    dplyr::mutate(country = dplyr::if_else(country == "American Samoa", "Samoa", country)) %>%
+    # Filter out some small countries not in the SSP database
+    dplyr::filter(country %!in% c("Bermuda", "Cook Islands", "Cook Islands", "Dominica", "Falkland Islands (Malvinas)",
+                                  "Faroe Islands", "Gibraltar", "Guadeloupe", "Greenland", "Saint Kitts And Nevis",
+                                  "Liechtenstein", "Marshall Islands", "Montserrat", "Martinique", "Niue", "Palau",
+                                  "Reunion", "Saint Pierre And Miquelon", "Isle Of Man", "Turks And Caicos" ,"Tokelau",
+                                  "Wallis And Futuna" , "Virgin Islands, British", "Kosovo", "Cayman Islands")) %>%
+    gcamdata::left_join_error_no_match(gdp_pc_ctry_gr, by = c("scenario", "ssp", "country", "group", "year"))
 
 
 
 
-
+  # Get model to substract coefficients and predct
+  model.fixed <- fit_model(HIA_var = HIA_var)
 
 
 

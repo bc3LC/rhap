@@ -223,3 +223,14 @@
 "adj_ctry "
 
 
+#' ssp_gdp_adj
+#'
+#' @description File with GDP data for some countries that are not in the updated dataset, but i a previous version
+#' @source IIASA SSP database - SSPv9
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::ssp_gdp_adj
+#' }
+"adj_ctry "

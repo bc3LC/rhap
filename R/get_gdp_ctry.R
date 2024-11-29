@@ -43,7 +43,7 @@ get_gdp_ctry <- function(ssp) {
   gdp <- tibble::as_tibble(ssp.data) %>%
     dplyr::filter(variable == "GDP|PPP") %>%
   # Transfrom units to dol2011PPP
-    dplyr::mutate(gdp = value * conv_bil_dol * gcamdata::gdp_deflator(2011, 2019)) %>%
+    dplyr::mutate(gdp = value * conv_bil_dol * gcamdata::gdp_deflator(2011, 2017)) %>%
     dplyr::select(region, scenario, year, gdp_dol2011_ppp = gdp)
 
 
