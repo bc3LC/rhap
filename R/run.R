@@ -303,20 +303,36 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     gcamdata::left_join_error_no_match(flsp_pc_ctry_gr, by = c("scenario", "ssp", "country", "group", "year")) %>%
     dplyr::filter(year >= min(unique(gdp_pc_ctry_gr$year))) %>%
     dplyr::mutate(year = as.character(year)) %>%
-    # Manually adust some names to make country names match
-    dplyr::mutate(country = dplyr::if_else(country == "American Samoa", "Samoa", country)) %>%
     # Filter out some small countries not in the SSP database
     dplyr::filter(country %!in% c("Bermuda", "Cook Islands", "Cook Islands", "Dominica", "Falkland Islands (Malvinas)",
                                   "Faroe Islands", "Gibraltar", "Guadeloupe", "Greenland", "Saint Kitts And Nevis",
                                   "Liechtenstein", "Marshall Islands", "Montserrat", "Martinique", "Niue", "Palau",
                                   "Reunion", "Saint Pierre And Miquelon", "Isle Of Man", "Turks And Caicos" ,"Tokelau",
-                                  "Wallis And Futuna" , "Virgin Islands, British", "Kosovo", "Cayman Islands")) %>%
-    gcamdata::left_join_error_no_match(gdp_pc_ctry_gr, by = c("scenario", "ssp", "country", "group", "year"))
+                                  "Wallis And Futuna" , "Virgin Islands, British", "Kosovo", "Cayman Islands",
+                                  "American Samoa", "Samoa")) %>%
+    gcamdata::left_join_error_no_match(gdp_pc_ctry_gr, by = c("scenario", "ssp", "country", "group", "year")) %>%
+    # filter pollutants in the regression model: BC/OC, NOx, and VOC
+    dplyr::filter(ghg %in% rhap::panel_pollutants) %>%
+    tidyr::pivot_wider(names_from = "ghg",
+                       values_from = "em_ctry_gr") %>%
+    # Combine BC and OC
+    dplyr::mutate(PrimPM25 = BC + OC) %>%
+    dplyr::select(-BC, -OC) %>%
+    # Add population to compute pollutants per 100K
+    gcamdata::left_join_error_no_match(pop_ctry_gr, by = c("scenario", "ssp", "country", "group", "year")) %>%
+    dplyr::mutate(PrimPM25_per_100k = (PrimPM25 / pop_gr) * 100000,
+                  NOx_per_100k = (NOx / pop_gr) * 100000,
+                  VOC_per_100k = (NMVOC / pop_gr) * 100000) %>%
+    # Add logarithms
+    dplyr::mutate(log_PrimPM25_per_100k = log(PrimPM25_per_100k),
+                  log_NOx_per_100k = log(NOx_per_100k),
+                  log_VOC_per_100k = log(VOC_per_100k),
+                  log_gdppc_ppp_dol2011 = log(gdp_pc_dol2011_ppp_gr),
+                  log_flsp = log(flsp_pc_gr)) %>%
+    dplyr::select(scenario, country_name = country, year, starts_with("log"))
 
 
-
-
-  # Get model to substract coefficients and predct
+  # Get model to subtract coefficients and predict
   model.fixed <- fit_model(HIA_var = HIA_var)
 
 
