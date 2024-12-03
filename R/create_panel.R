@@ -310,7 +310,7 @@ create_panel <- function() {
            log_NOx_per_flsp = log(NOx_per_flsp),
            log_CO_per_flsp = log(CO_per_flsp)) %>%
     # Add continent and development degree
-    mutate(continent = countrycode(sourcevar = iso,
+    mutate(continent = countrycode::countrycode(sourcevar = iso,
                                    origin = "iso3c",
                                    destination = "continent")) %>%
     mutate(continent = if_else(grepl("Asia", continent) | grepl("Oceania", continent), "Asia & Oceania", continent)) %>%

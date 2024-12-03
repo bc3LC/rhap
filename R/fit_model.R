@@ -41,7 +41,7 @@ fit_model <- function(HIA_var) {
     "log_gdppc_ppp_dol2011 + log_flsp"
   ))
 
-  model.fixed <- plm(
+  model.fixed <- plm::plm(
     model_formula,
     data = data,
     index = c("country_name", "year"),
