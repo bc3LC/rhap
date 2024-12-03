@@ -15,17 +15,21 @@
 #' @param map Produce the maps. By default=F
 #' @param anim If set to T, produces multi-year animations. By default=T
 #' @param HIA_var Health metric to be predicted. c("deaths", "yll", "dalys"). By default = deaths
+#' @param by_gr Estimate damages at group level. Just for illustrative purposes. By default = F
 #' @importFrom magrittr %>%
 #' @export
 
 run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
                                scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
-                               saveOutput = T, map = F, anim = T, HIA_var = "deaths") {
+                               saveOutput = T, map = F, anim = T, HIA_var = "deaths", by_gr = F) {
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
 
   rlang::inform('Running rhap ...')
+
+  # Create the directory if they do not exist:
+  if (!dir.exists("output")) dir.create("output")
 
   # Then, load the rgcam project if prj not passed as a parameter:
     if (!is.null(db_path) & !is.null(db_name)) {
@@ -125,7 +129,11 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     dplyr::mutate(em_ctry_gr = em_ctry * dec_share) %>%
     dplyr::select(scenario, ssp, country, ghg, group, year, em_ctry_gr)
 
-
+  # get emissions at country level
+  em_ctry <- em_ctry_gr %>%
+    dplyr::group_by(scenario, ssp, country, ghg, year) %>%
+    dplyr::summarise(em_ctry = sum(em_ctry_gr)) %>%
+    dplyr::ungroup()
 
 
   #  2- Floorspace
@@ -136,8 +144,13 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
                   pop = value * 1E3) %>%
     dplyr::select(scenario, region, year, group, pop)
 
+  pop <- pop_gr %>%
+    dplyr::group_by(scenario, region, year) %>%
+    dplyr::summarise(pop = sum(pop)) %>%
+    dplyr::ungroup()
+
   # Extract floorspace data and combine it with subregional population to compute per capita floorspace
-  flsp_pc <- rgcam::getQuery(prj, "building floorspace") %>%
+  flsp_pc_gr <- rgcam::getQuery(prj, "building floorspace") %>%
     dplyr::filter(grepl("resid", building)) %>%
     dplyr::mutate(group = gsub("resid_", "", building),
                   flsp_m2 = value * 1E9) %>%
@@ -147,9 +160,22 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
                   unit = "m2/pers") %>%
     dplyr::select(scenario, region, year, group, unit, flsp_pc_gr)
 
+  flsp_pc <- rgcam::getQuery(prj, "building floorspace") %>%
+    dplyr::filter(grepl("resid", building)) %>%
+    dplyr::mutate(group = gsub("resid_", "", building),
+                  flsp_m2 = value * 1E9) %>%
+    dplyr::select(scenario, region, year, group, flsp_m2) %>%
+    dplyr::group_by(scenario, region, year) %>%
+    dplyr::summarise(flsp_m2 = sum(flsp_m2)) %>%
+    dplyr::ungroup() %>%
+    gcamdata::left_join_error_no_match(pop, by = c("scenario", "region", "year")) %>%
+    dplyr::mutate(flsp_pc = flsp_m2 / pop,
+                  unit = "m2/pers") %>%
+    dplyr::select(scenario, region, year, unit, flsp_pc)
+
 
   # Assume that al countries within the region have similar flps_pc
-  flsp_pc_ctry_gr <- flsp_pc %>%
+  flsp_pc_ctry_gr <- flsp_pc_gr %>%
     left_join(reg_to_ctry, by = "region", relationship = "many-to-many") %>%
     # Add SSP narrative associated with the scenario. Use SSP2 by default if no other SSP is specified in the scenario name
     dplyr::mutate(ssp = "SSP2",
@@ -158,6 +184,16 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
                   ssp = dplyr::if_else(grepl("SSP4", scenario), "SSP4", ssp),
                   ssp = dplyr::if_else(grepl("SSP5", scenario), "SSP5", ssp)) %>%
     dplyr::select(scenario, ssp, country, group, year, flsp_pc_gr)
+
+  flsp_pc_ctry <- flsp_pc %>%
+    left_join(reg_to_ctry, by = "region", relationship = "many-to-many") %>%
+    # Add SSP narrative associated with the scenario. Use SSP2 by default if no other SSP is specified in the scenario name
+    dplyr::mutate(ssp = "SSP2",
+                  ssp = dplyr::if_else(grepl("SSP1", scenario), "SSP1", ssp),
+                  ssp = dplyr::if_else(grepl("SSP3", scenario), "SSP3", ssp),
+                  ssp = dplyr::if_else(grepl("SSP4", scenario), "SSP4", ssp),
+                  ssp = dplyr::if_else(grepl("SSP5", scenario), "SSP5", ssp)) %>%
+    dplyr::select(scenario, ssp, country, year, flsp_pc)
 
 
   #  3- Per capita GDP (gdppc) by group
@@ -296,10 +332,26 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     dplyr::mutate(gdp_pc_dol2011_ppp_gr = gdp_dol2011_ppp_gr / pop_gr) %>%
     dplyr::select(scenario, ssp, country, year, group, gdp_pc_dol2011_ppp_gr)
 
+  gdp_pc_ctry <- gdp_ctry %>%
+    tibble::as_tibble() %>%
+    gcamdata::left_join_error_no_match(pop_ctry %>%
+                                         dplyr::mutate(country = dplyr::if_else(country == "Palestine", "Palestinian Territory, Occupied", country),
+                                                       country = dplyr::if_else(country == "Syria", "Syrian Arab Republic", country)),
+                                       by = c("country", "ssp", "year")) %>%
+    dplyr::mutate(gdp_pc_dol2011_ppp = gdp_dol2011_ppp / pop) %>%
+    # adjust country names to match
+    dplyr::left_join(adj_ctry, by = "country") %>%
+    dplyr::mutate(country = dplyr::if_else(is.na(adj_country), country, adj_country)) %>%
+    dplyr::select(-adj_country) %>%
+    gcamdata::repeat_add_columns(tibble::tibble(scenario = unique(em_ctry$scenario))) %>%
+    dplyr::select(scenario, ssp, country, year, gdp_pc_dol2011_ppp)
+
   #-----
   # COMBINE THE DATA AND TRANSFORM IT TO MODEL VARIABLES
 
-   output <- em_ctry_gr %>%
+  # 1- Calculate the outputs at group level
+
+   output_gr <- em_ctry_gr %>%
     gcamdata::left_join_error_no_match(flsp_pc_ctry_gr, by = c("scenario", "ssp", "country", "group", "year")) %>%
     dplyr::filter(year >= min(unique(gdp_pc_ctry_gr$year))) %>%
     dplyr::mutate(year = as.character(year)) %>%
@@ -329,12 +381,135 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
                   log_VOC_per_100k = log(VOC_per_100k),
                   log_gdppc_ppp_dol2011 = log(gdp_pc_dol2011_ppp_gr),
                   log_flsp = log(flsp_pc_gr)) %>%
-    dplyr::select(scenario, country_name = country, year, starts_with("log"))
+    dplyr::select(scenario, country_name = country, group, year, starts_with("log"), pop_gr)
 
+  # 2- Calculate the outputs at country level
+  output <- em_ctry %>%
+    gcamdata::left_join_error_no_match(flsp_pc_ctry, by = c("scenario", "ssp", "country", "year")) %>%
+    dplyr::filter(year >= min(unique(gdp_pc_ctry$year))) %>%
+    dplyr::mutate(year = as.character(year)) %>%
+    # Filter out some small countries not in the SSP database
+    dplyr::filter(country %!in% c("Bermuda", "Cook Islands", "Cook Islands", "Dominica", "Falkland Islands (Malvinas)",
+                                  "Faroe Islands", "Gibraltar", "Guadeloupe", "Greenland", "Saint Kitts And Nevis",
+                                  "Liechtenstein", "Marshall Islands", "Montserrat", "Martinique", "Niue", "Palau",
+                                  "Reunion", "Saint Pierre And Miquelon", "Isle Of Man", "Turks And Caicos" ,"Tokelau",
+                                  "Wallis And Futuna" , "Virgin Islands, British", "Kosovo", "Cayman Islands",
+                                  "American Samoa", "Samoa")) %>%
+    gcamdata::left_join_error_no_match(gdp_pc_ctry, by = c("scenario", "ssp", "country", "year")) %>%
+    # filter pollutants in the regression model: BC/OC, NOx, and VOC
+    dplyr::filter(ghg %in% rhap::panel_pollutants) %>%
+    tidyr::pivot_wider(names_from = "ghg",
+                       values_from = "em_ctry") %>%
+    # Combine BC and OC
+    dplyr::mutate(PrimPM25 = BC + OC) %>%
+    dplyr::select(-BC, -OC) %>%
+    # Add population to compute pollutants per 100K
+    gcamdata::left_join_error_no_match(pop_ctry %>%
+                       dplyr::left_join(adj_ctry, by = "country") %>%
+                       dplyr::mutate(country = dplyr::if_else(is.na(adj_country), country, adj_country)) %>%
+                       dplyr::select(-adj_country)
+                       , by = c( "ssp", "country", "year")) %>%
+    dplyr::mutate(PrimPM25_per_100k = (PrimPM25 / pop) * 100000,
+                  NOx_per_100k = (NOx / pop) * 100000,
+                  VOC_per_100k = (NMVOC / pop) * 100000) %>%
+    # Add logarithms
+    dplyr::mutate(log_PrimPM25_per_100k = log(PrimPM25_per_100k),
+                  log_NOx_per_100k = log(NOx_per_100k),
+                  log_VOC_per_100k = log(VOC_per_100k),
+                  log_gdppc_ppp_dol2011 = log(gdp_pc_dol2011_ppp),
+                  log_flsp = log(flsp_pc)) %>%
+    dplyr::select(scenario, country_name = country, year, starts_with("log"), pop)
+
+
+
+  #-----
+  # PREDICTION
 
   # Get model to subtract coefficients and predict
   model.fixed <- fit_model(HIA_var = HIA_var)
 
+  # Transform data to panel and predict
+
+  output.panel <- plm::pdata.frame(output, index = c("country_name", "year"))
+
+  output$pred_value <- predict(model.fixed, output.panel)
+
+  output_fin <- output %>%
+    dplyr::mutate(pred_var = paste0("pred_log_", HIA_var, "_per_100K")) %>%
+    dplyr::left_join(
+      hia_adder %>%
+        tibble::as_tibble() %>%
+        dplyr::filter(HIA == HIA_var) %>%
+        dplyr::select(country_name = country, bias.adder) %>%
+        gcamdata::repeat_add_columns(tibble::tibble(year = unique(output$year))),
+      by = c("country_name", "year")) %>%
+    dplyr::filter(complete.cases(.)) %>%
+    dplyr::mutate(pred_value_per_100K = exp(pred_value),
+                  pred_var = gsub("log_", "" ,pred_var)) %>%
+    dplyr::mutate(pred_value_per_100K_adj = pred_value_per_100K + bias.adder,
+                  pred_value = round(pred_value_per_100K_adj * pop / 100000, 0),
+                  pred_var = gsub("pred_", "", pred_var),
+                  pred_var = gsub("_per_100K", "", pred_var)) %>%
+    dplyr::mutate(pred_value = dplyr::if_else(as.numeric(pred_value) < 0, 0, as.numeric(pred_value))) %>%
+    dplyr::select(scenario, country = country_name, year, pred_var, pred_value)
+
+
+  # Create a function to write the data (by scenario)
+  output.write <- function(df){
+    df <- as.data.frame(df)
+    write.csv(df, paste0("output/", unique(df$scenario) , "_HAP_", unique(HIA_var), ".csv"), row.names = F)
+  }
+
+  if(saveOutput == T) {
+
+    lapply(split(output_fin, output_fin$scenario), output.write)
+
+  }
+
+
+  # If by group = T, add a complementary estimation at group level
+  if(saveOutput == T & by_gr == T){
+
+    # Create the directory if they do not exist:
+    if (!dir.exists("output/by_gr")) dir.create("output")
+
+    output.panel.gr <- plm::pdata.frame(output_gr, index = c("country_name", "year"))
+
+    output_gr$pred_value <- predict(model.fixed, output.panel.gr)
+
+    output_fin_gr <- output_gr %>%
+      dplyr::mutate(pred_var = paste0("pred_log_", HIA_var, "_per_100K")) %>%
+      dplyr::left_join(
+        hia_adder %>%
+          tibble::as_tibble() %>%
+          dplyr::filter(HIA == HIA_var) %>%
+          dplyr::select(country_name = country, bias.adder) %>%
+          gcamdata::repeat_add_columns(tibble::tibble(group = unique(em_ctry_gr$group))) %>%
+          gcamdata::repeat_add_columns(tibble::tibble(year = unique(output$year))),
+        by = c("country_name", "group", "year")) %>%
+      dplyr::filter(complete.cases(.)) %>%
+      dplyr::mutate(bias.adder = bias.adder / length(unique(em_ctry_gr$group))) %>%
+      dplyr::mutate(pred_value_per_100K = exp(pred_value),
+                    pred_var = gsub("log_", "" ,pred_var)) %>%
+      dplyr::mutate(pred_value_per_100K_adj = pred_value_per_100K + bias.adder,
+                    pred_value = round(pred_value_per_100K_adj * pop_gr / 100000, 0),
+                    pred_var = gsub("pred_", "", pred_var),
+                    pred_var = gsub("_per_100K", "", pred_var)) %>%
+      dplyr::mutate(pred_value = dplyr::if_else(as.numeric(pred_value) < 0, 0, as.numeric(pred_value))) %>%
+      dplyr::select(scenario, country = country_name, group, year, pred_var, pred_value) %>%
+      write.csv(paste0("output/by_gr/", "HAP_" , unique(HIA_var), "_byGR" ,".csv"), row.names = F)
+
+  }
+
+  # Add map
+  if(map == T){
+
+# TODO: Add map
+
+  }
+
+
+invisible(output_fin)
 
 
 
