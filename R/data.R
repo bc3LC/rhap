@@ -234,3 +234,16 @@
 #'  rhap::ssp_gdp_adj
 #' }
 "adj_ctry "
+
+
+#' hia_adder
+#'
+#' @description Bias adder, calculated as the difference between the observed and "predicted" values in final observed year
+#' @source Own calculations based on IHME data
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::hia_adder
+#' }
+"hia_adder "

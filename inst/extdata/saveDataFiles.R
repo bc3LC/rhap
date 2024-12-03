@@ -50,5 +50,9 @@ usethis::use_data(adj_ctry, overwrite = T)
 ssp_gdp_adj = read.csv("./inst/extdata/socioeconomic/SSP_adj.csv", skip = 8)
 usethis::use_data(ssp_gdp_adj, overwrite = T)
 
+# Bias adder by IA and country
+hia_adder = read.csv("./inst/extdata/mort/hia_adder.csv")
+usethis::use_data(hia_adder, overwrite = T)
+
 
 
