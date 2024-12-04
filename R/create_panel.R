@@ -100,6 +100,7 @@ create_panel <- function() {
   pop<- read.csv(file.path(datadir, "/socioeconomic/population.csv")) %>%
     dplyr::filter(year %in% unique(data$year)) %>%
     dplyr::mutate(iso = tolower(iso)) %>%
+    dplyr::mutate(iso = dplyr::if_else(country == "Sudan", "ssd", iso)) %>%
     dplyr::select(-country) %>%
     # erase empty iso codes (e.g., the ones that belong to "Africa" or "North America")
     dplyr::filter(!is.na(iso), iso != "")
@@ -108,6 +109,8 @@ create_panel <- function() {
     dplyr::select(country_name, iso, year, gdp_ppp_dol2011) %>%
     dplyr::filter(year %in% unique(data$year)) %>%
     dplyr::mutate(iso = tolower(iso)) %>%
+    dplyr::mutate(iso = dplyr::if_else(country_name == "Romania", "rom", iso),
+                  iso = dplyr::if_else(country_name == "Former Sudan", "ssd", iso)) %>%
     dplyr::select(-country_name) %>%
     # erase empty iso codes (e.g., the ones that belong to "Africa" or "North America")
     dplyr::filter(!is.na(iso), iso != "")
@@ -147,7 +150,8 @@ create_panel <- function() {
     dplyr::left_join(gdp, by = c("iso", "year")) %>%
     dplyr::left_join(urbrur, by = c("iso", "year")) %>%
     dplyr::left_join(elec_acces, by = c("iso", "year")) %>%
-    dplyr::left_join(cc_acces, by = c("iso", "year"))
+    dplyr::left_join(cc_acces, by = c("iso", "year")) %>%
+    dplyr::mutate(iso = dplyr::if_else(iso == "rom", "rou", iso))
 
 
   # Combine all the final data to be analyzed:

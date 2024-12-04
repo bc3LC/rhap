@@ -18,7 +18,7 @@ Regression model and coefficients for prediction
 \description{
 Fit the model using fixed effects model and plm function.
 
-For the model selection, testing and validation see "./rhap/inst/extdata/model_testing.R"
+For the model dplyr::selection, testing and validation see "./rhap/inst/extdata/model_testing.R"
 }
 \keyword{Econometric}
 \keyword{effects}
