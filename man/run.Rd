@@ -15,7 +15,8 @@ run(
   saveOutput = T,
   map = F,
   anim = T,
-  HIA_var = "deaths"
+  HIA_var = "deaths",
+  by_gr = F
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ run(
 \item{anim}{If set to T, produces multi-year animations. By default=T}
 
 \item{HIA_var}{Health metric to be predicted. c("deaths", "yll", "dalys"). By default = deaths}
+
+\item{by_gr}{Estimate damages at group level. Just for illustrative purposes. By default = F}
 }
 \value{
 Health impacts attributable to HAP for all the selected years

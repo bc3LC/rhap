@@ -220,7 +220,7 @@
 #'  library(rhap);
 #'  rhap::adj_ctry
 #' }
-"adj_ctry "
+"adj_ctry"
 
 
 #' ssp_gdp_adj
@@ -233,7 +233,33 @@
 #'  library(rhap);
 #'  rhap::ssp_gdp_adj
 #' }
-"adj_ctry "
+"ssp_gdp_adj"
+
+
+#' adj_ctry_output
+#'
+#' @description File to adjust country names and homogenize differences between the output and the panel data
+#' @source IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::adj_ctry_output
+#' }
+"adj_ctry_output"
+
+
+#' adj_ctry_map
+#'
+#' @description File to adjust country names and homogenize differences between the output and the map raster
+#' @source IIASA SSP database
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::adj_ctry_map
+#' }
+"adj_ctry_map"
 
 
 #' hia_adder
@@ -246,4 +272,4 @@
 #'  library(rhap);
 #'  rhap::hia_adder
 #' }
-"hia_adder "
+"hia_adder"

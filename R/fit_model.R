@@ -15,7 +15,7 @@
 fit_model <- function(HIA_var) {
 
   # Adjust the data
-  data <- panel_data %>%
+  data <- rhap::panel_data %>%
     select(iso, country_name, year, pop, starts_with("log"), continent, dev) %>%
     select(-log_AAP) %>%
     filter(complete.cases(.))
