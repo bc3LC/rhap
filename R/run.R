@@ -381,7 +381,12 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
                   log_VOC_per_100k = log(VOC_per_100k),
                   log_gdppc_ppp_dol2011 = log(gdp_pc_dol2011_ppp_gr),
                   log_flsp = log(flsp_pc_gr)) %>%
-    dplyr::select(scenario, country_name = country, group, year, starts_with("log"), pop_gr)
+    dplyr::select(scenario, country_name = country, group, year, starts_with("log"), pop_gr) %>%
+    # adjust country names to match to panel data
+    dplyr::left_join(adj_ctry_output, by = "country_name") %>%
+    dplyr::mutate(country_name = dplyr::if_else(data_name == "", country_name, data_name)) %>%
+    dplyr::select(-data_name)
+
 
   # 2- Calculate the outputs at country level
   output <- em_ctry %>%
@@ -418,8 +423,11 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
                   log_VOC_per_100k = log(VOC_per_100k),
                   log_gdppc_ppp_dol2011 = log(gdp_pc_dol2011_ppp),
                   log_flsp = log(flsp_pc)) %>%
-    dplyr::select(scenario, country_name = country, year, starts_with("log"), pop)
-
+    dplyr::select(scenario, country_name = country, year, starts_with("log"), pop) %>%
+    # adjust country names to match to panel data
+    dplyr::left_join(adj_ctry_output, by = "country_name") %>%
+    dplyr::mutate(country_name = dplyr::if_else(data_name == "", country_name, data_name)) %>%
+    dplyr::select(-data_name)
 
 
   #-----
@@ -443,7 +451,7 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
         dplyr::select(country_name = country, bias.adder) %>%
         gcamdata::repeat_add_columns(tibble::tibble(year = unique(output$year))),
       by = c("country_name", "year")) %>%
-    dplyr::filter(complete.cases(.)) %>%
+    #dplyr::filter(complete.cases(.)) %>%
     dplyr::mutate(pred_value_per_100K = exp(pred_value),
                   pred_var = gsub("log_", "" ,pred_var)) %>%
     dplyr::mutate(pred_value_per_100K_adj = pred_value_per_100K + bias.adder,
@@ -504,7 +512,25 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
   # Add map
   if(map == T){
 
-# TODO: Add map
+
+
+  world_map <- ggplot2::map_data("world")
+
+  # # Check differences in country names
+  # diff <- dplyr::anti_join(world_map %>% select(region) %>% distinct(),
+  #                          output_fin %>% select(country) %>% distinct()) %>%
+  #   dplyr::arrange(region)
+
+  output_fin_map <- output_fin %>%
+    dplyr::rename(country_name = country) %>%
+    # adjust country names to match raster
+    dplyr::left_join(adj_ctry_map, by = "country_name") %>%
+    dplyr::mutate(country_name = dplyr::if_else(country_map == "", country_name, country_map)) %>%
+    dplyr::select(-country_map) %>%
+    dplyr::rename(region = country_name)
+
+    map_data <- world_map %>%
+      dplyr::left_join(output_fin_map)
 
   }
 
