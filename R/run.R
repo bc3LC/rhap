@@ -446,7 +446,7 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
 
   output_fin <- output %>%
     dplyr::mutate(pred_var = paste0("pred_log_", HIA_var, "_per_100K")) %>%
-    dplyr::left_join(
+    gcamdata::left_join_error_no_match(
       hia_adder %>%
         tibble::as_tibble() %>%
         dplyr::filter(HIA == HIA_var) %>%
@@ -525,7 +525,7 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
       dplyr::rename(country_name = country) %>%
       # adjust country names to match raster
       gcamdata::left_join_error_no_match(adj_ctry_map, by = "country_name") %>%
-      dplyr::mutate(country_name = dplyr::if_else(country_map == "", country_name, country_map)) %>%
+      dplyr::mutate(country_name = dplyr::if_else(country_map != "", country_map, country_name)) %>%
       dplyr::select(-country_map) %>%
       dplyr::rename(subRegion = country_name,
                     value = pred_value)
@@ -566,8 +566,12 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
       unlink(file.path(paste("output/maps/map",sc,"allYears", sep = '_'), "map_param.csv"), recursive = TRUE)
 
       # 2.4. rename folder
-      file.rename(file.path(paste("output/maps/map",sc,"allYear", sep = '_')),
+      if (dir.exists(file.path(paste("output/maps/map",sc,"byYear", sep = '_')))) {
+        unlink(file.path(paste("output/maps/map",sc,"byYear", sep = '_')), recursive = TRUE)
+      }
+      file.rename(file.path(paste("output/maps/map",sc,"allYears", sep = '_')),
                   file.path(paste("output/maps/map",sc,"byYear", sep = '_')))
+
     }
 
 
