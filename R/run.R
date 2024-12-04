@@ -427,14 +427,16 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     # adjust country names to match to panel data
     gcamdata::left_join_error_no_match(adj_ctry_output, by = "country_name") %>%
     dplyr::mutate(country_name = dplyr::if_else(data_name == "", country_name, data_name)) %>%
-    dplyr::select(-data_name)
+    dplyr::select(-data_name) %>%
+    # remove not predictable regions
+    dplyr::filter(country_name %in% unique(fit_model(HIA_var = HIA_var)[[2]]))
 
 
   #-----
   # PREDICTION
 
   # Get model to subtract coefficients and predict
-  model.fixed <- fit_model(HIA_var = HIA_var)
+  model.fixed <- fit_model(HIA_var = HIA_var)[[1]]
 
   # Transform data to panel and predict
 

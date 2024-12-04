@@ -17,8 +17,10 @@ fit_model <- function(HIA_var) {
   # Adjust the data
   data <- rhap::panel_data %>%
     dplyr::select(iso, country_name, year, pop, starts_with("log"), continent, dev) %>%
+    dplyr::mutate(year = as.character(year)) %>%
     dplyr::select(-log_AAP) %>%
     dplyr::filter(complete.cases(.))
+  predictable_regions <- unique(data$country_name)
 
   # dplyr::select the dependent variable (deaths, YLLs, or DALYs)
 
@@ -48,7 +50,7 @@ fit_model <- function(HIA_var) {
     model = "within"
   )
 
-  return(model.fixed)
+  return(list(model.fixed, predictable_regions))
 
 }
 
