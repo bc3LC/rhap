@@ -383,7 +383,7 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
                   log_flsp = log(flsp_pc_gr)) %>%
     dplyr::select(scenario, country_name = country, group, year, starts_with("log"), pop_gr) %>%
     # adjust country names to match to panel data
-    dplyr::left_join(adj_ctry_output, by = "country_name") %>%
+    gcamdata::left_join_error_no_match(adj_ctry_output, by = "country_name") %>%
     dplyr::mutate(country_name = dplyr::if_else(data_name == "", country_name, data_name)) %>%
     dplyr::select(-data_name)
 
@@ -425,7 +425,7 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
                   log_flsp = log(flsp_pc)) %>%
     dplyr::select(scenario, country_name = country, year, starts_with("log"), pop) %>%
     # adjust country names to match to panel data
-    dplyr::left_join(adj_ctry_output, by = "country_name") %>%
+    gcamdata::left_join_error_no_match(adj_ctry_output, by = "country_name") %>%
     dplyr::mutate(country_name = dplyr::if_else(data_name == "", country_name, data_name)) %>%
     dplyr::select(-data_name)
 
@@ -480,7 +480,8 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
   if(saveOutput == T & by_gr == T){
 
     # Create the directory if they do not exist:
-    if (!dir.exists("output/by_gr")) dir.create("output")
+    if (!dir.exists("output")) dir.create("output")
+    if (!dir.exists("output/by_gr")) dir.create("output/by_gr")
 
     output.panel.gr <- plm::pdata.frame(output_gr, index = c("country_name", "year"))
 
@@ -513,25 +514,84 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
   # Add map
   if(map == T){
 
+    # Create the directory if they do not exist:
+    if (!dir.exists("output")) dir.create("output")
+    if (!dir.exists("output/maps")) dir.create("output/maps")
 
 
-  world_map <- ggplot2::map_data("world")
+    output_fin_map <- output_fin %>%
+      dplyr::rename(country_name = country) %>%
+      # adjust country names to match raster
+      gcamdata::left_join_error_no_match(adj_ctry_map, by = "country_name") %>%
+      dplyr::mutate(country_name = dplyr::if_else(country_map == "", country_name, country_map)) %>%
+      dplyr::select(-country_map) %>%
+      dplyr::rename(subRegion = country_name,
+                    value = pred_value)
 
-  # # Check differences in country names
-  # diff <- dplyr::anti_join(world_map %>% select(region) %>% distinct(),
-  #                          output_fin %>% select(country) %>% distinct()) %>%
-  #   dplyr::arrange(region)
+    mapCountries <- rmap::mapCountries
 
-  output_fin_map <- output_fin %>%
-    dplyr::rename(country_name = country) %>%
-    # adjust country names to match raster
-    dplyr::left_join(adj_ctry_map, by = "country_name") %>%
-    dplyr::mutate(country_name = dplyr::if_else(country_map == "", country_name, country_map)) %>%
-    dplyr::select(-country_map) %>%
-    dplyr::rename(region = country_name)
 
-    map_data <- world_map %>%
-      dplyr::left_join(output_fin_map)
+    # Figures:
+    #   a) figure for every scenario & year combination
+    #   b) single figure for every scenario containing all years
+    for (sc in unique(output_fin_map$scenario)) {
+      # 1. Plot
+      rmap::map(data = output_fin_map %>% dplyr::filter(scenario == sc),
+                folder = paste("output/maps/map",sc,"allYears", sep = '_'),
+                legendType = "pretty",
+                background  = T,
+                animate = anim,
+                underLayer = rmap::mapCountries)
+
+      # 2. Reorder folders and rename figures
+      # 2.1. move the allYears figure
+      file.rename(from = file.path(paste("output/maps/map",sc,"allYears", sep = '_'),'map_param_PRETTY.png'),
+                  to = paste0("output/maps/map_",sc,"_allYears",'.png'))
+
+      # 2.2. move all annual figures
+      files_to_move <- list.files(file.path(paste("output/maps/map",sc,"allYears", sep = '_'),'byYear'), full.names = TRUE)
+      success <- sapply(files_to_move, function(file) {
+        file.rename(file, file.path(paste("output/maps/map",sc,"allYears", sep = '_'), basename(file)))
+      })
+
+      # 2.3. remove unnecessary directories and files
+      if (all(success)) {
+        unlink(file.path(paste("output/maps/map",sc,"allYears", sep = '_'),'byYear'), recursive = TRUE)
+      } else {
+        message("Some files could not be moved. The source folder was not deleted.")
+      }
+      unlink(file.path(paste("output/maps/map",sc,"allYears", sep = '_'), "map_param_MEAN_PRETTY.png"), recursive = TRUE)
+      unlink(file.path(paste("output/maps/map",sc,"allYears", sep = '_'), "map_param.csv"), recursive = TRUE)
+
+      # 2.4. rename folder
+      file.rename(file.path(paste("output/maps/map",sc,"allYear", sep = '_')),
+                  file.path(paste("output/maps/map",sc,"byYear", sep = '_')))
+    }
+
+
+    # Figures: single figure for every year containing all scenarios
+    for (y in unique(output_fin_map$year)) {
+      # 1. Plot
+      rmap::map(data = output_fin_map %>% dplyr::filter(year == y) %>%
+                  dplyr::rename(class = scenario),
+                folder = paste("output/maps/map","allScen",y, sep = '_'),
+                legendType = "pretty",
+                background  = T,
+                animate = anim,
+                underLayer = rmap::mapCountries)
+
+      # 2. Reorder folders and rename figures
+      # 2.1. remove an intermediate folder
+      file.rename(from = file.path(paste("output/maps/map","allScen",y, sep = '_'),'map_param_PRETTY.png'),
+                  to = paste0("output/maps/map_","allScen_",y,'.png'))
+      unlink(paste("output/maps/map","allScen",y, sep = '_'), recursive = TRUE)
+    }
+    # 2.2. gather all figures in "map_allScen_byYear" new folder
+    files_to_move <- list.files(path = file.path("output/maps"), pattern = "^map_allScen_", full.names = TRUE)
+    if (!dir.exists("output/maps/map_allScen_byYear")) dir.create("output/maps/map_allScen_byYear")
+    success <- sapply(files_to_move, function(file) {
+      file.rename(file, file.path('output/maps/map_allScen_byYear', basename(file)))
+    })
 
   }
 
