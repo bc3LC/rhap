@@ -176,7 +176,7 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
 
   # Assume that al countries within the region have similar flps_pc
   flsp_pc_ctry_gr <- flsp_pc_gr %>%
-    left_join(reg_to_ctry, by = "region", relationship = "many-to-many") %>%
+    dplyr::left_join(reg_to_ctry, by = "region", relationship = "many-to-many") %>%
     # Add SSP narrative associated with the scenario. Use SSP2 by default if no other SSP is specified in the scenario name
     dplyr::mutate(ssp = "SSP2",
                   ssp = dplyr::if_else(grepl("SSP1", scenario), "SSP1", ssp),
@@ -186,7 +186,7 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     dplyr::select(scenario, ssp, country, group, year, flsp_pc_gr)
 
   flsp_pc_ctry <- flsp_pc %>%
-    left_join(reg_to_ctry, by = "region", relationship = "many-to-many") %>%
+    dplyr::left_join(reg_to_ctry, by = "region", relationship = "many-to-many") %>%
     # Add SSP narrative associated with the scenario. Use SSP2 by default if no other SSP is specified in the scenario name
     dplyr::mutate(ssp = "SSP2",
                   ssp = dplyr::if_else(grepl("SSP1", scenario), "SSP1", ssp),
@@ -206,8 +206,8 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     get(paste0('gdp_ctry.',"SSP4")),
     get(paste0('gdp_ctry.',"SSP5")),
   ) %>%
-    rename(ssp = scenario,
-           country = region)
+    dplyr::rename(ssp = scenario,
+                  country = region)
 
   # Add missing countries
   gdp_adj <- ssp_gdp_adj %>%
@@ -222,15 +222,15 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
   gdp_ctry <- dplyr::bind_rows(gdp_ctry, gdp_adj)
 
 
-      pop_ctry <- dplyr::bind_rows(
+  pop_ctry <- dplyr::bind_rows(
     get(paste0('pop_ctry.',"SSP1")),
     get(paste0('pop_ctry.',"SSP2")),
     get(paste0('pop_ctry.',"SSP3")),
     get(paste0('pop_ctry.',"SSP4")),
     get(paste0('pop_ctry.',"SSP5")),
   ) %>%
-    rename(ssp = scenario,
-           country = region)
+    dplyr::rename(ssp = scenario,
+                  country = region)
 
   # Process Population: Population is evenly distributed across groups, but could be updated
   pop_share <- rgcam::getQuery(prj, "subregional population") %>%
@@ -245,7 +245,7 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     # Temp fix for Taiwan
     dplyr::mutate(share_pop = dplyr::if_else(region == "Taiwan", 0.1, share_pop)) %>%
     # expand shares to countries
-    left_join(reg_to_ctry, by = "region", relationship = "many-to-many") %>%
+    dplyr::left_join(reg_to_ctry, by = "region", relationship = "many-to-many") %>%
     # Add SSP narrative associated with the scenario. Use SSP2 by default if no other SSP is specified in the scenario name
     dplyr::mutate(ssp = "SSP2",
                   ssp = dplyr::if_else(grepl("SSP1", scenario), "SSP1", ssp),
@@ -470,7 +470,8 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
 
   if(saveOutput == T) {
 
-    lapply(split(output_fin, output_fin$scenario), output.write)
+    if (!dir.exists("output")) dir.create("output")
+    invisible(lapply(split(output_fin, output_fin$scenario), output.write))
 
   }
 
