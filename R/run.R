@@ -383,7 +383,7 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
                   log_flsp = log(flsp_pc_gr)) %>%
     dplyr::select(scenario, country_name = country, group, year, starts_with("log"), pop_gr) %>%
     # adjust country names to match to panel data
-    dplyr::left_join(adj_ctry_output, by = "country_name") %>%
+    gcamdata::left_join_error_no_match(adj_ctry_output, by = "country_name") %>%
     dplyr::mutate(country_name = dplyr::if_else(data_name == "", country_name, data_name)) %>%
     dplyr::select(-data_name)
 
@@ -425,7 +425,7 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
                   log_flsp = log(flsp_pc)) %>%
     dplyr::select(scenario, country_name = country, year, starts_with("log"), pop) %>%
     # adjust country names to match to panel data
-    dplyr::left_join(adj_ctry_output, by = "country_name") %>%
+    gcamdata::left_join_error_no_match(adj_ctry_output, by = "country_name") %>%
     dplyr::mutate(country_name = dplyr::if_else(data_name == "", country_name, data_name)) %>%
     dplyr::select(-data_name)
 
