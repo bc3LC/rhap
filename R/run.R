@@ -12,16 +12,18 @@
 #' @param queries Name of the GCAM query file. The file by default includes the queries required to run rfasst
 #' @param final_db_year Final year in the GCAM database (this allows to process databases with user-defined "stop periods")
 #' @param saveOutput Writes the emission files. By default=T
-#' @param map Produce the maps. By default=F
-#' @param anim If set to T, produces multi-year animations. By default=T
+#' @param map Produce the maps. By default = F
 #' @param HIA_var Health metric to be predicted. c("deaths", "yll", "dalys"). By default = deaths
+#' @param map Transform the output to "normalized" values. By default = F
+#' @param anim If set to T, produces multi-year animations. By default=T
 #' @param by_gr Estimate damages at group level. Just for illustrative purposes. By default = F
 #' @importFrom magrittr %>%
 #' @export
 
 run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
                                scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
-                               saveOutput = T, map = F, anim = T, HIA_var = "deaths", by_gr = F) {
+                               saveOutput = T, map = F, anim = T ,HIA_var = "deaths",
+                               normalized = F, by_gr = F) {
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -457,11 +459,12 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     dplyr::mutate(pred_value_per_100K = exp(pred_value),
                   pred_var = gsub("log_", "" ,pred_var)) %>%
     dplyr::mutate(pred_value_per_100K_adj = pred_value_per_100K + bias.adder,
+                  pred_value_per_100K_adj = round(pred_value_per_100K_adj, 2),
                   pred_value = round(pred_value_per_100K_adj * pop / 100000, 0),
                   pred_var = gsub("pred_", "", pred_var),
                   pred_var = gsub("_per_100K", "", pred_var)) %>%
     dplyr::mutate(pred_value = dplyr::if_else(as.numeric(pred_value) < 0, 0, as.numeric(pred_value))) %>%
-    dplyr::select(scenario, country = country_name, year, pred_var, pred_value)
+    dplyr::select(scenario, country = country_name, year, pred_var, pred_value, pred_value_normalized = pred_value_per_100K_adj)
 
 
   # Create a function to write the data (by scenario)
@@ -504,11 +507,12 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
       dplyr::mutate(pred_value_per_100K = exp(pred_value),
                     pred_var = gsub("log_", "" ,pred_var)) %>%
       dplyr::mutate(pred_value_per_100K_adj = pred_value_per_100K + bias.adder,
+                    pred_value_per_100K_adj = round(pred_value_per_100K_adj, 2),
                     pred_value = round(pred_value_per_100K_adj * pop_gr / 100000, 0),
                     pred_var = gsub("pred_", "", pred_var),
                     pred_var = gsub("_per_100K", "", pred_var)) %>%
       dplyr::mutate(pred_value = dplyr::if_else(as.numeric(pred_value) < 0, 0, as.numeric(pred_value))) %>%
-      dplyr::select(scenario, country = country_name, group, year, pred_var, pred_value) %>%
+      dplyr::select(scenario, country = country_name, group, year, pred_var, pred_value, pred_value_normalized = pred_value_per_100K_adj) %>%
       write.csv(paste0("output/by_gr/", "HAP_" , unique(HIA_var), "_byGR" ,".csv"), row.names = F)
 
   }
@@ -520,15 +524,22 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     if (!dir.exists("output")) dir.create("output")
     if (!dir.exists("output/maps")) dir.create("output/maps")
 
+    # The variable to be plotted depends on if the user selects or no to use normalized values
+    if(normalized == T){
+      var_to_plot = "pred_value_normalized"
+    } else {
+      var_to_plot = "pred_value"
+    }
+
 
     output_fin_map <- output_fin %>%
       dplyr::rename(country_name = country) %>%
       # adjust country names to match raster
       gcamdata::left_join_error_no_match(adj_ctry_map, by = "country_name") %>%
       dplyr::mutate(country_name = dplyr::if_else(country_map != "", country_map, country_name)) %>%
-      dplyr::select(-country_map) %>%
+      dplyr::select(scenario, country_name, year, pred_var, all_of(var_to_plot)) %>%
       dplyr::rename(subRegion = country_name,
-                    value = pred_value)
+                    value = var_to_plot)
 
     mapCountries <- rmap::mapCountries
 
