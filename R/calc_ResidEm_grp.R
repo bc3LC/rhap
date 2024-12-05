@@ -71,6 +71,9 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     prj <- rgcam::loadProject(prj_name)
 
   }
+  # Consider the final_db_year as the user indicated year or the closes year available in the project file
+  final_db_year<-min(final_db_year,
+                     max(rgcam::getQuery(prj,'nonCO2 emissions by sector (excluding resource production)')$year))
 
   rlang::inform('Running ...')
 

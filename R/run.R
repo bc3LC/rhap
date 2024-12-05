@@ -21,9 +21,9 @@
 #' @export
 
 run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
-                               scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
-                               saveOutput = T, map = F, anim = T , HIA_var = "deaths",
-                               normalized = F, by_gr = F) {
+                scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
+                saveOutput = T, map = F, anim = T , HIA_var = "deaths",
+                normalized = F, by_gr = F) {
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
@@ -51,7 +51,7 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     prj <- rgcam::loadProject(prj_name)
 
   }
-  # consider the final_db_year as the user indicated year or the closes year available in the project file
+  # Consider the final_db_year as the user indicated year or the closes year available in the project file
   final_db_year<-min(final_db_year,
                      max(rgcam::getQuery(prj,'nonCO2 emissions by sector (excluding resource production)')$year))
 
