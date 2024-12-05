@@ -135,7 +135,6 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 
   if(saveOutput == T){
     # Create the directory if they do not exist:
-    if (!dir.exists("output")) dir.create("output")
     if (!dir.exists("output/ResidEm_grp")) dir.create("output/ResidEm_grp")
 
     write.csv(em_reg_gr_fin,
@@ -149,7 +148,6 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   if(pie == T){
 
     # Create the directory if they do not exist:
-    if (!dir.exists("output")) dir.create("output")
     if (!dir.exists("output/ResidEm_grp")) dir.create("output/ResidEm_grp")
     if (!dir.exists("output/ResidEm_grp/pie_charts")) dir.create("output/ResidEm_grp/pie_charts")
 

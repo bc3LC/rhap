@@ -483,7 +483,6 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
 
   if(saveOutput == T) {
 
-    if (!dir.exists("output")) dir.create("output")
     invisible(lapply(split(output_fin, output_fin$scenario), output.write))
 
   }
@@ -493,7 +492,6 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
   if(saveOutput == T & by_gr == T){
 
     # Create the directory if they do not exist:
-    if (!dir.exists("output")) dir.create("output")
     if (!dir.exists("output/by_gr")) dir.create("output/by_gr")
 
     output.panel.gr <- plm::pdata.frame(output_gr, index = c("country_name", "year"))
@@ -530,7 +528,6 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
   if(map == T){
 
     # Create the directory if they do not exist:
-    if (!dir.exists("output")) dir.create("output")
     if (!dir.exists("output/maps")) dir.create("output/maps")
 
     # The variable to be plotted depends on if the user selects or no to use normalized values
