@@ -13,9 +13,9 @@
 #' @param final_db_year Final year in the GCAM database (this allows to process databases with user-defined "stop periods")
 #' @param saveOutput Writes the emission files. By default=T
 #' @param map Produce the maps. By default = F
-#' @param HIA_var Health metric to be predicted. c("deaths", "yll", "dalys"). By default = deaths
-#' @param map Transform the output to "normalized" values. By default = F
 #' @param anim If set to T, produces multi-year animations. By default=T
+#' @param HIA_var Health metric to be predicted. c("deaths", "yll", "dalys"). By default = deaths
+#' @param normalized Transform the output to "normalized" values. By default = F
 #' @param by_gr Estimate damages at group level. Just for illustrative purposes. By default = F
 #' @importFrom magrittr %>%
 #' @export
