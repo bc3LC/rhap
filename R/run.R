@@ -22,7 +22,7 @@
 
 run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
                                scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
-                               saveOutput = T, map = F, anim = T ,HIA_var = "deaths",
+                               saveOutput = T, map = F, anim = T , HIA_var = "deaths",
                                normalized = F, by_gr = F) {
 
   # Ancillary Functions
@@ -463,7 +463,8 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
                   pred_value = round(pred_value_per_100K_adj * pop / 100000, 0),
                   pred_var = gsub("pred_", "", pred_var),
                   pred_var = gsub("_per_100K", "", pred_var)) %>%
-    dplyr::mutate(pred_value = dplyr::if_else(as.numeric(pred_value) < 0, 0, as.numeric(pred_value))) %>%
+    dplyr::mutate(pred_value = dplyr::if_else(as.numeric(pred_value) < 0, 0, as.numeric(pred_value)),
+                  pred_value_per_100K_adj = dplyr::if_else(as.numeric(pred_value_per_100K_adj) < 0, 0, as.numeric(pred_value_per_100K_adj))) %>%
     dplyr::select(scenario, country = country_name, year, pred_var, pred_value, pred_value_normalized = pred_value_per_100K_adj)
 
 
@@ -511,7 +512,8 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
                     pred_value = round(pred_value_per_100K_adj * pop_gr / 100000, 0),
                     pred_var = gsub("pred_", "", pred_var),
                     pred_var = gsub("_per_100K", "", pred_var)) %>%
-      dplyr::mutate(pred_value = dplyr::if_else(as.numeric(pred_value) < 0, 0, as.numeric(pred_value))) %>%
+      dplyr::mutate(pred_value = dplyr::if_else(as.numeric(pred_value) < 0, 0, as.numeric(pred_value)),
+                    pred_value_per_100K_adj = dplyr::if_else(as.numeric(pred_value_per_100K_adj) < 0, 0, as.numeric(pred_value_per_100K_adj))) %>%
       dplyr::select(scenario, country = country_name, group, year, pred_var, pred_value, pred_value_normalized = pred_value_per_100K_adj) %>%
       write.csv(paste0("output/by_gr/", "HAP_" , unique(HIA_var), "_byGR" ,".csv"), row.names = F)
 
