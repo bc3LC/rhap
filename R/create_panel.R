@@ -73,31 +73,24 @@ create_panel <- function() {
     dplyr::ungroup()
 
 
-  #-------------
-  # Check the country names that need to be manually adjusted
-  names_ok<-mort %>%  dplyr::filter(complete.cases(.)) %>% dplyr::select(country_name) %>% dplyr::distinct()
-  names_all<-mort %>% dplyr::select(country_name) %>% dplyr::distinct()
-  names_missing<- dplyr::anti_join(names_all,names_ok, by = "country_name")
-  if (nrow(names_missing > 0)) stop(paste0('The Country ', names_missing, ' needs to be adjusted. '))
-  #-------------
-
-
-  data<-mort %>%
+  # Join emissions and mortality data
+  data <- mort %>%
     dplyr::left_join(resid_em_kt %>%
                        dplyr::select(-sector, -units),
                      by = c("iso","year"))
 
-  #-------------
-  # Check missing data
-  # TODO -  "Andorra", "Monaco", "Nauru", "Northern Mariana Islands", "San Marino", "Tuvalu" needs to be checked
-  # data_complete<- data %>% filter(!grepl("Sense", cause_name)) %>% filter(complete.cases(.))
-  # data_missing<- dplyr::anti_join(data %>% filter(!grepl("Sense", cause_name)), data_complete)
-  # missing_contries <- unique(data_missing$country_name)
-  # if (length(missing_contries > 0)) stop(paste0('The Country ', missing_contries, ' needs to be adjusted. '))
+  # # Check NA data
+  # data_missing <- data %>% dplyr::filter(is.na(BC) | is.na(Deaths))
+  # unique(data_missing$country_name)
+
+  # Andorra, San Marino, Monaco, Nauru, Tuvalu and Mariana Islands do not have complete data, and they are filtered out
+  data <- data %>%
+    dplyr::filter(complete.cases(.))
+
   #-------------
 
   # Load all the socioeconomic data to be included
-  pop<- read.csv(file.path(datadir, "/socioeconomic/population.csv")) %>%
+  pop <- read.csv(file.path(datadir, "/socioeconomic/population.csv")) %>%
     dplyr::filter(year %in% unique(data$year)) %>%
     dplyr::mutate(iso = tolower(iso)) %>%
     dplyr::mutate(iso = dplyr::if_else(country == "Sudan", "ssd", iso)) %>%
@@ -105,7 +98,7 @@ create_panel <- function() {
     # erase empty iso codes (e.g., the ones that belong to "Africa" or "North America")
     dplyr::filter(!is.na(iso), iso != "")
 
-  gdp<- read.csv(file.path(datadir, "/socioeconomic/gdp.csv")) %>%
+  gdp <- read.csv(file.path(datadir, "/socioeconomic/gdp.csv")) %>%
     dplyr::select(country_name, iso, year, gdp_ppp_dol2011) %>%
     dplyr::filter(year %in% unique(data$year)) %>%
     dplyr::mutate(iso = tolower(iso)) %>%
@@ -152,6 +145,7 @@ create_panel <- function() {
     dplyr::left_join(elec_acces, by = c("iso", "year")) %>%
     dplyr::left_join(cc_acces, by = c("iso", "year")) %>%
     dplyr::mutate(iso = dplyr::if_else(iso == "rom", "rou", iso))
+  # NOTE: There are some countries with no harmonized data available. These are listed in ./inst/extdata/socioeconomic/missing_socio.csv
 
 
   # Combine all the final data to be analyzed:
