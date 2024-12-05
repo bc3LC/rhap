@@ -45,7 +45,8 @@ Imports:
     gcamdata,
     rworldmap,
     assertthat,
-    countrycode
+    countrycode,
+    scales
 Suggests: 
     rmarkdown,
     rprojroot,

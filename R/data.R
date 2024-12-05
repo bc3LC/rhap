@@ -286,3 +286,16 @@
 #'  rhap::all_pollutants
 #' }
 "all_pollutants"
+
+
+#' gcam_regions
+#'
+#' @description List of GCAM-32 + EU-27 + Global regions
+#' @source GCAM results
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::gcam_regions
+#' }
+"gcam_regions"

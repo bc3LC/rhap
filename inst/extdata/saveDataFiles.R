@@ -67,5 +67,17 @@ all_pollutants = c("BC", "CH4", "CO", "HFC125", "HFC134a", "HFC143a", "HFC23", "
                    "N2O", "NH3", "NMVOC", "NOx", "OC", "SO2")
 usethis::use_data(all_pollutants, overwrite = T)
 
+# List of GCAM-32 + EU-27 + Global regions
+gcam_regions = c(
+  "Africa_Eastern","Africa_Northern","Africa_Southern","Africa_Western","Argentina",
+  "Australia_NZ","Brazil","Canada","Central America and Caribbean","Central Asia",
+  "China","Colombia","EU-12","EU-15","Europe_Eastern","Europe_Non_EU",
+  "European Free Trade Association","India","Indonesia","Japan","Mexico",
+  "Middle East","Pakistan","Russia","South Africa","South America_Northern",
+  "South America_Southern","South Asia","South Korea","Southeast Asia","Taiwan",
+  "USA","EU-27","Global"
+)
+usethis::use_data(gcam_regions, overwrite = T)
+
 
 

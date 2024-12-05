@@ -28,17 +28,42 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   # Create the directory if they do not exist:
   if (!dir.exists("output")) dir.create("output")
 
-  # Then, load the rgcam project if prj not passed as a parameter:
-    if (!is.null(db_path) & !is.null(db_name)) {
-      rlang::inform('Creating project ...')
-      conn <- rgcam::localDBConn(db_path,
-                                 db_name,migabble = FALSE)
-      prj <- rgcam::addScenario(conn,
-                                prj_name,
-                                scen_name,
-                                paste0(query_path,"/",queries),
-                                saveProj = T)
+  # Checks
+  if (length(year) != 1) stop("Error: Please provide a single year as input to the `calc_ResidEm_grp` function.")
+  if (length(pollutant) != 1) stop("Error: Please provide a single pollutant as input to the `calc_ResidEm_grp` function.")
+  if (length(region) != 1) stop("Error: Please provide a single region as input to the `calc_ResidEm_grp` function.")
 
+  year <- as.numeric(as.character(year))
+  if (!year %in% seq(2020, 2100, 5)) {
+    stop(sprintf(
+      "Error: The specified year '%s' is invalid. Accepted years are: %s. Please rerun the `calc_ResidEm_grp` function with a valid year.",
+      year, paste(seq(2020, 2100, 5), collapse = ", ")
+    ))
+  }
+  if (!pollutant %in% rhap::all_pollutants) {
+    stop(sprintf(
+      "Error: The specified pollutant '%s' is invalid. Accepted pollutants are: %s. Please rerun the `calc_ResidEm_grp` function with a valid pollutant.",
+      pollutant, paste(rhap::all_pollutants, collapse = ", ")
+    ))
+  }
+  if (!region %in% rhap::gcam_regions) {
+    stop(sprintf(
+      "Error: The specified region '%s' is invalid. Accepted regions are: %s. Please rerun the `calc_ResidEm_grp` function with a valid region.",
+      region, paste(rhap::gcam_regions, collapse = ", ")
+    ))
+  }
+
+
+  # Then, load the rgcam project if prj not passed as a parameter:
+  if (!is.null(db_path) & !is.null(db_name)) {
+    rlang::inform('Creating project ...')
+    conn <- rgcam::localDBConn(db_path,
+                               db_name,migabble = FALSE)
+    prj <- rgcam::addScenario(conn,
+                              prj_name,
+                              scen_name,
+                              paste0(query_path,"/",queries),
+                              saveProj = T)
 
   } else {
 
@@ -107,34 +132,48 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 
   if(saveOutput == T){
     # Create the directory if they do not exist:
-    if (!dir.exists("output/ResidEm_grp")) dir.create("output")
+    if (!dir.exists("output")) dir.create("output")
+    if (!dir.exists("output/ResidEm_grp")) dir.create("output/ResidEm_grp")
 
-    write.csv(em_reg_gr_fin, paste0("ResidEm_grp_", unique(em_reg_gr_fin$Region), "_", unique(em_reg_gr_fin$Year), "_",
-                                    unique(em_reg_gr_fin$Pollutant), ".csv"),
+    write.csv(em_reg_gr_fin,
+              file.path('output/ResidEm_grp',
+                        paste0("ResidEm_grp_", unique(em_reg_gr_fin$Region), "_",
+                               unique(em_reg_gr_fin$Year), "_", unique(em_reg_gr_fin$Pollutant), ".csv")),
               row.names = F)
-
   }
 
 
   if(pie == T){
 
-    ggplot(em_reg_gr_fin, aes(x="",
-                              y = value,
-                              fill = factor(group,levels = c("d1","d2","d3","d4","d5","d6","d7","d8","d9","d10"))))+
-      geom_bar(width = 1, stat = "identity") +
-      theme_void() +
-      facet_wrap(~ scenario) +
-      labs(x = "", y = "") +
-      theme(legend.title = element_blank(),
-            legend.position = "bottom",
-            strip.text = element_text(size = 14)) +
-      coord_polar("y", start = 0) +
-      scale_fill_manual(values = c("gray20","gray50","#ad440c","#ef8e27","#d01c2a",
+    # Create the directory if they do not exist:
+    if (!dir.exists("output")) dir.create("output")
+    if (!dir.exists("output/ResidEm_grp")) dir.create("output/ResidEm_grp")
+    if (!dir.exists("output/ResidEm_grp/pie_charts")) dir.create("output/ResidEm_grp/pie_charts")
+
+    pl <- ggplot2::ggplot(em_reg_gr_fin,
+                          ggplot2::aes(x="",
+                                       y = value,
+                                       fill = factor(group,
+                                                     levels = c("d1","d2","d3","d4","d5","d6","d7","d8","d9","d10"))))+
+      ggplot2::geom_bar(width = 1, stat = "identity") +
+      ggplot2::theme_void() +
+      ggplot2::facet_wrap(~ scenario) +
+      ggplot2::labs(x = "", y = "") +
+      ggplot2::theme(legend.title = ggplot2::element_blank(),
+                     legend.position = "bottom",
+                     strip.text = ggplot2::element_text(size = 14)) +
+      ggplot2::coord_polar("y", start = 0) +
+      ggplot2::scale_fill_manual(values = c("gray20","gray50","#ad440c","#ef8e27","#d01c2a",
                                    "darkorchid3","#507fab","deepskyblue1","#11d081", "#00931d")) +
-      geom_text(aes(label = percent(perc_value)),
-                color = "white",
-                size = 4,
-                position = position_stack(vjust = 0.5))
+                                     ggplot2::geom_text(ggplot2::aes(label = scales::percent(perc_value)),
+                                                        color = "white",
+                                                        size = 4,
+                                                        position = ggplot2::position_stack(vjust = 0.5))
+    ggplot2::ggsave(pl, file = file.path('output/ResidEm_grp/pie_charts',
+                                         paste0("ResidEm_grp_", unique(em_reg_gr_fin$Region), "_",
+                                                unique(em_reg_gr_fin$Year), "_", unique(em_reg_gr_fin$Pollutant), ".png")),
+                    width = 150, height = 200, units = 'mm')
+
 
   }
 

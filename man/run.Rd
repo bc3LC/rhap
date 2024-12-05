@@ -37,11 +37,13 @@ run(
 
 \item{saveOutput}{Writes the emission files. By default=T}
 
-\item{map}{Transform the output to "normalized" values. By default = F}
+\item{map}{Produce the maps. By default = F}
 
 \item{anim}{If set to T, produces multi-year animations. By default=T}
 
 \item{HIA_var}{Health metric to be predicted. c("deaths", "yll", "dalys"). By default = deaths}
+
+\item{normalized}{Transform the output to "normalized" values. By default = F}
 
 \item{by_gr}{Estimate damages at group level. Just for illustrative purposes. By default = F}
 }
