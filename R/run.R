@@ -51,6 +51,10 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     prj <- rgcam::loadProject(prj_name)
 
   }
+  # consider the final_db_year as the user indicated year or the closes year available in the project file
+  final_db_year<-min(final_db_year,
+                     max(rgcam::getQuery(prj,'nonCO2 emissions by sector (excluding resource production)')$year))
+
 
   #-----
   # EXTRACT DATA FROM GCAM SCENARIO OUTPUTS
@@ -141,7 +145,8 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
   #  2- Floorspace
   # First, extract population data
   pop_gr <- rgcam::getQuery(prj, "subregional population") %>%
-    dplyr::filter(grepl("resid", `gcam-consumer`)) %>%
+    dplyr::filter(grepl("resid", `gcam-consumer`),
+                  year <= final_db_year) %>%
     dplyr::mutate(group = gsub("resid_", "", `gcam-consumer`),
                   pop = value * 1E3) %>%
     dplyr::select(scenario, region, year, group, pop)
@@ -157,6 +162,7 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     dplyr::mutate(group = gsub("resid_", "", building),
                   flsp_m2 = value * 1E9) %>%
     dplyr::select(scenario, region, year, group, flsp_m2) %>%
+    dplyr::filter(year <= final_db_year) %>%
     gcamdata::left_join_error_no_match(pop_gr, by = c("scenario", "region", "year", "group")) %>%
     dplyr::mutate(flsp_pc_gr = flsp_m2 / pop,
                   unit = "m2/pers") %>%
@@ -170,6 +176,7 @@ run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, p
     dplyr::group_by(scenario, region, year) %>%
     dplyr::summarise(flsp_m2 = sum(flsp_m2)) %>%
     dplyr::ungroup() %>%
+    dplyr::filter(year <= final_db_year) %>%
     gcamdata::left_join_error_no_match(pop, by = c("scenario", "region", "year")) %>%
     dplyr::mutate(flsp_pc = flsp_m2 / pop,
                   unit = "m2/pers") %>%
