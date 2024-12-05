@@ -16,6 +16,7 @@ run(
   map = F,
   anim = T,
   HIA_var = "deaths",
+  normalized = F,
   by_gr = F
 )
 }
@@ -36,7 +37,7 @@ run(
 
 \item{saveOutput}{Writes the emission files. By default=T}
 
-\item{map}{Produce the maps. By default=F}
+\item{map}{Transform the output to "normalized" values. By default = F}
 
 \item{anim}{If set to T, produces multi-year animations. By default=T}
 
