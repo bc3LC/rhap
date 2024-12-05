@@ -273,3 +273,16 @@
 #'  rhap::hia_adder
 #' }
 "hia_adder"
+
+
+#' all_pollutants
+#'
+#' @description List of pollutants from the residential sector
+#' @source GCAM results
+#' @format .csv
+#' @examples
+#' \dontrun{
+#'  library(rhap);
+#'  rhap::all_pollutants
+#' }
+"all_pollutants"

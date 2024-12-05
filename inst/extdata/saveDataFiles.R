@@ -62,5 +62,10 @@ usethis::use_data(ssp_gdp_adj, overwrite = T)
 hia_adder = read.csv("./inst/extdata/mort/hia_adder.csv")
 usethis::use_data(hia_adder, overwrite = T)
 
+# List of pollutants from the residential sector
+all_pollutants = c("BC", "CH4", "CO", "HFC125", "HFC134a", "HFC143a", "HFC23", "HFC32",
+                   "N2O", "NH3", "NMVOC", "NOx", "OC", "SO2")
+usethis::use_data(all_pollutants, overwrite = T)
+
 
 
