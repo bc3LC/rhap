@@ -34,16 +34,16 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   if (!dir.exists("output")) dir.create("output")
 
   # Then, load the rgcam project if prj not passed as a parameter:
-    if (!is.null(db_path) & !is.null(db_name)) {
-      rlang::inform('Creating project ...')
-      conn <- rgcam::localDBConn(db_path,
-                                 db_name,migabble = FALSE)
-      prj <- rgcam::addScenario(conn,
-                                prj_name,
-                                scen_name,
-                                paste0(query_path,"/",queries),
-                                saveProj = T)
+  if (!is.null(db_path) & !is.null(db_name)) {
 
+    rlang::inform('Creating project ...')
+    conn <- rgcam::localDBConn(db_path,
+                               db_name,migabble = FALSE)
+    prj <- rgcam::addScenario(conn,
+                              prj_name,
+                              scen_name,
+                              paste0(query_path,"/",queries),
+                              saveProj = T)
 
   } else {
 
@@ -151,6 +151,26 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                   pop = value * 1E3) %>%
     dplyr::select(scenario, region, year, group, pop)
 
+  # If the `subregional population` query misses some values, compute them
+  # using the `population by region` query
+  n_groups <- length(unique(pop_gr$group))
+
+  # fix (Taiwan): if the `subregional population` query misses some values,
+  # compute them using the `population by region` query
+  pop_gr <- pop_gr %>%
+    dplyr::full_join(
+      rgcam::getQuery(prj, "population by region") %>%
+        dplyr::filter(year <= final_db_year) %>%
+        dplyr::group_by(scenario, region, year, value) %>%
+        tidyr::expand(group = unique(pop_gr$group)) %>%
+        dplyr::ungroup() %>%
+        dplyr::mutate(value_adj = (value / n_groups) * 1E3) %>%
+        dplyr::select(-value),
+      by = c('scenario','region','group','year')
+    ) %>%
+    dplyr::mutate(pop = dplyr::if_else(is.na(pop), value_adj, pop)) %>%
+    dplyr::select(scenario, region, year, group, pop)
+
   pop <- pop_gr %>%
     dplyr::group_by(scenario, region, year) %>%
     dplyr::summarise(pop = sum(pop)) %>%
@@ -243,8 +263,23 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 
   # Process Population: Population is evenly distributed across groups, but could be updated
   pop_share <- rgcam::getQuery(prj, "subregional population") %>%
-    dplyr::filter(grepl("resid", `gcam-consumer`)) %>%
+    dplyr::filter(year <= final_db_year,
+                  grepl("resid", `gcam-consumer`)) %>%
     tidyr::separate(`gcam-consumer`, c("sector", "group"), sep = "_") %>%
+    # fix (Taiwan): if the `subregional population` query misses some values,
+    # compute them using the `population by region` query
+    dplyr::full_join(
+      rgcam::getQuery(prj, "population by region") %>%
+        dplyr::filter(year <= final_db_year) %>%
+        dplyr::group_by(scenario, region, year, value) %>%
+        tidyr::expand(group = unique(pop_gr$group)) %>%
+        dplyr::ungroup() %>%
+        dplyr::mutate(value_adj = value / n_groups,
+                      sector = 'resid') %>%
+        dplyr::select(-value),
+      by = c('scenario','region','sector','group','year')
+    ) %>%
+    dplyr::mutate(value = dplyr::if_else(is.na(value), value_adj, value)) %>%
     # rename and aggregate sectors
     dplyr::group_by(scenario, region, year) %>%
     dplyr::mutate(value_agg = sum(value)) %>%
@@ -265,6 +300,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     dplyr::mutate(year = as.character(year))
 
   pop_ctry_gr <- pop_ctry %>%
+    dplyr::filter(year <= final_db_year) %>%
     # filter only ssps used
     dplyr::filter(ssp %in% unique(pop_share$ssp)) %>%
     # add groups
@@ -282,22 +318,22 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 
   # Process GDP: First need to calculate the income shares by GCAM_region and period (to be applied to all countries within each region)
   gdp_share <- rgcam::getQuery(prj, "subregional income") %>%
-    dplyr::filter(grepl("resid", `gcam-consumer`)) %>%
+    dplyr::filter(grepl("resid", `gcam-consumer`),
+                  year <= final_db_year) %>%
     tidyr::separate(`gcam-consumer`, c("sector", "group"), sep = "_") %>%
     dplyr::mutate(gdp_pc = value * 1E3) %>%
     dplyr::select(-value, -Units) %>%
     gcamdata::left_join_error_no_match(
-      rgcam::getQuery(prj, "subregional population") %>%
-        dplyr::filter(grepl("resid", `gcam-consumer`)) %>%
-        tidyr::separate(`gcam-consumer`, c("sector", "group"), sep = "_"),
-          by = c("scenario", "sector", "group", "region", "year")) %>%
+      pop_gr %>%
+        dplyr::rename(value = pop),
+      by = c("scenario", "group", "region", "year")) %>%
     dplyr::mutate(gdp = gdp_pc * (value * 1E3)) %>%
     dplyr::group_by(scenario, region, year) %>%
     dplyr::mutate(gdp_agg = sum(gdp)) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(share_gdp = round(gdp / gdp_agg, 5)) %>%
     dplyr::select(scenario, region, year, group, share_gdp) %>%
-  # expand shares to countries
+    # expand shares to countries
     dplyr::left_join(reg_to_ctry, by = "region", relationship = "many-to-many") %>%
     # Add SSP narrative associated with the scenario. Use SSP2 by default if no other SSP is specified in the scenario name
     dplyr::mutate(ssp = "SSP2",
@@ -320,7 +356,8 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 
   gdp_ctry_gr <- gdp_ctry %>%
     # filter only ssps used
-    dplyr::filter(ssp %in% unique(gdp_share$ssp)) %>%
+    dplyr::filter(ssp %in% unique(gdp_share$ssp),
+                  year <= final_db_year) %>%
     # add groups
     gcamdata::repeat_add_columns(tibble::tibble(group = unique(em_shares_gr$group))) %>%
     # adjust country names to match
