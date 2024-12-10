@@ -1,4 +1,4 @@
-##' run
+##' calc_hap_impacts
 #'
 #'
 #' Run the model to estimate the health impacts attributable to household air pollution for GCAM scenarios
@@ -20,7 +20,7 @@
 #' @importFrom magrittr %>%
 #' @export
 
-run <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
+calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
                 scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
                 saveOutput = T, map = F, anim = T , HIA_var = "deaths",
                 normalized = F, by_gr = F) {
