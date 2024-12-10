@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+
+
+  <aQuery>
+		<all-regions/>
+                <supplyDemandQuery title="building floorspace">
+                    <axis1 name="building">gcam-consumer[@name]</axis1>
+                    <axis2 name="Year">floorspace[@year]</axis2>
+                    <xPath buildList="true" dataName="floorspace" group="false" sumAll="false">gcam-consumer//floorspace/node()</xPath>
+                    <comments/>
+                </supplyDemandQuery>
+ </aQuery>
+
+ <aQuery>
+		<all-regions/>
+        <demographicsQuery title="subregional population">
+            <axis1 name="region">region</axis1>
+            <axis2 name="Year">subregional-population</axis2>
+            <xPath buildList="true" dataName="subregional-population" group="false" sumAll="false">gcam-consumer/subregional-population/node()</xPath>
+            <comments/>
+        </demographicsQuery>
+ </aQuery>
+
+ <aQuery>
+		<all-regions/>
+        <demographicsQuery title="population by region">
+            <axis1 name="region">region</axis1>
+            <axis2 name="Year">populationMiniCAM</axis2>
+            <xPath buildList="true" dataName="total-population" group="false" sumAll="false">demographics/populationMiniCAM/total-population/node()</xPath>
+            <comments/>
+        </demographicsQuery>
+ </aQuery>
+
+
+ <aQuery>
+		<all-regions/>
+        <demographicsQuery title="subregional income">
+            <axis1 name="region">region</axis1>
+            <axis2 name="Year">subregional-percapita-income</axis2>
+            <xPath buildList="true" dataName="subregional-percapita-income" group="false" sumAll="false">gcam-consumer/subregional-percapita-income/node()</xPath>
+            <comments/>
+        </demographicsQuery>
+ </aQuery>
+
+ <aQuery>
+		<all-regions/>
+<emissionsQueryBuilder title="nonCO2 emissions by sector (excluding resource production)">
+                <axis1 name="GHG">GHG</axis1>
+                <axis2 name="Year">emissions</axis2>
+                <xPath buildList="true" dataName="emissions" group="false" sumAll="false">*[@type = 'sector']//*[@type = 'GHG' and @name != 'CO2' and @name != 'CO2_FUG']/emissions/node()</xPath>
+                <comments/>
+            </emissionsQueryBuilder>
+ </aQuery>
+
+
+</queries>

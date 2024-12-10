@@ -39,11 +39,13 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     rlang::inform('Creating project ...')
     conn <- rgcam::localDBConn(db_path,
                                db_name,migabble = FALSE)
-    prj <- rgcam::addScenario(conn,
-                              prj_name,
-                              scen_name,
-                              paste0(query_path,"/",queries),
-                              saveProj = T)
+    prj <- suppressWarnings(
+      rgcam::addScenario(conn,
+                         prj_name,
+                         scen_name,
+                         paste0(query_path,"/",queries),
+                         saveProj = T)
+    )
 
   } else {
 
