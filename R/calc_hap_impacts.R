@@ -584,7 +584,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       dplyr::rename(subRegion = country_name,
                     value = var_to_plot)
 
-    mapCountries <- rmap::mapCountries
+    mapCountries <<- rmap::mapCountries
 
 
     # Figures:
@@ -597,7 +597,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                 legendType = "pretty",
                 background  = T,
                 animate = anim,
-                underLayer = rmap::mapCountries)
+                underLayer = mapCountries)
 
       # 2. Reorder folders and rename figures
       # 2.1. move the allYears figure
@@ -638,7 +638,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                 legendType = "pretty",
                 background  = T,
                 animate = anim,
-                underLayer = rmap::mapCountries)
+                underLayer = mapCountries)
 
       # 2. Reorder folders and rename figures
       # 2.1. remove an intermediate folder
