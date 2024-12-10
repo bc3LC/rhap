@@ -5,3 +5,5 @@
 
 R/*.txt
 /output
+/tests/testthat/testInputs/database_basexdb_ref/*
+/tests/testthat/output
