@@ -5,10 +5,10 @@ library(magrittr)
 test_that("Download db, create project, and run", {
   # load a reference GCAM db form a Zenodo repository
   db_path <- file.path(rprojroot::find_root(rprojroot::is_testthat), "testInputs")
-  # rpackageutils::download_unpack_zip(
-  #   data_directory = db_path,
-  #   url = "https://zenodo.org/record/13361605/files/database_basexdb_ref.zip?download=1"
-  # )
+  rpackageutils::download_unpack_zip(
+    data_directory = db_path,
+    url = "https://zenodo.org/record/13361605/files/database_basexdb_ref.zip?download=1"
+  )
   testthat::expect_equal(1, 1)
 
   db_name <- "database_basexdb_ref"
