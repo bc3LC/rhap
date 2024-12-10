@@ -75,6 +75,13 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   final_db_year<-min(final_db_year,
                      max(rgcam::getQuery(prj,'nonCO2 emissions by sector (excluding resource production)')$year))
 
+  if (year > final_db_year) {
+    stop(sprintf(
+      "Error: The specified year '%s' is invalid. The database only contains data up to %s. Accepted years are: %s. Please rerun the `calc_ResidEm_grp` function with a valid year.",
+      year, final_db_year, paste(seq(2020, final_db_year, 5), collapse = ", ")
+    ))
+  }
+
   rlang::inform('Running ...')
 
   # Get emissions by scenario, region, period and group
