@@ -14,6 +14,14 @@
 
 fit_model <- function(HIA_var) {
 
+  # Check user input
+  if (!HIA_var %in% c("deaths", "yll", "dalys")) {
+    stop(sprintf(
+      "Error: The specified HIA_var '%s' is invalid. Accepted HIA_var are: %s. Please rerun the `fit_model` function with a valid HIA_var.",
+      HIA_var, paste(c("deaths", "yll", "dalys"), collapse = ", ")
+    ))
+  }
+
   # Adjust the data
   data <- rhap::panel_data %>%
     dplyr::select(iso, country_name, year, pop, starts_with("log"), continent, dev) %>%

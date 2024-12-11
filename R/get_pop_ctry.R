@@ -14,6 +14,14 @@
 
 get_pop_ctry <- function(ssp) {
 
+  # Check user input
+  if (!ssp %in% c("SSP1", "SSP2", "SSP3", "SSP4", "SSP5")) {
+    stop(sprintf(
+      "Error: The specified SSP '%s' is invalid. Accepted SSPs are: %s. Please rerun the `get_pop_ctry` function with a valid SSP.",
+      ssp, paste(c("SSP1", "SSP2", "SSP3", "SSP4", "SSP5"), collapse = ", ")
+    ))
+  }
+
   # Set some constants
   conv_M_people <- 1E6
 
