@@ -83,7 +83,7 @@ create_panel <- function() {
   # data_missing <- data %>% dplyr::filter(is.na(BC) | is.na(Deaths))
   # unique(data_missing$country_name)
 
-  # Andorra, San Marino, Monaco, Nauru, Tuvalu and Mariana Islands do not have complete data, and they are filtered out
+  # Andorra, San Marino, Monaco, Nauru, Tuvalu and Mariana Islands do not have complete data, and they are dplyr::filtered out
   data <- data %>%
     dplyr::filter(complete.cases(.))
 
@@ -110,10 +110,10 @@ create_panel <- function() {
 
   # Adjust 2019 GDP
   gdp_2019 <- gdp %>%
-    filter(year == 2018) %>%
-    mutate(year = 2019)
+    dplyr::filter(year == 2018) %>%
+    dplyr::mutate(year = 2019)
 
-  gdp <- bind_rows(gdp, gdp_2019)
+  gdp <- dplyr::bind_rows(gdp, gdp_2019)
 
   urbrur<-read.csv(file.path(datadir, "/socioeconomic/urb_rur_shares.csv"))%>%
     dplyr::filter(year %in% unique(data$year)) %>%
@@ -139,7 +139,7 @@ create_panel <- function() {
 
   # Create the dataset with all the socioeconomic data
   socio<-tibble::as_tibble(pop) %>%
-    #gcamdata::dplyr::left_join_error_no_match(gdp) %>%
+    #gcamdata::left_join_error_no_match(gdp) %>%
     dplyr::left_join(gdp, by = c("iso", "year")) %>%
     dplyr::left_join(urbrur, by = c("iso", "year")) %>%
     dplyr::left_join(elec_acces, by = c("iso", "year")) %>%
@@ -219,7 +219,7 @@ create_panel <- function() {
     dplyr::mutate(year = as.integer(stringr::str_remove(year, "X")),
            iso = tolower(iso)) %>%
     dplyr::select(iso, year, flsp)  %>%
-    mutate(year = if_else(year == 2020, 2019, year))
+    dplyr::mutate(year = dplyr::if_else(year == 2020, 2019, year))
 
   data_fin <- data_fin %>%
     dplyr::left_join(flsp_long, by = c("iso", "year"))
@@ -248,74 +248,74 @@ create_panel <- function() {
 
   # Add GCAM_region
   iso_GCAM_regID <- read.csv(paste0(datadir, "/iso_GCAM_regID.csv")) %>%
-    select(iso, GCAM_region)
+    dplyr::select(iso, GCAM_region)
 
   data_fin_ret <- data_fin %>%
-    left_join(iso_GCAM_regID, by = "iso") %>%
+    dplyr::left_join(iso_GCAM_regID, by = "iso") %>%
     dplyr::filter(!is.na(GCAM_region)) %>%
     # adjust Taiwan Flsp
-    mutate(flsp = if_else(year == 2019 & iso == "twn", 5.639237, flsp)) %>%
+    dplyr::mutate(flsp = dplyr::if_else(year == 2019 & iso == "twn", 5.639237, flsp)) %>%
     # normalize emissions and deaths
-    mutate(BC_per_100k = (BC / pop) * 100000,
-           OC_per_100k = (OC / pop) * 100000,
-           PrimPM25_per_100k = (PrimPM25 / pop) * 100000,
-           NOx_per_100k = (NOx / pop) * 100000,
-           CO_per_100k = (CO / pop) * 100000,
-           VOC_per_100k = (NMVOC / pop) * 100000,
-           Deaths_per_100k = (Deaths / pop) * 100000,
-           YLL_per_100k = (`YLLs (Years of Life Lost)` / pop) * 100000,
-           DALY_per_100k = (`DALYs (Disability-Adjusted Life Years)` / pop) * 100000) %>%
+    dplyr::mutate(BC_per_100k = (BC / pop) * 100000,
+                 OC_per_100k = (OC / pop) * 100000,
+                 PrimPM25_per_100k = (PrimPM25 / pop) * 100000,
+                 NOx_per_100k = (NOx / pop) * 100000,
+                 CO_per_100k = (CO / pop) * 100000,
+                 VOC_per_100k = (NMVOC / pop) * 100000,
+                 Deaths_per_100k = (Deaths / pop) * 100000,
+                 YLL_per_100k = (`YLLs (Years of Life Lost)` / pop) * 100000,
+                 DALY_per_100k = (`DALYs (Disability-Adjusted Life Years)` / pop) * 100000) %>%
     # normalize emissions per floorspace
-    mutate(flsp_mm2 = flsp * pop * 1E-6) %>%
-    mutate(BC_per_flsp = BC / flsp_mm2,
-           OC_per_flsp = OC / flsp_mm2,
-           PrimPM25_per_flsp = PrimPM25 / flsp_mm2,
-           NOx_per_flsp = BC / flsp_mm2,
-           CO_per_flsp = CO / flsp_mm2,
-           VOC_per_flsp = NMVOC / flsp_mm2,) %>%
+    dplyr::mutate(flsp_mm2 = flsp * pop * 1E-6) %>%
+    dplyr::mutate(BC_per_flsp = BC / flsp_mm2,
+                 OC_per_flsp = OC / flsp_mm2,
+                 PrimPM25_per_flsp = PrimPM25 / flsp_mm2,
+                 NOx_per_flsp = BC / flsp_mm2,
+                 CO_per_flsp = CO / flsp_mm2,
+                 VOC_per_flsp = NMVOC / flsp_mm2,) %>%
     # add small numbers to 0 emisisons for log
-    mutate(BC_per_100k = if_else(BC_per_100k == 0, 1E-9, BC_per_100k),
-           OC_per_100k = if_else(OC_per_100k == 0, 1E-9, OC_per_100k),
-           PrimPM25_per_100k = if_else(PrimPM25_per_100k == 0, 1E-9, PrimPM25_per_100k),
-           NOx_per_100k = if_else(NOx_per_100k == 0, 1E-9, NOx_per_100k),
-           CO_per_100k = if_else(CO_per_100k == 0, 1E-9, CO_per_100k),
-           VOC_per_100k = if_else(VOC_per_100k == 0, 1E-9, VOC_per_100k),
-           HDD_value = if_else(HDD_value == 0, 1E-9, HDD_value),
-           CDD_value = if_else(CDD_value == 0, 1E-9, CDD_value),
-           BC_per_flsp = if_else(BC_per_flsp == 0, 1E-9, BC_per_flsp),
-           OC_per_flsp = if_else(OC_per_flsp == 0, 1E-9, OC_per_flsp),
-           PrimPM25_per_flsp = if_else(PrimPM25_per_flsp == 0, 1E-9, PrimPM25_per_flsp),
-           NOx_per_flsp = if_else(NOx_per_flsp == 0, 1E-9, NOx_per_flsp),
-           CO_per_flsp = if_else(CO_per_flsp == 0, 1E-9, CO_per_flsp)) %>%
+    dplyr::mutate(BC_per_100k = dplyr::if_else(BC_per_100k == 0, 1E-9, BC_per_100k),
+                 OC_per_100k = dplyr::if_else(OC_per_100k == 0, 1E-9, OC_per_100k),
+                 PrimPM25_per_100k = dplyr::if_else(PrimPM25_per_100k == 0, 1E-9, PrimPM25_per_100k),
+                 NOx_per_100k = dplyr::if_else(NOx_per_100k == 0, 1E-9, NOx_per_100k),
+                 CO_per_100k = dplyr::if_else(CO_per_100k == 0, 1E-9, CO_per_100k),
+                 VOC_per_100k = dplyr::if_else(VOC_per_100k == 0, 1E-9, VOC_per_100k),
+                 HDD_value = dplyr::if_else(HDD_value == 0, 1E-9, HDD_value),
+                 CDD_value = dplyr::if_else(CDD_value == 0, 1E-9, CDD_value),
+                 BC_per_flsp = dplyr::if_else(BC_per_flsp == 0, 1E-9, BC_per_flsp),
+                 OC_per_flsp = dplyr::if_else(OC_per_flsp == 0, 1E-9, OC_per_flsp),
+                 PrimPM25_per_flsp = dplyr::if_else(PrimPM25_per_flsp == 0, 1E-9, PrimPM25_per_flsp),
+                 NOx_per_flsp = dplyr::if_else(NOx_per_flsp == 0, 1E-9, NOx_per_flsp),
+                 CO_per_flsp = dplyr::if_else(CO_per_flsp == 0, 1E-9, CO_per_flsp)) %>%
     # add logs for numeric variables
-    mutate(log_BC_per_100k = log(BC_per_100k),
-           log_OC_per_100k = log(OC_per_100k),
-           log_PrimPM25_per_100k = log(PrimPM25_per_100k),
-           log_NOx_per_100k = log(NOx_per_100k),
-           log_CO_per_100k = log(CO_per_100k),
-           log_VOC_per_100k = log(VOC_per_100k),
-           log_Deaths_per_100k = log(Deaths_per_100k),
-           log_YLL_per_100k = log(YLL_per_100k),
-           log_DALY_per_100k = log(DALY_per_100k),
-           log_gdppc_ppp_dol2011 = log(gdppc_ppp_dol2011),
-           log_AAP = log(AAP),
-           log_flsp = log(flsp),
-           log_HDD_value = log(HDD_value),
-           log_CDD_value = log(CDD_value),
-           log_BC_per_flsp = log(BC_per_flsp),
-           log_OC_per_flsp = log(OC_per_flsp),
-           log_PrimPM25_per_flsp = log(PrimPM25_per_flsp),
-           log_NOx_per_flsp = log(NOx_per_flsp),
-           log_CO_per_flsp = log(CO_per_flsp)) %>%
+    dplyr::mutate(log_BC_per_100k = log(BC_per_100k),
+                 log_OC_per_100k = log(OC_per_100k),
+                 log_PrimPM25_per_100k = log(PrimPM25_per_100k),
+                 log_NOx_per_100k = log(NOx_per_100k),
+                 log_CO_per_100k = log(CO_per_100k),
+                 log_VOC_per_100k = log(VOC_per_100k),
+                 log_Deaths_per_100k = log(Deaths_per_100k),
+                 log_YLL_per_100k = log(YLL_per_100k),
+                 log_DALY_per_100k = log(DALY_per_100k),
+                 log_gdppc_ppp_dol2011 = log(gdppc_ppp_dol2011),
+                 log_AAP = log(AAP),
+                 log_flsp = log(flsp),
+                 log_HDD_value = log(HDD_value),
+                 log_CDD_value = log(CDD_value),
+                 log_BC_per_flsp = log(BC_per_flsp),
+                 log_OC_per_flsp = log(OC_per_flsp),
+                 log_PrimPM25_per_flsp = log(PrimPM25_per_flsp),
+                 log_NOx_per_flsp = log(NOx_per_flsp),
+                 log_CO_per_flsp = log(CO_per_flsp)) %>%
     # Add continent and development degree
-    mutate(continent = countrycode::countrycode(sourcevar = iso,
-                                   origin = "iso3c",
-                                   destination = "continent")) %>%
-    mutate(continent = if_else(grepl("Asia", continent) | grepl("Oceania", continent), "Asia & Oceania", continent)) %>%
-    mutate(dev = if_else(grepl("Europe", continent) |
-                           grepl("Japan", country_name) |
-                           grepl("usa", iso) |
-                           grepl("can", country_name), "Developed", "Developing"))
+    dplyr::mutate(continent = countrycode::countrycode(sourcevar = iso,
+                                                       origin = "iso3c",
+                                                       destination = "continent")) %>%
+    dplyr::mutate(continent = dplyr::if_else(grepl("Asia", continent) | grepl("Oceania", continent), "Asia & Oceania", continent)) %>%
+    dplyr::mutate(dev = dplyr::if_else(grepl("Europe", continent) |
+                                       grepl("Japan", country_name) |
+                                       grepl("usa", iso) |
+                                       grepl("can", country_name), "Developed", "Developing"))
 
 
   return(data_fin_ret)
