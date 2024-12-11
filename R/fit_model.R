@@ -14,6 +14,9 @@
 
 fit_model <- function(HIA_var) {
 
+  iso <- country_name <- year <- pop <- continent <- dev <- log_AAP <- value <-
+    Model <- Scenario <- Region <- Variable <- Unit <- . <- NULL
+
   # Check user input
   if (!HIA_var %in% c("deaths", "yll", "dalys")) {
     stop(sprintf(
@@ -24,10 +27,10 @@ fit_model <- function(HIA_var) {
 
   # Adjust the data
   data <- rhap::panel_data %>%
-    dplyr::select(iso, country_name, year, pop, starts_with("log"), continent, dev) %>%
+    dplyr::select(iso, country_name, year, pop, dplyr::starts_with("log"), continent, dev) %>%
     dplyr::mutate(year = as.character(year)) %>%
     dplyr::select(-log_AAP) %>%
-    dplyr::filter(complete.cases(.))
+    dplyr::filter(stats::complete.cases(.))
   predictable_regions <- unique(data$country_name)
 
   # dplyr::select the dependent variable (deaths, YLLs, or DALYs)
@@ -46,7 +49,7 @@ fit_model <- function(HIA_var) {
   # Fit the fixed effect model
 
   # write formula which depends on the dplyr::selected variable
-  model_formula <- as.formula(paste(
+  model_formula <- stats::as.formula(paste(
     dep_var, "~ log_PrimPM25_per_100k + log_NOx_per_100k + log_VOC_per_100k +",
     "log_gdppc_ppp_dol2011 + log_flsp"
   ))

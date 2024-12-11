@@ -14,6 +14,9 @@
 
 get_gdp_ctry <- function(ssp) {
 
+  iso <- country_name <- year <- pop <- continent <- dev <- variable <- value <-
+    Model <- Scenario <- Region <- Variable <- Unit <- . <- NULL
+
   # Check user input
   if (!ssp %in% c("SSP1", "SSP2", "SSP3", "SSP4", "SSP5")) {
     stop(sprintf(
@@ -33,7 +36,7 @@ get_gdp_ctry <- function(ssp) {
     tidyr::gather(year, value, -Model, -Scenario, -Region, -Variable, -Unit) %>%
     dplyr::mutate(year=gsub("X", "", year)) %>%
     dplyr::filter(Scenario == "Historical Reference") %>%
-    dplyr::filter(complete.cases(.)) %>%
+    dplyr::filter(stats::complete.cases(.)) %>%
     dplyr::filter(year == max(year)) %>%
     dplyr::select(year) %>%
     dplyr::distinct() %>%

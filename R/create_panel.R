@@ -30,6 +30,17 @@
 #' @return A multinational and multi-year data panel to complete the econometric analysis
 create_panel <- function() {
 
+  year <- value <- iso <- sector <- ghg <- fuel <- location_name <- rei_name <-
+    measure_name <- cause_name <- sex_name <- val <- country_name <- Deaths <-
+    `DALYs (Disability-Adjusted Life Years)` <- `YLLs (Years of Life Lost)` <-
+    country <- gdp_ppp_dol2011 <- BC <- OC <- code <- name <- year_month <-
+    value <- iso <- year <- Country.Name <- Country.Code <- Indicator.Name <-
+    Indicator.Code <- GCAM_region <- PrimPM25 <- NOx <- CO <- NMVOC <- flsp_mm2 <-
+    BC_per_100k <- OC_per_100k <- PrimPM25_per_100k <- NOx_per_100k <- CO_per_100k <-
+    VOC_per_100k <- HDD_value <- CDD_value <- BC_per_flsp <- OC_per_flsp <-
+    PrimPM25_per_flsp <- NOx_per_flsp <- CO_per_flsp <- VOC_per_flsp <-
+    Deaths_per_100k <- YLL_per_100k <- DALY_per_100k <- continent <- . <- NULL
+
   rlang::inform('Generating panel ...')
 
   datadir <- paste0(getwd(),"/inst/extdata")
@@ -85,7 +96,7 @@ create_panel <- function() {
 
   # Andorra, San Marino, Monaco, Nauru, Tuvalu and Mariana Islands do not have complete data, and they are dplyr::filtered out
   data <- data %>%
-    dplyr::filter(complete.cases(.))
+    dplyr::filter(stats::complete.cases(.))
 
   #-------------
 
@@ -213,7 +224,7 @@ create_panel <- function() {
   flsp <- read.csv(file.path(datadir, "/socioeconomic/floorspace.csv"))
 
   flsp_long <- flsp %>%
-    tidyr::pivot_longer(cols = starts_with("X"),
+    tidyr::pivot_longer(cols = dplyr::starts_with("X"),
                  names_to = "year",
                  values_to = "flsp") %>%
     dplyr::mutate(year = as.integer(stringr::str_remove(year, "X")),

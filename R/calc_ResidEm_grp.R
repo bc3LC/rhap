@@ -24,6 +24,8 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                              year, pollutant, region,
                              saveOutput = T, pie = T) {
 
+  sector <- scenario <- group <- ghg <- Units <- value <- adj <- Year <-
+    Pollutant <- value_agg <- perc_value <- `GCAM Region` <- . <- NULL
 
   # Create the directory if they do not exist:
   if (!dir.exists("output")) dir.create("output")

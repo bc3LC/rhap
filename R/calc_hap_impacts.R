@@ -25,6 +25,15 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                             saveOutput = T, map = F, anim = T , HIA_var = "deaths",
                             normalized = F, by_gr = F) {
 
+  Country <- country <- sector <- scenario <- region <- year <- group <- ghg <-
+    Units <- value <- adj <-  value_reg <- dec_share <- Pollutant <- `ISO 3` <-
+    Percentatge <- iso3 <- iso <- ssp <- `gcam-consumer` <- value_adj <- building <-
+    unit <- flsp_m2 <- Model <- Scenario <- Region <- Variable <- Unit <- gdp <-
+    value_agg <- share_pop <- gdp_pc <- gdp_agg <- share_gdp <- gdp_dol2011_ppp <-
+    gdp_dol2011_ppp_gr <- data_name <- country_name <- bias.adder <- pred_value <-
+    pred_var <- pred_value_per_100K <- pred_value_per_100K_adj <- HIA <-
+    PrimPM25 <- NOx <- NMVOC <- OC <- BC <- PrimPM25_per_100k <- NOx_per_100k <-
+    VOC_per_100k <- . <- NULL
 
   # Check user input
   if (!HIA_var %in% c("deaths", "yll", "dalys")) {
@@ -484,7 +493,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                   log_VOC_per_100k = log(VOC_per_100k),
                   log_gdppc_ppp_dol2011 = log(gdp_pc_dol2011_ppp_gr),
                   log_flsp = log(flsp_pc_gr)) %>%
-    dplyr::select(scenario, country_name = country, group, year, starts_with("log"), pop_gr) %>%
+    dplyr::select(scenario, country_name = country, group, year, dplyr::starts_with("log"), pop_gr) %>%
     # adjust country names to match to panel data
     gcamdata::left_join_error_no_match(adj_ctry_output, by = "country_name") %>%
     dplyr::mutate(country_name = dplyr::if_else(data_name == "", country_name, data_name)) %>%
@@ -526,7 +535,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                   log_VOC_per_100k = log(VOC_per_100k),
                   log_gdppc_ppp_dol2011 = log(gdp_pc_dol2011_ppp),
                   log_flsp = log(flsp_pc)) %>%
-    dplyr::select(scenario, country_name = country, year, starts_with("log"), pop) %>%
+    dplyr::select(scenario, country_name = country, year, dplyr::starts_with("log"), pop) %>%
     # adjust country names to match to panel data
     gcamdata::left_join_error_no_match(adj_ctry_output, by = "country_name") %>%
     dplyr::mutate(country_name = dplyr::if_else(data_name == "", country_name, data_name)) %>%
@@ -556,7 +565,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
         dplyr::select(country_name = country, bias.adder) %>%
         gcamdata::repeat_add_columns(tibble::tibble(year = unique(output$year))),
       by = c("country_name", "year")) %>%
-    #dplyr::filter(complete.cases(.)) %>%
+    #dplyr::filter(stats::complete.cases(.)) %>%
     dplyr::mutate(pred_value_per_100K = exp(pred_value),
                   pred_var = gsub("log_", "" ,pred_var)) %>%
     dplyr::mutate(pred_value_per_100K_adj = pred_value_per_100K + bias.adder,
@@ -602,7 +611,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
           gcamdata::repeat_add_columns(tibble::tibble(group = unique(em_ctry_gr$group))) %>%
           gcamdata::repeat_add_columns(tibble::tibble(year = unique(output$year))),
         by = c("country_name", "group", "year")) %>%
-      dplyr::filter(complete.cases(.)) %>%
+      dplyr::filter(stats::complete.cases(.)) %>%
       dplyr::mutate(bias.adder = bias.adder / length(unique(em_ctry_gr$group))) %>%
       dplyr::mutate(pred_value_per_100K = exp(pred_value),
                     pred_var = gsub("log_", "" ,pred_var)) %>%
