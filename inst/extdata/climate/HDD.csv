@@ -126,7 +126,7 @@ Togo,1971,1.56413e-4,HDD,CCSM3x,A2,tgo
 Costa Rica,1971,45.00108732,HDD,CCSM3x,A2,cri
 Denmark,1971,1068.104094,HDD,CCSM3x,A2,dnk
 Dominican Republic,1971,18.35517607,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1971,6241.019912,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1971,6241.019912,HDD,CCSM3x,A2,bih
 Slovakia,1971,6875.853921,HDD,CCSM3x,A2,svk
 Estonia,1971,8219.755422,HDD,CCSM3x,A2,est
 Solomon Is.,1971,0.37521531,HDD,CCSM3x,A2,slb
@@ -165,7 +165,7 @@ Cyprus,1971,1698.820166,HDD,CCSM3x,A2,cyp
 Lebanon,1971,2665.845322,HDD,CCSM3x,A2,lbn
 Puerto Rico,1971,3.04482e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1971,1.013485953,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1971,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1971,0,HDD,CCSM3x,A2,tto
 Brunei,1971,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1971,1582.846306,HDD,CCSM3x,A2,pse
 Samoa,1971,0,HDD,CCSM3x,A2,wsm
@@ -303,7 +303,7 @@ Togo,1972,0.004189806,HDD,CCSM3x,A2,tgo
 Costa Rica,1972,44.81209227,HDD,CCSM3x,A2,cri
 Denmark,1972,1066.94082,HDD,CCSM3x,A2,dnk
 Dominican Republic,1972,17.93947451,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1972,6239.420125,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1972,6239.420125,HDD,CCSM3x,A2,bih
 Slovakia,1972,6868.051282,HDD,CCSM3x,A2,svk
 Estonia,1972,8206.25343,HDD,CCSM3x,A2,est
 Solomon Is.,1972,0.372958643,HDD,CCSM3x,A2,slb
@@ -342,7 +342,7 @@ Cyprus,1972,1701.545016,HDD,CCSM3x,A2,cyp
 Lebanon,1972,2666.661857,HDD,CCSM3x,A2,lbn
 Puerto Rico,1972,3.05199e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1972,1.081242793,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1972,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1972,0,HDD,CCSM3x,A2,tto
 Brunei,1972,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1972,1581.034762,HDD,CCSM3x,A2,pse
 Samoa,1972,0,HDD,CCSM3x,A2,wsm
@@ -480,7 +480,7 @@ Togo,1973,0.008449892,HDD,CCSM3x,A2,tgo
 Costa Rica,1973,44.60074173,HDD,CCSM3x,A2,cri
 Denmark,1973,1065.645807,HDD,CCSM3x,A2,dnk
 Dominican Republic,1973,17.54260197,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1973,6236.917463,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1973,6236.917463,HDD,CCSM3x,A2,bih
 Slovakia,1973,6859.778234,HDD,CCSM3x,A2,svk
 Estonia,1973,8191.971778,HDD,CCSM3x,A2,est
 Solomon Is.,1973,0.370297042,HDD,CCSM3x,A2,slb
@@ -519,7 +519,7 @@ Cyprus,1973,1703.767286,HDD,CCSM3x,A2,cyp
 Lebanon,1973,2666.971035,HDD,CCSM3x,A2,lbn
 Puerto Rico,1973,3.0343e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1973,1.149722051,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1973,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1973,0,HDD,CCSM3x,A2,tto
 Brunei,1973,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1973,1578.983289,HDD,CCSM3x,A2,pse
 Samoa,1973,0,HDD,CCSM3x,A2,wsm
@@ -657,7 +657,7 @@ Togo,1974,0.012916646,HDD,CCSM3x,A2,tgo
 Costa Rica,1974,44.36790157,HDD,CCSM3x,A2,cri
 Denmark,1974,1064.224706,HDD,CCSM3x,A2,dnk
 Dominican Republic,1974,17.16383218,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1974,6233.541443,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1974,6233.541443,HDD,CCSM3x,A2,bih
 Slovakia,1974,6851.048937,HDD,CCSM3x,A2,svk
 Estonia,1974,8176.94647,HDD,CCSM3x,A2,est
 Solomon Is.,1974,0.36724929,HDD,CCSM3x,A2,slb
@@ -696,7 +696,7 @@ Cyprus,1974,1705.503297,HDD,CCSM3x,A2,cyp
 Lebanon,1974,2666.787425,HDD,CCSM3x,A2,lbn
 Puerto Rico,1974,2.99335e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1974,1.218918307,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1974,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1974,0,HDD,CCSM3x,A2,tto
 Brunei,1974,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1974,1576.698294,HDD,CCSM3x,A2,pse
 Samoa,1974,0,HDD,CCSM3x,A2,wsm
@@ -834,7 +834,7 @@ Togo,1975,0.017570468,HDD,CCSM3x,A2,tgo
 Costa Rica,1975,44.11442489,HDD,CCSM3x,A2,cri
 Denmark,1975,1062.683072,HDD,CCSM3x,A2,dnk
 Dominican Republic,1975,16.80245125,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1975,6229.321128,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1975,6229.321128,HDD,CCSM3x,A2,bih
 Slovakia,1975,6841.877323,HDD,CCSM3x,A2,svk
 Estonia,1975,8161.212839,HDD,CCSM3x,A2,est
 Solomon Is.,1975,0.363833866,HDD,CCSM3x,A2,slb
@@ -873,7 +873,7 @@ Cyprus,1975,1706.769113,HDD,CCSM3x,A2,cyp
 Lebanon,1975,2666.125382,HDD,CCSM3x,A2,lbn
 Puerto Rico,1975,2.93067e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1975,1.288824519,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1975,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1975,0,HDD,CCSM3x,A2,tto
 Brunei,1975,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1975,1574.186086,HDD,CCSM3x,A2,pse
 Samoa,1975,0,HDD,CCSM3x,A2,wsm
@@ -1011,7 +1011,7 @@ Togo,1976,0.022392187,HDD,CCSM3x,A2,tgo
 Costa Rica,1976,43.84115204,HDD,CCSM3x,A2,cri
 Denmark,1976,1061.026359,HDD,CCSM3x,A2,dnk
 Dominican Republic,1976,16.45775769,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1976,6224.285117,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1976,6224.285117,HDD,CCSM3x,A2,bih
 Slovakia,1976,6832.277096,HDD,CCSM3x,A2,svk
 Estonia,1976,8144.805546,HDD,CCSM3x,A2,est
 Solomon Is.,1976,0.360068947,HDD,CCSM3x,A2,slb
@@ -1050,7 +1050,7 @@ Cyprus,1976,1707.580547,HDD,CCSM3x,A2,cyp
 Lebanon,1976,2664.999052,HDD,CCSM3x,A2,lbn
 Puerto Rico,1976,2.84779e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1976,1.359432028,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1976,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1976,0,HDD,CCSM3x,A2,tto
 Brunei,1976,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1976,1571.45288,HDD,CCSM3x,A2,pse
 Samoa,1976,0,HDD,CCSM3x,A2,wsm
@@ -1188,7 +1188,7 @@ Togo,1977,0.027363061,HDD,CCSM3x,A2,tgo
 Costa Rica,1977,43.54891072,HDD,CCSM3x,A2,cri
 Denmark,1977,1059.259921,HDD,CCSM3x,A2,dnk
 Dominican Republic,1977,16.12906245,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1977,6218.461554,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1977,6218.461554,HDD,CCSM3x,A2,bih
 Slovakia,1977,6822.261735,HDD,CCSM3x,A2,svk
 Estonia,1977,8127.758577,HDD,CCSM3x,A2,est
 Solomon Is.,1977,0.35597241,HDD,CCSM3x,A2,slb
@@ -1227,7 +1227,7 @@ Cyprus,1977,1707.95315,HDD,CCSM3x,A2,cyp
 Lebanon,1977,2663.422366,HDD,CCSM3x,A2,lbn
 Puerto Rico,1977,2.74618e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1977,1.430730556,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1977,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1977,0,HDD,CCSM3x,A2,tto
 Brunei,1977,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1977,1568.504792,HDD,CCSM3x,A2,pse
 Samoa,1977,0,HDD,CCSM3x,A2,wsm
@@ -1365,7 +1365,7 @@ Togo,1978,0.032464776,HDD,CCSM3x,A2,tgo
 Costa Rica,1978,43.23851581,HDD,CCSM3x,A2,cri
 Denmark,1978,1057.389015,HDD,CCSM3x,A2,dnk
 Dominican Republic,1978,15.81568882,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1978,6211.878122,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1978,6211.878122,HDD,CCSM3x,A2,bih
 Slovakia,1978,6811.844491,HDD,CCSM3x,A2,svk
 Estonia,1978,8110.105245,HDD,CCSM3x,A2,est
 Solomon Is.,1978,0.351561827,HDD,CCSM3x,A2,slb
@@ -1404,7 +1404,7 @@ Cyprus,1978,1707.902224,HDD,CCSM3x,A2,cyp
 Lebanon,1978,2661.409044,HDD,CCSM3x,A2,lbn
 Puerto Rico,1978,2.62732e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1978,1.502708208,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1978,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1978,0,HDD,CCSM3x,A2,tto
 Brunei,1978,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1978,1565.34784,HDD,CCSM3x,A2,pse
 Samoa,1978,0,HDD,CCSM3x,A2,wsm
@@ -1542,7 +1542,7 @@ Togo,1979,0.037679444,HDD,CCSM3x,A2,tgo
 Costa Rica,1979,42.91076955,HDD,CCSM3x,A2,cri
 Denmark,1979,1055.418795,HDD,CCSM3x,A2,dnk
 Dominican Republic,1979,15.51697255,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1979,6204.562046,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1979,6204.562046,HDD,CCSM3x,A2,bih
 Slovakia,1979,6801.03839,HDD,CCSM3x,A2,svk
 Estonia,1979,8091.87819,HDD,CCSM3x,A2,est
 Solomon Is.,1979,0.346854472,HDD,CCSM3x,A2,slb
@@ -1581,7 +1581,7 @@ Cyprus,1979,1707.44281,HDD,CCSM3x,A2,cyp
 Lebanon,1979,2658.972594,HDD,CCSM3x,A2,lbn
 Puerto Rico,1979,2.49261e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1979,1.575351473,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1979,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1979,0,HDD,CCSM3x,A2,tto
 Brunei,1979,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1979,1561.987947,HDD,CCSM3x,A2,pse
 Samoa,1979,0,HDD,CCSM3x,A2,wsm
@@ -1719,7 +1719,7 @@ Togo,1980,0.042989608,HDD,CCSM3x,A2,tgo
 Costa Rica,1980,42.56646138,HDD,CCSM3x,A2,cri
 Denmark,1980,1053.35432,HDD,CCSM3x,A2,dnk
 Dominican Republic,1980,15.23226173,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1980,6196.540093,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1980,6196.540093,HDD,CCSM3x,A2,bih
 Slovakia,1980,6789.85623,HDD,CCSM3x,A2,svk
 Estonia,1980,8073.10938,HDD,CCSM3x,A2,est
 Solomon Is.,1980,0.341867313,HDD,CCSM3x,A2,slb
@@ -1758,7 +1758,7 @@ Cyprus,1980,1706.589695,HDD,CCSM3x,A2,cyp
 Lebanon,1980,2656.126311,HDD,CCSM3x,A2,lbn
 Puerto Rico,1980,2.34345e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1980,1.648645217,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1980,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1980,0,HDD,CCSM3x,A2,tto
 Brunei,1980,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1980,1558.430938,HDD,CCSM3x,A2,pse
 Samoa,1980,0,HDD,CCSM3x,A2,wsm
@@ -1896,7 +1896,7 @@ Togo,1981,0.048378238,HDD,CCSM3x,A2,tgo
 Costa Rica,1981,42.20636809,HDD,CCSM3x,A2,cri
 Denmark,1981,1051.200546,HDD,CCSM3x,A2,dnk
 Dominican Republic,1981,14.9609169,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1981,6187.838571,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1981,6187.838571,HDD,CCSM3x,A2,bih
 Slovakia,1981,6778.310583,HDD,CCSM3x,A2,svk
 Estonia,1981,8053.830111,HDD,CCSM3x,A2,est
 Solomon Is.,1981,0.336617019,HDD,CCSM3x,A2,slb
@@ -1935,7 +1935,7 @@ Cyprus,1981,1705.357411,HDD,CCSM3x,A2,cyp
 Lebanon,1981,2652.883279,HDD,CCSM3x,A2,lbn
 Puerto Rico,1981,2.18119e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1981,1.722572691,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1981,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1981,0,HDD,CCSM3x,A2,tto
 Brunei,1981,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1981,1554.68254,HDD,CCSM3x,A2,pse
 Samoa,1981,0,HDD,CCSM3x,A2,wsm
@@ -2073,7 +2073,7 @@ Togo,1982,0.053828732,HDD,CCSM3x,A2,tgo
 Costa Rica,1982,41.83125367,HDD,CCSM3x,A2,cri
 Denmark,1982,1048.962331,HDD,CCSM3x,A2,dnk
 Dominican Republic,1982,14.70231098,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1982,6178.483329,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1982,6178.483329,HDD,CCSM3x,A2,bih
 Slovakia,1982,6766.413793,HDD,CCSM3x,A2,svk
 Estonia,1982,8034.071002,HDD,CCSM3x,A2,est
 Solomon Is.,1982,0.331119956,HDD,CCSM3x,A2,slb
@@ -2112,7 +2112,7 @@ Cyprus,1982,1703.760234,HDD,CCSM3x,A2,cyp
 Lebanon,1982,2649.256368,HDD,CCSM3x,A2,lbn
 Puerto Rico,1982,2.00718e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1982,1.797115529,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1982,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1982,0,HDD,CCSM3x,A2,tto
 Brunei,1982,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1982,1550.748387,HDD,CCSM3x,A2,pse
 Samoa,1982,0,HDD,CCSM3x,A2,wsm
@@ -2250,7 +2250,7 @@ Togo,1983,0.059324915,HDD,CCSM3x,A2,tgo
 Costa Rica,1983,41.44186942,HDD,CCSM3x,A2,cri
 Denmark,1983,1046.644434,HDD,CCSM3x,A2,dnk
 Dominican Republic,1983,14.45582929,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1983,6168.499756,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1983,6168.499756,HDD,CCSM3x,A2,bih
 Slovakia,1983,6754.177978,HDD,CCSM3x,A2,svk
 Estonia,1983,8013.862003,HDD,CCSM3x,A2,est
 Solomon Is.,1983,0.325392187,HDD,CCSM3x,A2,slb
@@ -2289,7 +2289,7 @@ Cyprus,1983,1701.812182,HDD,CCSM3x,A2,cyp
 Lebanon,1983,2645.258238,HDD,CCSM3x,A2,lbn
 Puerto Rico,1983,1.82269e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1983,1.872253744,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1983,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1983,0,HDD,CCSM3x,A2,tto
 Brunei,1983,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1983,1546.63401,HDD,CCSM3x,A2,pse
 Samoa,1983,0,HDD,CCSM3x,A2,wsm
@@ -2427,7 +2427,7 @@ Togo,1984,0.064851041,HDD,CCSM3x,A2,tgo
 Costa Rica,1984,41.03895391,HDD,CCSM3x,A2,cri
 Denmark,1984,1044.251514,HDD,CCSM3x,A2,dnk
 Dominican Republic,1984,14.22086954,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1984,6157.912785,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1984,6157.912785,HDD,CCSM3x,A2,bih
 Slovakia,1984,6741.61503,HDD,CCSM3x,A2,svk
 Estonia,1984,7993.232389,HDD,CCSM3x,A2,est
 Solomon Is.,1984,0.319449475,HDD,CCSM3x,A2,slb
@@ -2466,7 +2466,7 @@ Cyprus,1984,1699.527022,HDD,CCSM3x,A2,cyp
 Lebanon,1984,2640.901335,HDD,CCSM3x,A2,lbn
 Puerto Rico,1984,1.629e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1984,1.947965732,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1984,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1984,0,HDD,CCSM3x,A2,tto
 Brunei,1984,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1984,1542.344848,HDD,CCSM3x,A2,pse
 Samoa,1984,0,HDD,CCSM3x,A2,wsm
@@ -2604,7 +2604,7 @@ Togo,1985,0.070391794,HDD,CCSM3x,A2,tgo
 Costa Rica,1985,40.62323298,HDD,CCSM3x,A2,cri
 Denmark,1985,1041.788132,HDD,CCSM3x,A2,dnk
 Dominican Republic,1985,13.99684187,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1985,6146.746888,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1985,6146.746888,HDD,CCSM3x,A2,bih
 Slovakia,1985,6728.736614,HDD,CCSM3x,A2,svk
 Estonia,1985,7972.210762,HDD,CCSM3x,A2,est
 Solomon Is.,1985,0.313307281,HDD,CCSM3x,A2,slb
@@ -2643,7 +2643,7 @@ Cyprus,1985,1696.918259,HDD,CCSM3x,A2,cyp
 Lebanon,1985,2636.197893,HDD,CCSM3x,A2,lbn
 Puerto Rico,1985,1.42733e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1985,2.024228274,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1985,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1985,0,HDD,CCSM3x,A2,tto
 Brunei,1985,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1985,1537.886241,HDD,CCSM3x,A2,pse
 Samoa,1985,0,HDD,CCSM3x,A2,wsm
@@ -2781,7 +2781,7 @@ Togo,1986,0.075932283,HDD,CCSM3x,A2,tgo
 Costa Rica,1986,40.19541976,HDD,CCSM3x,A2,cri
 Denmark,1986,1039.258747,HDD,CCSM3x,A2,dnk
 Dominican Republic,1986,13.7831688,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1986,6135.026079,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1986,6135.026079,HDD,CCSM3x,A2,bih
 Slovakia,1986,6715.554168,HDD,CCSM3x,A2,svk
 Estonia,1986,7950.825052,HDD,CCSM3x,A2,est
 Solomon Is.,1986,0.306980762,HDD,CCSM3x,A2,slb
@@ -2820,7 +2820,7 @@ Cyprus,1986,1693.999148,HDD,CCSM3x,A2,cyp
 Lebanon,1986,2631.159935,HDD,CCSM3x,A2,lbn
 Puerto Rico,1986,1.21889e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1986,2.101016526,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1986,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1986,0,HDD,CCSM3x,A2,tto
 Brunei,1986,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1986,1533.263432,HDD,CCSM3x,A2,pse
 Samoa,1986,0,HDD,CCSM3x,A2,wsm
@@ -2958,7 +2958,7 @@ Togo,1987,0.081458047,HDD,CCSM3x,A2,tgo
 Costa Rica,1987,39.75621463,HDD,CCSM3x,A2,cri
 Denmark,1987,1036.667722,HDD,CCSM3x,A2,dnk
 Dominican Republic,1987,13.57928524,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1987,6122.773915,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1987,6122.773915,HDD,CCSM3x,A2,bih
 Slovakia,1987,6702.078903,HDD,CCSM3x,A2,svk
 Estonia,1987,7929.102516,HDD,CCSM3x,A2,est
 Solomon Is.,1987,0.300484775,HDD,CCSM3x,A2,slb
@@ -2997,7 +2997,7 @@ Cyprus,1987,1690.782685,HDD,CCSM3x,A2,cyp
 Lebanon,1987,2625.799271,HDD,CCSM3x,A2,lbn
 Puerto Rico,1987,1.00484e-4,HDD,CCSM3x,A2,pri
 Cape Verde,1987,2.178304033,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1987,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1987,0,HDD,CCSM3x,A2,tto
 Brunei,1987,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1987,1528.481568,HDD,CCSM3x,A2,pse
 Samoa,1987,0,HDD,CCSM3x,A2,wsm
@@ -3135,7 +3135,7 @@ Togo,1988,0.086955052,HDD,CCSM3x,A2,tgo
 Costa Rica,1988,39.30630524,HDD,CCSM3x,A2,cri
 Denmark,1988,1034.019317,HDD,CCSM3x,A2,dnk
 Dominican Republic,1988,13.38463852,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1988,6110.013491,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1988,6110.013491,HDD,CCSM3x,A2,bih
 Slovakia,1988,6688.321804,HDD,CCSM3x,A2,svk
 Estonia,1988,7907.069736,HDD,CCSM3x,A2,est
 Solomon Is.,1988,0.293833874,HDD,CCSM3x,A2,slb
@@ -3174,7 +3174,7 @@ Cyprus,1988,1687.281612,HDD,CCSM3x,A2,cyp
 Lebanon,1988,2620.1275,HDD,CCSM3x,A2,lbn
 Puerto Rico,1988,7.86e-5,HDD,CCSM3x,A2,pri
 Cape Verde,1988,2.256062719,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1988,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1988,0,HDD,CCSM3x,A2,tto
 Brunei,1988,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1988,1523.545696,HDD,CCSM3x,A2,pse
 Samoa,1988,0,HDD,CCSM3x,A2,wsm
@@ -3312,7 +3312,7 @@ Togo,1989,0.092409694,HDD,CCSM3x,A2,tgo
 Costa Rica,1989,38.84636655,HDD,CCSM3x,A2,cri
 Denmark,1989,1031.317695,HDD,CCSM3x,A2,dnk
 Dominican Republic,1989,13.19868835,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1989,6096.767445,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1989,6096.767445,HDD,CCSM3x,A2,bih
 Slovakia,1989,6674.293629,HDD,CCSM3x,A2,svk
 Estonia,1989,7884.752623,HDD,CCSM3x,A2,est
 Solomon Is.,1989,0.287042312,HDD,CCSM3x,A2,slb
@@ -3351,7 +3351,7 @@ Cyprus,1989,1683.508412,HDD,CCSM3x,A2,cyp
 Lebanon,1989,2614.156005,HDD,CCSM3x,A2,lbn
 Puerto Rico,1989,5.64e-5,HDD,CCSM3x,A2,pri
 Cape Verde,1989,2.334262888,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1989,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1989,0,HDD,CCSM3x,A2,tto
 Brunei,1989,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1989,1518.46077,HDD,CCSM3x,A2,pse
 Samoa,1989,0,HDD,CCSM3x,A2,wsm
@@ -3489,7 +3489,7 @@ Togo,1990,0.097808795,HDD,CCSM3x,A2,tgo
 Costa Rica,1990,38.37706076,HDD,CCSM3x,A2,cri
 Denmark,1990,1028.56692,HDD,CCSM3x,A2,dnk
 Dominican Republic,1990,13.02090687,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1990,6083.057956,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1990,6083.057956,HDD,CCSM3x,A2,bih
 Slovakia,1990,6660.004909,HDD,CCSM3x,A2,svk
 Estonia,1990,7862.176414,HDD,CCSM3x,A2,est
 Solomon Is.,1990,0.280124038,HDD,CCSM3x,A2,slb
@@ -3528,7 +3528,7 @@ Cyprus,1990,1679.475317,HDD,CCSM3x,A2,cyp
 Lebanon,1990,2607.895962,HDD,CCSM3x,A2,lbn
 Puerto Rico,1990,3.4e-5,HDD,CCSM3x,A2,pri
 Cape Verde,1990,2.412873229,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1990,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1990,0,HDD,CCSM3x,A2,tto
 Brunei,1990,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1990,1513.231645,HDD,CCSM3x,A2,pse
 Samoa,1990,0,HDD,CCSM3x,A2,wsm
@@ -3666,7 +3666,7 @@ Togo,1991,0.103139606,HDD,CCSM3x,A2,tgo
 Costa Rica,1991,37.89903736,HDD,CCSM3x,A2,cri
 Denmark,1991,1025.770955,HDD,CCSM3x,A2,dnk
 Dominican Republic,1991,12.85077861,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1991,6068.906747,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1991,6068.906747,HDD,CCSM3x,A2,bih
 Slovakia,1991,6645.465949,HDD,CCSM3x,A2,svk
 Estonia,1991,7839.365674,HDD,CCSM3x,A2,est
 Solomon Is.,1991,0.273092702,HDD,CCSM3x,A2,slb
@@ -3705,7 +3705,7 @@ Cyprus,1991,1675.1943,HDD,CCSM3x,A2,cyp
 Lebanon,1991,2601.358332,HDD,CCSM3x,A2,lbn
 Puerto Rico,1991,1.15e-5,HDD,CCSM3x,A2,pri
 Cape Verde,1991,2.491860812,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1991,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1991,0,HDD,CCSM3x,A2,tto
 Brunei,1991,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1991,1507.863079,HDD,CCSM3x,A2,pse
 Samoa,1991,0,HDD,CCSM3x,A2,wsm
@@ -3843,7 +3843,7 @@ Togo,1992,0.108389807,HDD,CCSM3x,A2,tgo
 Costa Rica,1992,37.4129331,HDD,CCSM3x,A2,cri
 Denmark,1992,1022.933665,HDD,CCSM3x,A2,dnk
 Dominican Republic,1992,12.68780046,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1992,6054.335076,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1992,6054.335076,HDD,CCSM3x,A2,bih
 Slovakia,1992,6630.686827,HDD,CCSM3x,A2,svk
 Estonia,1992,7816.344295,HDD,CCSM3x,A2,est
 Solomon Is.,1992,0.26596165,HDD,CCSM3x,A2,slb
@@ -3882,7 +3882,7 @@ Cyprus,1992,1670.677078,HDD,CCSM3x,A2,cyp
 Lebanon,1992,2594.553863,HDD,CCSM3x,A2,lbn
 Puerto Rico,1992,0,HDD,CCSM3x,A2,pri
 Cape Verde,1992,2.571191088,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1992,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1992,0,HDD,CCSM3x,A2,tto
 Brunei,1992,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1992,1502.359733,HDD,CCSM3x,A2,pse
 Samoa,1992,0,HDD,CCSM3x,A2,wsm
@@ -4020,7 +4020,7 @@ Togo,1993,0.113547504,HDD,CCSM3x,A2,tgo
 Costa Rica,1993,36.91937201,HDD,CCSM3x,A2,cri
 Denmark,1993,1020.058813,HDD,CCSM3x,A2,dnk
 Dominican Republic,1993,12.53148175,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1993,6039.363749,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1993,6039.363749,HDD,CCSM3x,A2,bih
 Slovakia,1993,6615.677393,HDD,CCSM3x,A2,svk
 Estonia,1993,7793.135493,HDD,CCSM3x,A2,est
 Solomon Is.,1993,0.258743927,HDD,CCSM3x,A2,slb
@@ -4059,7 +4059,7 @@ Cyprus,1993,1665.935115,HDD,CCSM3x,A2,cyp
 Lebanon,1993,2587.493093,HDD,CCSM3x,A2,lbn
 Puerto Rico,1993,0,HDD,CCSM3x,A2,pri
 Cape Verde,1993,2.650827891,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1993,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1993,0,HDD,CCSM3x,A2,tto
 Brunei,1993,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1993,1496.726171,HDD,CCSM3x,A2,pse
 Samoa,1993,0,HDD,CCSM3x,A2,wsm
@@ -4197,7 +4197,7 @@ Togo,1994,0.118601233,HDD,CCSM3x,A2,tgo
 Costa Rica,1994,36.4189654,HDD,CCSM3x,A2,cri
 Denmark,1994,1017.150067,HDD,CCSM3x,A2,dnk
 Dominican Republic,1994,12.38134422,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1994,6024.013109,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1994,6024.013109,HDD,CCSM3x,A2,bih
 Slovakia,1994,6600.447273,HDD,CCSM3x,A2,svk
 Estonia,1994,7769.761815,HDD,CCSM3x,A2,est
 Solomon Is.,1994,0.251452275,HDD,CCSM3x,A2,slb
@@ -4236,7 +4236,7 @@ Cyprus,1994,1660.979617,HDD,CCSM3x,A2,cyp
 Lebanon,1994,2580.186345,HDD,CCSM3x,A2,lbn
 Puerto Rico,1994,0,HDD,CCSM3x,A2,pri
 Cape Verde,1994,2.730733437,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1994,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1994,0,HDD,CCSM3x,A2,tto
 Brunei,1994,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1994,1490.96686,HDD,CCSM3x,A2,pse
 Samoa,1994,0,HDD,CCSM3x,A2,wsm
@@ -4374,7 +4374,7 @@ Togo,1995,0.123539958,HDD,CCSM3x,A2,tgo
 Costa Rica,1995,35.91231185,HDD,CCSM3x,A2,cri
 Denmark,1995,1014.210993,HDD,CCSM3x,A2,dnk
 Dominican Republic,1995,12.23692198,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1995,6008.303042,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1995,6008.303042,HDD,CCSM3x,A2,bih
 Slovakia,1995,6585.005864,HDD,CCSM3x,A2,svk
 Estonia,1995,7746.245133,HDD,CCSM3x,A2,est
 Solomon Is.,1995,0.244099136,HDD,CCSM3x,A2,slb
@@ -4413,7 +4413,7 @@ Cyprus,1995,1655.821534,HDD,CCSM3x,A2,cyp
 Lebanon,1995,2572.643734,HDD,CCSM3x,A2,lbn
 Puerto Rico,1995,0,HDD,CCSM3x,A2,pri
 Cape Verde,1995,2.810868321,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1995,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1995,0,HDD,CCSM3x,A2,tto
 Brunei,1995,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1995,1485.086171,HDD,CCSM3x,A2,pse
 Samoa,1995,0,HDD,CCSM3x,A2,wsm
@@ -4551,7 +4551,7 @@ Togo,1996,0.128353069,HDD,CCSM3x,A2,tgo
 Costa Rica,1996,35.39999722,HDD,CCSM3x,A2,cri
 Denmark,1996,1011.245057,HDD,CCSM3x,A2,dnk
 Dominican Republic,1996,12.09776156,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1996,5992.252974,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1996,5992.252974,HDD,CCSM3x,A2,bih
 Slovakia,1996,6569.362336,HDD,CCSM3x,A2,svk
 Estonia,1996,7722.606646,HDD,CCSM3x,A2,est
 Solomon Is.,1996,0.236696647,HDD,CCSM3x,A2,slb
@@ -4590,7 +4590,7 @@ Cyprus,1996,1650.471562,HDD,CCSM3x,A2,cyp
 Lebanon,1996,2564.875159,HDD,CCSM3x,A2,lbn
 Puerto Rico,1996,0,HDD,CCSM3x,A2,pri
 Cape Verde,1996,2.891191526,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1996,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1996,0,HDD,CCSM3x,A2,tto
 Brunei,1996,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1996,1479.088377,HDD,CCSM3x,A2,pse
 Samoa,1996,0,HDD,CCSM3x,A2,wsm
@@ -4728,7 +4728,7 @@ Togo,1997,0.133030387,HDD,CCSM3x,A2,tgo
 Costa Rica,1997,34.88259463,HDD,CCSM3x,A2,cri
 Denmark,1997,1008.255626,HDD,CCSM3x,A2,dnk
 Dominican Republic,1997,11.96342188,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1997,5975.881875,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1997,5975.881875,HDD,CCSM3x,A2,bih
 Slovakia,1997,6553.525635,HDD,CCSM3x,A2,svk
 Estonia,1997,7698.866881,HDD,CCSM3x,A2,est
 Solomon Is.,1997,0.229256647,HDD,CCSM3x,A2,slb
@@ -4767,7 +4767,7 @@ Cyprus,1997,1644.94014,HDD,CCSM3x,A2,cyp
 Lebanon,1997,2556.890308,HDD,CCSM3x,A2,lbn
 Puerto Rico,1997,0,HDD,CCSM3x,A2,pri
 Cape Verde,1997,2.97166041,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1997,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1997,0,HDD,CCSM3x,A2,tto
 Brunei,1997,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1997,1472.977654,HDD,CCSM3x,A2,pse
 Samoa,1997,0,HDD,CCSM3x,A2,wsm
@@ -4905,7 +4905,7 @@ Togo,1998,0.137562159,HDD,CCSM3x,A2,tgo
 Costa Rica,1998,34.36066446,HDD,CCSM3x,A2,cri
 Denmark,1998,1005.2459700000001,HDD,CCSM3x,A2,dnk
 Dominican Republic,1998,11.83347426,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1998,5959.208253,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1998,5959.208253,HDD,CCSM3x,A2,bih
 Slovakia,1998,6537.504479,HDD,CCSM3x,A2,svk
 Estonia,1998,7675.045691,HDD,CCSM3x,A2,est
 Solomon Is.,1998,0.22179067,HDD,CCSM3x,A2,slb
@@ -4944,7 +4944,7 @@ Cyprus,1998,1639.237451,HDD,CCSM3x,A2,cyp
 Lebanon,1998,2548.698658,HDD,CCSM3x,A2,lbn
 Puerto Rico,1998,0,HDD,CCSM3x,A2,pri
 Cape Verde,1998,3.052230719,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1998,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1998,0,HDD,CCSM3x,A2,tto
 Brunei,1998,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1998,1466.758081,HDD,CCSM3x,A2,pse
 Samoa,1998,0,HDD,CCSM3x,A2,wsm
@@ -5082,7 +5082,7 @@ Togo,1999,0.141939061,HDD,CCSM3x,A2,tgo
 Costa Rica,1999,33.83475441,HDD,CCSM3x,A2,cri
 Denmark,1999,1002.219257,HDD,CCSM3x,A2,dnk
 Dominican Republic,1999,11.70750242,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,1999,5942.250158,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,1999,5942.250158,HDD,CCSM3x,A2,bih
 Slovakia,1999,6521.307357,HDD,CCSM3x,A2,svk
 Estonia,1999,7651.162255,HDD,CCSM3x,A2,est
 Solomon Is.,1999,0.214309948,HDD,CCSM3x,A2,slb
@@ -5121,7 +5121,7 @@ Cyprus,1999,1633.3734240000001,HDD,CCSM3x,A2,cyp
 Lebanon,1999,2540.309472,HDD,CCSM3x,A2,lbn
 Puerto Rico,1999,0,HDD,CCSM3x,A2,pri
 Cape Verde,1999,3.132856575,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,1999,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,1999,0,HDD,CCSM3x,A2,tto
 Brunei,1999,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,1999,1460.43364,HDD,CCSM3x,A2,pse
 Samoa,1999,0,HDD,CCSM3x,A2,wsm
@@ -5259,7 +5259,7 @@ Togo,2000,0.146152197,HDD,CCSM3x,A2,tgo
 Costa Rica,2000,33.30539941,HDD,CCSM3x,A2,cri
 Denmark,2000,999.1785559,HDD,CCSM3x,A2,dnk
 Dominican Republic,2000,11.58510249,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2000,5925.025184,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2000,5925.025184,HDD,CCSM3x,A2,bih
 Slovakia,2000,6504.942535,HDD,CCSM3x,A2,svk
 Estonia,2000,7627.235081,HDD,CCSM3x,A2,est
 Solomon Is.,2000,0.206825414,HDD,CCSM3x,A2,slb
@@ -5298,7 +5298,7 @@ Cyprus,2000,1627.35773,HDD,CCSM3x,A2,cyp
 Lebanon,2000,2531.731801,HDD,CCSM3x,A2,lbn
 Puerto Rico,2000,0,HDD,CCSM3x,A2,pri
 Cape Verde,2000,3.213490488,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2000,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2000,0,HDD,CCSM3x,A2,tto
 Brunei,2000,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2000,1454.008217,HDD,CCSM3x,A2,pse
 Samoa,2000,0,HDD,CCSM3x,A2,wsm
@@ -5436,7 +5436,7 @@ Togo,2001,0.1501931,HDD,CCSM3x,A2,tgo
 Costa Rica,2001,32.7731217,HDD,CCSM3x,A2,cri
 Denmark,2001,996.1268374,HDD,CCSM3x,A2,dnk
 Dominican Republic,2001,11.46588301,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2001,5907.550463,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2001,5907.550463,HDD,CCSM3x,A2,bih
 Slovakia,2001,6488.41805,HDD,CCSM3x,A2,svk
 Estonia,2001,7603.282004,HDD,CCSM3x,A2,est
 Solomon Is.,2001,0.199347696,HDD,CCSM3x,A2,slb
@@ -5475,7 +5475,7 @@ Cyprus,2001,1621.199785,HDD,CCSM3x,A2,cyp
 Lebanon,2001,2522.974485,HDD,CCSM3x,A2,lbn
 Puerto Rico,2001,0,HDD,CCSM3x,A2,pri
 Cape Verde,2001,3.294083345,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2001,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2001,0,HDD,CCSM3x,A2,tto
 Brunei,2001,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2001,1447.4856,HDD,CCSM3x,A2,pse
 Samoa,2001,0,HDD,CCSM3x,A2,wsm
@@ -5613,7 +5613,7 @@ Togo,2002,0.15405373,HDD,CCSM3x,A2,tgo
 Costa Rica,2002,32.23843076,HDD,CCSM3x,A2,cri
 Denmark,2002,993.0669721,HDD,CCSM3x,A2,dnk
 Dominican Republic,2002,11.34946486,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2002,5889.84267,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2002,5889.84267,HDD,CCSM3x,A2,bih
 Slovakia,2002,6471.741712,HDD,CCSM3x,A2,svk
 Estonia,2002,7579.320184,HDD,CCSM3x,A2,est
 Solomon Is.,2002,0.19188712,HDD,CCSM3x,A2,slb
@@ -5652,7 +5652,7 @@ Cyprus,2002,1614.908751,HDD,CCSM3x,A2,cyp
 Lebanon,2002,2514.046152,HDD,CCSM3x,A2,lbn
 Puerto Rico,2002,0,HDD,CCSM3x,A2,pri
 Cape Verde,2002,3.374584417,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2002,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2002,0,HDD,CCSM3x,A2,tto
 Brunei,2002,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2002,1440.869479,HDD,CCSM3x,A2,pse
 Samoa,2002,0,HDD,CCSM3x,A2,wsm
@@ -5790,7 +5790,7 @@ Togo,2003,0.157726474,HDD,CCSM3x,A2,tgo
 Costa Rica,2003,31.70182336,HDD,CCSM3x,A2,cri
 Denmark,2003,990.0017313,HDD,CCSM3x,A2,dnk
 Dominican Republic,2003,11.23548141,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2003,5871.91802,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2003,5871.91802,HDD,CCSM3x,A2,bih
 Slovakia,2003,6454.921107,HDD,CCSM3x,A2,svk
 Estonia,2003,7555.366111,HDD,CCSM3x,A2,est
 Solomon Is.,2003,0.184453714,HDD,CCSM3x,A2,slb
@@ -5829,7 +5829,7 @@ Cyprus,2003,1608.493531,HDD,CCSM3x,A2,cyp
 Lebanon,2003,2504.955216,HDD,CCSM3x,A2,lbn
 Puerto Rico,2003,0,HDD,CCSM3x,A2,pri
 Cape Verde,2003,3.454941358,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2003,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2003,0,HDD,CCSM3x,A2,tto
 Brunei,2003,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2003,1434.163449,HDD,CCSM3x,A2,pse
 Samoa,2003,0,HDD,CCSM3x,A2,wsm
@@ -5967,7 +5967,7 @@ Togo,2004,0.16120415,HDD,CCSM3x,A2,tgo
 Costa Rica,2004,31.16378354,HDD,CCSM3x,A2,cri
 Denmark,2004,986.933787,HDD,CCSM3x,A2,dnk
 Dominican Republic,2004,11.12357835,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2004,5853.792272,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2004,5853.792272,HDD,CCSM3x,A2,bih
 Slovakia,2004,6437.963591,HDD,CCSM3x,A2,svk
 Estonia,2004,7531.435597,HDD,CCSM3x,A2,est
 Solomon Is.,2004,0.177057199,HDD,CCSM3x,A2,slb
@@ -6006,7 +6006,7 @@ Cyprus,2004,1601.962776,HDD,CCSM3x,A2,cyp
 Lebanon,2004,2495.70988,HDD,CCSM3x,A2,lbn
 Puerto Rico,2004,0,HDD,CCSM3x,A2,pri
 Cape Verde,2004,3.535100201,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2004,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2004,0,HDD,CCSM3x,A2,tto
 Brunei,2004,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2004,1427.371008,HDD,CCSM3x,A2,pse
 Samoa,2004,0,HDD,CCSM3x,A2,wsm
@@ -6144,7 +6144,7 @@ Togo,2005,0.164480001,HDD,CCSM3x,A2,tgo
 Costa Rica,2005,30.62478262,HDD,CCSM3x,A2,cri
 Denmark,2005,983.8657119,HDD,CCSM3x,A2,dnk
 Dominican Republic,2005,11.01341382,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2005,5835.480722,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2005,5835.480722,HDD,CCSM3x,A2,bih
 Slovakia,2005,6420.876295,HDD,CCSM3x,A2,svk
 Estonia,2005,7507.543787,HDD,CCSM3x,A2,est
 Solomon Is.,2005,0.169706997,HDD,CCSM3x,A2,slb
@@ -6183,7 +6183,7 @@ Cyprus,2005,1595.324877,HDD,CCSM3x,A2,cyp
 Lebanon,2005,2486.318135,HDD,CCSM3x,A2,lbn
 Puerto Rico,2005,0,HDD,CCSM3x,A2,pri
 Cape Verde,2005,3.615005363,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2005,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2005,0,HDD,CCSM3x,A2,tto
 Brunei,2005,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2005,1420.495555,HDD,CCSM3x,A2,pse
 Samoa,2005,0,HDD,CCSM3x,A2,wsm
@@ -6321,7 +6321,7 @@ Togo,2006,0.167547702,HDD,CCSM3x,A2,tgo
 Costa Rica,2006,30.08527918,HDD,CCSM3x,A2,cri
 Denmark,2006,980.7999792,HDD,CCSM3x,A2,dnk
 Dominican Republic,2006,10.90465833,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2006,5816.998211,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2006,5816.998211,HDD,CCSM3x,A2,bih
 Slovakia,2006,6403.666124,HDD,CCSM3x,A2,svk
 Estonia,2006,7483.705149,HDD,CCSM3x,A2,est
 Solomon Is.,2006,0.162412228,HDD,CCSM3x,A2,slb
@@ -6360,7 +6360,7 @@ Cyprus,2006,1588.587974,HDD,CCSM3x,A2,cyp
 Lebanon,2006,2476.787759,HDD,CCSM3x,A2,lbn
 Puerto Rico,2006,0,HDD,CCSM3x,A2,pri
 Cape Verde,2006,3.694599645,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2006,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2006,0,HDD,CCSM3x,A2,tto
 Brunei,2006,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2006,1413.540394,HDD,CCSM3x,A2,pse
 Samoa,2006,0,HDD,CCSM3x,A2,wsm
@@ -6498,7 +6498,7 @@ Togo,2007,0.170401351,HDD,CCSM3x,A2,tgo
 Costa Rica,2007,29.54571909,HDD,CCSM3x,A2,cri
 Denmark,2007,977.738963,HDD,CCSM3x,A2,dnk
 Dominican Republic,2007,10.79699482,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2007,5798.35912,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2007,5798.35912,HDD,CCSM3x,A2,bih
 Slovakia,2007,6386.339754,HDD,CCSM3x,A2,svk
 Estonia,2007,7459.933479,HDD,CCSM3x,A2,est
 Solomon Is.,2007,0.155181709,HDD,CCSM3x,A2,slb
@@ -6537,7 +6537,7 @@ Cyprus,2007,1581.759946,HDD,CCSM3x,A2,cyp
 Lebanon,2007,2467.126318,HDD,CCSM3x,A2,lbn
 Puerto Rico,2007,0,HDD,CCSM3x,A2,pri
 Cape Verde,2007,3.773824223,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2007,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2007,0,HDD,CCSM3x,A2,tto
 Brunei,2007,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2007,1406.508731,HDD,CCSM3x,A2,pse
 Samoa,2007,0,HDD,CCSM3x,A2,wsm
@@ -6675,7 +6675,7 @@ Togo,2008,0.17303548,HDD,CCSM3x,A2,tgo
 Costa Rica,2008,29.00653549,HDD,CCSM3x,A2,cri
 Denmark,2008,974.6849376,HDD,CCSM3x,A2,dnk
 Dominican Republic,2008,10.6901186,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2008,5779.577371,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2008,5779.577371,HDD,CCSM3x,A2,bih
 Slovakia,2008,6368.903636,HDD,CCSM3x,A2,svk
 Estonia,2008,7436.2419,HDD,CCSM3x,A2,est
 Solomon Is.,2008,0.148023955,HDD,CCSM3x,A2,slb
@@ -6714,7 +6714,7 @@ Cyprus,2008,1574.848421,HDD,CCSM3x,A2,cyp
 Lebanon,2008,2457.341166,HDD,CCSM3x,A2,lbn
 Puerto Rico,2008,0,HDD,CCSM3x,A2,pri
 Cape Verde,2008,3.852618662,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2008,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2008,0,HDD,CCSM3x,A2,tto
 Brunei,2008,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2008,1399.403674,HDD,CCSM3x,A2,pse
 Samoa,2008,0,HDD,CCSM3x,A2,wsm
@@ -6852,7 +6852,7 @@ Togo,2009,0.175445044,HDD,CCSM3x,A2,tgo
 Costa Rica,2009,28.46814879,HDD,CCSM3x,A2,cri
 Denmark,2009,971.6400782,HDD,CCSM3x,A2,dnk
 Dominican Republic,2009,10.58373741,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2009,5760.666427,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2009,5760.666427,HDD,CCSM3x,A2,bih
 Slovakia,2009,6351.363994,HDD,CCSM3x,A2,svk
 Estonia,2009,7412.642863,HDD,CCSM3x,A2,est
 Solomon Is.,2009,0.140947181,HDD,CCSM3x,A2,slb
@@ -6891,7 +6891,7 @@ Cyprus,2009,1567.860769,HDD,CCSM3x,A2,cyp
 Lebanon,2009,2447.439446,HDD,CCSM3x,A2,lbn
 Puerto Rico,2009,0,HDD,CCSM3x,A2,pri
 Cape Verde,2009,3.930920906,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2009,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2009,0,HDD,CCSM3x,A2,tto
 Brunei,2009,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2009,1392.228237,HDD,CCSM3x,A2,pse
 Samoa,2009,0,HDD,CCSM3x,A2,wsm
@@ -7029,7 +7029,7 @@ Togo,2010,0.177625428,HDD,CCSM3x,A2,tgo
 Costa Rica,2010,27.93096664,HDD,CCSM3x,A2,cri
 Denmark,2010,968.6064607,HDD,CCSM3x,A2,dnk
 Dominican Republic,2010,10.47757136,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2010,5741.639293,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2010,5741.639293,HDD,CCSM3x,A2,bih
 Slovakia,2010,6333.726826,HDD,CCSM3x,A2,svk
 Estonia,2010,7389.148145,HDD,CCSM3x,A2,est
 Solomon Is.,2010,0.133959297,HDD,CCSM3x,A2,slb
@@ -7068,7 +7068,7 @@ Cyprus,2010,1560.804104,HDD,CCSM3x,A2,cyp
 Lebanon,2010,2437.428087,HDD,CCSM3x,A2,lbn
 Puerto Rico,2010,0,HDD,CCSM3x,A2,pri
 Cape Verde,2010,4.008667282,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2010,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2010,0,HDD,CCSM3x,A2,tto
 Brunei,2010,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2010,1384.985334,HDD,CCSM3x,A2,pse
 Samoa,2010,0,HDD,CCSM3x,A2,wsm
@@ -7206,7 +7206,7 @@ Togo,2011,0.179572446,HDD,CCSM3x,A2,tgo
 Costa Rica,2011,27.39538405,HDD,CCSM3x,A2,cri
 Denmark,2011,965.5860616,HDD,CCSM3x,A2,dnk
 Dominican Republic,2011,10.37135298,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2011,5722.508515,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2011,5722.508515,HDD,CCSM3x,A2,bih
 Slovakia,2011,6315.997902,HDD,CCSM3x,A2,svk
 Estonia,2011,7365.768848,HDD,CCSM3x,A2,est
 Solomon Is.,2011,0.127067914,HDD,CCSM3x,A2,slb
@@ -7245,7 +7245,7 @@ Cyprus,2011,1553.685285,HDD,CCSM3x,A2,cyp
 Lebanon,2011,2427.313805,HDD,CCSM3x,A2,lbn
 Puerto Rico,2011,0,HDD,CCSM3x,A2,pri
 Cape Verde,2011,4.085792496,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2011,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2011,0,HDD,CCSM3x,A2,tto
 Brunei,2011,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2011,1377.677783,HDD,CCSM3x,A2,pse
 Samoa,2011,0,HDD,CCSM3x,A2,wsm
@@ -7383,7 +7383,7 @@ Togo,2012,0.18128234,HDD,CCSM3x,A2,tgo
 Costa Rica,2012,26.86178323,HDD,CCSM3x,A2,cri
 Denmark,2012,962.5807578,HDD,CCSM3x,A2,dnk
 Dominican Republic,2012,10.26482719,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2012,5703.286181,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2012,5703.286181,HDD,CCSM3x,A2,bih
 Slovakia,2012,6298.182766,HDD,CCSM3x,A2,svk
 Estonia,2012,7342.515406,HDD,CCSM3x,A2,est
 Solomon Is.,2012,0.120280339,HDD,CCSM3x,A2,slb
@@ -7422,7 +7422,7 @@ Cyprus,2012,1546.510915,HDD,CCSM3x,A2,cyp
 Lebanon,2012,2417.103108,HDD,CCSM3x,A2,lbn
 Puerto Rico,2012,0,HDD,CCSM3x,A2,pri
 Cape Verde,2012,4.16222964,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2012,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2012,0,HDD,CCSM3x,A2,tto
 Brunei,2012,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2012,1370.308307,HDD,CCSM3x,A2,pse
 Samoa,2012,0,HDD,CCSM3x,A2,wsm
@@ -7560,7 +7560,7 @@ Togo,2013,0.182751778,HDD,CCSM3x,A2,tgo
 Costa Rica,2013,26.33053366,HDD,CCSM3x,A2,cri
 Denmark,2013,959.5923273,HDD,CCSM3x,A2,dnk
 Dominican Republic,2013,10.15775134,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2013,5683.983919,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2013,5683.983919,HDD,CCSM3x,A2,bih
 Slovakia,2013,6280.286734,HDD,CCSM3x,A2,svk
 Estonia,2013,7319.397575,HDD,CCSM3x,A2,est
 Solomon Is.,2013,0.113603578,HDD,CCSM3x,A2,slb
@@ -7599,7 +7599,7 @@ Cyprus,2013,1539.287341,HDD,CCSM3x,A2,cyp
 Lebanon,2013,2406.802287,HDD,CCSM3x,A2,lbn
 Puerto Rico,2013,0,HDD,CCSM3x,A2,pri
 Cape Verde,2013,4.237910185,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2013,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2013,0,HDD,CCSM3x,A2,tto
 Brunei,2013,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2013,1362.879528,HDD,CCSM3x,A2,pse
 Samoa,2013,0,HDD,CCSM3x,A2,wsm
@@ -7737,7 +7737,7 @@ Togo,2014,0.183977859,HDD,CCSM3x,A2,tgo
 Costa Rica,2014,25.80199215,HDD,CCSM3x,A2,cri
 Denmark,2014,956.6224481,HDD,CCSM3x,A2,dnk
 Dominican Republic,2014,10.04989511,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2014,5664.612899,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2014,5664.612899,HDD,CCSM3x,A2,bih
 Slovakia,2014,6262.314899,HDD,CCSM3x,A2,svk
 Estonia,2014,7296.424441,HDD,CCSM3x,A2,est
 Solomon Is.,2014,0.107044335,HDD,CCSM3x,A2,slb
@@ -7776,7 +7776,7 @@ Cyprus,2014,1532.020655,HDD,CCSM3x,A2,cyp
 Lebanon,2014,2396.417423,HDD,CCSM3x,A2,lbn
 Puerto Rico,2014,0,HDD,CCSM3x,A2,pri
 Cape Verde,2014,4.312763984,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2014,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2014,0,HDD,CCSM3x,A2,tto
 Brunei,2014,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2014,1355.393974,HDD,CCSM3x,A2,pse
 Samoa,2014,0,HDD,CCSM3x,A2,wsm
@@ -7914,7 +7914,7 @@ Togo,2015,0.184958108,HDD,CCSM3x,A2,tgo
 Costa Rica,2015,25.27650272,HDD,CCSM3x,A2,cri
 Denmark,2015,953.6726995,HDD,CCSM3x,A2,dnk
 Dominican Republic,2015,9.941040659,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2015,5645.183832,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2015,5645.183832,HDD,CCSM3x,A2,bih
 Slovakia,2015,6244.272122,HDD,CCSM3x,A2,svk
 Estonia,2015,7273.604415,HDD,CCSM3x,A2,est
 Solomon Is.,2015,0.100609012,HDD,CCSM3x,A2,slb
@@ -7953,7 +7953,7 @@ Cyprus,2015,1524.716692,HDD,CCSM3x,A2,cyp
 Lebanon,2015,2385.954386,HDD,CCSM3x,A2,lbn
 Puerto Rico,2015,0,HDD,CCSM3x,A2,pri
 Cape Verde,2015,4.386719275,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2015,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2015,0,HDD,CCSM3x,A2,tto
 Brunei,2015,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2015,1347.854076,HDD,CCSM3x,A2,pse
 Samoa,2015,0,HDD,CCSM3x,A2,wsm
@@ -8091,7 +8091,7 @@ Togo,2016,0.185690479,HDD,CCSM3x,A2,tgo
 Costa Rica,2016,24.75439674,HDD,CCSM3x,A2,cri
 Denmark,2016,950.7445609,HDD,CCSM3x,A2,dnk
 Dominican Republic,2016,9.830982508,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2016,5625.70697,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2016,5625.70697,HDD,CCSM3x,A2,bih
 Slovakia,2016,6226.163042,HDD,CCSM3x,A2,svk
 Estonia,2016,7250.945237,HDD,CCSM3x,A2,est
 Solomon Is.,2016,0.094303708,HDD,CCSM3x,A2,slb
@@ -8130,7 +8130,7 @@ Cyprus,2016,1517.381032,HDD,CCSM3x,A2,cyp
 Lebanon,2016,2375.418831,HDD,CCSM3x,A2,lbn
 Puerto Rico,2016,0,HDD,CCSM3x,A2,pri
 Cape Verde,2016,4.459702673,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2016,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2016,0,HDD,CCSM3x,A2,tto
 Brunei,2016,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2016,1340.262166,HDD,CCSM3x,A2,pse
 Samoa,2016,0,HDD,CCSM3x,A2,wsm
@@ -8268,7 +8268,7 @@ Togo,2017,0.186173353,HDD,CCSM3x,A2,tgo
 Costa Rica,2017,24.23599277,HDD,CCSM3x,A2,cri
 Denmark,2017,947.8394127,HDD,CCSM3x,A2,dnk
 Dominican Republic,2017,9.719527565,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2017,5606.192108,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2017,5606.192108,HDD,CCSM3x,A2,bih
 Slovakia,2017,6207.992068,HDD,CCSM3x,A2,svk
 Estonia,2017,7228.453972,HDD,CCSM3x,A2,est
 Solomon Is.,2017,0.088134222,HDD,CCSM3x,A2,slb
@@ -8307,7 +8307,7 @@ Cyprus,2017,1510.019,HDD,CCSM3x,A2,cyp
 Lebanon,2017,2364.816203,HDD,CCSM3x,A2,lbn
 Puerto Rico,2017,0,HDD,CCSM3x,A2,pri
 Cape Verde,2017,4.53163918,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2017,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2017,0,HDD,CCSM3x,A2,tto
 Brunei,2017,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2017,1332.62048,HDD,CCSM3x,A2,pse
 Samoa,2017,0,HDD,CCSM3x,A2,wsm
@@ -8445,7 +8445,7 @@ Togo,2018,0.186405542,HDD,CCSM3x,A2,tgo
 Costa Rica,2018,23.72159669,HDD,CCSM3x,A2,cri
 Denmark,2018,944.9585357,HDD,CCSM3x,A2,dnk
 Dominican Republic,2018,9.606495155,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2018,5586.648579,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2018,5586.648579,HDD,CCSM3x,A2,bih
 Slovakia,2018,6189.763385,HDD,CCSM3x,A2,svk
 Estonia,2018,7206.137015,HDD,CCSM3x,A2,est
 Solomon Is.,2018,0.082106051,HDD,CCSM3x,A2,slb
@@ -8484,7 +8484,7 @@ Cyprus,2018,1502.635664,HDD,CCSM3x,A2,cyp
 Lebanon,2018,2354.151734,HDD,CCSM3x,A2,lbn
 Puerto Rico,2018,0,HDD,CCSM3x,A2,pri
 Cape Verde,2018,4.602452176,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2018,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2018,0,HDD,CCSM3x,A2,tto
 Brunei,2018,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2018,1324.931159,HDD,CCSM3x,A2,pse
 Samoa,2018,0,HDD,CCSM3x,A2,wsm
@@ -8622,7 +8622,7 @@ Togo,2019,0.186386282,HDD,CCSM3x,A2,tgo
 Costa Rica,2019,23.21150166,HDD,CCSM3x,A2,cri
 Denmark,2019,942.1031114,HDD,CCSM3x,A2,dnk
 Dominican Republic,2019,9.491717028,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2019,5567.085262,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2019,5567.085262,HDD,CCSM3x,A2,bih
 Slovakia,2019,6171.480948,HDD,CCSM3x,A2,svk
 Estonia,2019,7184.000083,HDD,CCSM3x,A2,est
 Solomon Is.,2019,0.076224387,HDD,CCSM3x,A2,slb
@@ -8661,7 +8661,7 @@ Cyprus,2019,1495.235836,HDD,CCSM3x,A2,cyp
 Lebanon,2019,2343.430444,HDD,CCSM3x,A2,lbn
 Puerto Rico,2019,0,HDD,CCSM3x,A2,pri
 Cape Verde,2019,4.672063425,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2019,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2019,0,HDD,CCSM3x,A2,tto
 Brunei,2019,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2019,1317.196243,HDD,CCSM3x,A2,pse
 Samoa,2019,0,HDD,CCSM3x,A2,wsm
@@ -8799,7 +8799,7 @@ Togo,2020,0.186115242,HDD,CCSM3x,A2,tgo
 Costa Rica,2020,22.70598808,HDD,CCSM3x,A2,cri
 Denmark,2020,939.2742222,HDD,CCSM3x,A2,dnk
 Dominican Republic,2020,9.375037294,HDD,CCSM3x,A2,dom
-Bosnia & Herzegovina,2020,5547.510572,HDD,CCSM3x,A2,bih
+Bosnia &#38; Herzegovina,2020,5547.510572,HDD,CCSM3x,A2,bih
 Slovakia,2020,6153.148489,HDD,CCSM3x,A2,svk
 Estonia,2020,7162.048225,HDD,CCSM3x,A2,est
 Solomon Is.,2020,0.070494124,HDD,CCSM3x,A2,slb
@@ -8838,7 +8838,7 @@ Cyprus,2020,1487.824075,HDD,CCSM3x,A2,cyp
 Lebanon,2020,2332.657141,HDD,CCSM3x,A2,lbn
 Puerto Rico,2020,0,HDD,CCSM3x,A2,pri
 Cape Verde,2020,4.740393072,HDD,CCSM3x,A2,cpv
-Trinidad & Tobago,2020,0,HDD,CCSM3x,A2,tto
+Trinidad &#38; Tobago,2020,0,HDD,CCSM3x,A2,tto
 Brunei,2020,0,HDD,CCSM3x,A2,brn
 Occupied Palestinian Territory,2020,1309.417679,HDD,CCSM3x,A2,pse
 Samoa,2020,0,HDD,CCSM3x,A2,wsm
