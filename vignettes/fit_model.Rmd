@@ -1,0 +1,39 @@
+---
+title: "fit_model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{fit_model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+### Panel data
+To build the econometric model to estimate health impacts attributable to household air pollution, we built a cross-regional and multi-year panel dataset, that gathers almost all the countries in the world for a 30-year period (1990–2019). The dependent variable is "health impacts" which could be measured as premature deaths, years of life lost, or disability-adjusted life years. In order to explain this variables we collect different key socieconomic and environmental variables.
+
+First, the panel gathers data on different gases emitted in the residential sector, sourced from the [Community Emissions Data System (CEDS) database](https://www.pnnl.gov/projects/ceds). Specifically, the panel includes the following pollutants: black carbon (BC), methane (CH4), carbon monoxide (CO), nitrous oxide (N2O), ammonia (NH3), non-methane volatile organic compounds (NMVOC), nitrogen oxides (NOx), organic carbon (OC), and sulfur dioxide (SO2).
+
+Another included variable is outdoor air pollution (AAP) for each country, measured in PM2.5. This is particularly relevant in urban areas, where it can influence HAP.
+
+A range of socioeconomic variables are also incorporated to explore if/how greater development affects the health impacts. These include:
+
+* GDP per capita in Purchasing Power Parity (PPP), sourced from the [Our World in Data website](https://ourworldindata.org/grapher/gdp-per-capita-maddison).
+* Urban and rural population sizes, obtained from the [World Bank](https://databank.worldbank.org/source/world-development-indicators/Series/SP.URB.TOTL.IN.ZS).
+* Access to clean cooking and heating technologies and fuels, provided by the [World Health Organization](https://www.who.int/data/gho/data/themes/air-pollution/household-air-pollution).
+* Average household size per person, generated using data from various sources, such as national household surveys (e.g., the China Statistical Yearbook, the Residential Energy Consumption Survey [RECS], the India NSSO Household Consumer Expenditure Surveys, and the European Union Statistics on Income and Living Conditions [EU-SILC]). Note that for regions where detailed microdata is not directly accessible, global data sources such as Odyssee and the International Energy Agency (IEA) were used.
+
+Finally, the panel includes a set of climatic variables, such as average maximum, minimum, and mean temperatures; average precipitation for each country per year (see the [climate knowledge portal](https://climateknowledgeportal.worldbank.org/)); and indicators for heating and cooling needs. These are:
+
+* Heating Degree Days (HDD): calculated as the difference between a base temperature (typically 18C) and the average daily temperature.
+* Cooling Degree Days (CDD): representing days when cooling is required, calculated similarly to HDD but using outdoor high temperatures instead of low ones. Data for these indicators was sourced from the [Community Climate System Model](https://www.cesm.ucar.edu/models/ccsm).
+
+### Econometric regression
+While the panel provides a wide range of variables for the regression model, not all are statistically significant. Moreover, some are highly correlated, making it essential to select covariates carefully to ensure independence and avoid multicollinearity. After evaluating multiple models with different variable combinations, the final regression includes the following socioeconomic and environmental variables: per capita GDP, emissions of primary PM2.5 (comprising BC and OC), nitrogen oxides, and non-methane volatile organic compounds (NMVOCs), and per capita floor space.
+
+
+Once the covariates are selected, the variables are first normalized by converting them to units per 100,000 inhabitants. This step ensures that the scales of the variables are consistent, making them more comparable across different regions or populations. Subsequently, a logarithmic transformation is applied to these normalized variables. The logarithmic scale helps linearize any nonlinear relationships, addresses issues related to skewness, and further stabilizes variance, ultimately improving the reliability and interpretability of the regression model.
+
+To determine whether to use a fixed or random effects model, we apply the Hausmann test. Since the null hypothesis is rejected at conventional significance levels, this suggests that unobservable individual-specific characteristics are correlated with the explanatory variables. As a result, we opt for a fixed effects model over a random effects model. Note that the estimation is performed using the [plm] (https://cran.r-project.org/web/packages/plm/plm.pdf) package.
+
+In summary, we estimate health impacts attributable to household air pollution using the following fixed effects model. The model includes logarithmic and normalized per capita GDP, emissions of primary PM2.5, NOx, and VOCs, and per capita floorspace as covariates, with country and year specified as index variables:
+
+$$log(Deathsper100K)_{t,r} = log(PrimPM2.5per100K)_{t,r} + log(NOXper100K)_{t,r} + log(VOCper100K)_{t,r} + log(GDPpc)_{t,r} +  log(FLSPpc)_{t,r} + e_{t,r} $$
+** Note that the dependent variable can also be set to be YLLs or DALYs

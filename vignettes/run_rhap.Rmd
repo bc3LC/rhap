@@ -1,0 +1,77 @@
+---
+title: "run_rhap"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{run_rhap}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+The primary function provided by this package is `calc_hap_impacts`, which is designed to estimate health impacts attributable to household air pollution (HAP) under various alternative scenarios simulated using the Global Change Analysis Model (GCAM). This function streamlines the process of assessing scenario-specific health outcomes by extracting relevant data from GCAM databases or project files. These relevant data includes key socioeconomic and environmental parameters, such as per capita GDP, emissions of primary PM2.5, NOx, and VOCs, as well as per capita floorspace. For more details on the methodology and assumptions underlying the econometric model used in this calculation, refer to the guide on ["Fitting the Econometric Model"](ADD link). 
+
+### Extraction of the scenario-specific data
+The function `calc_hap_impacts` connects to a GCAM databases or project file using the [rgcam](https://github.com/JGCRI/rgcam) package, designed to extract and import GCAM results. 
+
+First, the function extracts direct air pollutant emissions from the residential sector for each simulated GCAM scenario, GCAM region, period, and pollutant. To estimate country-specific impacts, these emissions are processed and downscaled to the country level using a static downscaling approach. This approach leverages gas-specific country-level emissions data, specifically using 2017 emissions data from the Community Emissions Data System (CEDS), updated for the Global Burden of Disease - Major Air Pollution Sources project[CEDS-GBD](https://zenodo.org/record/3754964#.Y5CFtHbMKUl). Additionally, the function applies transformations such as converting black carbon and organic carbon emissions into primary PM2.5 to ensure comprehensive pollutant accounting.
+
+The function also extracts per capita floorspace, which is calculated endogenously in GCAM by region and period. This calculation relies on a Gompertz-type function calibrated with empirical data ([Sampedro et al 2022](https://iopscience.iop.org/article/10.1088/1748-9326/ac43df/meta)), providing a income-driven estimate of future residential space per person.
+
+For per capita GDP, the package loads projections from the [SSP database version 3.0.1](https://data.ece.iiasa.ac.at/ssp/),updated in 2024. These GDP projections are scenario-specific, corresponding to the Shared Socioeconomic Pathways (SSPs). By default, the package utilizes SSP2 ("middle of the road") projections. However, if the GCAM scenario name includes a different SSP designation (e.g., "Reference_SSP3"), the package automatically selects the appropriate SSP-specific GDP projections.
+
+
+### Calculations
+The function estimates health impacts attributable to household air pollution (HAP) using an econometric model that incorporates direct emissions from the residential sector (BC, OC, NOx, and VOC), per capita GDP, and per capita floorspace as covariates. The model is a fixed-effects model, estimated using cross-regional and multi-year panel data compiled from various different sources. Detailed information on the econometric model, including its formulation and data sources, is available in the dedicated vignette: ["Fitting the Econometric Model"](ADD link).
+
+To improve accuracy, the health impact predictions incorporate a country-specific "bias adder" parameter, calculated as the difference between observed and estimated values in the final observed year (2019). This adjustment helps align model estimates with observed data for each country.
+
+The package provides flexibility to calculate three distinct health impact metrics associated with HAP:
+
+* Premature Mortalities
+* Years of Life Lost (YLLs)
+* Disability-Adjusted Life Years (DALYs)
+
+In addition to country-level estimates, the package offers an optional feature to estimate health impacts by socioeconomic group (e.g., income deciles) within each region. While it is recommended to perform country-level calculations for consistency, this capability can provide valuable insights into the distribution of health impacts across population segments within regions. Such granularity can aid users in understanding intra-regional disparities. This feature is activated by setting `by_gr = F`.
+
+
+### Outputs
+The function calculates health impacts—such as deaths, Years of Life Lost (YLLs), or Disability-Adjusted Life Years (DALYs)—attributable to household air pollution (HAP) for each country, time period, and GCAM scenario. By using the `normalized` parameter, users can choose between producing results in absolute terms or as normalized values (per 100,000 inhabitants), offering flexibility for different analytical needs. 
+
+If `saveOutput` is set to `TRUE`, the function writes the following csv files in the `output/` sub-directory: `[scenario]_HAP_HIAvar.csv`
+
+In addition, by setting `map` to `TRUE`, the function generates damage maps, using the [rmap](https://github.com/JGCRI/rmap) package documented in the following [page](https://jgcri.github.io/rmap/). The function also generates animations and individual figures.
+
+
+### Example
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, eval=F}
+library(rhap)
+library(magrittr)
+
+ db_path <- "path_to_your_gcam_database" # NULL if project file provided
+ db_name <- "name of the database" # NULL if project file provided
+ prj_name<-"name of the project file", # or name for a project to add extracted results to (any name should work, avoid spaces just in case)
+ scen_name <- "name of the GCAM scenario" # or vector names of the GCAM scenarios to be processed
+ queries <- "Name of the query file" # (the package includes a default query file that includes all the queries required in every function in the package, "queries_rhap.xml")
+ 
+ hap_damages <- calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
+                scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
+                saveOutput = T, map = F, anim = T , HIA_var = "deaths",
+                normalized = F, by_gr = F)
+
+ head(hap_damages)
+
+```
+
+<!-------------------------->
+<!-------------------------->
+<p align="center" style="font-size:18px;"> *Premature deaths per 100.000 inhabitants attributable to household air pollution in 2050* </p>
+#<p align="center"> <img src="https://raw.githubusercontent.com/bc3LC/rhap/main/vignettes/vignetteFigs/map_base_2050.png"></p>
+
+<!-------------------------->
+<!-------------------------->
