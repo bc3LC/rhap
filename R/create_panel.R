@@ -39,25 +39,26 @@ create_panel <- function() {
     BC_per_100k <- OC_per_100k <- PrimPM25_per_100k <- NOx_per_100k <- CO_per_100k <-
     VOC_per_100k <- HDD_value <- CDD_value <- BC_per_flsp <- OC_per_flsp <-
     PrimPM25_per_flsp <- NOx_per_flsp <- CO_per_flsp <- VOC_per_flsp <-
-    Deaths_per_100k <- YLL_per_100k <- DALY_per_100k <- continent <- . <- NULL
+    Deaths_per_100k <- YLL_per_100k <- DALY_per_100k <- continent <-
+    gdppc_ppp_dol2011 <- . <- NULL
 
   rlang::inform('Generating panel ...')
 
   datadir <- paste0(getwd(),"/inst/extdata")
 
 
-  reg_iso<-read.csv(file.path(datadir,"/iso_region.csv"), fileEncoding = "UTF-8-BOM")
+  reg_iso<-utils::read.csv(file.path(datadir,"/iso_region.csv"), fileEncoding = "UTF-8-BOM")
 
   resid_em_kt<-dplyr::bind_rows(
-    read.csv(file.path(datadir,"/emissions/BC_total_CEDS_emissions.csv"), skip = 6, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "BC"),
-    read.csv(file.path(datadir,"/emissions/CO_total_CEDS_emissions.csv"), skip = 7, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "CO"),
-    read.csv(file.path(datadir,"/emissions/CH4_total_CEDS_emissions.csv"), skip = 7, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "CH4"),
-    read.csv(file.path(datadir,"/emissions/N2O_total_CEDS_emissions.csv"), skip = 6, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "N2O"),
-    read.csv(file.path(datadir,"/emissions/NH3_total_CEDS_emissions.csv"), skip = 6, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "NH3"),
-    read.csv(file.path(datadir,"/emissions/NMVOC_total_CEDS_emissions.csv"), skip = 6, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "NMVOC"),
-    read.csv(file.path(datadir,"/emissions/NOx_total_CEDS_emissions.csv"), skip = 6, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "NOx"),
-    read.csv(file.path(datadir,"/emissions/OC_total_CEDS_emissions.csv"), skip = 7, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "OC"),
-    read.csv(file.path(datadir,"/emissions/SO2_total_CEDS_emissions.csv"), skip = 7, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "SO2")) %>%
+    utils::read.csv(file.path(datadir,"/emissions/BC_total_CEDS_emissions.csv"), skip = 6, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "BC"),
+    utils::read.csv(file.path(datadir,"/emissions/CO_total_CEDS_emissions.csv"), skip = 7, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "CO"),
+    utils::read.csv(file.path(datadir,"/emissions/CH4_total_CEDS_emissions.csv"), skip = 7, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "CH4"),
+    utils::read.csv(file.path(datadir,"/emissions/N2O_total_CEDS_emissions.csv"), skip = 6, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "N2O"),
+    utils::read.csv(file.path(datadir,"/emissions/NH3_total_CEDS_emissions.csv"), skip = 6, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "NH3"),
+    utils::read.csv(file.path(datadir,"/emissions/NMVOC_total_CEDS_emissions.csv"), skip = 6, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "NMVOC"),
+    utils::read.csv(file.path(datadir,"/emissions/NOx_total_CEDS_emissions.csv"), skip = 6, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "NOx"),
+    utils::read.csv(file.path(datadir,"/emissions/OC_total_CEDS_emissions.csv"), skip = 7, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "OC"),
+    utils::read.csv(file.path(datadir,"/emissions/SO2_total_CEDS_emissions.csv"), skip = 7, fileEncoding = "UTF-8-BOM") %>% dplyr::mutate(ghg = "SO2")) %>%
     tidyr::gather(year, value, -iso, -sector, -ghg ,-fuel, -units) %>%
     dplyr::mutate(year = gsub("X","",year)) %>%
     dplyr::filter(grepl("Residential",sector)) %>%
@@ -68,8 +69,8 @@ create_panel <- function() {
     dplyr::mutate(year = as.numeric(year))
 
 
-  mort<-tibble::as_tibble(dplyr::bind_rows(read.csv(file.path(datadir, "/mort/IHME-GBD_2019_DATA-15769af1-1.csv"), fileEncoding = "UTF-8-BOM"),
-                                           read.csv(file.path(datadir, "/mort/IHME-GBD_2019_DATA-15769af1-2.csv"), fileEncoding = "UTF-8-BOM"))) %>%
+  mort<-tibble::as_tibble(dplyr::bind_rows(utils::read.csv(file.path(datadir, "/mort/IHME-GBD_2019_DATA-15769af1-1.csv"), fileEncoding = "UTF-8-BOM"),
+                                           utils::read.csv(file.path(datadir, "/mort/IHME-GBD_2019_DATA-15769af1-2.csv"), fileEncoding = "UTF-8-BOM"))) %>%
     dplyr::select(country_name = location_name, rei_name, measure_name, cause_name, year, sex_name, val) %>%
     dplyr::filter(sex_name %in% c("Both")) %>%
     tidyr::spread(measure_name, val) %>%
@@ -101,7 +102,7 @@ create_panel <- function() {
   #-------------
 
   # Load all the socioeconomic data to be included
-  pop <- read.csv(file.path(datadir, "/socioeconomic/population.csv"), fileEncoding = "UTF-8-BOM") %>%
+  pop <- utils::read.csv(file.path(datadir, "/socioeconomic/population.csv"), fileEncoding = "UTF-8-BOM") %>%
     dplyr::filter(year %in% unique(data$year)) %>%
     dplyr::mutate(iso = tolower(iso)) %>%
     dplyr::mutate(iso = dplyr::if_else(country == "Sudan", "ssd", iso)) %>%
@@ -109,7 +110,7 @@ create_panel <- function() {
     # erase empty iso codes (e.g., the ones that belong to "Africa" or "North America")
     dplyr::filter(!is.na(iso), iso != "")
 
-  gdp <- read.csv(file.path(datadir, "/socioeconomic/gdp.csv"), fileEncoding = "UTF-8-BOM") %>%
+  gdp <- utils::read.csv(file.path(datadir, "/socioeconomic/gdp.csv"), fileEncoding = "UTF-8-BOM") %>%
     dplyr::select(country_name, iso, year, gdp_ppp_dol2011) %>%
     dplyr::filter(year %in% unique(data$year)) %>%
     dplyr::mutate(iso = tolower(iso)) %>%
@@ -126,21 +127,21 @@ create_panel <- function() {
 
   gdp <- dplyr::bind_rows(gdp, gdp_2019)
 
-  urbrur<-read.csv(file.path(datadir, "/socioeconomic/urb_rur_shares.csv"), fileEncoding = "UTF-8-BOM")%>%
+  urbrur<-utils::read.csv(file.path(datadir, "/socioeconomic/urb_rur_shares.csv"), fileEncoding = "UTF-8-BOM")%>%
     dplyr::filter(year %in% unique(data$year)) %>%
     dplyr::mutate(iso = tolower(iso)) %>%
     dplyr::select(-country_name) %>%
     # erase empty iso codes (e.g., the ones that belong to "Africa" or "North America")
     dplyr::filter(!is.na(iso), iso != "")
 
-  elec_acces<-read.csv(file.path(datadir, "/socioeconomic/elec_access.csv"), fileEncoding = "UTF-8-BOM") %>%
+  elec_acces<-utils::read.csv(file.path(datadir, "/socioeconomic/elec_access.csv"), fileEncoding = "UTF-8-BOM") %>%
     dplyr::filter(year %in% unique(data$year)) %>%
     dplyr::mutate(iso = tolower(iso)) %>%
     dplyr::select(-country_name)  %>%
     # erase empty iso codes (e.g., the ones that belong to "Africa" or "North America")
     dplyr::filter(!is.na(iso), iso != "")
 
-  cc_acces<-read.csv(file.path(datadir, "/socioeconomic/clean_cook_access.csv"), fileEncoding = "UTF-8-BOM") %>%
+  cc_acces<-utils::read.csv(file.path(datadir, "/socioeconomic/clean_cook_access.csv"), fileEncoding = "UTF-8-BOM") %>%
     dplyr::filter(year %in% unique(data$year)) %>%
     dplyr::mutate(iso = tolower(iso)) %>%
     dplyr::select(-country_name) %>%
@@ -168,7 +169,7 @@ create_panel <- function() {
 
   # Function for climate data
   preprocess_clima <- function(file_path, value_name) {
-    data <- read.csv(file_path, fileEncoding = "UTF-8-BOM")
+    data <- utils::read.csv(file_path, fileEncoding = "UTF-8-BOM")
     data_long <- data %>%
       tidyr::gather(key = "year_month", value = "value", -code, -name) %>%
       dplyr::mutate(year = as.numeric(sub("X", "", sub("\\..*", "", year_month))),
@@ -193,11 +194,11 @@ create_panel <- function() {
     dplyr::left_join(tasmin1, by = c("iso", "year"))
 
   #HDD and CDD variables
-   HDD <- read.csv(paste0(datadir, "/climate/HDD.csv"), fileEncoding = "UTF-8-BOM") %>%
+   HDD <- utils::read.csv(paste0(datadir, "/climate/HDD.csv"), fileEncoding = "UTF-8-BOM") %>%
     dplyr::select(iso, year, HDD_value = value) %>%
     dplyr::mutate(iso = tolower(iso))
 
-  CDD <- read.csv(paste0(datadir, "/climate/CDD.csv"), fileEncoding = "UTF-8-BOM") %>%
+  CDD <- utils::read.csv(paste0(datadir, "/climate/CDD.csv"), fileEncoding = "UTF-8-BOM") %>%
     dplyr::select(iso, year, CDD_value = value) %>%
     dplyr::mutate(iso = tolower(iso))
 
@@ -207,7 +208,7 @@ create_panel <- function() {
 
 
   # AAP
-  AAP <- read.csv(file.path(datadir, "/concentrations/pm2.5.csv"), fileEncoding = "UTF-8-BOM")
+  AAP <- utils::read.csv(file.path(datadir, "/concentrations/pm2.5.csv"), fileEncoding = "UTF-8-BOM")
 
   colnames(AAP) <- c("Country.Name", "Country.Code", "Indicator.Name", "Indicator.Code", as.character(1960:2019))
 
@@ -221,7 +222,7 @@ create_panel <- function() {
     dplyr::left_join(AAP_long, by = c("iso", "year"))
 
   # Floorspace
-  flsp <- read.csv(file.path(datadir, "/socioeconomic/floorspace.csv"), fileEncoding = "UTF-8-BOM")
+  flsp <- utils::read.csv(file.path(datadir, "/socioeconomic/floorspace.csv"), fileEncoding = "UTF-8-BOM")
 
   flsp_long <- flsp %>%
     tidyr::pivot_longer(cols = dplyr::starts_with("X"),
@@ -258,7 +259,7 @@ create_panel <- function() {
 
 
   # Add GCAM_region
-  iso_GCAM_regID <- read.csv(paste0(datadir, "/iso_GCAM_regID.csv"), fileEncoding = "UTF-8-BOM") %>%
+  iso_GCAM_regID <- utils::read.csv(paste0(datadir, "/iso_GCAM_regID.csv"), fileEncoding = "UTF-8-BOM") %>%
     dplyr::select(iso, GCAM_region)
 
   data_fin_ret <- data_fin %>%

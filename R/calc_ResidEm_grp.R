@@ -25,7 +25,7 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                              saveOutput = T, pie = T) {
 
   sector <- scenario <- group <- ghg <- Units <- value <- adj <- Year <-
-    Pollutant <- value_agg <- perc_value <- `GCAM Region` <- . <- NULL
+    Pollutant <- Region <- value_agg <- perc_value <- `GCAM Region` <- . <- NULL
 
   # Create the directory if they do not exist:
   if (!dir.exists("output")) dir.create("output")
@@ -148,7 +148,7 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     # Create the directory if they do not exist:
     if (!dir.exists("output/ResidEm_grp")) dir.create("output/ResidEm_grp")
 
-    write.csv(em_reg_gr_fin,
+    utils::write.csv(em_reg_gr_fin,
               file.path('output/ResidEm_grp',
                         paste0("ResidEm_grp_", unique(em_reg_gr_fin$Region), "_",
                                unique(em_reg_gr_fin$Year), "_", unique(em_reg_gr_fin$Pollutant), ".csv")),

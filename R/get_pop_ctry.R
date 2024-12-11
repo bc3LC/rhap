@@ -15,7 +15,7 @@
 get_pop_ctry <- function(ssp) {
 
   iso <- country_name <- year <- pop <- continent <- dev <- variable <- value <-
-    Model <- Scenario <- Region <- Variable <- Unit <- . <- NULL
+    Model <- Scenario <- Region <- Variable <- Unit <- region <- scenario <- . <- NULL
 
   # Check user input
   if (!ssp %in% c("SSP1", "SSP2", "SSP3", "SSP4", "SSP5")) {

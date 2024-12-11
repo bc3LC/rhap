@@ -33,7 +33,8 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     gdp_dol2011_ppp_gr <- data_name <- country_name <- bias.adder <- pred_value <-
     pred_var <- pred_value_per_100K <- pred_value_per_100K_adj <- HIA <-
     PrimPM25 <- NOx <- NMVOC <- OC <- BC <- PrimPM25_per_100k <- NOx_per_100k <-
-    VOC_per_100k <- . <- NULL
+    VOC_per_100k <- `GCAM Region` <- Percentage <- adj_country <- country_map <-
+    gdp_pc_dol2011_ppp_gr <- gdp_pc_dol2011_ppp <- mapCountries <- . <- NULL
 
   # Check user input
   if (!HIA_var %in% c("deaths", "yll", "dalys")) {
@@ -173,7 +174,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 
 
   # Load data for downscaling (percentages)
-  em_ctry_gr <- Percen %>%
+  em_ctry_gr <- rhap::Percen %>%
     tibble::as_tibble() %>%
     dplyr::mutate(Pollutant = dplyr::if_else(Pollutant == "POM", "OC", Pollutant),
                   year = as.numeric(as.character(year))) %>%
@@ -554,7 +555,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 
   output.panel <- plm::pdata.frame(output, index = c("country_name", "year"))
 
-  output$pred_value <- predict(model.fixed, output.panel)
+  output$pred_value <- stats::predict(model.fixed, output.panel)
 
   output_fin <- output %>%
     dplyr::mutate(pred_var = paste0("pred_log_", HIA_var, "_per_100K")) %>%
@@ -581,7 +582,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   # Create a function to write the data (by scenario)
   output.write <- function(df){
     df <- as.data.frame(df)
-    write.csv(df, paste0("output/", unique(df$scenario) , "_HAP_", unique(HIA_var), ".csv"), row.names = F)
+    utils::write.csv(df, paste0("output/", unique(df$scenario) , "_HAP_", unique(HIA_var), ".csv"), row.names = F)
   }
 
   if(saveOutput == T) {
@@ -623,7 +624,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       dplyr::mutate(pred_value = dplyr::if_else(as.numeric(pred_value) < 0, 0, as.numeric(pred_value)),
                     pred_value_per_100K_adj = dplyr::if_else(as.numeric(pred_value_per_100K_adj) < 0, 0, as.numeric(pred_value_per_100K_adj))) %>%
       dplyr::select(scenario, country = country_name, group, year, pred_var, pred_value, pred_value_normalized = pred_value_per_100K_adj) %>%
-      write.csv(paste0("output/by_gr/", "HAP_" , unique(HIA_var), "_byGR" ,".csv"), row.names = F)
+      utils::write.csv(paste0("output/by_gr/", "HAP_" , unique(HIA_var), "_byGR" ,".csv"), row.names = F)
 
   }
 
@@ -646,7 +647,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       # adjust country names to match raster
       gcamdata::left_join_error_no_match(rhap::adj_ctry_map, by = "country_name") %>%
       dplyr::mutate(country_name = dplyr::if_else(country_map != "", country_map, country_name)) %>%
-      dplyr::select(scenario, country_name, year, pred_var, all_of(var_to_plot)) %>%
+      dplyr::select(scenario, country_name, year, pred_var, dplyr::all_of(var_to_plot)) %>%
       dplyr::rename(subRegion = country_name,
                     value = var_to_plot)
 
