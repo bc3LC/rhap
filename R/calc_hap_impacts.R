@@ -28,7 +28,8 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)
 
-  rlang::inform('Running rhap ...')
+  # Add converter: Teragram to kt
+  CONV_Tg_kt <- 1E3
 
   # Create the directory if they do not exist:
   if (!dir.exists("output")) dir.create("output")
@@ -59,6 +60,8 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   #-----
   # EXTRACT DATA FROM GCAM SCENARIO OUTPUTS
 
+  rlang::inform('Running rhap ...')
+
   # First, create a database to transform from GCAM_region to country-level:
   reg_to_ctry <- rhap::Percen %>%
     dplyr::select(region = `GCAM Region`, country = Country) %>%
@@ -86,7 +89,10 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     dplyr::ungroup() %>%
     # filters the pollutants that will be used in the econometric analysis
     dplyr::filter(ghg %in% panel_pollutants,
-                  year <= final_db_year)
+                  year <= final_db_year) %>%
+    # transform unit to kt (unit of the emissions in the panel)
+    dplyr::mutate(value = value * CONV_Tg_kt,
+                  Units = "kt")
 
   # The estimation is at country level, so need downscale emissions from GCAM_region to country level
   # First, calculate the share of the gas-specific emissions in each GCAM_region
