@@ -22,7 +22,6 @@ test_that("Create pie charts", {
                                  pollutant = 'CH4',
                                  region = 'EU-15',
                                  pie = T)
-
   testResult <- get(load(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/calc_ResidEm_grp_output_eu15.RData")))
   testthat::expect_equal(testOutput, testResult)
 
@@ -33,7 +32,6 @@ test_that("Create pie charts", {
                                  pollutant = 'CH4',
                                  region = 'EU-27',
                                  pie = T)
-
   testResult <- get(load(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/calc_ResidEm_grp_output_eu27.RData")))
   testthat::expect_equal(testOutput, testResult)
 
