@@ -139,6 +139,14 @@ data.panel <- plm::pdata.frame(data, index = c("country_name", "year"))
 
 data$pred_log_Deaths_per_100k <- predict(fixed_fin, data.panel)
 
+# Calculate adders
+data_adder <- data %>%
+  select(country_name, year, pop, log_Deaths_per_100k,pred_log_Deaths_per_100k) %>%
+  dplyr::filter(year == max(year)) %>%
+  mutate(Deaths_per_100k = exp(log_Deaths_per_100k),
+         pred_Deaths_per_100k = exp(pred_log_Deaths_per_100k)) %>%
+  mutate(bias.adder = Deaths_per_100k - pred_Deaths_per_100k)
+
 # Add GCAM_region
 iso_GCAM_regID <- read.csv(paste0(datadir, "/iso_GCAM_regID.csv")) %>%
   select(iso, GCAM_region)
