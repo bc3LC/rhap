@@ -21,9 +21,58 @@
 #' @export
 
 calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
-                scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
-                saveOutput = T, map = F, anim = T , HIA_var = "deaths",
-                normalized = F, by_gr = F) {
+                            scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
+                            saveOutput = T, map = F, anim = T , HIA_var = "deaths",
+                            normalized = F, by_gr = F) {
+
+
+  # Check user input
+  if (!HIA_var %in% c("deaths", "yll", "dalys")) {
+    stop(sprintf(
+      "Error: The specified HIA_var '%s' is invalid. Accepted HIA_var are: %s. Please rerun the calc_hap_impacts function with a valid HIA_var value.",
+      HIA_var, paste(c("deaths", "yll", "dalys"), collapse = ", ")
+    ))
+  }
+  final_db_year <- as.numeric(as.character(final_db_year))
+  if (!final_db_year %in% seq(2015, 2100, 5)) {
+    stop(sprintf(
+      "Error: The specified final_db_year '%s' is invalid. Accepted final_db_year are: %s. Please rerun the calc_hap_impacts function with a valid final_db_year value.",
+      final_db_year, paste(seq(2015, 2100, 5), collapse = ", ")
+    ))
+  }
+  if (!is.logical(saveOutput)) {
+    stop(sprintf(
+      "Error: The specified saveOutput '%s' is invalid. Accepted saveOutput values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid saveOutput value.",
+      saveOutput
+    ))
+  }
+  if (!is.logical(map)) {
+    stop(sprintf(
+      "Error: The specified map '%s' is invalid. Accepted map values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid map value.",
+      map
+    ))
+  }
+  if (!is.logical(anim)) {
+    stop(sprintf(
+      "Error: The specified anim '%s' is invalid. Accepted anim values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid anim value.",
+      anim
+    ))
+  }
+  if (!is.logical(normalized)) {
+    stop(sprintf(
+      "Error: The specified normalized '%s' is invalid. Accepted normalized values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid normalized value.",
+      normalized
+    ))
+  }
+  if (!is.logical(by_gr)) {
+    stop(sprintf(
+      "Error: The specified by_gr '%s' is invalid. Accepted by_gr values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid by_gr value.",
+      by_gr
+    ))
+  }
+
+
+
 
   # Ancillary Functions
   `%!in%` = Negate(`%in%`)

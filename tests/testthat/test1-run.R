@@ -44,5 +44,62 @@ test_that("Download db, create project, and run", {
   testthat::expect_equal(testOutput, testResult)
 
 
+  # error messages
+  expect_error(
+    calc_hap_impacts(db_path = db_path, db_name = db_name,
+                     prj_name = prj_name, scen_name = scen_name,
+                     final_db_year = 2050, HIA_var = "death",
+                     saveOutput = T, map = T, anim = F,
+                     normalized = F, by_gr = F),
+    "Error: The specified HIA_var 'death' is invalid. Accepted HIA_var are: deaths, yll, dalys. Please rerun the calc_hap_impacts function with a valid HIA_var value."
+  )
+  expect_error(
+    calc_hap_impacts(db_path = db_path, db_name = db_name,
+                     prj_name = prj_name, scen_name = scen_name,
+                     final_db_year = 2063, HIA_var = "deaths",
+                     saveOutput = T, map = T, anim = F,
+                     normalized = F, by_gr = F),
+    "Error: The specified final_db_year '2063' is invalid. Accepted final_db_year are: 2015, 2020, 2025, 2030, 2035, 2040, 2045, 2050, 2055, 2060, 2065, 2070, 2075, 2080, 2085, 2090, 2095, 2100. Please rerun the calc_hap_impacts function with a valid final_db_year value."
+  )
+  expect_error(
+    calc_hap_impacts(db_path = db_path, db_name = db_name,
+                     prj_name = prj_name, scen_name = scen_name,
+                     final_db_year = 2050, HIA_var = "deaths",
+                     saveOutput = T, map = T, anim = 'true',
+                     normalized = F, by_gr = F),
+    "Error: The specified anim 'true' is invalid. Accepted anim values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid anim value."
+  )
+  expect_error(
+    calc_hap_impacts(db_path = db_path, db_name = db_name,
+                     prj_name = prj_name, scen_name = scen_name,
+                     final_db_year = 2050, HIA_var = "deaths",
+                     saveOutput = T, map = 'false', anim = F,
+                     normalized = F, by_gr = F),
+    "Error: The specified map 'false' is invalid. Accepted map values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid map value."
+  )
+  expect_error(
+    calc_hap_impacts(db_path = db_path, db_name = db_name,
+                     prj_name = prj_name, scen_name = scen_name,
+                     final_db_year = 2050, HIA_var = "deaths",
+                     saveOutput = 'T', map = T, anim = F,
+                     normalized = F, by_gr = F),
+    "Error: The specified saveOutput 'T' is invalid. Accepted saveOutput values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid saveOutput value."
+  )
+  expect_error(
+    calc_hap_impacts(db_path = db_path, db_name = db_name,
+                     prj_name = prj_name, scen_name = scen_name,
+                     final_db_year = 2050, HIA_var = "deaths",
+                     saveOutput = T, map = F, anim = F,
+                     normalized = 'no', by_gr = F),
+    "Error: The specified normalized 'no' is invalid. Accepted normalized values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid normalized value."
+  )
+  expect_error(
+    calc_hap_impacts(db_path = db_path, db_name = db_name,
+                     prj_name = prj_name, scen_name = scen_name,
+                     final_db_year = 2050, HIA_var = "deaths",
+                     saveOutput = T, map = F, anim = F,
+                     normalized = T, by_gr = 0),
+    "Error: The specified by_gr '0' is invalid. Accepted by_gr values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid by_gr value."
+  )
 
 })
