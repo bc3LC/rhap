@@ -32,7 +32,7 @@ get_pop_ctry <- function(ssp) {
   `%!in%` = Negate(`%in%`)
 
   # First, we read in the population data.
-  max_base_year <- raw.ssp.data %>%
+  max_base_year <- rhap::raw.ssp.data %>%
     tidyr::gather(year, value, -Model, -Scenario, -Region, -Variable, -Unit) %>%
     dplyr::mutate(year=gsub("X", "", year)) %>%
     dplyr::filter(Scenario == "Historical Reference") %>%
@@ -42,7 +42,7 @@ get_pop_ctry <- function(ssp) {
     dplyr::distinct() %>%
     dplyr::pull()
 
-  ssp.data <- raw.ssp.data %>%
+  ssp.data <- rhap::raw.ssp.data %>%
     tidyr::gather(year, value, -Model, -Scenario, -Region, -Variable, -Unit) %>%
     dplyr::mutate(year=gsub("X", "", year)) %>%
     dplyr::filter(year >= 2010, year <= 2100,

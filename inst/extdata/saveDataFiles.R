@@ -1,8 +1,6 @@
 # Converting raw data into package data
 library(usethis)
 library(magrittr)
-library(dplyr)
-library(countrycode)
 
 #=========================================================
 #=========================================================
@@ -15,7 +13,8 @@ panel_data <- create_panel()
 usethis::use_data(panel_data, overwrite = T)
 
 #Raw ssp data
-raw.ssp.data = read.csv("./inst/extdata/socioeconomic/SSP_database_2024.csv", skip = 8)
+raw.ssp.data = read.csv("./inst/extdata/socioeconomic/SSP_database_2024.csv",
+                        skip = 8, fileEncoding = "UTF-8-BOM")
 usethis::use_data(raw.ssp.data, overwrite = T)
 
 # Country-level GDP by SSP scenario
@@ -43,23 +42,24 @@ pop_ctry.SSP5 = get_pop_ctry(ssp = 'SSP5')
 usethis::use_data(pop_ctry.SSP5, overwrite = T)
 
 # Adjust country names due to differences in datasets:
-adj_ctry = read.csv("./inst/extdata/adj_ctry.csv")
+adj_ctry = read.csv("./inst/extdata/adj_ctry.csv", fileEncoding = "UTF-8-BOM")
 usethis::use_data(adj_ctry, overwrite = T)
 
 # Adjust country names due to differences in the output and the panel data
-adj_ctry_output = read.csv("./inst/extdata/adj_ctry_output.csv")
+adj_ctry_output = read.csv("./inst/extdata/adj_ctry_output.csv", fileEncoding = "UTF-8-BOM")
 usethis::use_data(adj_ctry_output, overwrite = T)
 
 # Adjust country names due to differences in the output and map raster
-adj_ctry_map = read.csv("./inst/extdata/adj_ctry_map.csv")
+adj_ctry_map = read.csv("./inst/extdata/adj_ctry_map.csv", fileEncoding = "UTF-8-BOM")
 usethis::use_data(adj_ctry_map, overwrite = T)
 
 # Load GDP data for some missing countries from a previous dataset (SSP-v9)
-ssp_gdp_adj = read.csv("./inst/extdata/socioeconomic/SSP_adj.csv", skip = 8)
+ssp_gdp_adj = read.csv("./inst/extdata/socioeconomic/SSP_adj.csv",
+                       skip = 8, fileEncoding = "UTF-8-BOM")
 usethis::use_data(ssp_gdp_adj, overwrite = T)
 
 # Bias adder by IA and country
-hia_adder = read.csv("./inst/extdata/mort/hia_adder.csv")
+hia_adder = read.csv("./inst/extdata/mort/hia_adder.csv", fileEncoding = "UTF-8-BOM")
 usethis::use_data(hia_adder, overwrite = T)
 
 # List of pollutants from the residential sector

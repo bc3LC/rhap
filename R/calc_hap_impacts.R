@@ -22,7 +22,7 @@
 
 calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
                             scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
-                            saveOutput = T, map = F, anim = T , HIA_var = "deaths",
+                            saveOutput = T, map = F, anim = T, HIA_var = "deaths",
                             normalized = F, by_gr = F) {
 
   Country <- country <- sector <- scenario <- region <- year <- group <- ghg <-
@@ -148,7 +148,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     dplyr::summarise(value = sum(value)) %>%
     dplyr::ungroup() %>%
     # filters the pollutants that will be used in the econometric analysis
-    dplyr::filter(ghg %in% panel_pollutants,
+    dplyr::filter(ghg %in% rhap::panel_pollutants,
                   year <= final_db_year) %>%
     # transform unit to kt (unit of the emissions in the panel)
     dplyr::mutate(value = value * CONV_Tg_kt,
@@ -181,7 +181,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                   ghg = Pollutant,
                   country = Country,
                   iso3 = `ISO 3`) %>%
-    dplyr::filter(ghg %in% panel_pollutants,
+    dplyr::filter(ghg %in% rhap::panel_pollutants,
                   year <= final_db_year) %>%
     # TODO add for more scenarios!!!
     gcamdata::left_join_error_no_match(em_reg, by = c("region", "ghg", "year")) %>%
@@ -305,7 +305,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                   country = region)
 
   # Add missing countries
-  gdp_adj <- ssp_gdp_adj %>%
+  gdp_adj <- rhap::ssp_gdp_adj %>%
     tidyr::gather(year, value, -Model, -Scenario, -Region, -Variable, -Unit) %>%
     dplyr::mutate(year=gsub("X", "", year)) %>%
     dplyr::filter(year %in% unique(gdp_ctry$year),
@@ -372,7 +372,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     # add groups
     gcamdata::repeat_add_columns(tibble::tibble(group = unique(em_shares_gr$group))) %>%
     # adjust country names to match
-    dplyr::left_join(adj_ctry, by = "country") %>%
+    dplyr::left_join(rhap::adj_ctry, by = "country") %>%
     dplyr::mutate(country = dplyr::if_else(is.na(adj_country), country, adj_country)) %>%
     dplyr::select(-adj_country) %>%
     # filter out Mayotte and Curasao
@@ -427,7 +427,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     # add groups
     gcamdata::repeat_add_columns(tibble::tibble(group = unique(em_shares_gr$group))) %>%
     # adjust country names to match
-    dplyr::left_join(adj_ctry, by = "country") %>%
+    dplyr::left_join(rhap::adj_ctry, by = "country") %>%
     dplyr::mutate(country = dplyr::if_else(is.na(adj_country), country, adj_country)) %>%
     dplyr::select(-adj_country) %>%
     # filter out Mayotte and Curasao
@@ -452,7 +452,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                                        by = c("country", "ssp", "year")) %>%
     dplyr::mutate(gdp_pc_dol2011_ppp = gdp_dol2011_ppp / pop) %>%
     # adjust country names to match
-    dplyr::left_join(adj_ctry, by = "country") %>%
+    dplyr::left_join(rhap::adj_ctry, by = "country") %>%
     dplyr::mutate(country = dplyr::if_else(is.na(adj_country), country, adj_country)) %>%
     dplyr::select(-adj_country) %>%
     gcamdata::repeat_add_columns(tibble::tibble(scenario = unique(em_ctry$scenario))) %>%
@@ -495,7 +495,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                   log_flsp = log(flsp_pc_gr)) %>%
     dplyr::select(scenario, country_name = country, group, year, dplyr::starts_with("log"), pop_gr) %>%
     # adjust country names to match to panel data
-    gcamdata::left_join_error_no_match(adj_ctry_output, by = "country_name") %>%
+    gcamdata::left_join_error_no_match(rhap::adj_ctry_output, by = "country_name") %>%
     dplyr::mutate(country_name = dplyr::if_else(data_name == "", country_name, data_name)) %>%
     dplyr::select(-data_name)
 
@@ -522,7 +522,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     dplyr::select(-BC, -OC) %>%
     # Add population to compute pollutants per 100K
     gcamdata::left_join_error_no_match(pop_ctry %>%
-                       dplyr::left_join(adj_ctry, by = "country") %>%
+                       dplyr::left_join(rhap::adj_ctry, by = "country") %>%
                        dplyr::mutate(country = dplyr::if_else(is.na(adj_country), country, adj_country)) %>%
                        dplyr::select(-adj_country)
                        , by = c( "ssp", "country", "year")) %>%
@@ -537,7 +537,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                   log_flsp = log(flsp_pc)) %>%
     dplyr::select(scenario, country_name = country, year, dplyr::starts_with("log"), pop) %>%
     # adjust country names to match to panel data
-    gcamdata::left_join_error_no_match(adj_ctry_output, by = "country_name") %>%
+    gcamdata::left_join_error_no_match(rhap::adj_ctry_output, by = "country_name") %>%
     dplyr::mutate(country_name = dplyr::if_else(data_name == "", country_name, data_name)) %>%
     dplyr::select(-data_name) %>%
     # remove not predictable regions
@@ -559,7 +559,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   output_fin <- output %>%
     dplyr::mutate(pred_var = paste0("pred_log_", HIA_var, "_per_100K")) %>%
     gcamdata::left_join_error_no_match(
-      hia_adder %>%
+      rhap::hia_adder %>%
         tibble::as_tibble() %>%
         dplyr::filter(HIA == HIA_var) %>%
         dplyr::select(country_name = country, bias.adder) %>%
@@ -604,7 +604,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     output_fin_gr <- output_gr %>%
       dplyr::mutate(pred_var = paste0("pred_log_", HIA_var, "_per_100K")) %>%
       dplyr::left_join(
-        hia_adder %>%
+        rhap::hia_adder %>%
           tibble::as_tibble() %>%
           dplyr::filter(HIA == HIA_var) %>%
           dplyr::select(country_name = country, bias.adder) %>%
@@ -644,7 +644,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     output_fin_map <- output_fin %>%
       dplyr::rename(country_name = country) %>%
       # adjust country names to match raster
-      gcamdata::left_join_error_no_match(adj_ctry_map, by = "country_name") %>%
+      gcamdata::left_join_error_no_match(rhap::adj_ctry_map, by = "country_name") %>%
       dplyr::mutate(country_name = dplyr::if_else(country_map != "", country_map, country_name)) %>%
       dplyr::select(scenario, country_name, year, pred_var, all_of(var_to_plot)) %>%
       dplyr::rename(subRegion = country_name,
