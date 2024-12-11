@@ -1,0 +1,17 @@
+Clean cooking access: 
+	- WHO, Global Health Observatory (2022) (OurWoldInData)
+
+Access to electricity: 
+	-World Bank (OurWoldInData)
+
+GDP: 
+	-Maddison Project Database 2020 (Bolt and van Zanden, 2020) OurWorldInData.org/economic-growth • CC BY
+
+Urban/rural:
+	-World Bank based on data from the UN Population Division
+	Note: Urban populations are defined based on the definition of urban areas by national statistical offices.
+
+Pop:
+	- Gapminder (v6), HYDE (v3.2), UN (2019)
+	OurWorldInData.org/future-population-growth • CC BY
+	Note: Historical country data is shown based on today's geographical borders.

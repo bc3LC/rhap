@@ -2,7 +2,7 @@ library(rhap)
 library(testthat)
 library(magrittr)
 
-test_that("Download db, create project, and run", {
+test_that("Create pie charts", {
   # load a reference GCAM db form a Zenodo repository
   db_path <- file.path(rprojroot::find_root(rprojroot::is_testthat), "testInputs")
   rpackageutils::download_unpack_zip(
