@@ -46,8 +46,8 @@ library(magrittr)
 
 <!-------------------------->
 <!-------------------------->
-#<p align="center" style="font-size:18px;"> *Direct BC emissions from the residential sector in India in 2050 by income decile* </p>
-#<p align="center"> <img src="https://raw.githubusercontent.com/bc3LC/rhap/main/vignettes/vignetteFigs/ResidEm_grp_India_2050_BC.png"></p>
+<p align="center" style="font-size:18px;"> *Direct BC emissions from the residential sector in India in 2050 by income decile* </p>
+<p align="center"> <img src="https://raw.githubusercontent.com/bc3LC/rhap/main/vignettes/vignetteFigs/ResidEm_grp_India_2050_BC.png"></p>
 
 <!-------------------------->
 <!-------------------------->

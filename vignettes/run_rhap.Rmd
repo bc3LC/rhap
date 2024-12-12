@@ -6,7 +6,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-The primary function provided by this package is `calc_hap_impacts`, which is designed to estimate health impacts attributable to household air pollution (HAP) under various alternative scenarios simulated using the Global Change Analysis Model (GCAM). This function streamlines the process of assessing scenario-specific health outcomes by extracting relevant data from GCAM databases or project files. These relevant data includes key socioeconomic and environmental parameters, such as per capita GDP, emissions of primary PM2.5, NOx, and VOCs, as well as per capita floorspace. For more details on the methodology and assumptions underlying the econometric model used in this calculation, refer to the guide on ["Fitting the Econometric Model"](ADD link). 
+The primary function provided by this package is `calc_hap_impacts`, which is designed to estimate health impacts attributable to household air pollution (HAP) under various alternative scenarios simulated using the Global Change Analysis Model (GCAM). This function streamlines the process of assessing scenario-specific health outcomes by extracting relevant data from GCAM databases or project files. These relevant data includes key socioeconomic and environmental parameters, such as per capita GDP, emissions of primary PM2.5, NOx, and VOCs, as well as per capita floorspace. For more details on the methodology and assumptions underlying the econometric model used in this calculation, refer to the guide on ["Fitting the Econometric Model"](https://bc3lc.github.io/rhap/articles/fit_model.html). 
 
 ### Extraction of the scenario-specific data
 The function `calc_hap_impacts` connects to a GCAM databases or project file using the [rgcam](https://github.com/JGCRI/rgcam) package, designed to extract and import GCAM results. 
@@ -19,7 +19,7 @@ For per capita GDP, the package loads projections from the [SSP database version
 
 
 ### Calculations
-The function estimates health impacts attributable to household air pollution (HAP) using an econometric model that incorporates direct emissions from the residential sector (BC, OC, NOx, and VOC), per capita GDP, and per capita floorspace as covariates. The model is a fixed-effects model, estimated using cross-regional and multi-year panel data compiled from various different sources. Detailed information on the econometric model, including its formulation and data sources, is available in the dedicated vignette: ["Fitting the Econometric Model"](ADD link).
+The function estimates health impacts attributable to household air pollution (HAP) using an econometric model that incorporates direct emissions from the residential sector (BC, OC, NOx, and VOC), per capita GDP, and per capita floorspace as covariates. The model is a fixed-effects model, estimated using cross-regional and multi-year panel data compiled from various different sources. Detailed information on the econometric model, including its formulation and data sources, is available in the dedicated vignette: ["Fitting the Econometric Model"](https://bc3lc.github.io/rhap/articles/fit_model.html).
 
 To improve accuracy, the health impact predictions incorporate a country-specific "bias adder" parameter, calculated as the difference between observed and estimated values in the final observed year (2019). This adjustment helps align model estimates with observed data for each country.
 
@@ -71,7 +71,7 @@ library(magrittr)
 <!-------------------------->
 <!-------------------------->
 <p align="center" style="font-size:18px;"> *Premature deaths per 100.000 inhabitants attributable to household air pollution in 2050* </p>
-#<p align="center"> <img src="https://raw.githubusercontent.com/bc3LC/rhap/main/vignettes/vignetteFigs/map_base_2050.png"></p>
+<p align="center"> <img src="https://raw.githubusercontent.com/bc3LC/rhap/main/vignettes/vignetteFigs/map_base_2050.png"></p>
 
 <!-------------------------->
 <!-------------------------->
