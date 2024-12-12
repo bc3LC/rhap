@@ -1,14 +1,17 @@
+# rhap
+
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![build](https://github.com/bc3LC/rhap/actions/workflows/build.yaml/badge.svg)](https://github.com/bc3LC/rhap/actions/workflows/build.yaml)
 [![docs](https://github.com/bc3LC/rhap/actions/workflows/docs.yaml/badge.svg)](https://github.com/bc3LC/rhap/actions/workflows/docs.yaml)
 [![pages-build-deployment](https://github.com/bc3LC/rhap/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/bc3LC/rhap/actions/workflows/pages/pages-build-deployment)
 [![test_coverage](https://github.com/bc3LC/rhap/actions/workflows/test_coverage.yaml/badge.svg)](https://github.com/bc3LC/rhap/actions/workflows/test_coverage.yaml)
+[![codecov](https://codecov.io/gh/bc3LC/rhap/graph/badge.svg?token=rC8eIjNwcN)](https://codecov.io/gh/bc3LC/rhap)
 ADD Zenodo Badge
 
 
 <!-- ------------------------>
 <!-- ------------------------>
-# <a name="Contents"></a>Contents
+## <a name="Contents"></a>Contents
 <!-- ------------------------>
 <!-- ------------------------>
 
@@ -21,7 +24,7 @@ ADD Zenodo Badge
 
 <!-- ------------------------>
 <!-- ------------------------>
-# <a name="KeyLinks"></a>Key Links
+## <a name="KeyLinks"></a>Key Links
 <!-- ------------------------>
 <!-- ------------------------>
 
@@ -32,7 +35,7 @@ ADD Zenodo Badge
 
 <!-- ------------------------>
 <!-- ------------------------>
-# <a name="Introduction"></a>Introduction
+## <a name="Introduction"></a>Introduction
 <!-- ------------------------>
 <!-- ------------------------>
 
@@ -43,7 +46,7 @@ ADD Zenodo Badge
 
 <!-- ------------------------>
 <!-- ------------------------>
-# <a name="Citation"></a>Citation
+## <a name="Citation"></a>Citation
 <!-- ------------------------>
 <!-- ------------------------>
 
@@ -53,7 +56,7 @@ TBA
 
 <!-- ------------------------>
 <!-- ------------------------>
-# <a name="InstallGuide"></a>Installation Guide
+## <a name="InstallGuide"></a>Installation Guide
 <!-- ------------------------>
 <!-- ------------------------>
 
@@ -85,7 +88,7 @@ Then, open the Rproject (rfasst.Rproj): In the Rstudio menu, click "Build -> Ins
 
 <!-- ------------------------>
 <!-- ------------------------>
-# <a name="keyfunctions"></a> How to guides
+## <a name="keyfunctions"></a> How to guides
 <!-- ------------------------>
 <!-- ------------------------>
 
@@ -100,7 +103,7 @@ This flexibility enables targeted assessments of how various consumer groups inf
 
 <!-- ------------------------>
 <!-- ------------------------>
-# <a name="Publications"></a>Publications
+## <a name="Publications"></a>Publications
 <!-- ------------------------>
 <!-- ------------------------>
 
