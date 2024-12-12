@@ -1,0 +1,11 @@
+"scenario","Region","Year","group","Pollutant","Units","value","perc_value"
+"Reference","EU-27",2030,"d1","CH4","Tg",0.060504640508,0.088
+"Reference","EU-27",2030,"d10","CH4","Tg",0.07892136672,0.114
+"Reference","EU-27",2030,"d2","CH4","Tg",0.064409765363,0.093
+"Reference","EU-27",2030,"d3","CH4","Tg",0.067185809,0.097
+"Reference","EU-27",2030,"d4","CH4","Tg",0.0695844153,0.101
+"Reference","EU-27",2030,"d5","CH4","Tg",0.06963183032,0.101
+"Reference","EU-27",2030,"d6","CH4","Tg",0.0690363279,0.1
+"Reference","EU-27",2030,"d7","CH4","Tg",0.06908586761,0.1
+"Reference","EU-27",2030,"d8","CH4","Tg",0.06968183831,0.101
+"Reference","EU-27",2030,"d9","CH4","Tg",0.07161407635,0.104

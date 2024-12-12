@@ -15,7 +15,7 @@ Authors@R: c(person("Jon", "Sampedro", email = "jon.sampedro@bc3research.org", r
 Description: A package to compute health impacts attributable to indoor air pollution within an integrated assessment modelling framework.
 URL: https://github.com/bc3LC/rhap
 BugReports: https://github.com/bc3LC/rhap/issues
-Depends: R (>= 2.10)
+Depends: R (>= 3.5)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -46,7 +46,8 @@ Imports:
     rworldmap,
     assertthat,
     countrycode,
-    scales
+    scales,
+    stats
 Suggests: 
     rmarkdown,
     rprojroot,

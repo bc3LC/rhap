@@ -24,6 +24,8 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                              year, pollutant, region,
                              saveOutput = T, pie = T) {
 
+  sector <- scenario <- group <- ghg <- Units <- value <- adj <- Year <-
+    Pollutant <- Region <- value_agg <- perc_value <- `GCAM Region` <- . <- NULL
 
   # Create the directory if they do not exist:
   if (!dir.exists("output")) dir.create("output")
@@ -59,11 +61,13 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     rlang::inform('Creating project ...')
     conn <- rgcam::localDBConn(db_path,
                                db_name,migabble = FALSE)
-    prj <- rgcam::addScenario(conn,
-                              prj_name,
-                              scen_name,
-                              paste0(query_path,"/",queries),
-                              saveProj = T)
+    prj <- suppressWarnings(
+      rgcam::addScenario(conn,
+                         prj_name,
+                         scen_name,
+                         paste0(query_path,"/",queries),
+                         saveProj = T)
+    )
 
   } else {
 
@@ -74,6 +78,13 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   # Consider the final_db_year as the user indicated year or the closes year available in the project file
   final_db_year<-min(final_db_year,
                      max(rgcam::getQuery(prj,'nonCO2 emissions by sector (excluding resource production)')$year))
+
+  if (year > final_db_year) {
+    stop(sprintf(
+      "Error: The specified year '%s' is invalid. The database only contains data up to %s. Accepted years are: %s. Please rerun the `calc_ResidEm_grp` function with a valid year.",
+      year, final_db_year, paste(seq(2020, final_db_year, 5), collapse = ", ")
+    ))
+  }
 
   rlang::inform('Running ...')
 
@@ -137,7 +148,7 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     # Create the directory if they do not exist:
     if (!dir.exists("output/ResidEm_grp")) dir.create("output/ResidEm_grp")
 
-    write.csv(em_reg_gr_fin,
+    utils::write.csv(em_reg_gr_fin,
               file.path('output/ResidEm_grp',
                         paste0("ResidEm_grp_", unique(em_reg_gr_fin$Region), "_",
                                unique(em_reg_gr_fin$Year), "_", unique(em_reg_gr_fin$Pollutant), ".csv")),

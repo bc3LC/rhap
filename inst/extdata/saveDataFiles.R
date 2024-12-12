@@ -1,8 +1,12 @@
 # Converting raw data into package data
 library(usethis)
 library(magrittr)
-library(dplyr)
-library(countrycode)
+
+# AUX function to deal with ASCII characters
+decode_ascii <- function(text) {
+  escaped_text <- htmltools::htmlEscape(text)
+  xml2::xml_text(xml2::read_xml(paste0("<x>", text, "</x>")))
+}
 
 #=========================================================
 #=========================================================
@@ -15,51 +19,63 @@ panel_data <- create_panel()
 usethis::use_data(panel_data, overwrite = T)
 
 #Raw ssp data
-raw.ssp.data = read.csv("./inst/extdata/socioeconomic/SSP_database_2024.csv", skip = 8)
+raw.ssp.data <- read.csv("./inst/extdata/socioeconomic/SSP_database_2024.csv",
+                        skip = 8, fileEncoding = "UTF-8-BOM")
+raw.ssp.data$Region <- sapply(raw.ssp.data$Region, decode_ascii)
 usethis::use_data(raw.ssp.data, overwrite = T)
 
 # Country-level GDP by SSP scenario
-gdp_ctry.SSP1 = get_gdp_ctry(ssp = 'SSP1')
+gdp_ctry.SSP1 <- get_gdp_ctry(ssp = 'SSP1')
 usethis::use_data(gdp_ctry.SSP1, overwrite = T)
-gdp_ctry.SSP2 = get_gdp_ctry(ssp = 'SSP2')
+gdp_ctry.SSP2 <- get_gdp_ctry(ssp = 'SSP2')
 usethis::use_data(gdp_ctry.SSP2, overwrite = T)
-gdp_ctry.SSP3 = get_gdp_ctry(ssp = 'SSP3')
+gdp_ctry.SSP3 <- get_gdp_ctry(ssp = 'SSP3')
 usethis::use_data(gdp_ctry.SSP3, overwrite = T)
-gdp_ctry.SSP4 = get_gdp_ctry(ssp = 'SSP4')
+gdp_ctry.SSP4 <- get_gdp_ctry(ssp = 'SSP4')
 usethis::use_data(gdp_ctry.SSP4, overwrite = T)
-gdp_ctry.SSP5 = get_gdp_ctry(ssp = 'SSP5')
+gdp_ctry.SSP5 <- get_gdp_ctry(ssp = 'SSP5')
 usethis::use_data(gdp_ctry.SSP5, overwrite = T)
 
 # Country-level population by SSP scenario
-pop_ctry.SSP1 = get_pop_ctry(ssp = 'SSP1')
+pop_ctry.SSP1 <- get_pop_ctry(ssp = 'SSP1')
 usethis::use_data(pop_ctry.SSP1, overwrite = T)
-pop_ctry.SSP2 = get_pop_ctry(ssp = 'SSP2')
+pop_ctry.SSP2 <- get_pop_ctry(ssp = 'SSP2')
 usethis::use_data(pop_ctry.SSP2, overwrite = T)
-pop_ctry.SSP3 = get_pop_ctry(ssp = 'SSP3')
+pop_ctry.SSP3 <- get_pop_ctry(ssp = 'SSP3')
 usethis::use_data(pop_ctry.SSP3, overwrite = T)
-pop_ctry.SSP4 = get_pop_ctry(ssp = 'SSP4')
+pop_ctry.SSP4 <- get_pop_ctry(ssp = 'SSP4')
 usethis::use_data(pop_ctry.SSP4, overwrite = T)
-pop_ctry.SSP5 = get_pop_ctry(ssp = 'SSP5')
+pop_ctry.SSP5 <- get_pop_ctry(ssp = 'SSP5')
 usethis::use_data(pop_ctry.SSP5, overwrite = T)
 
 # Adjust country names due to differences in datasets:
-adj_ctry = read.csv("./inst/extdata/adj_ctry.csv")
+adj_ctry <- read.csv("./inst/extdata/adj_ctry.csv", fileEncoding = "UTF-8-BOM")
+# Applying the function to decode HTML entities in col1
+adj_ctry$country <- sapply(adj_ctry$country, decode_ascii)
+adj_ctry$adj_country <- sapply(adj_ctry$adj_country, decode_ascii)
 usethis::use_data(adj_ctry, overwrite = T)
 
 # Adjust country names due to differences in the output and the panel data
-adj_ctry_output = read.csv("./inst/extdata/adj_ctry_output.csv")
+adj_ctry_output <- read.csv("./inst/extdata/adj_ctry_output.csv", fileEncoding = "UTF-8-BOM")
+adj_ctry_output$country_name <- sapply(adj_ctry_output$country_name, decode_ascii)
+adj_ctry_output$data_name <- sapply(adj_ctry_output$data_name, decode_ascii)
 usethis::use_data(adj_ctry_output, overwrite = T)
 
 # Adjust country names due to differences in the output and map raster
-adj_ctry_map = read.csv("./inst/extdata/adj_ctry_map.csv")
+adj_ctry_map <- read.csv("./inst/extdata/adj_ctry_map.csv", fileEncoding = "UTF-8-BOM")
+adj_ctry_map$country_name = sapply(adj_ctry_map$country_name, decode_ascii)
+adj_ctry_map$country_map = sapply(adj_ctry_map$country_map, decode_ascii)
 usethis::use_data(adj_ctry_map, overwrite = T)
 
 # Load GDP data for some missing countries from a previous dataset (SSP-v9)
-ssp_gdp_adj = read.csv("./inst/extdata/socioeconomic/SSP_adj.csv", skip = 8)
+ssp_gdp_adj <- read.csv("./inst/extdata/socioeconomic/SSP_adj.csv",
+                       skip = 8, fileEncoding = "UTF-8-BOM")
+ssp_gdp_adj$Region = sapply(ssp_gdp_adj$Region, decode_ascii)
 usethis::use_data(ssp_gdp_adj, overwrite = T)
 
 # Bias adder by IA and country
-hia_adder = read.csv("./inst/extdata/mort/hia_adder.csv")
+hia_adder <- read.csv("./inst/extdata/mort/hia_adder.csv", fileEncoding = "UTF-8-BOM")
+hia_adder$country = sapply(hia_adder$country, decode_ascii)
 usethis::use_data(hia_adder, overwrite = T)
 
 # List of pollutants from the residential sector

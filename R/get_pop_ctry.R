@@ -14,6 +14,17 @@
 
 get_pop_ctry <- function(ssp) {
 
+  iso <- country_name <- year <- pop <- continent <- dev <- variable <- value <-
+    Model <- Scenario <- Region <- Variable <- Unit <- region <- scenario <- . <- NULL
+
+  # Check user input
+  if (!ssp %in% c("SSP1", "SSP2", "SSP3", "SSP4", "SSP5")) {
+    stop(sprintf(
+      "Error: The specified SSP '%s' is invalid. Accepted SSPs are: %s. Please rerun the `get_pop_ctry` function with a valid SSP.",
+      ssp, paste(c("SSP1", "SSP2", "SSP3", "SSP4", "SSP5"), collapse = ", ")
+    ))
+  }
+
   # Set some constants
   conv_M_people <- 1E6
 
@@ -21,17 +32,17 @@ get_pop_ctry <- function(ssp) {
   `%!in%` = Negate(`%in%`)
 
   # First, we read in the population data.
-  max_base_year <- raw.ssp.data %>%
+  max_base_year <- rhap::raw.ssp.data %>%
     tidyr::gather(year, value, -Model, -Scenario, -Region, -Variable, -Unit) %>%
     dplyr::mutate(year=gsub("X", "", year)) %>%
     dplyr::filter(Scenario == "Historical Reference") %>%
-    dplyr::filter(complete.cases(.)) %>%
+    dplyr::filter(stats::complete.cases(.)) %>%
     dplyr::filter(year == max(year)) %>%
     dplyr::select(year) %>%
     dplyr::distinct() %>%
     dplyr::pull()
 
-  ssp.data <- raw.ssp.data %>%
+  ssp.data <- rhap::raw.ssp.data %>%
     tidyr::gather(year, value, -Model, -Scenario, -Region, -Variable, -Unit) %>%
     dplyr::mutate(year=gsub("X", "", year)) %>%
     dplyr::filter(year >= 2010, year <= 2100,
