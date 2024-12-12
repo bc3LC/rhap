@@ -3,20 +3,11 @@ library(testthat)
 library(magrittr)
 
 test_that("Create pie charts", {
-  # load a reference GCAM db form a Zenodo repository
-  db_path <- file.path(rprojroot::find_root(rprojroot::is_testthat), "testInputs")
-  rpackageutils::download_unpack_zip(
-    data_directory = db_path,
-    url = "https://zenodo.org/record/13361605/files/database_basexdb_ref.zip?download=1"
-  )
-  testthat::expect_equal(1, 1)
-
-  db_name <- "database_basexdb_ref"
-  prj_name <- "test_prj_v7p1.dat"
+  # load a reference GCAM 7.1 project
+  prj_name <- file.path(rprojroot::find_root(rprojroot::is_testthat), "testInputs", "test_prj_v7p1.dat")
   scen_name <- "Reference"
 
-  testOutput <- calc_ResidEm_grp(db_path = db_path, db_name = db_name,
-                                 prj_name = prj_name, scen_name = scen_name,
+  testOutput <- calc_ResidEm_grp(prj_name = prj_name, scen_name = scen_name,
                                  final_db_year = 2050,
                                  year = 2030,
                                  pollutant = 'CH4',
@@ -25,8 +16,7 @@ test_that("Create pie charts", {
   testResult <- get(load(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/calc_ResidEm_grp_output_eu15.RData")))
   testthat::expect_equal(testOutput, testResult)
 
-  testOutput <- calc_ResidEm_grp(db_path = db_path, db_name = db_name,
-                                 prj_name = prj_name, scen_name = scen_name,
+  testOutput <- calc_ResidEm_grp(prj_name = prj_name, scen_name = scen_name,
                                  final_db_year = 2050,
                                  year = 2030,
                                  pollutant = 'CH4',
@@ -50,8 +40,7 @@ test_that("Create pie charts", {
 
   # error messages
   expect_error(
-    calc_ResidEm_grp(db_path = db_path, db_name = db_name,
-                     prj_name = prj_name, scen_name = scen_name,
+    calc_ResidEm_grp(prj_name = prj_name, scen_name = scen_name,
                      final_db_year = 2050,
                      year = 2030,
                      pollutant = 'ch4',
@@ -61,8 +50,7 @@ test_that("Create pie charts", {
   )
 
   expect_error(
-    calc_ResidEm_grp(db_path = db_path, db_name = db_name,
-                     prj_name = prj_name, scen_name = scen_name,
+    calc_ResidEm_grp(prj_name = prj_name, scen_name = scen_name,
                      final_db_year = 2050,
                      year = 2030,
                      pollutant = 'CH4',
@@ -72,8 +60,7 @@ test_that("Create pie charts", {
   )
 
   expect_error(
-    calc_ResidEm_grp(db_path = db_path, db_name = db_name,
-                     prj_name = prj_name, scen_name = scen_name,
+    calc_ResidEm_grp(prj_name = prj_name, scen_name = scen_name,
                      final_db_year = 2050,
                      year = 2032,
                      pollutant = 'CH4',
@@ -84,8 +71,7 @@ test_that("Create pie charts", {
 
 
   expect_error(
-    calc_ResidEm_grp(db_path = db_path, db_name = db_name,
-                     prj_name = prj_name, scen_name = scen_name,
+    calc_ResidEm_grp(prj_name = prj_name, scen_name = scen_name,
                      final_db_year = 2050,
                      year = 2055,
                      pollutant = 'CH4',

@@ -3,28 +3,23 @@ library(testthat)
 library(magrittr)
 
 test_that("Download db, create project, and run", {
-  # load a reference GCAM db form a Zenodo repository
-  db_path <- file.path(rprojroot::find_root(rprojroot::is_testthat), "testInputs")
-  rpackageutils::download_unpack_zip(
-    data_directory = db_path,
-    url = "https://zenodo.org/record/13361605/files/database_basexdb_ref.zip?download=1"
-  )
-  testthat::expect_equal(1, 1)
-
-  db_name <- "database_basexdb_ref"
-  prj_name <- "test_prj_v7p1.dat"
+  # load a reference GCAM 7.1 project
+  prj_name <- file.path(rprojroot::find_root(rprojroot::is_testthat), "testInputs", "test_prj_v7p1.dat")
   scen_name <- "Reference"
 
-  testOutput <- calc_hap_impacts(db_path = db_path, db_name = db_name,
-                                 prj_name = prj_name, scen_name = scen_name,
+  testOutput <- calc_hap_impacts(prj_name = prj_name, scen_name = scen_name,
                                  final_db_year = 2050, HIA_var = "deaths",
                                  saveOutput = T, map = T, anim = F,
                                  normalized = F, by_gr = F)
+  # testResult<-testOutput
+  # save(testResult, file = file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/calc_hap_impacts_output1.RData"))
   testResult <- get(load(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/calc_hap_impacts_output1.RData")))
   testthat::expect_equal(testOutput, testResult)
 
   # check saved files
   testOutput <- read.csv(file.path(rprojroot::find_root(rprojroot::is_testthat), "output/Reference_HAP_deaths.csv"))
+  # testResult<-testOutput
+  # write.csv(testResult, file = file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/Reference_HAP_deaths.csv"), row.names = F)
   testResult <- read.csv(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/Reference_HAP_deaths.csv"))
   testthat::expect(!is.null(testOutput), 'Empty file. Check that the results were correctly produced.')
   testthat::expect_equal(as.data.frame.table(testOutput),
@@ -46,56 +41,49 @@ test_that("Download db, create project, and run", {
 
   # error messages
   expect_error(
-    calc_hap_impacts(db_path = db_path, db_name = db_name,
-                     prj_name = prj_name, scen_name = scen_name,
+    calc_hap_impacts(prj_name = prj_name, scen_name = scen_name,
                      final_db_year = 2050, HIA_var = "death",
                      saveOutput = T, map = T, anim = F,
                      normalized = F, by_gr = F),
     "Error: The specified HIA_var 'death' is invalid. Accepted HIA_var are: deaths, yll, dalys. Please rerun the calc_hap_impacts function with a valid HIA_var value."
   )
   expect_error(
-    calc_hap_impacts(db_path = db_path, db_name = db_name,
-                     prj_name = prj_name, scen_name = scen_name,
+    calc_hap_impacts(prj_name = prj_name, scen_name = scen_name,
                      final_db_year = 2063, HIA_var = "deaths",
                      saveOutput = T, map = T, anim = F,
                      normalized = F, by_gr = F),
     "Error: The specified final_db_year '2063' is invalid. Accepted final_db_year are: 2015, 2020, 2025, 2030, 2035, 2040, 2045, 2050, 2055, 2060, 2065, 2070, 2075, 2080, 2085, 2090, 2095, 2100. Please rerun the calc_hap_impacts function with a valid final_db_year value."
   )
   expect_error(
-    calc_hap_impacts(db_path = db_path, db_name = db_name,
-                     prj_name = prj_name, scen_name = scen_name,
+    calc_hap_impacts(prj_name = prj_name, scen_name = scen_name,
                      final_db_year = 2050, HIA_var = "deaths",
                      saveOutput = T, map = T, anim = 'true',
                      normalized = F, by_gr = F),
     "Error: The specified anim 'true' is invalid. Accepted anim values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid anim value."
   )
   expect_error(
-    calc_hap_impacts(db_path = db_path, db_name = db_name,
-                     prj_name = prj_name, scen_name = scen_name,
+    calc_hap_impacts(prj_name = prj_name, scen_name = scen_name,
                      final_db_year = 2050, HIA_var = "deaths",
                      saveOutput = T, map = 'false', anim = F,
                      normalized = F, by_gr = F),
     "Error: The specified map 'false' is invalid. Accepted map values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid map value."
   )
   expect_error(
-    calc_hap_impacts(db_path = db_path, db_name = db_name,
-                     prj_name = prj_name, scen_name = scen_name,
+    calc_hap_impacts(prj_name = prj_name, scen_name = scen_name,
                      final_db_year = 2050, HIA_var = "deaths",
                      saveOutput = 'T', map = T, anim = F,
                      normalized = F, by_gr = F),
     "Error: The specified saveOutput 'T' is invalid. Accepted saveOutput values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid saveOutput value."
   )
   expect_error(
-    calc_hap_impacts(db_path = db_path, db_name = db_name,
-                     prj_name = prj_name, scen_name = scen_name,
+    calc_hap_impacts(prj_name = prj_name, scen_name = scen_name,
                      final_db_year = 2050, HIA_var = "deaths",
                      saveOutput = T, map = F, anim = F,
                      normalized = 'no', by_gr = F),
     "Error: The specified normalized 'no' is invalid. Accepted normalized values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid normalized value."
   )
   expect_error(
-    calc_hap_impacts(db_path = db_path, db_name = db_name,
-                     prj_name = prj_name, scen_name = scen_name,
+    calc_hap_impacts(prj_name = prj_name, scen_name = scen_name,
                      final_db_year = 2050, HIA_var = "deaths",
                      saveOutput = T, map = F, anim = F,
                      normalized = T, by_gr = 0),
