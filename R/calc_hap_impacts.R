@@ -582,7 +582,8 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   # Create a function to write the data (by scenario)
   output.write <- function(df){
     df <- as.data.frame(df)
-    utils::write.csv(df, paste0("output/", unique(df$scenario) , "_HAP_", unique(HIA_var), ".csv"), row.names = F)
+    utils::write.csv(df, paste0("output/", unique(df$scenario) , "_HAP_", unique(HIA_var), ".csv"),
+                     row.names = FALSE, fileEncoding = "UTF-8")
   }
 
   if(saveOutput == T) {
@@ -600,7 +601,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 
     output.panel.gr <- plm::pdata.frame(output_gr, index = c("country_name", "year"))
 
-    output_gr$pred_value <- predict(model.fixed, output.panel.gr)
+    output_gr$pred_value <- stats::predict(model.fixed, output.panel.gr)
 
     output_fin_gr <- output_gr %>%
       dplyr::mutate(pred_var = paste0("pred_log_", HIA_var, "_per_100K")) %>%
@@ -624,7 +625,8 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       dplyr::mutate(pred_value = dplyr::if_else(as.numeric(pred_value) < 0, 0, as.numeric(pred_value)),
                     pred_value_per_100K_adj = dplyr::if_else(as.numeric(pred_value_per_100K_adj) < 0, 0, as.numeric(pred_value_per_100K_adj))) %>%
       dplyr::select(scenario, country = country_name, group, year, pred_var, pred_value, pred_value_normalized = pred_value_per_100K_adj) %>%
-      utils::write.csv(paste0("output/by_gr/", "HAP_" , unique(HIA_var), "_byGR" ,".csv"), row.names = F)
+      utils::write.csv(paste0("output/by_gr/", "HAP_" , unique(HIA_var), "_byGR" ,".csv"),
+                       row.names = F, fileEncoding = "UTF-8")
 
   }
 

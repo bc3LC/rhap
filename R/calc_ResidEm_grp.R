@@ -152,7 +152,7 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
               file.path('output/ResidEm_grp',
                         paste0("ResidEm_grp_", unique(em_reg_gr_fin$Region), "_",
                                unique(em_reg_gr_fin$Year), "_", unique(em_reg_gr_fin$Pollutant), ".csv")),
-              row.names = F)
+              row.names = F, fileEncoding = "UTF-8")
   }
 
 
