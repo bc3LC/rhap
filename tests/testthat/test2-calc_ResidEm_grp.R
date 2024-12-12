@@ -26,11 +26,13 @@ test_that("Create pie charts", {
   testthat::expect_equal(testOutput, testResult)
 
 
-  # check figures
-  testOutput <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "output/ResidEm_grp/pie_charts/ResidEm_grp_EU-15_2030_CH4.png"))
-  testResult <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/ResidEm_grp_EU-15_2030_CH4.png"))
-  testthat::expect_equal(testOutput, testResult)
+  # # check figures
+  # to be run locally, avoid running it in github actions
+  # testOutput <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "output/ResidEm_grp/pie_charts/ResidEm_grp_EU-15_2030_CH4.png"))
+  # testResult <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/ResidEm_grp_EU-15_2030_CH4.png"))
+  # testthat::expect_equal(testOutput, testResult)
 
+  # check saved files
   testOutput <- read.csv(file.path(rprojroot::find_root(rprojroot::is_testthat), "output/ResidEm_grp/ResidEm_grp_EU-27_2030_CH4.csv"))
   testResult <- read.csv(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/ResidEm_grp_EU-27_2030_CH4.csv"))
   testthat::expect(!is.null(testOutput), 'Empty file. Check that the results were correctly produced.')

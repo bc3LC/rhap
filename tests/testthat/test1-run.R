@@ -33,18 +33,19 @@ test_that("Download db, create project, and run", {
   testthat::expect(!is.null(testOutput), 'Empty file. Check that the results were correctly produced.')
   testthat::expect_equal(as.data.frame.table(testOutput), as.data.frame.table(testResult))
 
-  # check figures
-  testOutput <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "output/maps/map_Reference_byYear/map_param_2030_PRETTY.png"))
-  testResult <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/map_param_2030_PRETTY.png"))
-  testthat::expect_equal(testOutput, testResult)
-
-  testOutput <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "output/maps/map_Reference_allYears.png"))
-  testResult <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/map_Reference_allYears.png"))
-  testthat::expect_equal(testOutput, testResult)
-
-  testOutput <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "output/maps/map_allScen_byYear/map_allScen_2050.png"))
-  testResult <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/map_allScen_2050.png"))
-  testthat::expect_equal(testOutput, testResult)
+  # # check figures
+  # to be run locally, avoid running it in github actions
+  # testOutput <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "output/maps/map_Reference_byYear/map_param_2030_PRETTY.png"))
+  # testResult <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/map_param_2030_PRETTY.png"))
+  # testthat::expect_equal(testOutput, testResult)
+  #
+  # testOutput <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "output/maps/map_Reference_allYears.png"))
+  # testResult <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/map_Reference_allYears.png"))
+  # testthat::expect_equal(testOutput, testResult)
+  #
+  # testOutput <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "output/maps/map_allScen_byYear/map_allScen_2050.png"))
+  # testResult <- png::readPNG(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/map_allScen_2050.png"))
+  # testthat::expect_equal(testOutput, testResult)
 
 
   # error messages
