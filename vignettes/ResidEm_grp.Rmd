@@ -1,0 +1,53 @@
+---
+title: "ResidEm_grp"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ResidEm_grp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+### Description
+This function calculates the contribution of each within-region consumer group to household air pollution, categorized by region, year, and pollutant. Users can specify the region, time period, and pollutant of interest by adjusting the corresponding parameters when calling the function.
+
+The 32 GCAM regions are detailed in the [GCAM documentation](https://github.com/JGCRI/gcam-doc/blob/gh-pages/overview.md) webiste. Additionally, the function provides results for the EU-27 and Global categories.
+
+Time periods range from 2020 to 2100, with data available at 10-year intervals.
+
+The complete list of greenhouse gases (GHGs) and air pollutants tracked by GCAM includes: CO2, CH4, N2O, CF4, C2F6, SF6, HFC23, HFC32, HFC43-10mee, HFC125, HFC134a, HFC143a, HFC152a, HFC227ea, HFC236fa, HFC245fa, HFC365mfc, SO2, BC, OC, CO, VOCs, NOx, and NH3. For additional details, refer to the [online documentation](https://github.com/JGCRI/gcam-doc/blob/gh-pages/emissions.md)
+
+
+### Example
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, eval=F}
+library(rhap)
+library(magrittr)
+
+ db_path <- "path_to_your_gcam_database" # NULL if project file provided
+ db_name <- "name of the database" # NULL if project file provided
+ prj_name<-"name of the project file", # or name for a project to add extracted results to (any name should work, avoid spaces just in case)
+ scen_name <- "name of the GCAM scenario" # or vector names of the GCAM scenarios to be processed
+ queries <- "Name of the query file" # (the package includes a default query file that includes all the queries required in every function in the package, "queries_rhap.xml")
+ 
+ bc_india_2050_gr <- calc_ResidEm_grp(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name = "test_gcam7p1.dat",
+                             scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
+                             2050, "BC", "India",
+                             saveOutput = T, pie = T) 
+
+ head(bc_india_2050_gr)
+
+```
+
+<!-------------------------->
+<!-------------------------->
+#<p align="center" style="font-size:18px;"> *Direct BC emissions from the residential sector in India in 2050 by income decile* </p>
+#<p align="center"> <img src="https://raw.githubusercontent.com/bc3LC/rfasst/main/vignettes/vignetteFigs/ResidEm_grp_India_2050_BC.png"></p>
+
+<!-------------------------->
+<!-------------------------->

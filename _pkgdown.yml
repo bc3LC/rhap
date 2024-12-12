@@ -14,10 +14,12 @@ navbar:
     - text: "Guides"
       icon: fas fa-clipboard-list
       menu:
-      -  text: Running rhap
+      -  text: "Running rhap: Calculate household air pollution (HAP) impacts"
          href: articles/run_rhap.html
-      -  text: Fitting the econometric model
+      -  text: "Fitting the econometric model"
          href: articles/fit_model.html
+      -  text: "Analyze within-region contributions to HAP"
+         href: articles/ResidEm_grp.html
     - icon: fa-file-code-o
       text: "Reference"
       href: reference/index.html
