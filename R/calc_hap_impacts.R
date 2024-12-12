@@ -600,7 +600,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 
     output.panel.gr <- plm::pdata.frame(output_gr, index = c("country_name", "year"))
 
-    output_gr$pred_value <- predict(model.fixed, output.panel.gr)
+    output_gr$pred_value <- stats::predict(model.fixed, output.panel.gr)
 
     output_fin_gr <- output_gr %>%
       dplyr::mutate(pred_var = paste0("pred_log_", HIA_var, "_per_100K")) %>%
