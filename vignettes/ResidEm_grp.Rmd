@@ -1,5 +1,5 @@
 ---
-title: "ResidEm_grp"
+title: "Analyze within-region contributions to HAP*"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{ResidEm_grp}
