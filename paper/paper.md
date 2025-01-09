@@ -33,9 +33,9 @@ date: 08 January 2025
 bibliography: paper.bib
 ---
 # Summary
-Recent evidence identifies household air pollution as a major health risk, particularly in the global South, yet its impacts are often overlooked in global scenario analyses.
-Scenarios that promote economic convergence between developing and developed nations or adopt alternative mitigation strategies can improve access to affordable clean energy for low-income groups, 
-thereby reducing household air pollution, an issue largely ignored by integrated assessment models.
+Recent evidence highlights household air pollution as a significant health risk, particularly in the global South. 
+However, its impacts are frequently overlooked in the integrated assessment models widely used for global scenario analyses.
+Alternative scenarios with diverse socioeconomic pathways or climate policies could reshape access to affordable clean energy, particularly for low-income groups, directly impacting household air pollution.
 
 `rhap` is an R package developed to estimate health impacts attributable to household air pollution (HAP) under alternative scenarios simulated using the Global Change Analysis Model (GCAM). 
 These impacts are derived using an econometric model that links health outcomes from HAP to various air pollutant emissions and socioeconomic variables, all of which can be extracted from scenario-specific GCAM outputs. 
@@ -50,7 +50,7 @@ Comprehensive documentation is also provided and can be accessed [here](https://
 install.packages("devtools")
 library(devtools)
 devtools::install_github("bc3LC/rhap")
-library(rfasst)
+library(rhap)
 
 db_path <- "path_to_your_gcam_database" # NULL if project file provided
 db_name <- "name of the database" # NULL if project file provided
