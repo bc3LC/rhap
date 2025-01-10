@@ -1,5 +1,5 @@
 ---
-title: "Fitting the econometric model*"
+title: "Fitting the econometric model"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{fit_model}
