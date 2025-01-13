@@ -65,6 +65,7 @@ usethis::use_data(adj_ctry_output, overwrite = T)
 adj_ctry_map <- read.csv("./inst/extdata/adj_ctry_map.csv", fileEncoding = "UTF-8-BOM")
 adj_ctry_map$country_name = sapply(adj_ctry_map$country_name, decode_ascii)
 adj_ctry_map$country_map = sapply(adj_ctry_map$country_map, decode_ascii)
+adj_ctry_map <- unique(adj_ctry_map)
 usethis::use_data(adj_ctry_map, overwrite = T)
 
 # Load GDP data for some missing countries from a previous dataset (SSP-v9)
