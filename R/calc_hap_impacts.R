@@ -541,6 +541,8 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     gcamdata::left_join_error_no_match(rhap::adj_ctry_output, by = "country_name") %>%
     dplyr::mutate(country_name = dplyr::if_else(data_name == "", country_name, data_name)) %>%
     dplyr::select(-data_name) %>%
+    # adjust Rou
+    dplyr::mutate(country_name = dplyr::if_else(country_name == "Roumania", "Romania", country_name)) %>%
     # remove not predictable regions
     dplyr::filter(country_name %in% unique(fit_model(HIA_var = HIA_var)[[2]]))
 
@@ -651,7 +653,8 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       dplyr::mutate(country_name = dplyr::if_else(country_map != "", country_map, country_name)) %>%
       dplyr::select(scenario, country_name, year, pred_var, dplyr::all_of(var_to_plot)) %>%
       dplyr::rename(subRegion = country_name,
-                    value = var_to_plot)
+                    value = var_to_plot) %>%
+      tidyr::complete(tidyr::nesting(scenario,year,pred_var),subRegion = unique(rmap::mapCountries$region))
 
     mapCountries <<- rmap::mapCountries
 

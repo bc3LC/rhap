@@ -29,7 +29,7 @@ fit_model <- function(HIA_var) {
   data <- rhap::panel_data %>%
     dplyr::select(iso, country_name, year, pop, dplyr::starts_with("log"), continent, dev) %>%
     dplyr::mutate(year = as.character(year)) %>%
-    dplyr::select(-log_AAP) %>%
+    dplyr::select(-log_AAP, -log_HDD_value, -log_CDD_value) %>%
     dplyr::filter(stats::complete.cases(.))
   predictable_regions <- unique(data$country_name)
 

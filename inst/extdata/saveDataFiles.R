@@ -74,7 +74,8 @@ ssp_gdp_adj$Region = sapply(ssp_gdp_adj$Region, decode_ascii)
 usethis::use_data(ssp_gdp_adj, overwrite = T)
 
 # Bias adder by IA and country
-hia_adder <- read.csv("./inst/extdata/mort/hia_adder.csv", fileEncoding = "UTF-8-BOM")
+# hia_adder <- read.csv("./inst/extdata/mort/hia_adder.csv", fileEncoding = "UTF-8-BOM")
+hia_adder <- rhap::calc_hia_adder()
 hia_adder$country = sapply(hia_adder$country, decode_ascii)
 usethis::use_data(hia_adder, overwrite = T)
 

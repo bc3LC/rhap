@@ -2,6 +2,7 @@
 
 export(calc_ResidEm_grp)
 export(calc_hap_impacts)
+export(calc_hia_adder)
 export(create_panel)
 export(fit_model)
 export(get_gdp_ctry)
