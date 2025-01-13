@@ -654,7 +654,8 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       dplyr::select(scenario, country_name, year, pred_var, dplyr::all_of(var_to_plot)) %>%
       dplyr::rename(subRegion = country_name,
                     value = var_to_plot) %>%
-      tidyr::complete(tidyr::nesting(scenario,year,pred_var),subRegion = unique(rmap::mapCountries$region))
+      tidyr::complete(tidyr::nesting(scenario,year,pred_var),
+                      subRegion = unique(rmap::mapCountries$region))
 
     mapCountries <<- rmap::mapCountries
 
@@ -669,7 +670,10 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                 legendType = "pretty",
                 background  = T,
                 animate = anim,
-                underLayer = mapCountries)
+                underLayer = mapCountries,
+                colorNA = "grey",
+                showNA = T
+      )
 
       # 2. Reorder folders and rename figures
       # 2.1. move the allYears figure
@@ -710,7 +714,10 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                 legendType = "pretty",
                 background  = T,
                 animate = anim,
-                underLayer = mapCountries)
+                underLayer = mapCountries,
+                colorNA = "grey",
+                showNA = T
+      )
 
       # 2. Reorder folders and rename figures
       # 2.1. remove an intermediate folder
