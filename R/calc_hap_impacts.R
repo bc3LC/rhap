@@ -671,7 +671,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                 background  = T,
                 animate = anim,
                 underLayer = mapCountries,
-                colorNA = "grey",
+                colorNA = "grey92",
                 showNA = T
       )
 
@@ -715,7 +715,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                 background  = T,
                 animate = anim,
                 underLayer = mapCountries,
-                colorNA = "grey",
+                colorNA = "grey92",
                 showNA = T
       )
 
