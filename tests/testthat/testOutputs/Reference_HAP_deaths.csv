@@ -1,649 +1,649 @@
 "scenario","country","year","pred_var","pred_value","pred_value_normalized"
-"Reference","Afghanistan","2020","deaths",22609,58.99
-"Reference","Afghanistan","2030","deaths",17021,33.77
-"Reference","Afghanistan","2040","deaths",12716,20.12
-"Reference","Afghanistan","2050","deaths",10216,13.51
-"Reference","Albania","2020","deaths",1211,42.18
-"Reference","Albania","2030","deaths",891,32.82
-"Reference","Albania","2040","deaths",724,28.93
-"Reference","Albania","2050","deaths",613,27.05
-"Reference","Algeria","2020","deaths",0,0
-"Reference","Algeria","2030","deaths",0,0
-"Reference","Algeria","2040","deaths",0,0
-"Reference","Algeria","2050","deaths",0,0
-"Reference","Angola","2020","deaths",12508,38.02
-"Reference","Angola","2030","deaths",14424,32.7
-"Reference","Angola","2040","deaths",14101,24.98
-"Reference","Angola","2050","deaths",13302,19.28
-"Reference","Argentina","2020","deaths",1091,2.43
-"Reference","Argentina","2030","deaths",567,1.2
-"Reference","Argentina","2040","deaths",232,0.47
-"Reference","Argentina","2050","deaths",0,0
-"Reference","Armenia","2020","deaths",21,0.74
-"Reference","Armenia","2030","deaths",0,0
-"Reference","Armenia","2040","deaths",0,0
-"Reference","Armenia","2050","deaths",0,0
-"Reference","Australia","2020","deaths",26,0.1
-"Reference","Australia","2030","deaths",14,0.05
-"Reference","Australia","2040","deaths",6,0.02
-"Reference","Australia","2050","deaths",0,0
-"Reference","Austria","2020","deaths",8,0.09
-"Reference","Austria","2030","deaths",4,0.04
-"Reference","Austria","2040","deaths",1,0.01
-"Reference","Austria","2050","deaths",0,0
-"Reference","Azerbaijan","2020","deaths",827,8.05
-"Reference","Azerbaijan","2030","deaths",564,5.26
-"Reference","Azerbaijan","2040","deaths",201,1.81
-"Reference","Azerbaijan","2050","deaths",0,0
-"Reference","Bahrain","2020","deaths",0,0
-"Reference","Bahrain","2030","deaths",0,0
-"Reference","Bahrain","2040","deaths",0,0
-"Reference","Bahrain","2050","deaths",0,0
-"Reference","Bangladesh","2020","deaths",128565,77.25
-"Reference","Bangladesh","2030","deaths",116222,63.38
-"Reference","Bangladesh","2040","deaths",114439,58.94
-"Reference","Bangladesh","2050","deaths",114269,57.34
-"Reference","Barbados","2020","deaths",0,0
-"Reference","Barbados","2030","deaths",0,0
-"Reference","Barbados","2040","deaths",0,0
-"Reference","Barbados","2050","deaths",0,0
-"Reference","Belarus","2020","deaths",0,0
-"Reference","Belarus","2030","deaths",0,0
-"Reference","Belarus","2040","deaths",0,0
-"Reference","Belarus","2050","deaths",0,0
-"Reference","Belgium","2020","deaths",0,0
-"Reference","Belgium","2030","deaths",0,0
-"Reference","Belgium","2040","deaths",0,0
-"Reference","Belgium","2050","deaths",0,0
-"Reference","Benin","2020","deaths",21154,169.68
-"Reference","Benin","2030","deaths",21150,130.65
-"Reference","Benin","2040","deaths",22184,110.09
-"Reference","Benin","2050","deaths",24255,100.54
-"Reference","Bolivia (Plurinational State of)","2020","deaths",3520,29.67
-"Reference","Bolivia (Plurinational State of)","2030","deaths",3229,24.02
-"Reference","Bolivia (Plurinational State of)","2040","deaths",2738,18.39
-"Reference","Bolivia (Plurinational State of)","2050","deaths",2308,14.46
-"Reference","Bosnia and Herzegovina","2020","deaths",652,19.53
-"Reference","Bosnia and Herzegovina","2030","deaths",179,5.86
-"Reference","Bosnia and Herzegovina","2040","deaths",7,0.24
-"Reference","Bosnia and Herzegovina","2050","deaths",0,0
-"Reference","Botswana","2020","deaths",0,0
-"Reference","Botswana","2030","deaths",0,0
-"Reference","Botswana","2040","deaths",0,0
-"Reference","Botswana","2050","deaths",0,0
-"Reference","Brazil","2020","deaths",0,0
-"Reference","Brazil","2030","deaths",0,0
-"Reference","Brazil","2040","deaths",0,0
-"Reference","Brazil","2050","deaths",0,0
-"Reference","Bulgaria","2020","deaths",0,0
-"Reference","Bulgaria","2030","deaths",0,0
-"Reference","Bulgaria","2040","deaths",0,0
-"Reference","Bulgaria","2050","deaths",0,0
-"Reference","Burkina Faso","2020","deaths",41438,195.17
-"Reference","Burkina Faso","2030","deaths",45046,164.68
-"Reference","Burkina Faso","2040","deaths",49273,144.38
-"Reference","Burkina Faso","2050","deaths",55343,135.01
-"Reference","Burundi","2020","deaths",29041,240.93
-"Reference","Burundi","2030","deaths",27534,179.43
-"Reference","Burundi","2040","deaths",25648,135.81
-"Reference","Burundi","2050","deaths",25347,113.6
-"Reference","Cambodia","2020","deaths",19934,122.32
-"Reference","Cambodia","2030","deaths",18835,103.5
-"Reference","Cambodia","2040","deaths",19062,97.17
-"Reference","Cambodia","2050","deaths",19206,94.18
-"Reference","Cameroon","2020","deaths",24300,92.97
-"Reference","Cameroon","2030","deaths",22719,68.43
-"Reference","Cameroon","2040","deaths",23207,57.55
-"Reference","Cameroon","2050","deaths",24914,52.89
-"Reference","Canada","2020","deaths",0,0
-"Reference","Canada","2030","deaths",0,0
-"Reference","Canada","2040","deaths",0,0
-"Reference","Canada","2050","deaths",0,0
-"Reference","Cabo Verde","2020","deaths",99,17.11
-"Reference","Cabo Verde","2030","deaths",108,17.09
-"Reference","Cabo Verde","2040","deaths",115,17.07
-"Reference","Cabo Verde","2050","deaths",118,17.05
-"Reference","Central African Republic","2020","deaths",16292,309.03
-"Reference","Central African Republic","2030","deaths",19379,275.26
-"Reference","Central African Republic","2040","deaths",18740,206.92
-"Reference","Central African Republic","2050","deaths",18756,169.22
-"Reference","Chad","2020","deaths",35340,215.76
-"Reference","Chad","2030","deaths",44064,197.46
-"Reference","Chad","2040","deaths",47431,162.24
-"Reference","Chad","2050","deaths",52722,144.01
-"Reference","Chile","2020","deaths",882,4.59
-"Reference","Chile","2030","deaths",714,3.58
-"Reference","Chile","2040","deaths",581,2.85
-"Reference","Chile","2050","deaths",478,2.34
-"Reference","China","2020","deaths",0,0
-"Reference","China","2030","deaths",0,0
-"Reference","China","2040","deaths",0,0
-"Reference","China","2050","deaths",0,0
-"Reference","Colombia","2020","deaths",0,0
-"Reference","Colombia","2030","deaths",0,0
-"Reference","Colombia","2040","deaths",0,0
-"Reference","Colombia","2050","deaths",0,0
-"Reference","Comoros","2020","deaths",586,73.35
-"Reference","Comoros","2030","deaths",527,54.71
-"Reference","Comoros","2040","deaths",413,36.88
-"Reference","Comoros","2050","deaths",346,27.42
-"Reference","Congo","2020","deaths",7521,133.47
-"Reference","Congo","2030","deaths",7271,102.79
-"Reference","Congo","2040","deaths",6441,75.24
-"Reference","Congo","2050","deaths",5566,55.93
-"Reference","Democratic Republic of the Congo","2020","deaths",56087,61.41
-"Reference","Democratic Republic of the Congo","2030","deaths",75016,59.75
-"Reference","Democratic Republic of the Congo","2040","deaths",97214,58.79
-"Reference","Democratic Republic of the Congo","2050","deaths",121548,58.32
-"Reference","Costa Rica","2020","deaths",0,0
-"Reference","Costa Rica","2030","deaths",0,0
-"Reference","Costa Rica","2040","deaths",0,0
-"Reference","Costa Rica","2050","deaths",0,0
-"Reference","Côte d'Ivoire","2020","deaths",4806,18.15
-"Reference","Côte d'Ivoire","2030","deaths",4390,13.27
-"Reference","Côte d'Ivoire","2040","deaths",4105,10.38
-"Reference","Côte d'Ivoire","2050","deaths",4207,9.28
-"Reference","Croatia","2020","deaths",0,0
-"Reference","Croatia","2030","deaths",0,0
-"Reference","Croatia","2040","deaths",0,0
-"Reference","Croatia","2050","deaths",0,0
-"Reference","Cuba","2020","deaths",0,0
-"Reference","Cuba","2030","deaths",0,0
-"Reference","Cuba","2040","deaths",0,0
-"Reference","Cuba","2050","deaths",0,0
-"Reference","Cyprus","2020","deaths",608,49.24
-"Reference","Cyprus","2030","deaths",304,23.1
-"Reference","Cyprus","2040","deaths",153,11.21
-"Reference","Cyprus","2050","deaths",83,5.85
-"Reference","Czechia","2020","deaths",25088,238.07
-"Reference","Czechia","2030","deaths",11760,109.78
-"Reference","Czechia","2040","deaths",4883,46.87
-"Reference","Czechia","2050","deaths",2172,21.2
-"Reference","Denmark","2020","deaths",3452,59.4
-"Reference","Denmark","2030","deaths",2031,34.05
-"Reference","Denmark","2040","deaths",1097,18.08
-"Reference","Denmark","2050","deaths",539,8.74
-"Reference","Djibouti","2020","deaths",0,0
-"Reference","Djibouti","2030","deaths",0,0
-"Reference","Djibouti","2040","deaths",0,0
-"Reference","Djibouti","2050","deaths",0,0
-"Reference","Dominican Republic","2020","deaths",363,3.32
-"Reference","Dominican Republic","2030","deaths",0,0
-"Reference","Dominican Republic","2040","deaths",0,0
-"Reference","Dominican Republic","2050","deaths",0,0
-"Reference","Ecuador","2020","deaths",815,4.66
-"Reference","Ecuador","2030","deaths",0,0
-"Reference","Ecuador","2040","deaths",0,0
-"Reference","Ecuador","2050","deaths",0,0
-"Reference","Egypt","2020","deaths",2003,1.88
-"Reference","Egypt","2030","deaths",251,0.2
-"Reference","Egypt","2040","deaths",0,0
-"Reference","Egypt","2050","deaths",0,0
-"Reference","El Salvador","2020","deaths",628,10
-"Reference","El Salvador","2030","deaths",630,9.76
-"Reference","El Salvador","2040","deaths",622,9.59
-"Reference","El Salvador","2050","deaths",608,9.54
-"Reference","Equatorial Guinea","2020","deaths",81,5.14
-"Reference","Equatorial Guinea","2030","deaths",0,0
-"Reference","Equatorial Guinea","2040","deaths",0,0
-"Reference","Equatorial Guinea","2050","deaths",0,0
-"Reference","Estonia","2020","deaths",596,44.83
-"Reference","Estonia","2030","deaths",887,67.62
-"Reference","Estonia","2040","deaths",543,43.32
-"Reference","Estonia","2050","deaths",291,23.97
-"Reference","Ethiopia","2020","deaths",55368,47.88
-"Reference","Ethiopia","2030","deaths",67170,45.77
-"Reference","Ethiopia","2040","deaths",79634,44.59
-"Reference","Ethiopia","2050","deaths",91858,44
-"Reference","Finland","2020","deaths",1708,30.92
-"Reference","Finland","2030","deaths",614,11.14
-"Reference","Finland","2040","deaths",88,1.61
-"Reference","Finland","2050","deaths",0,0
-"Reference","France","2020","deaths",0,0
-"Reference","France","2030","deaths",0,0
-"Reference","France","2040","deaths",0,0
-"Reference","France","2050","deaths",0,0
-"Reference","Gabon","2020","deaths",0,0
-"Reference","Gabon","2030","deaths",0,0
-"Reference","Gabon","2040","deaths",0,0
-"Reference","Gabon","2050","deaths",0,0
-"Reference","Gambia","2020","deaths",1525,60
-"Reference","Gambia","2030","deaths",1710,54.07
-"Reference","Gambia","2040","deaths",1821,47.81
-"Reference","Gambia","2050","deaths",1939,44.14
-"Reference","Georgia","2020","deaths",3624,96.16
-"Reference","Georgia","2030","deaths",2482,71.59
-"Reference","Georgia","2040","deaths",1819,57.26
-"Reference","Georgia","2050","deaths",1469,50.37
-"Reference","Germany","2020","deaths",26754,32.13
-"Reference","Germany","2030","deaths",10867,13.09
-"Reference","Germany","2040","deaths",3882,4.74
-"Reference","Germany","2050","deaths",1522,1.88
-"Reference","Ghana","2020","deaths",8918,28
-"Reference","Ghana","2030","deaths",10853,27.98
-"Reference","Ghana","2040","deaths",12826,27.97
-"Reference","Ghana","2050","deaths",14755,27.97
-"Reference","Greece","2020","deaths",2717,25.77
-"Reference","Greece","2030","deaths",1636,16.03
-"Reference","Greece","2040","deaths",887,8.9
-"Reference","Greece","2050","deaths",497,5.08
-"Reference","Guatemala","2020","deaths",0,0
-"Reference","Guatemala","2030","deaths",0,0
-"Reference","Guatemala","2040","deaths",0,0
-"Reference","Guatemala","2050","deaths",0,0
-"Reference","Guinea","2020","deaths",12200,93.55
-"Reference","Guinea","2030","deaths",12459,76.77
-"Reference","Guinea","2040","deaths",12741,65.85
-"Reference","Guinea","2050","deaths",13348,60.15
-"Reference","Guinea-Bissau","2020","deaths",2929,146.96
-"Reference","Guinea-Bissau","2030","deaths",2983,122.42
-"Reference","Guinea-Bissau","2040","deaths",3052,106.93
-"Reference","Guinea-Bissau","2050","deaths",3203,99.78
-"Reference","Haiti","2020","deaths",7140,63.55
-"Reference","Haiti","2030","deaths",4133,32.35
-"Reference","Haiti","2040","deaths",1967,14
-"Reference","Haiti","2050","deaths",526,3.52
-"Reference","Honduras","2020","deaths",1298,12.93
-"Reference","Honduras","2030","deaths",539,4.65
-"Reference","Honduras","2040","deaths",0,0
-"Reference","Honduras","2050","deaths",0,0
-"Reference","Hungary","2020","deaths",1262,12.92
-"Reference","Hungary","2030","deaths",0,0
-"Reference","Hungary","2040","deaths",0,0
-"Reference","Hungary","2050","deaths",0,0
-"Reference","Iceland","2020","deaths",35,9.71
-"Reference","Iceland","2030","deaths",20,5.11
-"Reference","Iceland","2040","deaths",12,3.04
-"Reference","Iceland","2050","deaths",8,1.87
-"Reference","India","2020","deaths",630072,45.33
-"Reference","India","2030","deaths",680282,45.3
-"Reference","India","2040","deaths",717252,45.29
-"Reference","India","2050","deaths",733698,45.28
-"Reference","Indonesia","2020","deaths",145542,53.74
-"Reference","Indonesia","2030","deaths",88133,30.33
-"Reference","Indonesia","2040","deaths",70157,23.03
-"Reference","Indonesia","2050","deaths",61188,19.7
-"Reference","Iran (Islamic Republic of)","2020","deaths",1227,1.41
-"Reference","Iran (Islamic Republic of)","2030","deaths",0,0
-"Reference","Iran (Islamic Republic of)","2040","deaths",0,0
-"Reference","Iran (Islamic Republic of)","2050","deaths",0,0
-"Reference","Iraq","2020","deaths",143,0.34
-"Reference","Iraq","2030","deaths",57,0.11
-"Reference","Iraq","2040","deaths",0,0
-"Reference","Iraq","2050","deaths",0,0
-"Reference","Ireland","2020","deaths",0,0
-"Reference","Ireland","2030","deaths",0,0
-"Reference","Ireland","2040","deaths",0,0
-"Reference","Ireland","2050","deaths",0,0
-"Reference","Israel","2020","deaths",3,0.04
-"Reference","Israel","2030","deaths",2,0.02
-"Reference","Israel","2040","deaths",1,0.01
-"Reference","Israel","2050","deaths",0,0
-"Reference","Italy","2020","deaths",125,0.21
-"Reference","Italy","2030","deaths",105,0.18
-"Reference","Italy","2040","deaths",97,0.17
-"Reference","Italy","2050","deaths",89,0.16
-"Reference","Jamaica","2020","deaths",190,6.75
-"Reference","Jamaica","2030","deaths",188,6.59
-"Reference","Jamaica","2040","deaths",185,6.5
-"Reference","Jamaica","2050","deaths",179,6.43
-"Reference","Japan","2020","deaths",20978,16.71
-"Reference","Japan","2030","deaths",12520,10.49
-"Reference","Japan","2040","deaths",6613,5.87
-"Reference","Japan","2050","deaths",3020,2.85
-"Reference","Jordan","2020","deaths",0,0
-"Reference","Jordan","2030","deaths",0,0
-"Reference","Jordan","2040","deaths",0,0
-"Reference","Jordan","2050","deaths",0,0
-"Reference","Kazakhstan","2020","deaths",1539,8.16
-"Reference","Kazakhstan","2030","deaths",1680,8.14
-"Reference","Kazakhstan","2040","deaths",1794,8.12
-"Reference","Kazakhstan","2050","deaths",1893,8.11
-"Reference","Kenya","2020","deaths",25303,49.17
-"Reference","Kenya","2030","deaths",27432,43.92
-"Reference","Kenya","2040","deaths",28002,38.14
-"Reference","Kenya","2050","deaths",29192,35.15
-"Reference","Democratic People's Republic of Korea","2020","deaths",39567,153.28
-"Reference","Democratic People's Republic of Korea","2030","deaths",36999,139.45
-"Reference","Democratic People's Republic of Korea","2040","deaths",34561,132.53
-"Reference","Democratic People's Republic of Korea","2050","deaths",32507,128.94
-"Reference","Republic of Korea","2020","deaths",0,0
-"Reference","Republic of Korea","2030","deaths",0,0
-"Reference","Republic of Korea","2040","deaths",0,0
-"Reference","Republic of Korea","2050","deaths",0,0
-"Reference","Kuwait","2020","deaths",0,0
-"Reference","Kuwait","2030","deaths",0,0
-"Reference","Kuwait","2040","deaths",0,0
-"Reference","Kuwait","2050","deaths",0,0
-"Reference","Kyrgyzstan","2020","deaths",2169,34.03
-"Reference","Kyrgyzstan","2030","deaths",1176,15.95
-"Reference","Kyrgyzstan","2040","deaths",383,4.64
-"Reference","Kyrgyzstan","2050","deaths",0,0
-"Reference","Lao People's Democratic Republic","2020","deaths",6253,86.06
-"Reference","Lao People's Democratic Republic","2030","deaths",6895,83.92
-"Reference","Lao People's Democratic Republic","2040","deaths",7401,82.96
-"Reference","Lao People's Democratic Republic","2050","deaths",7688,82.42
-"Reference","Latvia","2020","deaths",108,5.64
-"Reference","Latvia","2030","deaths",97,5.61
-"Reference","Latvia","2040","deaths",85,5.44
-"Reference","Latvia","2050","deaths",77,5.32
-"Reference","Lebanon","2020","deaths",4923,86.45
-"Reference","Lebanon","2030","deaths",3865,61.97
-"Reference","Lebanon","2040","deaths",2307,34.16
-"Reference","Lebanon","2050","deaths",1301,18.27
-"Reference","Lesotho","2020","deaths",2944,131.45
-"Reference","Lesotho","2030","deaths",2628,107.46
-"Reference","Lesotho","2040","deaths",2467,94.96
-"Reference","Lesotho","2050","deaths",2370,88.3
-"Reference","Liberia","2020","deaths",0,0
-"Reference","Liberia","2030","deaths",0,0
-"Reference","Liberia","2040","deaths",0,0
-"Reference","Liberia","2050","deaths",0,0
-"Reference","Libya","2020","deaths",0,0
-"Reference","Libya","2030","deaths",0,0
-"Reference","Libya","2040","deaths",0,0
-"Reference","Libya","2050","deaths",0,0
-"Reference","Lithuania","2020","deaths",0,0
-"Reference","Lithuania","2030","deaths",0,0
-"Reference","Lithuania","2040","deaths",0,0
-"Reference","Lithuania","2050","deaths",0,0
-"Reference","Luxembourg","2020","deaths",144,23.01
-"Reference","Luxembourg","2030","deaths",0,0
-"Reference","Luxembourg","2040","deaths",0,0
-"Reference","Luxembourg","2050","deaths",0,0
-"Reference","North Macedonia","2020","deaths",1774,83.93
-"Reference","North Macedonia","2030","deaths",1349,64.17
-"Reference","North Macedonia","2040","deaths",848,40.62
-"Reference","North Macedonia","2050","deaths",570,27.87
-"Reference","Madagascar","2020","deaths",14985,53.75
-"Reference","Madagascar","2030","deaths",18702,53.47
-"Reference","Madagascar","2040","deaths",22473,53.36
-"Reference","Madagascar","2050","deaths",26074,53.31
-"Reference","Malawi","2020","deaths",24851,129.97
-"Reference","Malawi","2030","deaths",26520,108.09
-"Reference","Malawi","2040","deaths",27042,88.71
-"Reference","Malawi","2050","deaths",28595,78.85
-"Reference","Malaysia","2020","deaths",0,0
-"Reference","Malaysia","2030","deaths",0,0
-"Reference","Malaysia","2040","deaths",0,0
-"Reference","Malaysia","2050","deaths",0,0
-"Reference","Mali","2020","deaths",25210,120.7
-"Reference","Mali","2030","deaths",31866,113.06
-"Reference","Mali","2040","deaths",39327,108.18
-"Reference","Mali","2050","deaths",46930,105.51
-"Reference","Malta","2020","deaths",0,0
-"Reference","Malta","2030","deaths",0,0
-"Reference","Malta","2040","deaths",0,0
-"Reference","Malta","2050","deaths",0,0
-"Reference","Mauritania","2020","deaths",0,0
-"Reference","Mauritania","2030","deaths",0,0
-"Reference","Mauritania","2040","deaths",0,0
-"Reference","Mauritania","2050","deaths",0,0
-"Reference","Mauritius","2020","deaths",268,20.64
-"Reference","Mauritius","2030","deaths",196,15.1
-"Reference","Mauritius","2040","deaths",104,8.1
-"Reference","Mauritius","2050","deaths",56,4.53
-"Reference","Mexico","2020","deaths",22949,18.27
-"Reference","Mexico","2030","deaths",16206,11.95
-"Reference","Mexico","2040","deaths",13920,9.66
-"Reference","Mexico","2050","deaths",12671,8.48
-"Reference","Republic of Moldova","2020","deaths",456,14.73
-"Reference","Republic of Moldova","2030","deaths",344,11.74
-"Reference","Republic of Moldova","2040","deaths",244,9.08
-"Reference","Republic of Moldova","2050","deaths",206,8.27
-"Reference","Mongolia","2020","deaths",3980,121.84
-"Reference","Mongolia","2030","deaths",1764,47.37
-"Reference","Mongolia","2040","deaths",371,8.95
-"Reference","Mongolia","2050","deaths",0,0
-"Reference","Montenegro","2020","deaths",0,0
-"Reference","Montenegro","2030","deaths",0,0
-"Reference","Montenegro","2040","deaths",0,0
-"Reference","Montenegro","2050","deaths",0,0
-"Reference","Morocco","2020","deaths",0,0
-"Reference","Morocco","2030","deaths",0,0
-"Reference","Morocco","2040","deaths",0,0
-"Reference","Morocco","2050","deaths",0,0
-"Reference","Mozambique","2020","deaths",29584,96.3
-"Reference","Mozambique","2030","deaths",30469,76.98
-"Reference","Mozambique","2040","deaths",33088,67.76
-"Reference","Mozambique","2050","deaths",36860,63.87
-"Reference","Myanmar","2020","deaths",43083,80.94
-"Reference","Myanmar","2030","deaths",45547,80.91
-"Reference","Myanmar","2040","deaths",46481,80.9
-"Reference","Myanmar","2050","deaths",46222,80.89
-"Reference","Namibia","2020","deaths",0,0
-"Reference","Namibia","2030","deaths",0,0
-"Reference","Namibia","2040","deaths",0,0
-"Reference","Namibia","2050","deaths",0,0
-"Reference","Nepal","2020","deaths",25775,88.88
-"Reference","Nepal","2030","deaths",25480,79.72
-"Reference","Nepal","2040","deaths",24947,73.77
-"Reference","Nepal","2050","deaths",24685,70.75
-"Reference","Netherlands","2020","deaths",15532,89.25
-"Reference","Netherlands","2030","deaths",8410,47.47
-"Reference","Netherlands","2040","deaths",3942,22.08
-"Reference","Netherlands","2050","deaths",1838,10.29
-"Reference","New Zealand","2020","deaths",2556,50.85
-"Reference","New Zealand","2030","deaths",1911,35.91
-"Reference","New Zealand","2040","deaths",1123,20.18
-"Reference","New Zealand","2050","deaths",621,10.76
-"Reference","Nicaragua","2020","deaths",2405,35.84
-"Reference","Nicaragua","2030","deaths",2413,31.9
-"Reference","Nicaragua","2040","deaths",2447,29.83
-"Reference","Nicaragua","2050","deaths",2463,28.65
-"Reference","Niger","2020","deaths",16882,70.69
-"Reference","Niger","2030","deaths",24278,70.67
-"Reference","Niger","2040","deaths",33820,70.66
-"Reference","Niger","2050","deaths",45096,70.66
-"Reference","Nigeria","2020","deaths",83259,40.46
-"Reference","Nigeria","2030","deaths",103749,39.73
-"Reference","Nigeria","2040","deaths",127882,39.09
-"Reference","Nigeria","2050","deaths",155031,38.7
-"Reference","Norway","2020","deaths",642,11.96
-"Reference","Norway","2030","deaths",0,0
-"Reference","Norway","2040","deaths",0,0
-"Reference","Norway","2050","deaths",0,0
-"Reference","Oman","2020","deaths",0,0
-"Reference","Oman","2030","deaths",0,0
-"Reference","Oman","2040","deaths",0,0
-"Reference","Oman","2050","deaths",0,0
-"Reference","Pakistan","2020","deaths",109855,48.8
-"Reference","Pakistan","2030","deaths",127178,46.48
-"Reference","Pakistan","2040","deaths",147727,45.65
-"Reference","Pakistan","2050","deaths",167570,45.23
-"Reference","Palestine","2020","deaths",357,7.19
-"Reference","Palestine","2030","deaths",242,3.93
-"Reference","Palestine","2040","deaths",105,1.45
-"Reference","Palestine","2050","deaths",0,0
-"Reference","Panama","2020","deaths",0,0
-"Reference","Panama","2030","deaths",0,0
-"Reference","Panama","2040","deaths",0,0
-"Reference","Panama","2050","deaths",0,0
-"Reference","Paraguay","2020","deaths",1829,27.82
-"Reference","Paraguay","2030","deaths",1087,14.64
-"Reference","Paraguay","2040","deaths",784,9.67
-"Reference","Paraguay","2050","deaths",649,7.58
-"Reference","Peru","2020","deaths",2502,7.56
-"Reference","Peru","2030","deaths",1695,4.71
-"Reference","Peru","2040","deaths",1317,3.45
-"Reference","Peru","2050","deaths",1115,2.83
-"Reference","Philippines","2020","deaths",42167,37.89
-"Reference","Philippines","2030","deaths",48062,37.52
-"Reference","Philippines","2040","deaths",53344,37.34
-"Reference","Philippines","2050","deaths",57431,37.21
-"Reference","Poland","2020","deaths",2813,7.31
-"Reference","Poland","2030","deaths",2789,7.3
-"Reference","Poland","2040","deaths",2670,7.3
-"Reference","Poland","2050","deaths",2559,7.29
-"Reference","Portugal","2020","deaths",0,0
-"Reference","Portugal","2030","deaths",0,0
-"Reference","Portugal","2040","deaths",0,0
-"Reference","Portugal","2050","deaths",0,0
-"Reference","Puerto Rico","2020","deaths",2,0.07
-"Reference","Puerto Rico","2030","deaths",1,0.05
-"Reference","Puerto Rico","2040","deaths",1,0.04
-"Reference","Puerto Rico","2050","deaths",1,0.04
-"Reference","Qatar","2020","deaths",0,0
-"Reference","Qatar","2030","deaths",0,0
-"Reference","Qatar","2040","deaths",0,0
-"Reference","Qatar","2050","deaths",0,0
-"Reference","Romania","2020","deaths",3337,17.12
-"Reference","Romania","2030","deaths",2399,13.1
-"Reference","Romania","2040","deaths",1954,11.42
-"Reference","Romania","2050","deaths",1677,10.52
-"Reference","Russian Federation","2020","deaths",0,0
-"Reference","Russian Federation","2030","deaths",0,0
-"Reference","Russian Federation","2040","deaths",0,0
-"Reference","Russian Federation","2050","deaths",0,0
-"Reference","Rwanda","2020","deaths",14960,115.19
-"Reference","Rwanda","2030","deaths",13576,83.81
-"Reference","Rwanda","2040","deaths",14050,72.3
-"Reference","Rwanda","2050","deaths",15080,67.16
-"Reference","Saint Lucia","2020","deaths",43,23.94
-"Reference","Saint Lucia","2030","deaths",24,12.96
-"Reference","Saint Lucia","2040","deaths",15,8.42
-"Reference","Saint Lucia","2050","deaths",10,5.39
-"Reference","Saudi Arabia","2020","deaths",0,0
-"Reference","Saudi Arabia","2030","deaths",0,0
-"Reference","Saudi Arabia","2040","deaths",0,0
-"Reference","Saudi Arabia","2050","deaths",0,0
-"Reference","Senegal","2020","deaths",14534,89.63
-"Reference","Senegal","2030","deaths",12666,61.38
-"Reference","Senegal","2040","deaths",12030,47.45
-"Reference","Senegal","2050","deaths",12283,40.89
-"Reference","Serbia","2020","deaths",2858,38.71
-"Reference","Serbia","2030","deaths",2116,30.04
-"Reference","Serbia","2040","deaths",1785,26.19
-"Reference","Serbia","2050","deaths",1612,24.38
-"Reference","Seychelles","2020","deaths",1,1.2
-"Reference","Seychelles","2030","deaths",1,0.82
-"Reference","Seychelles","2040","deaths",1,0.66
-"Reference","Seychelles","2050","deaths",1,0.57
-"Reference","Sierra Leone","2020","deaths",8125,99.81
-"Reference","Sierra Leone","2030","deaths",6503,65.05
-"Reference","Sierra Leone","2040","deaths",4523,38.47
-"Reference","Sierra Leone","2050","deaths",3203,24.13
-"Reference","Singapore","2020","deaths",0,0
-"Reference","Singapore","2030","deaths",0,0
-"Reference","Singapore","2040","deaths",0,0
-"Reference","Singapore","2050","deaths",0,0
-"Reference","Slovakia","2020","deaths",0,0
-"Reference","Slovakia","2030","deaths",0,0
-"Reference","Slovakia","2040","deaths",0,0
-"Reference","Slovakia","2050","deaths",0,0
-"Reference","Slovenia","2020","deaths",120,5.65
-"Reference","Slovenia","2030","deaths",88,4.18
-"Reference","Slovenia","2040","deaths",73,3.53
-"Reference","Slovenia","2050","deaths",64,3.14
-"Reference","South Africa","2020","deaths",0,0
-"Reference","South Africa","2030","deaths",0,0
-"Reference","South Africa","2040","deaths",0,0
-"Reference","South Africa","2050","deaths",0,0
-"Reference","South Sudan","2020","deaths",34500,327.16
-"Reference","South Sudan","2030","deaths",21136,180.46
-"Reference","South Sudan","2040","deaths",13352,102.23
-"Reference","South Sudan","2050","deaths",7797,56.58
-"Reference","Spain","2020","deaths",459,0.97
-"Reference","Spain","2030","deaths",311,0.65
-"Reference","Spain","2040","deaths",228,0.47
-"Reference","Spain","2050","deaths",163,0.33
-"Reference","Sri Lanka","2020","deaths",10323,47.61
-"Reference","Sri Lanka","2030","deaths",9276,41
-"Reference","Sri Lanka","2040","deaths",7987,34.53
-"Reference","Sri Lanka","2050","deaths",7214,31.12
-"Reference","Sweden","2020","deaths",0,0
-"Reference","Sweden","2030","deaths",0,0
-"Reference","Sweden","2040","deaths",0,0
-"Reference","Sweden","2050","deaths",0,0
-"Reference","Switzerland","2020","deaths",0,0
-"Reference","Switzerland","2030","deaths",0,0
-"Reference","Switzerland","2040","deaths",0,0
-"Reference","Switzerland","2050","deaths",0,0
-"Reference","Syrian Arab Republic","2020","deaths",0,0
-"Reference","Syrian Arab Republic","2030","deaths",0,0
-"Reference","Syrian Arab Republic","2040","deaths",0,0
-"Reference","Syrian Arab Republic","2050","deaths",0,0
-"Reference","Taiwan (Province of China)","2020","deaths",0,0
-"Reference","Taiwan (Province of China)","2030","deaths",0,0
-"Reference","Taiwan (Province of China)","2040","deaths",0,0
-"Reference","Taiwan (Province of China)","2050","deaths",0,0
-"Reference","Tajikistan","2020","deaths",728,7.71
-"Reference","Tajikistan","2030","deaths",0,0
-"Reference","Tajikistan","2040","deaths",0,0
-"Reference","Tajikistan","2050","deaths",0,0
-"Reference","United Republic of Tanzania","2020","deaths",48988,80.61
-"Reference","United Republic of Tanzania","2030","deaths",59399,73.92
-"Reference","United Republic of Tanzania","2040","deaths",71646,70.34
-"Reference","United Republic of Tanzania","2050","deaths",84859,68.32
-"Reference","Thailand","2020","deaths",37151,52.04
-"Reference","Thailand","2030","deaths",20018,27.73
-"Reference","Thailand","2040","deaths",10164,14.32
-"Reference","Thailand","2050","deaths",5184,7.63
-"Reference","Togo","2020","deaths",2906,34.84
-"Reference","Togo","2030","deaths",3598,34.63
-"Reference","Togo","2040","deaths",4288,34.43
-"Reference","Togo","2050","deaths",4927,34.29
-"Reference","Trinidad and Tobago","2020","deaths",1,0.05
-"Reference","Trinidad and Tobago","2030","deaths",0,0
-"Reference","Trinidad and Tobago","2040","deaths",0,0
-"Reference","Trinidad and Tobago","2050","deaths",0,0
-"Reference","Tunisia","2020","deaths",11,0.09
-"Reference","Tunisia","2030","deaths",0,0
-"Reference","Tunisia","2040","deaths",0,0
-"Reference","Tunisia","2050","deaths",0,0
-"Reference","Turkey","2020","deaths",344,0.41
-"Reference","Turkey","2030","deaths",351,0.39
-"Reference","Turkey","2040","deaths",292,0.31
-"Reference","Turkey","2050","deaths",251,0.26
-"Reference","Turkmenistan","2020","deaths",3097,49.91
-"Reference","Turkmenistan","2030","deaths",1796,25.15
-"Reference","Turkmenistan","2040","deaths",977,12.41
-"Reference","Turkmenistan","2050","deaths",556,6.53
-"Reference","Uganda","2020","deaths",28466,65.16
-"Reference","Uganda","2030","deaths",36157,61.94
-"Reference","Uganda","2040","deaths",43125,57.97
-"Reference","Uganda","2050","deaths",51654,56.92
-"Reference","Ukraine","2020","deaths",2835,6.43
-"Reference","Ukraine","2030","deaths",2371,6.42
-"Reference","Ukraine","2040","deaths",2343,6.42
-"Reference","Ukraine","2050","deaths",2245,6.42
-"Reference","United Arab Emirates","2020","deaths",0,0
-"Reference","United Arab Emirates","2030","deaths",0,0
-"Reference","United Arab Emirates","2040","deaths",0,0
-"Reference","United Arab Emirates","2050","deaths",0,0
-"Reference","United Kingdom","2020","deaths",35799,53.47
-"Reference","United Kingdom","2030","deaths",19151,27.87
-"Reference","United Kingdom","2040","deaths",9377,13.29
-"Reference","United Kingdom","2050","deaths",4878,6.7
-"Reference","United States of America","2020","deaths",134,0.04
-"Reference","United States of America","2030","deaths",70,0.02
-"Reference","United States of America","2040","deaths",36,0.01
-"Reference","United States of America","2050","deaths",38,0.01
-"Reference","Uruguay","2020","deaths",0,0
-"Reference","Uruguay","2030","deaths",0,0
-"Reference","Uruguay","2040","deaths",0,0
-"Reference","Uruguay","2050","deaths",0,0
-"Reference","Uzbekistan","2020","deaths",6715,20.2
-"Reference","Uzbekistan","2030","deaths",5833,15.14
-"Reference","Uzbekistan","2040","deaths",4826,11.25
-"Reference","Uzbekistan","2050","deaths",4488,9.58
-"Reference","Venezuela (Bolivarian Republic of)","2020","deaths",0,0
-"Reference","Venezuela (Bolivarian Republic of)","2030","deaths",0,0
-"Reference","Venezuela (Bolivarian Republic of)","2040","deaths",0,0
-"Reference","Venezuela (Bolivarian Republic of)","2050","deaths",0,0
-"Reference","Viet Nam","2020","deaths",48650,50.57
-"Reference","Viet Nam","2030","deaths",41883,40.78
-"Reference","Viet Nam","2040","deaths",39630,37.31
-"Reference","Viet Nam","2050","deaths",38777,36.05
-"Reference","Yemen","2020","deaths",70320,220.25
-"Reference","Yemen","2030","deaths",63112,159.3
-"Reference","Yemen","2040","deaths",39574,84.12
-"Reference","Yemen","2050","deaths",24676,45.97
-"Reference","Zambia","2020","deaths",12320,66.04
-"Reference","Zambia","2030","deaths",11244,46.71
-"Reference","Zambia","2040","deaths",9634,32.47
-"Reference","Zambia","2050","deaths",8631,24.7
-"Reference","Zimbabwe","2020","deaths",10373,66.9
-"Reference","Zimbabwe","2030","deaths",7735,42.03
-"Reference","Zimbabwe","2040","deaths",5612,26.7
-"Reference","Zimbabwe","2050","deaths",4166,18.02
+"Reference","Afghanistan",2020,"deaths",22609,58.99
+"Reference","Afghanistan",2030,"deaths",17021,33.77
+"Reference","Afghanistan",2040,"deaths",12716,20.12
+"Reference","Afghanistan",2050,"deaths",10216,13.51
+"Reference","Albania",2020,"deaths",1211,42.18
+"Reference","Albania",2030,"deaths",891,32.82
+"Reference","Albania",2040,"deaths",724,28.93
+"Reference","Albania",2050,"deaths",613,27.05
+"Reference","Algeria",2020,"deaths",0,0
+"Reference","Algeria",2030,"deaths",0,0
+"Reference","Algeria",2040,"deaths",0,0
+"Reference","Algeria",2050,"deaths",0,0
+"Reference","Angola",2020,"deaths",12508,38.02
+"Reference","Angola",2030,"deaths",14424,32.7
+"Reference","Angola",2040,"deaths",14101,24.98
+"Reference","Angola",2050,"deaths",13302,19.28
+"Reference","Argentina",2020,"deaths",1091,2.43
+"Reference","Argentina",2030,"deaths",567,1.2
+"Reference","Argentina",2040,"deaths",232,0.47
+"Reference","Argentina",2050,"deaths",0,0
+"Reference","Armenia",2020,"deaths",21,0.74
+"Reference","Armenia",2030,"deaths",0,0
+"Reference","Armenia",2040,"deaths",0,0
+"Reference","Armenia",2050,"deaths",0,0
+"Reference","Australia",2020,"deaths",26,0.1
+"Reference","Australia",2030,"deaths",14,0.05
+"Reference","Australia",2040,"deaths",6,0.02
+"Reference","Australia",2050,"deaths",0,0
+"Reference","Austria",2020,"deaths",8,0.09
+"Reference","Austria",2030,"deaths",4,0.04
+"Reference","Austria",2040,"deaths",1,0.01
+"Reference","Austria",2050,"deaths",0,0
+"Reference","Azerbaijan",2020,"deaths",827,8.05
+"Reference","Azerbaijan",2030,"deaths",564,5.26
+"Reference","Azerbaijan",2040,"deaths",201,1.81
+"Reference","Azerbaijan",2050,"deaths",0,0
+"Reference","Bahrain",2020,"deaths",0,0
+"Reference","Bahrain",2030,"deaths",0,0
+"Reference","Bahrain",2040,"deaths",0,0
+"Reference","Bahrain",2050,"deaths",0,0
+"Reference","Bangladesh",2020,"deaths",128565,77.25
+"Reference","Bangladesh",2030,"deaths",116222,63.38
+"Reference","Bangladesh",2040,"deaths",114439,58.94
+"Reference","Bangladesh",2050,"deaths",114269,57.34
+"Reference","Barbados",2020,"deaths",0,0
+"Reference","Barbados",2030,"deaths",0,0
+"Reference","Barbados",2040,"deaths",0,0
+"Reference","Barbados",2050,"deaths",0,0
+"Reference","Belarus",2020,"deaths",0,0
+"Reference","Belarus",2030,"deaths",0,0
+"Reference","Belarus",2040,"deaths",0,0
+"Reference","Belarus",2050,"deaths",0,0
+"Reference","Belgium",2020,"deaths",0,0
+"Reference","Belgium",2030,"deaths",0,0
+"Reference","Belgium",2040,"deaths",0,0
+"Reference","Belgium",2050,"deaths",0,0
+"Reference","Benin",2020,"deaths",21154,169.68
+"Reference","Benin",2030,"deaths",21150,130.65
+"Reference","Benin",2040,"deaths",22184,110.09
+"Reference","Benin",2050,"deaths",24255,100.54
+"Reference","Bolivia (Plurinational State of)",2020,"deaths",3520,29.67
+"Reference","Bolivia (Plurinational State of)",2030,"deaths",3229,24.02
+"Reference","Bolivia (Plurinational State of)",2040,"deaths",2738,18.39
+"Reference","Bolivia (Plurinational State of)",2050,"deaths",2308,14.46
+"Reference","Bosnia and Herzegovina",2020,"deaths",652,19.53
+"Reference","Bosnia and Herzegovina",2030,"deaths",179,5.86
+"Reference","Bosnia and Herzegovina",2040,"deaths",7,0.24
+"Reference","Bosnia and Herzegovina",2050,"deaths",0,0
+"Reference","Botswana",2020,"deaths",0,0
+"Reference","Botswana",2030,"deaths",0,0
+"Reference","Botswana",2040,"deaths",0,0
+"Reference","Botswana",2050,"deaths",0,0
+"Reference","Brazil",2020,"deaths",0,0
+"Reference","Brazil",2030,"deaths",0,0
+"Reference","Brazil",2040,"deaths",0,0
+"Reference","Brazil",2050,"deaths",0,0
+"Reference","Bulgaria",2020,"deaths",0,0
+"Reference","Bulgaria",2030,"deaths",0,0
+"Reference","Bulgaria",2040,"deaths",0,0
+"Reference","Bulgaria",2050,"deaths",0,0
+"Reference","Burkina Faso",2020,"deaths",41438,195.17
+"Reference","Burkina Faso",2030,"deaths",45046,164.68
+"Reference","Burkina Faso",2040,"deaths",49273,144.38
+"Reference","Burkina Faso",2050,"deaths",55343,135.01
+"Reference","Burundi",2020,"deaths",29041,240.93
+"Reference","Burundi",2030,"deaths",27534,179.43
+"Reference","Burundi",2040,"deaths",25648,135.81
+"Reference","Burundi",2050,"deaths",25347,113.6
+"Reference","Cambodia",2020,"deaths",19934,122.32
+"Reference","Cambodia",2030,"deaths",18835,103.5
+"Reference","Cambodia",2040,"deaths",19062,97.17
+"Reference","Cambodia",2050,"deaths",19206,94.18
+"Reference","Cameroon",2020,"deaths",24300,92.97
+"Reference","Cameroon",2030,"deaths",22719,68.43
+"Reference","Cameroon",2040,"deaths",23207,57.55
+"Reference","Cameroon",2050,"deaths",24914,52.89
+"Reference","Canada",2020,"deaths",0,0
+"Reference","Canada",2030,"deaths",0,0
+"Reference","Canada",2040,"deaths",0,0
+"Reference","Canada",2050,"deaths",0,0
+"Reference","Cabo Verde",2020,"deaths",99,17.11
+"Reference","Cabo Verde",2030,"deaths",108,17.09
+"Reference","Cabo Verde",2040,"deaths",115,17.07
+"Reference","Cabo Verde",2050,"deaths",118,17.05
+"Reference","Central African Republic",2020,"deaths",16292,309.03
+"Reference","Central African Republic",2030,"deaths",19379,275.26
+"Reference","Central African Republic",2040,"deaths",18740,206.92
+"Reference","Central African Republic",2050,"deaths",18756,169.22
+"Reference","Chad",2020,"deaths",35340,215.76
+"Reference","Chad",2030,"deaths",44064,197.46
+"Reference","Chad",2040,"deaths",47431,162.24
+"Reference","Chad",2050,"deaths",52722,144.01
+"Reference","Chile",2020,"deaths",882,4.59
+"Reference","Chile",2030,"deaths",714,3.58
+"Reference","Chile",2040,"deaths",581,2.85
+"Reference","Chile",2050,"deaths",478,2.34
+"Reference","China",2020,"deaths",0,0
+"Reference","China",2030,"deaths",0,0
+"Reference","China",2040,"deaths",0,0
+"Reference","China",2050,"deaths",0,0
+"Reference","Colombia",2020,"deaths",0,0
+"Reference","Colombia",2030,"deaths",0,0
+"Reference","Colombia",2040,"deaths",0,0
+"Reference","Colombia",2050,"deaths",0,0
+"Reference","Comoros",2020,"deaths",586,73.35
+"Reference","Comoros",2030,"deaths",527,54.71
+"Reference","Comoros",2040,"deaths",413,36.88
+"Reference","Comoros",2050,"deaths",346,27.42
+"Reference","Congo",2020,"deaths",7521,133.47
+"Reference","Congo",2030,"deaths",7271,102.79
+"Reference","Congo",2040,"deaths",6441,75.24
+"Reference","Congo",2050,"deaths",5566,55.93
+"Reference","Democratic Republic of the Congo",2020,"deaths",56087,61.41
+"Reference","Democratic Republic of the Congo",2030,"deaths",75016,59.75
+"Reference","Democratic Republic of the Congo",2040,"deaths",97214,58.79
+"Reference","Democratic Republic of the Congo",2050,"deaths",121548,58.32
+"Reference","Costa Rica",2020,"deaths",0,0
+"Reference","Costa Rica",2030,"deaths",0,0
+"Reference","Costa Rica",2040,"deaths",0,0
+"Reference","Costa Rica",2050,"deaths",0,0
+"Reference","Côte d'Ivoire",2020,"deaths",4806,18.15
+"Reference","Côte d'Ivoire",2030,"deaths",4390,13.27
+"Reference","Côte d'Ivoire",2040,"deaths",4105,10.38
+"Reference","Côte d'Ivoire",2050,"deaths",4207,9.28
+"Reference","Croatia",2020,"deaths",0,0
+"Reference","Croatia",2030,"deaths",0,0
+"Reference","Croatia",2040,"deaths",0,0
+"Reference","Croatia",2050,"deaths",0,0
+"Reference","Cuba",2020,"deaths",0,0
+"Reference","Cuba",2030,"deaths",0,0
+"Reference","Cuba",2040,"deaths",0,0
+"Reference","Cuba",2050,"deaths",0,0
+"Reference","Cyprus",2020,"deaths",608,49.24
+"Reference","Cyprus",2030,"deaths",304,23.1
+"Reference","Cyprus",2040,"deaths",153,11.21
+"Reference","Cyprus",2050,"deaths",83,5.85
+"Reference","Czechia",2020,"deaths",25088,238.07
+"Reference","Czechia",2030,"deaths",11760,109.78
+"Reference","Czechia",2040,"deaths",4883,46.87
+"Reference","Czechia",2050,"deaths",2172,21.2
+"Reference","Denmark",2020,"deaths",3452,59.4
+"Reference","Denmark",2030,"deaths",2031,34.05
+"Reference","Denmark",2040,"deaths",1097,18.08
+"Reference","Denmark",2050,"deaths",539,8.74
+"Reference","Djibouti",2020,"deaths",0,0
+"Reference","Djibouti",2030,"deaths",0,0
+"Reference","Djibouti",2040,"deaths",0,0
+"Reference","Djibouti",2050,"deaths",0,0
+"Reference","Dominican Republic",2020,"deaths",363,3.32
+"Reference","Dominican Republic",2030,"deaths",0,0
+"Reference","Dominican Republic",2040,"deaths",0,0
+"Reference","Dominican Republic",2050,"deaths",0,0
+"Reference","Ecuador",2020,"deaths",815,4.66
+"Reference","Ecuador",2030,"deaths",0,0
+"Reference","Ecuador",2040,"deaths",0,0
+"Reference","Ecuador",2050,"deaths",0,0
+"Reference","Egypt",2020,"deaths",2003,1.88
+"Reference","Egypt",2030,"deaths",251,0.2
+"Reference","Egypt",2040,"deaths",0,0
+"Reference","Egypt",2050,"deaths",0,0
+"Reference","El Salvador",2020,"deaths",628,10
+"Reference","El Salvador",2030,"deaths",630,9.76
+"Reference","El Salvador",2040,"deaths",622,9.59
+"Reference","El Salvador",2050,"deaths",608,9.54
+"Reference","Equatorial Guinea",2020,"deaths",81,5.14
+"Reference","Equatorial Guinea",2030,"deaths",0,0
+"Reference","Equatorial Guinea",2040,"deaths",0,0
+"Reference","Equatorial Guinea",2050,"deaths",0,0
+"Reference","Estonia",2020,"deaths",596,44.83
+"Reference","Estonia",2030,"deaths",887,67.62
+"Reference","Estonia",2040,"deaths",543,43.32
+"Reference","Estonia",2050,"deaths",291,23.97
+"Reference","Ethiopia",2020,"deaths",55368,47.88
+"Reference","Ethiopia",2030,"deaths",67170,45.77
+"Reference","Ethiopia",2040,"deaths",79634,44.59
+"Reference","Ethiopia",2050,"deaths",91858,44
+"Reference","Finland",2020,"deaths",1708,30.92
+"Reference","Finland",2030,"deaths",614,11.14
+"Reference","Finland",2040,"deaths",88,1.61
+"Reference","Finland",2050,"deaths",0,0
+"Reference","France",2020,"deaths",0,0
+"Reference","France",2030,"deaths",0,0
+"Reference","France",2040,"deaths",0,0
+"Reference","France",2050,"deaths",0,0
+"Reference","Gabon",2020,"deaths",0,0
+"Reference","Gabon",2030,"deaths",0,0
+"Reference","Gabon",2040,"deaths",0,0
+"Reference","Gabon",2050,"deaths",0,0
+"Reference","Gambia",2020,"deaths",1525,60
+"Reference","Gambia",2030,"deaths",1710,54.07
+"Reference","Gambia",2040,"deaths",1821,47.81
+"Reference","Gambia",2050,"deaths",1939,44.14
+"Reference","Georgia",2020,"deaths",3624,96.16
+"Reference","Georgia",2030,"deaths",2482,71.59
+"Reference","Georgia",2040,"deaths",1819,57.26
+"Reference","Georgia",2050,"deaths",1469,50.37
+"Reference","Germany",2020,"deaths",26754,32.13
+"Reference","Germany",2030,"deaths",10867,13.09
+"Reference","Germany",2040,"deaths",3882,4.74
+"Reference","Germany",2050,"deaths",1522,1.88
+"Reference","Ghana",2020,"deaths",8918,28
+"Reference","Ghana",2030,"deaths",10853,27.98
+"Reference","Ghana",2040,"deaths",12826,27.97
+"Reference","Ghana",2050,"deaths",14755,27.97
+"Reference","Greece",2020,"deaths",2717,25.77
+"Reference","Greece",2030,"deaths",1636,16.03
+"Reference","Greece",2040,"deaths",887,8.9
+"Reference","Greece",2050,"deaths",497,5.08
+"Reference","Guatemala",2020,"deaths",0,0
+"Reference","Guatemala",2030,"deaths",0,0
+"Reference","Guatemala",2040,"deaths",0,0
+"Reference","Guatemala",2050,"deaths",0,0
+"Reference","Guinea",2020,"deaths",12200,93.55
+"Reference","Guinea",2030,"deaths",12459,76.77
+"Reference","Guinea",2040,"deaths",12741,65.85
+"Reference","Guinea",2050,"deaths",13348,60.15
+"Reference","Guinea-Bissau",2020,"deaths",2929,146.96
+"Reference","Guinea-Bissau",2030,"deaths",2983,122.42
+"Reference","Guinea-Bissau",2040,"deaths",3052,106.93
+"Reference","Guinea-Bissau",2050,"deaths",3203,99.78
+"Reference","Haiti",2020,"deaths",7140,63.55
+"Reference","Haiti",2030,"deaths",4133,32.35
+"Reference","Haiti",2040,"deaths",1967,14
+"Reference","Haiti",2050,"deaths",526,3.52
+"Reference","Honduras",2020,"deaths",1298,12.93
+"Reference","Honduras",2030,"deaths",539,4.65
+"Reference","Honduras",2040,"deaths",0,0
+"Reference","Honduras",2050,"deaths",0,0
+"Reference","Hungary",2020,"deaths",1262,12.92
+"Reference","Hungary",2030,"deaths",0,0
+"Reference","Hungary",2040,"deaths",0,0
+"Reference","Hungary",2050,"deaths",0,0
+"Reference","Iceland",2020,"deaths",35,9.71
+"Reference","Iceland",2030,"deaths",20,5.11
+"Reference","Iceland",2040,"deaths",12,3.04
+"Reference","Iceland",2050,"deaths",8,1.87
+"Reference","India",2020,"deaths",630072,45.33
+"Reference","India",2030,"deaths",680282,45.3
+"Reference","India",2040,"deaths",717252,45.29
+"Reference","India",2050,"deaths",733698,45.28
+"Reference","Indonesia",2020,"deaths",145542,53.74
+"Reference","Indonesia",2030,"deaths",88133,30.33
+"Reference","Indonesia",2040,"deaths",70157,23.03
+"Reference","Indonesia",2050,"deaths",61188,19.7
+"Reference","Iran (Islamic Republic of)",2020,"deaths",1227,1.41
+"Reference","Iran (Islamic Republic of)",2030,"deaths",0,0
+"Reference","Iran (Islamic Republic of)",2040,"deaths",0,0
+"Reference","Iran (Islamic Republic of)",2050,"deaths",0,0
+"Reference","Iraq",2020,"deaths",143,0.34
+"Reference","Iraq",2030,"deaths",57,0.11
+"Reference","Iraq",2040,"deaths",0,0
+"Reference","Iraq",2050,"deaths",0,0
+"Reference","Ireland",2020,"deaths",0,0
+"Reference","Ireland",2030,"deaths",0,0
+"Reference","Ireland",2040,"deaths",0,0
+"Reference","Ireland",2050,"deaths",0,0
+"Reference","Israel",2020,"deaths",3,0.04
+"Reference","Israel",2030,"deaths",2,0.02
+"Reference","Israel",2040,"deaths",1,0.01
+"Reference","Israel",2050,"deaths",0,0
+"Reference","Italy",2020,"deaths",125,0.21
+"Reference","Italy",2030,"deaths",105,0.18
+"Reference","Italy",2040,"deaths",97,0.17
+"Reference","Italy",2050,"deaths",89,0.16
+"Reference","Jamaica",2020,"deaths",190,6.75
+"Reference","Jamaica",2030,"deaths",188,6.59
+"Reference","Jamaica",2040,"deaths",185,6.5
+"Reference","Jamaica",2050,"deaths",179,6.43
+"Reference","Japan",2020,"deaths",20978,16.71
+"Reference","Japan",2030,"deaths",12520,10.49
+"Reference","Japan",2040,"deaths",6613,5.87
+"Reference","Japan",2050,"deaths",3020,2.85
+"Reference","Jordan",2020,"deaths",0,0
+"Reference","Jordan",2030,"deaths",0,0
+"Reference","Jordan",2040,"deaths",0,0
+"Reference","Jordan",2050,"deaths",0,0
+"Reference","Kazakhstan",2020,"deaths",1539,8.16
+"Reference","Kazakhstan",2030,"deaths",1680,8.14
+"Reference","Kazakhstan",2040,"deaths",1794,8.12
+"Reference","Kazakhstan",2050,"deaths",1893,8.11
+"Reference","Kenya",2020,"deaths",25303,49.17
+"Reference","Kenya",2030,"deaths",27432,43.92
+"Reference","Kenya",2040,"deaths",28002,38.14
+"Reference","Kenya",2050,"deaths",29192,35.15
+"Reference","Democratic People's Republic of Korea",2020,"deaths",39567,153.28
+"Reference","Democratic People's Republic of Korea",2030,"deaths",36999,139.45
+"Reference","Democratic People's Republic of Korea",2040,"deaths",34561,132.53
+"Reference","Democratic People's Republic of Korea",2050,"deaths",32507,128.94
+"Reference","Republic of Korea",2020,"deaths",0,0
+"Reference","Republic of Korea",2030,"deaths",0,0
+"Reference","Republic of Korea",2040,"deaths",0,0
+"Reference","Republic of Korea",2050,"deaths",0,0
+"Reference","Kuwait",2020,"deaths",0,0
+"Reference","Kuwait",2030,"deaths",0,0
+"Reference","Kuwait",2040,"deaths",0,0
+"Reference","Kuwait",2050,"deaths",0,0
+"Reference","Kyrgyzstan",2020,"deaths",2169,34.03
+"Reference","Kyrgyzstan",2030,"deaths",1176,15.95
+"Reference","Kyrgyzstan",2040,"deaths",383,4.64
+"Reference","Kyrgyzstan",2050,"deaths",0,0
+"Reference","Lao People's Democratic Republic",2020,"deaths",6253,86.06
+"Reference","Lao People's Democratic Republic",2030,"deaths",6895,83.92
+"Reference","Lao People's Democratic Republic",2040,"deaths",7401,82.96
+"Reference","Lao People's Democratic Republic",2050,"deaths",7688,82.42
+"Reference","Latvia",2020,"deaths",108,5.64
+"Reference","Latvia",2030,"deaths",97,5.61
+"Reference","Latvia",2040,"deaths",85,5.44
+"Reference","Latvia",2050,"deaths",77,5.32
+"Reference","Lebanon",2020,"deaths",4923,86.45
+"Reference","Lebanon",2030,"deaths",3865,61.97
+"Reference","Lebanon",2040,"deaths",2307,34.16
+"Reference","Lebanon",2050,"deaths",1301,18.27
+"Reference","Lesotho",2020,"deaths",2944,131.45
+"Reference","Lesotho",2030,"deaths",2628,107.46
+"Reference","Lesotho",2040,"deaths",2467,94.96
+"Reference","Lesotho",2050,"deaths",2370,88.3
+"Reference","Liberia",2020,"deaths",0,0
+"Reference","Liberia",2030,"deaths",0,0
+"Reference","Liberia",2040,"deaths",0,0
+"Reference","Liberia",2050,"deaths",0,0
+"Reference","Libya",2020,"deaths",0,0
+"Reference","Libya",2030,"deaths",0,0
+"Reference","Libya",2040,"deaths",0,0
+"Reference","Libya",2050,"deaths",0,0
+"Reference","Lithuania",2020,"deaths",0,0
+"Reference","Lithuania",2030,"deaths",0,0
+"Reference","Lithuania",2040,"deaths",0,0
+"Reference","Lithuania",2050,"deaths",0,0
+"Reference","Luxembourg",2020,"deaths",144,23.01
+"Reference","Luxembourg",2030,"deaths",0,0
+"Reference","Luxembourg",2040,"deaths",0,0
+"Reference","Luxembourg",2050,"deaths",0,0
+"Reference","North Macedonia",2020,"deaths",1774,83.93
+"Reference","North Macedonia",2030,"deaths",1349,64.17
+"Reference","North Macedonia",2040,"deaths",848,40.62
+"Reference","North Macedonia",2050,"deaths",570,27.87
+"Reference","Madagascar",2020,"deaths",14985,53.75
+"Reference","Madagascar",2030,"deaths",18702,53.47
+"Reference","Madagascar",2040,"deaths",22473,53.36
+"Reference","Madagascar",2050,"deaths",26074,53.31
+"Reference","Malawi",2020,"deaths",24851,129.97
+"Reference","Malawi",2030,"deaths",26520,108.09
+"Reference","Malawi",2040,"deaths",27042,88.71
+"Reference","Malawi",2050,"deaths",28595,78.85
+"Reference","Malaysia",2020,"deaths",0,0
+"Reference","Malaysia",2030,"deaths",0,0
+"Reference","Malaysia",2040,"deaths",0,0
+"Reference","Malaysia",2050,"deaths",0,0
+"Reference","Mali",2020,"deaths",25210,120.7
+"Reference","Mali",2030,"deaths",31866,113.06
+"Reference","Mali",2040,"deaths",39327,108.18
+"Reference","Mali",2050,"deaths",46930,105.51
+"Reference","Malta",2020,"deaths",0,0
+"Reference","Malta",2030,"deaths",0,0
+"Reference","Malta",2040,"deaths",0,0
+"Reference","Malta",2050,"deaths",0,0
+"Reference","Mauritania",2020,"deaths",0,0
+"Reference","Mauritania",2030,"deaths",0,0
+"Reference","Mauritania",2040,"deaths",0,0
+"Reference","Mauritania",2050,"deaths",0,0
+"Reference","Mauritius",2020,"deaths",268,20.64
+"Reference","Mauritius",2030,"deaths",196,15.1
+"Reference","Mauritius",2040,"deaths",104,8.1
+"Reference","Mauritius",2050,"deaths",56,4.53
+"Reference","Mexico",2020,"deaths",22949,18.27
+"Reference","Mexico",2030,"deaths",16206,11.95
+"Reference","Mexico",2040,"deaths",13920,9.66
+"Reference","Mexico",2050,"deaths",12671,8.48
+"Reference","Republic of Moldova",2020,"deaths",456,14.73
+"Reference","Republic of Moldova",2030,"deaths",344,11.74
+"Reference","Republic of Moldova",2040,"deaths",244,9.08
+"Reference","Republic of Moldova",2050,"deaths",206,8.27
+"Reference","Mongolia",2020,"deaths",3980,121.84
+"Reference","Mongolia",2030,"deaths",1764,47.37
+"Reference","Mongolia",2040,"deaths",371,8.95
+"Reference","Mongolia",2050,"deaths",0,0
+"Reference","Montenegro",2020,"deaths",0,0
+"Reference","Montenegro",2030,"deaths",0,0
+"Reference","Montenegro",2040,"deaths",0,0
+"Reference","Montenegro",2050,"deaths",0,0
+"Reference","Morocco",2020,"deaths",0,0
+"Reference","Morocco",2030,"deaths",0,0
+"Reference","Morocco",2040,"deaths",0,0
+"Reference","Morocco",2050,"deaths",0,0
+"Reference","Mozambique",2020,"deaths",29584,96.3
+"Reference","Mozambique",2030,"deaths",30469,76.98
+"Reference","Mozambique",2040,"deaths",33088,67.76
+"Reference","Mozambique",2050,"deaths",36860,63.87
+"Reference","Myanmar",2020,"deaths",43083,80.94
+"Reference","Myanmar",2030,"deaths",45547,80.91
+"Reference","Myanmar",2040,"deaths",46481,80.9
+"Reference","Myanmar",2050,"deaths",46222,80.89
+"Reference","Namibia",2020,"deaths",0,0
+"Reference","Namibia",2030,"deaths",0,0
+"Reference","Namibia",2040,"deaths",0,0
+"Reference","Namibia",2050,"deaths",0,0
+"Reference","Nepal",2020,"deaths",25775,88.88
+"Reference","Nepal",2030,"deaths",25480,79.72
+"Reference","Nepal",2040,"deaths",24947,73.77
+"Reference","Nepal",2050,"deaths",24685,70.75
+"Reference","Netherlands",2020,"deaths",15532,89.25
+"Reference","Netherlands",2030,"deaths",8410,47.47
+"Reference","Netherlands",2040,"deaths",3942,22.08
+"Reference","Netherlands",2050,"deaths",1838,10.29
+"Reference","New Zealand",2020,"deaths",2556,50.85
+"Reference","New Zealand",2030,"deaths",1911,35.91
+"Reference","New Zealand",2040,"deaths",1123,20.18
+"Reference","New Zealand",2050,"deaths",621,10.76
+"Reference","Nicaragua",2020,"deaths",2405,35.84
+"Reference","Nicaragua",2030,"deaths",2413,31.9
+"Reference","Nicaragua",2040,"deaths",2447,29.83
+"Reference","Nicaragua",2050,"deaths",2463,28.65
+"Reference","Niger",2020,"deaths",16882,70.69
+"Reference","Niger",2030,"deaths",24278,70.67
+"Reference","Niger",2040,"deaths",33820,70.66
+"Reference","Niger",2050,"deaths",45096,70.66
+"Reference","Nigeria",2020,"deaths",83259,40.46
+"Reference","Nigeria",2030,"deaths",103749,39.73
+"Reference","Nigeria",2040,"deaths",127882,39.09
+"Reference","Nigeria",2050,"deaths",155031,38.7
+"Reference","Norway",2020,"deaths",642,11.96
+"Reference","Norway",2030,"deaths",0,0
+"Reference","Norway",2040,"deaths",0,0
+"Reference","Norway",2050,"deaths",0,0
+"Reference","Oman",2020,"deaths",0,0
+"Reference","Oman",2030,"deaths",0,0
+"Reference","Oman",2040,"deaths",0,0
+"Reference","Oman",2050,"deaths",0,0
+"Reference","Pakistan",2020,"deaths",109855,48.8
+"Reference","Pakistan",2030,"deaths",127178,46.48
+"Reference","Pakistan",2040,"deaths",147727,45.65
+"Reference","Pakistan",2050,"deaths",167570,45.23
+"Reference","Palestine",2020,"deaths",357,7.19
+"Reference","Palestine",2030,"deaths",242,3.93
+"Reference","Palestine",2040,"deaths",105,1.45
+"Reference","Palestine",2050,"deaths",0,0
+"Reference","Panama",2020,"deaths",0,0
+"Reference","Panama",2030,"deaths",0,0
+"Reference","Panama",2040,"deaths",0,0
+"Reference","Panama",2050,"deaths",0,0
+"Reference","Paraguay",2020,"deaths",1829,27.82
+"Reference","Paraguay",2030,"deaths",1087,14.64
+"Reference","Paraguay",2040,"deaths",784,9.67
+"Reference","Paraguay",2050,"deaths",649,7.58
+"Reference","Peru",2020,"deaths",2502,7.56
+"Reference","Peru",2030,"deaths",1695,4.71
+"Reference","Peru",2040,"deaths",1317,3.45
+"Reference","Peru",2050,"deaths",1115,2.83
+"Reference","Philippines",2020,"deaths",42167,37.89
+"Reference","Philippines",2030,"deaths",48062,37.52
+"Reference","Philippines",2040,"deaths",53344,37.34
+"Reference","Philippines",2050,"deaths",57431,37.21
+"Reference","Poland",2020,"deaths",2813,7.31
+"Reference","Poland",2030,"deaths",2789,7.3
+"Reference","Poland",2040,"deaths",2670,7.3
+"Reference","Poland",2050,"deaths",2559,7.29
+"Reference","Portugal",2020,"deaths",0,0
+"Reference","Portugal",2030,"deaths",0,0
+"Reference","Portugal",2040,"deaths",0,0
+"Reference","Portugal",2050,"deaths",0,0
+"Reference","Puerto Rico",2020,"deaths",2,0.07
+"Reference","Puerto Rico",2030,"deaths",1,0.05
+"Reference","Puerto Rico",2040,"deaths",1,0.04
+"Reference","Puerto Rico",2050,"deaths",1,0.04
+"Reference","Qatar",2020,"deaths",0,0
+"Reference","Qatar",2030,"deaths",0,0
+"Reference","Qatar",2040,"deaths",0,0
+"Reference","Qatar",2050,"deaths",0,0
+"Reference","Romania",2020,"deaths",3337,17.12
+"Reference","Romania",2030,"deaths",2399,13.1
+"Reference","Romania",2040,"deaths",1954,11.42
+"Reference","Romania",2050,"deaths",1677,10.52
+"Reference","Russian Federation",2020,"deaths",0,0
+"Reference","Russian Federation",2030,"deaths",0,0
+"Reference","Russian Federation",2040,"deaths",0,0
+"Reference","Russian Federation",2050,"deaths",0,0
+"Reference","Rwanda",2020,"deaths",14960,115.19
+"Reference","Rwanda",2030,"deaths",13576,83.81
+"Reference","Rwanda",2040,"deaths",14050,72.3
+"Reference","Rwanda",2050,"deaths",15080,67.16
+"Reference","Saint Lucia",2020,"deaths",43,23.94
+"Reference","Saint Lucia",2030,"deaths",24,12.96
+"Reference","Saint Lucia",2040,"deaths",15,8.42
+"Reference","Saint Lucia",2050,"deaths",10,5.39
+"Reference","Saudi Arabia",2020,"deaths",0,0
+"Reference","Saudi Arabia",2030,"deaths",0,0
+"Reference","Saudi Arabia",2040,"deaths",0,0
+"Reference","Saudi Arabia",2050,"deaths",0,0
+"Reference","Senegal",2020,"deaths",14534,89.63
+"Reference","Senegal",2030,"deaths",12666,61.38
+"Reference","Senegal",2040,"deaths",12030,47.45
+"Reference","Senegal",2050,"deaths",12283,40.89
+"Reference","Serbia",2020,"deaths",2858,38.71
+"Reference","Serbia",2030,"deaths",2116,30.04
+"Reference","Serbia",2040,"deaths",1785,26.19
+"Reference","Serbia",2050,"deaths",1612,24.38
+"Reference","Seychelles",2020,"deaths",1,1.2
+"Reference","Seychelles",2030,"deaths",1,0.82
+"Reference","Seychelles",2040,"deaths",1,0.66
+"Reference","Seychelles",2050,"deaths",1,0.57
+"Reference","Sierra Leone",2020,"deaths",8125,99.81
+"Reference","Sierra Leone",2030,"deaths",6503,65.05
+"Reference","Sierra Leone",2040,"deaths",4523,38.47
+"Reference","Sierra Leone",2050,"deaths",3203,24.13
+"Reference","Singapore",2020,"deaths",0,0
+"Reference","Singapore",2030,"deaths",0,0
+"Reference","Singapore",2040,"deaths",0,0
+"Reference","Singapore",2050,"deaths",0,0
+"Reference","Slovakia",2020,"deaths",0,0
+"Reference","Slovakia",2030,"deaths",0,0
+"Reference","Slovakia",2040,"deaths",0,0
+"Reference","Slovakia",2050,"deaths",0,0
+"Reference","Slovenia",2020,"deaths",120,5.65
+"Reference","Slovenia",2030,"deaths",88,4.18
+"Reference","Slovenia",2040,"deaths",73,3.53
+"Reference","Slovenia",2050,"deaths",64,3.14
+"Reference","South Africa",2020,"deaths",0,0
+"Reference","South Africa",2030,"deaths",0,0
+"Reference","South Africa",2040,"deaths",0,0
+"Reference","South Africa",2050,"deaths",0,0
+"Reference","South Sudan",2020,"deaths",34500,327.16
+"Reference","South Sudan",2030,"deaths",21136,180.46
+"Reference","South Sudan",2040,"deaths",13352,102.23
+"Reference","South Sudan",2050,"deaths",7797,56.58
+"Reference","Spain",2020,"deaths",459,0.97
+"Reference","Spain",2030,"deaths",311,0.65
+"Reference","Spain",2040,"deaths",228,0.47
+"Reference","Spain",2050,"deaths",163,0.33
+"Reference","Sri Lanka",2020,"deaths",10323,47.61
+"Reference","Sri Lanka",2030,"deaths",9276,41
+"Reference","Sri Lanka",2040,"deaths",7987,34.53
+"Reference","Sri Lanka",2050,"deaths",7214,31.12
+"Reference","Sweden",2020,"deaths",0,0
+"Reference","Sweden",2030,"deaths",0,0
+"Reference","Sweden",2040,"deaths",0,0
+"Reference","Sweden",2050,"deaths",0,0
+"Reference","Switzerland",2020,"deaths",0,0
+"Reference","Switzerland",2030,"deaths",0,0
+"Reference","Switzerland",2040,"deaths",0,0
+"Reference","Switzerland",2050,"deaths",0,0
+"Reference","Syrian Arab Republic",2020,"deaths",0,0
+"Reference","Syrian Arab Republic",2030,"deaths",0,0
+"Reference","Syrian Arab Republic",2040,"deaths",0,0
+"Reference","Syrian Arab Republic",2050,"deaths",0,0
+"Reference","Taiwan (Province of China)",2020,"deaths",0,0
+"Reference","Taiwan (Province of China)",2030,"deaths",0,0
+"Reference","Taiwan (Province of China)",2040,"deaths",0,0
+"Reference","Taiwan (Province of China)",2050,"deaths",0,0
+"Reference","Tajikistan",2020,"deaths",728,7.71
+"Reference","Tajikistan",2030,"deaths",0,0
+"Reference","Tajikistan",2040,"deaths",0,0
+"Reference","Tajikistan",2050,"deaths",0,0
+"Reference","United Republic of Tanzania",2020,"deaths",48988,80.61
+"Reference","United Republic of Tanzania",2030,"deaths",59399,73.92
+"Reference","United Republic of Tanzania",2040,"deaths",71646,70.34
+"Reference","United Republic of Tanzania",2050,"deaths",84859,68.32
+"Reference","Thailand",2020,"deaths",37151,52.04
+"Reference","Thailand",2030,"deaths",20018,27.73
+"Reference","Thailand",2040,"deaths",10164,14.32
+"Reference","Thailand",2050,"deaths",5184,7.63
+"Reference","Togo",2020,"deaths",2906,34.84
+"Reference","Togo",2030,"deaths",3598,34.63
+"Reference","Togo",2040,"deaths",4288,34.43
+"Reference","Togo",2050,"deaths",4927,34.29
+"Reference","Trinidad and Tobago",2020,"deaths",1,0.05
+"Reference","Trinidad and Tobago",2030,"deaths",0,0
+"Reference","Trinidad and Tobago",2040,"deaths",0,0
+"Reference","Trinidad and Tobago",2050,"deaths",0,0
+"Reference","Tunisia",2020,"deaths",11,0.09
+"Reference","Tunisia",2030,"deaths",0,0
+"Reference","Tunisia",2040,"deaths",0,0
+"Reference","Tunisia",2050,"deaths",0,0
+"Reference","Turkey",2020,"deaths",344,0.41
+"Reference","Turkey",2030,"deaths",351,0.39
+"Reference","Turkey",2040,"deaths",292,0.31
+"Reference","Turkey",2050,"deaths",251,0.26
+"Reference","Turkmenistan",2020,"deaths",3097,49.91
+"Reference","Turkmenistan",2030,"deaths",1796,25.15
+"Reference","Turkmenistan",2040,"deaths",977,12.41
+"Reference","Turkmenistan",2050,"deaths",556,6.53
+"Reference","Uganda",2020,"deaths",28466,65.16
+"Reference","Uganda",2030,"deaths",36157,61.94
+"Reference","Uganda",2040,"deaths",43125,57.97
+"Reference","Uganda",2050,"deaths",51654,56.92
+"Reference","Ukraine",2020,"deaths",2835,6.43
+"Reference","Ukraine",2030,"deaths",2371,6.42
+"Reference","Ukraine",2040,"deaths",2343,6.42
+"Reference","Ukraine",2050,"deaths",2245,6.42
+"Reference","United Arab Emirates",2020,"deaths",0,0
+"Reference","United Arab Emirates",2030,"deaths",0,0
+"Reference","United Arab Emirates",2040,"deaths",0,0
+"Reference","United Arab Emirates",2050,"deaths",0,0
+"Reference","United Kingdom",2020,"deaths",35799,53.47
+"Reference","United Kingdom",2030,"deaths",19151,27.87
+"Reference","United Kingdom",2040,"deaths",9377,13.29
+"Reference","United Kingdom",2050,"deaths",4878,6.7
+"Reference","United States of America",2020,"deaths",134,0.04
+"Reference","United States of America",2030,"deaths",70,0.02
+"Reference","United States of America",2040,"deaths",36,0.01
+"Reference","United States of America",2050,"deaths",38,0.01
+"Reference","Uruguay",2020,"deaths",0,0
+"Reference","Uruguay",2030,"deaths",0,0
+"Reference","Uruguay",2040,"deaths",0,0
+"Reference","Uruguay",2050,"deaths",0,0
+"Reference","Uzbekistan",2020,"deaths",6715,20.2
+"Reference","Uzbekistan",2030,"deaths",5833,15.14
+"Reference","Uzbekistan",2040,"deaths",4826,11.25
+"Reference","Uzbekistan",2050,"deaths",4488,9.58
+"Reference","Venezuela (Bolivarian Republic of)",2020,"deaths",0,0
+"Reference","Venezuela (Bolivarian Republic of)",2030,"deaths",0,0
+"Reference","Venezuela (Bolivarian Republic of)",2040,"deaths",0,0
+"Reference","Venezuela (Bolivarian Republic of)",2050,"deaths",0,0
+"Reference","Viet Nam",2020,"deaths",48650,50.57
+"Reference","Viet Nam",2030,"deaths",41883,40.78
+"Reference","Viet Nam",2040,"deaths",39630,37.31
+"Reference","Viet Nam",2050,"deaths",38777,36.05
+"Reference","Yemen",2020,"deaths",70320,220.25
+"Reference","Yemen",2030,"deaths",63112,159.3
+"Reference","Yemen",2040,"deaths",39574,84.12
+"Reference","Yemen",2050,"deaths",24676,45.97
+"Reference","Zambia",2020,"deaths",12320,66.04
+"Reference","Zambia",2030,"deaths",11244,46.71
+"Reference","Zambia",2040,"deaths",9634,32.47
+"Reference","Zambia",2050,"deaths",8631,24.7
+"Reference","Zimbabwe",2020,"deaths",10373,66.9
+"Reference","Zimbabwe",2030,"deaths",7735,42.03
+"Reference","Zimbabwe",2040,"deaths",5612,26.7
+"Reference","Zimbabwe",2050,"deaths",4166,18.02

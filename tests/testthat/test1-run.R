@@ -9,9 +9,9 @@ test_that("Download db, create project, and run", {
 
   testOutput <- calc_hap_impacts(prj_name = prj_name, scen_name = scen_name,
                                  final_db_year = 2050, HIA_var = "deaths",
-                                 saveOutput = F, map = F, anim = F,
+                                 saveOutput = T, map = T, anim = F,
                                  normalized = F, by_gr = F)
-  testResult <- get(load(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/calc_hap_impacts_output1.Rdata")))
+  testResult <- get(load(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/calc_hap_impacts_output1.RData")))
   testthat::expect_equal(nrow(testOutput), nrow(testResult))
 
   # check saved files
@@ -31,7 +31,10 @@ test_that("Download db, create project, and run", {
   testOutput$country <- sapply(testOutput$country, decode_ascii)
   testResult$country <- sapply(testResult$country, decode_ascii)
   testthat::expect(!is.null(testOutput), 'Empty file. Check that the results were correctly produced.')
-  testthat::expect_equal(as.data.frame.table(testOutput), as.data.frame.table(testResult))
+  res <- setdiff(as.data.frame.table(testOutput), as.data.frame.table(testResult))
+  testthat::expect(nrow(res) == 0, 'Saved results differ from the expected ones. Check that the results were correctly produced and saved.')
+  res <- setdiff(as.data.frame.table(testResult), as.data.frame.table(testOutput))
+  testthat::expect(ncol(res) == 0, 'Saved results differ from the expected ones. Check that the results were correctly produced and saved.')
 
   # # check figures
   # to be run locally, avoid running it in github actions
