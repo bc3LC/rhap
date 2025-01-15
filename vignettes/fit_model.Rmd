@@ -35,5 +35,12 @@ To determine whether to use a fixed or random effects model, we apply the Hausma
 
 In summary, we estimate health impacts attributable to household air pollution using the following fixed effects model. The model includes logarithmic and normalized per capita GDP, emissions of primary PM2.5, NOx, and VOCs, and per capita floorspace as covariates, with country and year specified as index variables:
 
-$$log(Deathsper100K)_{t,r} = log(PrimPM2.5per100K)_{t,r} + log(NOXper100K)_{t,r} + log(VOCper100K)_{t,r} + log(GDPpc)_{t,r} +  log(FLSPpc)_{t,r} + e_{t,r} $$
+$$log(Deathsper100K)_{i,t} = \alpha_{i} + \beta_{1}log(PrimPM2.5per100K)_{i,t} + \beta_{2}log(NOXper100K)_{i,t} + \beta_{3}log(VOCper100K)_{i,t} + \beta_{4}log(GDPpc)_{i,t} + \beta_{5}log(FLSPpc)_{i,t} + e_{i,t} $$
+Where:
+
+- $log(Deathsper100K)_{i,t}$ is the dependent variable for region $i$ at period $t$.
+- $\alpha_{i}$ is the fixed effect for region $i$.
+- $\beta_{1}$, $\beta_{2}$, ... $\beta_{5}$ are the coefficients for the corresponding explanatory variables.
+- $e_{i,t}$ is the error term.
+
 ** Note that the dependent variable can also be set to be YLLs or DALYs
