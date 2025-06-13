@@ -40,33 +40,56 @@ If `saveOutput` is set to `TRUE`, the function writes the following csv files in
 In addition, by setting `map` to `TRUE`, the function generates damage maps, using the [rmap](https://github.com/JGCRI/rmap) package documented in the following [page](https://jgcri.github.io/rmap/). The function also generates animations and individual figures.
 
 
-### Example
+### Step-by-Step Example
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+This example demonstrates how to use the `rhap` package to estimate health impacts from GCAM outputs.
+
+#### 1. Install the Package
+
+Follow the [installation guide](https://github.com/bc3LC/rhap?tab=readme-ov-file#InstallGuide) if you haven't already.
+
+#### 2. Load the Required Libraries
+
+- If you are developing the package (e.g., using RStudio or working within the package directory), use:
+
+```r
+devtools::load_all()
 ```
 
-```{r setup, eval=F}
+- Otherwise, if you've installed the package, load it normally: 
+```r
 library(rhap)
-library(magrittr)
-
- db_path <- "path_to_your_gcam_database" # NULL if project file provided
- db_name <- "name of the database" # NULL if project file provided
- prj_name<-"name of the project file", # or name for a project to add extracted results to (any name should work, avoid spaces just in case)
- scen_name <- "name of the GCAM scenario" # or vector names of the GCAM scenarios to be processed
- queries <- "Name of the query file" # (the package includes a default query file that includes all the queries required in every function in the package, "queries_rhap.xml")
- 
- hap_damages <- calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
-                scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
-                saveOutput = T, map = F, anim = T , HIA_var = "deaths",
-                normalized = F, by_gr = F)
-
- head(hap_damages)
-
 ```
+
+Also load any required dependencies:
+```r
+library(magrittr)
+```
+
+#### 3. Set Project and Scenario Names, and Run the Model
+
+```r
+# Set your project and scenario names
+my_prj_name <- "test_rhap.dat"  # Name of the .dat project file (avoid spaces)
+my_scen_name <- "Ref_7p1"       # Name of the GCAM scenario to process (or vector of scenarios)
+
+# Run the RHAP model
+hap_damages <- calc_hap_impacts(
+  prj_name     = my_prj_name,
+  scen_name    = my_scen_name,
+  final_db_year = 2050,
+  saveOutput   = TRUE,
+  map          = FALSE,
+  anim         = TRUE,
+  HIA_var      = "deaths",
+  normalized   = TRUE,
+  by_gr        = FALSE
+)
+
+# Preview the results
+head(hap_damages)
+```
+This code will generate a dataset of health impacts and,  also produce a figure similar to the one shown below:
 
 <!-------------------------->
 <!-------------------------->
