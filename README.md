@@ -94,7 +94,7 @@ Then, open the Rproject (rfasst.Rproj): In the Rstudio menu, click "Build -> Ins
 
 [Back to Contents](#Contents)
 
-The primary function offered by this package is `calc_hap_impacts`, designed to estimate health impacts attributable to household air pollution (HAP) across a range of alternative GCAMscenarios. This function estimates scenario-specific health outcomes by seamlessly extracting and processing relevant data from GCAM databases or project files.
+The primary function offered by this package is `calc_hap_impacts`, designed to estimate health impacts attributable to household air pollution (HAP) across a range of alternative GCAM scenarios. This function estimates scenario-specific health outcomes by seamlessly extracting and processing relevant data from GCAM databases or project files.
 The extracted data encompasses critical socioeconomic and environmental parameters, enabling comprehensive analysis of HAP impacts. These parameters include per capita GDP, emissions of key pollutants such as primary PM2.5 (BC+OC), NOx, and VOCs, and per capita floorspace metrics. By integrating these diverse factors, `calc_hap_impacts` facilitates detailed assessments of how variations in economic development, pollutant emissions, and living conditions influence human health under different policy or technological scenarios.
 
 The package also includes an ancillary function, `calc_ResidEm_grp`, which determines the contribution of each within-region consumer group to household air pollution (HAP), with results categorized by region, year, and pollutant. Users can customize their analysis by specifying the desired region, time period, and pollutant through adjustable parameters when calling the function.
