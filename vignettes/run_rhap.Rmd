@@ -61,11 +61,6 @@ devtools::load_all()
 library(rhap)
 ```
 
-Also load any required dependencies:
-```r
-library(magrittr)
-```
-
 #### 3. Set Project and Scenario Names, and Run the Model
 
 ```r
