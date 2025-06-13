@@ -205,23 +205,59 @@ following <a href="https://jgcri.github.io/rmap/" class="external-link">page</a>
 also generates animations and individual figures.</p>
 </div>
 <div class="section level3">
-<h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h3 id="step-by-step-example">Step-by-Step Example<a class="anchor" aria-label="anchor" href="#step-by-step-example"></a>
 </h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(rhap)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a> db_path <span class="ot">&lt;-</span> <span class="st">"path_to_your_gcam_database"</span> <span class="co"># NULL if project file provided</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a> db_name <span class="ot">&lt;-</span> <span class="st">"name of the database"</span> <span class="co"># NULL if project file provided</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a> prj_name<span class="ot">&lt;-</span><span class="st">"name of the project file"</span>, <span class="co"># or name for a project to add extracted results to (any name should work, avoid spaces just in case)</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a> scen_name <span class="ot">&lt;-</span> <span class="st">"name of the GCAM scenario"</span> <span class="co"># or vector names of the GCAM scenarios to be processed</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a> queries <span class="ot">&lt;-</span> <span class="st">"Name of the query file"</span> <span class="co"># (the package includes a default query file that includes all the queries required in every function in the package, "queries_rhap.xml")</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a> </span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a> hap_damages <span class="ot">&lt;-</span> calc_hap_impacts <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">db_path =</span> <span class="cn">NULL</span>, <span class="at">query_path =</span> <span class="st">"./inst/extdata"</span>, <span class="at">db_name =</span> <span class="cn">NULL</span>, prj_name,</span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>                scen_name, <span class="at">queries =</span> <span class="st">"queries_rhap.xml"</span>, <span class="at">final_db_year =</span> <span class="dv">2100</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>                <span class="at">saveOutput =</span> T, <span class="at">map =</span> F, <span class="at">anim =</span> T , <span class="at">HIA_var =</span> <span class="st">"deaths"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>                <span class="at">normalized =</span> F, <span class="at">by_gr =</span> F)</span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a> <span class="fu">head</span>(hap_damages)</span></code></pre></div>
+<p>This example demonstrates how to use the <code>rhap</code> package to
+estimate health impacts from GCAM outputs.</p>
+<div class="section level4">
+<h4 id="install-the-package">1. Install the Package<a class="anchor" aria-label="anchor" href="#install-the-package"></a>
+</h4>
+<p>Follow the <a href="https://github.com/bc3LC/rhap?tab=readme-ov-file#InstallGuide" class="external-link">installation
+guide</a> if you haven’t already.</p>
+</div>
+<div class="section level4">
+<h4 id="load-the-required-libraries">2. Load the Required Libraries<a class="anchor" aria-label="anchor" href="#load-the-required-libraries"></a>
+</h4>
+<ul>
+<li>If you are developing the package (e.g., using RStudio or working
+within the package directory), use:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">load_all</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>Otherwise, if you’ve installed the package, load it normally:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bc3LC/rhap" class="external-link">rhap</a></span><span class="op">)</span></span></code></pre></div>
+<p>Also load any required dependencies:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="set-project-and-scenario-names-and-run-the-model">3. Set Project and Scenario Names, and Run the Model<a class="anchor" aria-label="anchor" href="#set-project-and-scenario-names-and-run-the-model"></a>
+</h4>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Set your project and scenario names</span></span>
+<span><span class="va">my_prj_name</span> <span class="op">&lt;-</span> <span class="st">"test_rhap.dat"</span>  <span class="co"># Name of the .dat project file (avoid spaces)</span></span>
+<span><span class="va">my_scen_name</span> <span class="op">&lt;-</span> <span class="st">"Ref_7p1"</span>       <span class="co"># Name of the GCAM scenario to process (or vector of scenarios)</span></span>
+<span></span>
+<span><span class="co"># Run the RHAP model</span></span>
+<span><span class="va">hap_damages</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_hap_impacts.html">calc_hap_impacts</a></span><span class="op">(</span></span>
+<span>  prj_name     <span class="op">=</span> <span class="va">my_prj_name</span>,</span>
+<span>  scen_name    <span class="op">=</span> <span class="va">my_scen_name</span>,</span>
+<span>  final_db_year <span class="op">=</span> <span class="fl">2050</span>,</span>
+<span>  saveOutput   <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  map          <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  anim         <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  HIA_var      <span class="op">=</span> <span class="st">"deaths"</span>,</span>
+<span>  normalized   <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  by_gr        <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Preview the results</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">hap_damages</span><span class="op">)</span></span></code></pre></div>
+<p>This code will generate a dataset of health impacts and, also produce
+a figure similar to the one shown below:</p>
 <!-------------------------->
 <!-------------------------->
 <p align="center" style="font-size:18px;">
@@ -232,6 +268,7 @@ air pollution in 2050</em>
 <img src="https://raw.githubusercontent.com/bc3LC/rhap/main/vignettes/vignetteFigs/map_base_2050.png"></p>
 <!-------------------------->
 <!-------------------------->
+</div>
 </div>
   </div>
 
@@ -250,7 +287,7 @@ air pollution in 2050</em>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
       </footer>
