@@ -79,10 +79,10 @@ In addition to its direct health impacts, disproportionately affecting infants a
 such as reduced work productivity [@neidell2023air] and the exacerbation of gender inequalities [@krishnapriya2021improved].
 
 Given the magnitude of these effects, various methodologies have been developed to estimate HAP and its associated health implications [@mohajeri2023urban; @das2021benefits]. 
-However, HAP and its subsequent impacts on human health are usually ignored in global scenario analysis. 
-Alternative socioeconomic and climate scenarios, such as high or low GDP growth pathways and the adoption of deep decarbonization strategies, will significantly influence the transition to cleaner energy fuels and technologies.
-These pathways can enhance access to less harmful energy sources for lower-income households, thereby reducing exposure to HAP and mitigating its adverse impacts on human health.
-The incorporation of these dynamics into integrated assessment models, such as the Global Change Analysis Model (GCAM), offers valuable insights for evaluating alternative future scenarios.
+However, HAP and its subsequent impacts on human health are often overlooked in global scenario analysis. 
+Alternative socioeconomic and climate pathways, such as those involving high or low GDP growth and the adoption of deep decarbonization strategies, can significantly influence the transition to cleaner energy fuels and technologies. These transitions may improve access to cleaner energy sources for lower-income households, thereby reducing exposure to HAP and mitigating its health impacts. 
+Despite this, the dominant tools used in global scenario analysis, namely, integrated assessment models (IAMs), typically estimate future emissions of air pollutants but do not report on air pollution levels or their health consequences. While some external tools can be linked to IAMs to assess ambient air pollution and its impacts [@sampedro2022rfasst], there is currently no such tool available for HAP and its associated effects.
+Incorporating HAP dynamics into IAMs, such as the Global Change Analysis Model (GCAM), represents a meaningful contribution to the field. It provides important insights for evaluating alternative future scenarios with greater attention to equity, health, and household-level energy transitions.
 
 GCAM is a multisector integrated assessment model that quantifies human and Earth-system dynamics by examining the interconnections between the economy, energy, water, climate, and agriculture, forestry, and land use (AFOLU) systems. 
 Detailed documentation is available [online](https://github.com/JGCRI/gcam-doc). 
