@@ -32,9 +32,9 @@ test_that("Download db, create project, and run", {
   testResult$country <- sapply(testResult$country, decode_ascii)
   testthat::expect(!is.null(testOutput), 'Empty file. Check that the results were correctly produced.')
   res <- setdiff(as.data.frame.table(testOutput), as.data.frame.table(testResult))
-  testthat::expect(nrow(res) == 0, 'Saved results differ from the expected ones. Check that the results were correctly produced and saved.')
+  testthat::expect(is.null(nrow(res)), 'Saved results differ from the expected ones. Check that the results were correctly produced and saved.')
   res <- setdiff(as.data.frame.table(testResult), as.data.frame.table(testOutput))
-  testthat::expect(ncol(res) == 0, 'Saved results differ from the expected ones. Check that the results were correctly produced and saved.')
+  testthat::expect(is.null(nrow(res)), 'Saved results differ from the expected ones. Check that the results were correctly produced and saved.')
 
   # # check figures
   # to be run locally, avoid running it in github actions
