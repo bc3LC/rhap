@@ -544,7 +544,9 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     # adjust Rou
     dplyr::mutate(country_name = dplyr::if_else(country_name == "Roumania", "Romania", country_name)) %>%
     # remove not predictable regions
-    dplyr::filter(country_name %in% unique(fit_model(HIA_var = HIA_var)[[2]]))
+    dplyr::filter(country_name %in% unique(fit_model(HIA_var = HIA_var)[[2]])) %>%
+    dplyr::mutate(across(where(is.numeric), ~ ifelse(is.finite(.), ., NA_real_))) %>%
+    tidyr::drop_na()
 
 
   #-----
@@ -554,10 +556,9 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   model.fixed <- fit_model(HIA_var = HIA_var)[[1]]
 
   # Transform data to panel and predict
-
-  library(plm)
   output.panel <- plm::pdata.frame(output, index = c("country_name", "year"))
 
+  # Predict
   output$pred_value <- stats::predict(model.fixed, output.panel)
 
   output_fin <- output %>%
