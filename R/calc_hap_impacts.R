@@ -555,6 +555,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 
   # Transform data to panel and predict
 
+  library(plm)
   output.panel <- plm::pdata.frame(output, index = c("country_name", "year"))
 
   output$pred_value <- stats::predict(model.fixed, output.panel)
