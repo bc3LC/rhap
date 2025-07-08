@@ -15,31 +15,41 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - { os: ubuntu-latest, r: 'devel', cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
+          - { os: ubuntu-latest, r: 'devel', cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest" }
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      GITHUB_PAT: ${{secrets.GH_RHAP_TOKEN}}
+      GITHUB_PAT: ${{ secrets.GH_RHAP_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v1
-      - uses: r-lib/actions/setup-r@v2-branch
-        with:
-          r-version: '3.6'
-      - uses: r-lib/actions/setup-pandoc@v2-branch
-      - uses: r-lib/actions/setup-tinytex@v2-branch
+      - uses: actions/checkout@v4
 
-      - name: Install libraries
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+
+      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-tinytex@v2
+
+      - name: Install system libraries
         if: startsWith(matrix.config.os, 'ubuntu')
         run: |
           sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable
           sudo apt-get update
-          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libudunits2-dev libgdal-dev libgeos-dev libproj-dev libmagick++-dev libavfilter-dev libharfbuzz-dev libfribidi-dev
+          sudo apt-get install -y \
+            libcurl4-openssl-dev libssl-dev libxml2-dev \
+            libudunits2-dev libgdal-dev libgeos-dev libproj-dev \
+            libmagick++-dev libavfilter-dev libharfbuzz-dev libfribidi-dev
 
-      - name: Install dependencies
+      - name: Install R dependencies
         run: |
           install.packages(c("remotes", "rcmdcheck", "covr"), repos = "https://cloud.r-project.org")
           remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+
+      - name: Install the package
+        run: |
+          remotes::install_local(".")
         shell: Rscript {0}
 
       - name: Run tests and generate coverage
@@ -50,6 +60,7 @@ jobs:
 
       - uses: codecov/codecov-action@v4.0.1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}  # Optional for public repos
+          token: ${{ secrets.CODECOV_TOKEN }}  # Optional if repo is public
           files: ./coverage.xml
           verbose: true
+
