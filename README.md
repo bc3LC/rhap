@@ -88,7 +88,7 @@ Then, open the Rproject (rfasst.Rproj): In the Rstudio menu, click "Build -> Ins
 
 <!-- ------------------------>
 <!-- ------------------------>
-## <a name="keyfunctions"></a> How to guides
+## <a name="howto"></a> How to guides
 <!-- ------------------------>
 <!-- ------------------------>
 
