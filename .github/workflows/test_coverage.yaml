@@ -2,9 +2,9 @@ name: test_coverage
 
 on:
   push:
-    branches: [main, k_dev]
+    branches: [main]
   pull_request:
-    branches: [main, k_dev]
+    branches: [main]
 
 jobs:
   R-CMD:
@@ -38,20 +38,18 @@ jobs:
 
       - name: Install dependencies
         run: |
-          install.packages(c("remotes","rcmdcheck"), repos = "https://cloud.r-project.org")
+          install.packages(c("remotes", "rcmdcheck", "covr"), repos = "https://cloud.r-project.org")
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
-      # - name: Test coverage
-      #   run: |
-      #     install.packages(c("DT","htmltools","covr"), repos = "https://cloud.r-project.org")
-      #     remotes::install_deps(dependencies = TRUE)
-      #     cov <- covr::package_coverage()
-      #     covr:::report(cov, file = "coverage.xml")
-      #   shell: Rscript {0}
+      - name: Run tests and generate coverage
+        run: |
+          cov <- covr::package_coverage()
+          covr::to_cobertura(cov, "coverage.xml")
+        shell: Rscript {0}
 
       - uses: codecov/codecov-action@v4.0.1
         with:
-          token: ${{secrets.CODECOV_TOKEN}}
+          token: ${{ secrets.CODECOV_TOKEN }}  # Optional for public repos
           files: ./coverage.xml
           verbose: true
