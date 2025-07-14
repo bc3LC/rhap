@@ -62,59 +62,65 @@ TBA
 
 [Back to Contents](#Contents)
 
-The package can be directly installed following these steps:
+You can install the **`rhap`** package in two ways:
 
-### 1. Install Required Software: 
+- **Option 1**: Install directly from GitHub  
+- **Option 2**: Clone the repository (recommended for full access to project files)
+
+### Option 1: Direct Installation from GitHub
+
+#### Prerequisites
+
+Make sure the following software is installed:
+
 - **R**: [Download R](https://www.r-project.org/)
 - **RStudio** (recommended IDE): [Download RStudio](https://www.rstudio.com/)
-- **Git** (required to clone the repository): [Download Git](https://git-scm.com/downloads)
-    
-    
-### 2. Install the Package via `devtools`
+- **Git**: [Download Git](https://git-scm.com/downloads) (required by `devtools`)
 
-Open **RStudio** and run the following commands in the Console:
+#### Install the Package
 
-```r
-install.packages("devtools")  # if not already installed
-devtools::install_github("bc3LC/rhap")
-```
+1. Open **RStudio**
+2. Run the following in the R Console:
 
-### 3. Clone the Repository (Optional but Recommended)
+   ```r
+   install.packages("devtools")  # Skip if already installed
+   devtools::install_github("bc3LC/rhap")
 
-Cloning the repository is recommended to access the full package structure and all input files. 
+### Option 2: Clone the Repository (Recommended)
 
-To clone the repository: Open Git Bash in your desired working directory (Right-click → Git Bash Here).
+Cloning the repository is recommended if you want full access to the project structure, input files, and examples.
 
-Run the following command: 
+#### Step 1: Clone the Repository
 
-```r
+Open **Git Bash** (or a terminal) in your desired directory, and run:
+
+```bash
 git clone https://github.com/bc3LC/rhap.git
-```
 
 This will create a local copy of the repository.
 
-### 4. Load the Project in RStudio
+#### Step 2: Open the Project in RStudio
 
-After cloning the repository:
+- Open `rhap.Rproj` inside the cloned folder using RStudio.
 
-- Navigate to the cloned folder and open the rhap.Rproj file in RStudio.
-- In RStudio, go to the menu: Build → Install and Restart, or use the keyboard shortcut: Ctrl + Shift + B.
+- In RStudio, go to: "Build → Install and Restart" or  use the keyboard shortcut "Ctrl + Shift + B"
 
-Alternatively, you can load the package directly by running:
-
-```r
+Alternatively, you can load the package without installing it using devtools:
+   ```r
 devtools::load_all()
-```
 
-### 5. Test a Baseline Example (Optional)
 
-The package includes a .dat file that allows you to run a test case for a GCAM baseline scenario: https://bc3lc.github.io/rhap/articles/run_rhap.html#step-by-step-example 
+###  Run a Baseline Example (Optional)
 
-Note that this example can be run without cloning the full repository by loading the included file:
+The `rhap` package includes a built-in `.dat` file that lets you run a test case based on a GCAM baseline scenario. This is a great way to verify that the package is working correctly and to explore its core functionality.
 
-```r
+You can run this example with or without cloning the full repository — the required data is included in the package:
+
+   ```r
 test_rhap <- rhap::test_rhap
-``` 
+
+For a step-by-step walkthrough of the example, visit the official guide: [Run a baseline scenario](https://bc3lc.github.io/rhap/articles/run_rhap.html#step-by-step-example)
+
 
 <!-- ------------------------>
 <!-- ------------------------>
