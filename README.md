@@ -116,9 +116,9 @@ This will create a local copy of the repository.
 - In RStudio, either go to **Build → Install and Restart** (or press **Ctrl + Shift + B**),  
    or load the package manually by running the following code:
 
-  ```r
+```r
 devtools::load_all()
-   ```
+```
 
 ###  Run a Baseline Example (Optional)
 
