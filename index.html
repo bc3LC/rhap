@@ -164,10 +164,21 @@
 <!-- ------------------------>
 <!-- ------------------------>
 <p><a href="#Contents">Back to Contents</a></p>
-<p>The package can be directly installed following these steps:</p>
+<p>You can install the <strong><code>rhap</code></strong> package in two ways:</p>
+<ul>
+<li>
+<strong>Option 1</strong>: Install directly from GitHub<br>
+</li>
+<li>
+<strong>Option 2</strong>: Clone the repository (recommended for full access to project files)</li>
+</ul>
 <div class="section level3">
-<h3 id="id_1-install-required-software">1. Install Required Software:<a class="anchor" aria-label="anchor" href="#id_1-install-required-software"></a>
+<h3 id="option-1-direct-installation-from-github">Option 1: Direct Installation from GitHub<a class="anchor" aria-label="anchor" href="#option-1-direct-installation-from-github"></a>
 </h3>
+<div class="section level4">
+<h4 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
+</h4>
+<p>Make sure the following software is installed:</p>
 <ul>
 <li>
 <strong>R</strong>: <a href="https://www.r-project.org/" class="external-link">Download R</a>
@@ -176,47 +187,49 @@
 <strong>RStudio</strong> (recommended IDE): <a href="https://www.rstudio.com/" class="external-link">Download RStudio</a>
 </li>
 <li>
-<strong>Git</strong> (required to clone the repository): <a href="https://git-scm.com/downloads" class="external-link">Download Git</a>
-</li>
+<strong>Git</strong>: <a href="https://git-scm.com/downloads" class="external-link">Download Git</a> (required by <code>devtools</code>)</li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="id_2-install-the-package-via-devtools">2. Install the Package via <code>devtools</code>
-<a class="anchor" aria-label="anchor" href="#id_2-install-the-package-via-devtools"></a>
-</h3>
-<p>Open <strong>RStudio</strong> and run the following commands in the Console:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>  <span class="co"># if not already installed</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bc3LC/rhap"</span><span class="op">)</span></span></code></pre></div>
+<div class="section level4">
+<h4 id="install-the-package">Install the Package<a class="anchor" aria-label="anchor" href="#install-the-package"></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li><p>Open <strong>RStudio</strong></p></li>
+<li>
+<p>Run the following in the R Console:</p>
+<p>```r install.packages(“devtools”) # Skip if already installed devtools::install_github(“bc3LC/rhap”)</p>
+</li>
+</ol>
+</div>
 </div>
 <div class="section level3">
-<h3 id="id_3-clone-the-repository-optional-but-recommended">3. Clone the Repository (Optional but Recommended)<a class="anchor" aria-label="anchor" href="#id_3-clone-the-repository-optional-but-recommended"></a>
+<h3 id="option-2-clone-the-repository-recommended">Option 2: Clone the Repository (Recommended)<a class="anchor" aria-label="anchor" href="#option-2-clone-the-repository-recommended"></a>
 </h3>
-<p>Cloning the repository is recommended to access the full package structure and all input files.</p>
-<p>To clone the repository: Open Git Bash in your desired working directory (Right-click → Git Bash Here).</p>
-<p>Run the following command:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>git clone https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>bc3LC<span class="sc">/</span>rhap.git</span></code></pre></div>
+<p>Cloning the repository is recommended if you want full access to the project structure, input files, and examples.</p>
+<div class="section level4">
+<h4 id="step-1-clone-the-repository">Step 1: Clone the Repository<a class="anchor" aria-label="anchor" href="#step-1-clone-the-repository"></a>
+</h4>
+<p>Open <strong>Git Bash</strong> (or a terminal) in your desired directory, and run:</p>
+<p>```bash git clone <a href="https://github.com/bc3LC/rhap.git" class="external-link uri">https://github.com/bc3LC/rhap.git</a></p>
 <p>This will create a local copy of the repository.</p>
 </div>
-<div class="section level3">
-<h3 id="id_4-load-the-project-in-rstudio">4. Load the Project in RStudio<a class="anchor" aria-label="anchor" href="#id_4-load-the-project-in-rstudio"></a>
-</h3>
-<p>After cloning the repository:</p>
+<div class="section level4">
+<h4 id="step-2-open-the-project-in-rstudio">Step 2: Open the Project in RStudio<a class="anchor" aria-label="anchor" href="#step-2-open-the-project-in-rstudio"></a>
+</h4>
 <ul>
-<li>Navigate to the cloned folder and open the rhap.Rproj file in RStudio.</li>
-<li>In RStudio, go to the menu: Build → Install and Restart, or use the keyboard shortcut: Ctrl + Shift + B.</li>
+<li><p>Open <code>rhap.Rproj</code> inside the cloned folder using RStudio.</p></li>
+<li><p>In RStudio, go to: “Build → Install and Restart” or use the keyboard shortcut “Ctrl + Shift + B”</p></li>
 </ul>
-<p>Alternatively, you can load the package directly by running:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">load_all</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Alternatively, you can load the package without installing it using devtools: ```r devtools::load_all()</p>
+</div>
 </div>
 <div class="section level3">
-<h3 id="id_5-test-a-baseline-example-optional">5. Test a Baseline Example (Optional)<a class="anchor" aria-label="anchor" href="#id_5-test-a-baseline-example-optional"></a>
+<h3 id="run-a-baseline-example-optional">Run a Baseline Example (Optional)<a class="anchor" aria-label="anchor" href="#run-a-baseline-example-optional"></a>
 </h3>
-<p>The package includes a .dat file that allows you to run a test case for a GCAM baseline scenario: <a href="https://bc3lc.github.io/rhap/articles/run_rhap.html#step-by-step-example" class="uri">https://bc3lc.github.io/rhap/articles/run_rhap.html#step-by-step-example</a></p>
-<p>Note that this example can be run without cloning the full repository by loading the included file:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">test_rhap</span> <span class="op">&lt;-</span> <span class="fu">rhap</span><span class="fu">::</span><span class="va">test_rhap</span></span></code></pre></div>
+<p>The <code>rhap</code> package includes a built-in <code>.dat</code> file that lets you run a test case based on a GCAM baseline scenario. This is a great way to verify that the package is working correctly and to explore its core functionality.</p>
+<p>You can run this example with or without cloning the full repository — the required data is included in the package:</p>
+<p>```r test_rhap &lt;- rhap::test_rhap</p>
+<p>For a step-by-step walkthrough of the example, visit the official guide: <a href="https://bc3lc.github.io/rhap/articles/run_rhap.html#step-by-step-example">Run a baseline scenario</a></p>
 <!-- ------------------------>
 <!-- ------------------------>
 </div>
