@@ -64,13 +64,13 @@ TBA
 
 The package can be directly installed following these steps:
 
-1. Install Required Software: 
+### 1. Install Required Software: 
 - **R**: [Download R](https://www.r-project.org/)
 - **RStudio** (recommended IDE): [Download RStudio](https://www.rstudio.com/)
 - **Git** (required to clone the repository): [Download Git](https://git-scm.com/downloads)
     
     
-2. Install the Package via `devtools`
+### 2. Install the Package via `devtools`
 
 Open **RStudio** and run the following commands in the Console:
 
@@ -79,7 +79,7 @@ install.packages("devtools")  # if not already installed
 devtools::install_github("bc3LC/rhap")
 ```
 
-3. Clone the Repository (Optional but Recommended)
+### 3. Clone the Repository (Optional but Recommended)
 
 Cloning the repository is recommended to access the full package structure and all input files. 
 
@@ -93,7 +93,7 @@ git clone https://github.com/bc3LC/rhap.git
 
 This will create a local copy of the repository.
 
-4. Load the Project in RStudio
+### 4. Load the Project in RStudio
 
 After cloning the repository:
 
@@ -106,7 +106,7 @@ Alternatively, you can load the package directly by running:
 devtools::load_all()
 ```
 
-5. Test a Baseline Example (Optional)
+### 5. Test a Baseline Example (Optional)
 
 The package includes a .dat file that allows you to run a test case for a GCAM baseline scenario: https://bc3lc.github.io/rhap/articles/run_rhap.html#step-by-step-example 
 
