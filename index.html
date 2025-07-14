@@ -186,14 +186,12 @@
 <li>
 <strong>RStudio</strong> (recommended IDE): <a href="https://www.rstudio.com/" class="external-link">Download RStudio</a>
 </li>
-<li>
-<strong>Git</strong>: <a href="https://git-scm.com/downloads" class="external-link">Download Git</a> (required by <code>devtools</code>)</li>
 </ul>
 </div>
 <div class="section level4">
 <h4 id="install-the-package">Install the Package<a class="anchor" aria-label="anchor" href="#install-the-package"></a>
 </h4>
-<ol style="list-style-type: decimal">
+<ul>
 <li><p>Open <strong>RStudio</strong></p></li>
 <li>
 <p>Run the following in the R Console:</p>
@@ -201,13 +199,29 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>  <span class="co"># Skip if already installed</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bc3LC/rhap"</span><span class="op">)</span></span></code></pre></div>
 </li>
-</ol>
+</ul>
 </div>
 </div>
 <div class="section level3">
 <h3 id="option-2-clone-the-repository-recommended">Option 2: Clone the Repository (Recommended)<a class="anchor" aria-label="anchor" href="#option-2-clone-the-repository-recommended"></a>
 </h3>
 <p>Cloning the repository is recommended if you want full access to the project structure, input files, and examples.</p>
+<div class="section level4">
+<h4 id="prerequisites-1">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites-1"></a>
+</h4>
+<p>Make sure the following software is installed:</p>
+<ul>
+<li>
+<strong>R</strong>: <a href="https://www.r-project.org/" class="external-link">Download R</a>
+</li>
+<li>
+<strong>RStudio</strong> (recommended IDE): <a href="https://www.rstudio.com/" class="external-link">Download RStudio</a>
+</li>
+<li>
+<strong>Git</strong>: <a href="https://git-scm.com/downloads" class="external-link">Download Git</a>
+</li>
+</ul>
+</div>
 <div class="section level4">
 <h4 id="step-1-clone-the-repository">Step 1: Clone the Repository<a class="anchor" aria-label="anchor" href="#step-1-clone-the-repository"></a>
 </h4>
@@ -220,9 +234,12 @@
 </h4>
 <ul>
 <li><p>Open <code>rhap.Rproj</code> inside the cloned folder using RStudio.</p></li>
-<li><p>In RStudio, go to: “Build → Install and Restart” or use the keyboard shortcut “Ctrl + Shift + B”</p></li>
+<li>
+<p>In RStudio, go to: “Build → Install and Restart” or use the keyboard shortcut “Ctrl + Shift + B”. Alternatively, you can load the package using devtools:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">load_all</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</li>
 </ul>
-<p>Alternatively, you can load the package using devtools: <code>r devtools::load_all()</code></p>
 </div>
 </div>
 <div class="section level3">
@@ -230,7 +247,7 @@
 </h3>
 <p>The <code>rhap</code> package includes a built-in <code>.dat</code> file that lets you run a test case based on a GCAM baseline scenario. This is a great way to verify that the package is working correctly and to explore its core functionality.</p>
 <p>You can run this example with or without cloning the full repository, as the required data is included in the package:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_rhap</span> <span class="op">&lt;-</span> <span class="fu">rhap</span><span class="fu">::</span><span class="va">test_rhap</span></span></code></pre></div>
 <p>For a step-by-step walkthrough of the example, visit the official guide: <a href="https://bc3lc.github.io/rhap/articles/run_rhap.html#step-by-step-example">Run a baseline scenario</a></p>
 <!-- ------------------------>
