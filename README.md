@@ -112,12 +112,11 @@ This will create a local copy of the repository.
 
 #### Step 2: Open the Project in RStudio
 
-- Open `rhap.Rproj` inside the cloned folder using RStudio.
+- Open the `rhap.Rproj` file inside the cloned folder using **RStudio**.  
+- In RStudio, either go to **Build → Install and Restart** (or press **Ctrl + Shift + B**),  
+   or load the package manually by running the following code:
 
-- In RStudio, go to: "Build → Install and Restart" or  use the keyboard shortcut "Ctrl + Shift + B". 
-Alternatively, you can load the package using `devtools`:
-
-   ```r
+  ```r
 devtools::load_all()
    ```
 
