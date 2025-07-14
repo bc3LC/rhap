@@ -107,7 +107,7 @@ This will create a local copy of the repository.
 
 - In RStudio, go to: "Build → Install and Restart" or  use the keyboard shortcut "Ctrl + Shift + B"
 
-Alternatively, you can load the package without installing it using devtools:
+Alternatively, you can load the package using devtools:
    ```r
 devtools::load_all()
    ```
@@ -116,7 +116,7 @@ devtools::load_all()
 
 The `rhap` package includes a built-in `.dat` file that lets you run a test case based on a GCAM baseline scenario. This is a great way to verify that the package is working correctly and to explore its core functionality.
 
-You can run this example with or without cloning the full repository — the required data is included in the package:
+You can run this example with or without cloning the full repository, as the required data is included in the package:
 
    ```r
 test_rhap <- rhap::test_rhap
