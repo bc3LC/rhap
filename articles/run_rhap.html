@@ -235,7 +235,8 @@ within the package directory), use:</li>
 </h4>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Set your project and scenario names</span></span>
-<span><span class="va">my_prj_name</span> <span class="op">&lt;-</span> <span class="st">"test_rhap.dat"</span>  <span class="co"># Name of the .dat project file (avoid spaces)</span></span>
+<span><span class="va">my_prj_name</span>  <span class="op">&lt;-</span> <span class="fu">rhap</span><span class="fu">::</span><span class="va">test_rhap</span>  <span class="co"># Name of the .dat project file (avoid spaces). Note that rhap::test_rhap loads the example project file included in the package</span></span>
+<span></span>
 <span><span class="va">my_scen_name</span> <span class="op">&lt;-</span> <span class="st">"Reference"</span>       <span class="co"># Name of the GCAM scenario to process (or vector of scenarios)</span></span>
 <span></span>
 <span><span class="co"># Run the RHAP model</span></span>
