@@ -85,6 +85,7 @@ Make sure the following software is installed:
    ```r
    install.packages("devtools")  # Skip if already installed
    devtools::install_github("bc3LC/rhap")
+   ```
 
 ### Option 2: Clone the Repository (Recommended)
 
@@ -96,6 +97,7 @@ Open **Git Bash** (or a terminal) in your desired directory, and run:
 
 ```bash
 git clone https://github.com/bc3LC/rhap.git
+```
 
 This will create a local copy of the repository.
 
@@ -108,7 +110,7 @@ This will create a local copy of the repository.
 Alternatively, you can load the package without installing it using devtools:
    ```r
 devtools::load_all()
-
+   ```
 
 ###  Run a Baseline Example (Optional)
 
@@ -118,6 +120,7 @@ You can run this example with or without cloning the full repository — the req
 
    ```r
 test_rhap <- rhap::test_rhap
+   ```
 
 For a step-by-step walkthrough of the example, visit the official guide: [Run a baseline scenario](https://bc3lc.github.io/rhap/articles/run_rhap.html#step-by-step-example)
 
