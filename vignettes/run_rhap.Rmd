@@ -65,7 +65,8 @@ library(rhap)
 
 ```r
 # Set your project and scenario names
-my_prj_name <- "test_rhap.dat"  # Name of the .dat project file (avoid spaces)
+my_prj_name  <- rhap::test_rhap  # Name of the .dat project file (avoid spaces). Note that rhap::test_rhap loads the example project file included in the package
+
 my_scen_name <- "Reference"       # Name of the GCAM scenario to process (or vector of scenarios)
 
 # Run the RHAP model

@@ -97,5 +97,6 @@ gcam_regions = c(
 )
 usethis::use_data(gcam_regions, overwrite = T)
 
-
-
+# Load test dat file:
+test_rhap <- rgcam::loadProject("./test_rhap")
+usethis::use_data(test_rhap, overwrite = T)
