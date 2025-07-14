@@ -75,12 +75,12 @@ Make sure the following software is installed:
 
 - **R**: [Download R](https://www.r-project.org/)
 - **RStudio** (recommended IDE): [Download RStudio](https://www.rstudio.com/)
-- **Git**: [Download Git](https://git-scm.com/downloads) (required by `devtools`)
 
 #### Install the Package
 
-1. Open **RStudio**
-2. Run the following in the R Console:
+- Open **RStudio**
+
+- Run the following in the R Console:
 
    ```r
    install.packages("devtools")  # Skip if already installed
@@ -90,6 +90,15 @@ Make sure the following software is installed:
 ### Option 2: Clone the Repository (Recommended)
 
 Cloning the repository is recommended if you want full access to the project structure, input files, and examples.
+
+#### Prerequisites
+
+Make sure the following software is installed:
+
+- **R**: [Download R](https://www.r-project.org/)
+- **RStudio** (recommended IDE): [Download RStudio](https://www.rstudio.com/)
+- **Git**: [Download Git](https://git-scm.com/downloads)
+
 
 #### Step 1: Clone the Repository
 
@@ -105,9 +114,8 @@ This will create a local copy of the repository.
 
 - Open `rhap.Rproj` inside the cloned folder using RStudio.
 
-- In RStudio, go to: "Build → Install and Restart" or  use the keyboard shortcut "Ctrl + Shift + B"
+- In RStudio, go to: "Build → Install and Restart" or  use the keyboard shortcut "Ctrl + Shift + B". Alternatively, you can load the package using devtools:
 
-Alternatively, you can load the package using devtools:
    ```r
 devtools::load_all()
    ```
