@@ -6,7 +6,7 @@
 [![pages-build-deployment](https://github.com/bc3LC/rhap/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/bc3LC/rhap/actions/workflows/pages/pages-build-deployment)
 [![test_coverage](https://github.com/bc3LC/rhap/actions/workflows/test_coverage.yaml/badge.svg)](https://github.com/bc3LC/rhap/actions/workflows/test_coverage.yaml)
 [![codecov](https://codecov.io/gh/bc3LC/rhap/branch/main/graph/badge.svg?token=rC8eIjNwcN)](https://codecov.io/gh/bc3LC/rhap)
-[![DOI](https://zenodo.org/badge/721541306.svg)](https://doi.org/10.5281/zenodo.14423225)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16778794.svg)](https://doi.org/10.5281/zenodo.16778794)
 
 
 <!-- ------------------------>
