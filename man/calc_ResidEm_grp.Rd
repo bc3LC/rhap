@@ -15,8 +15,8 @@ calc_ResidEm_grp(
   year,
   pollutant,
   region,
-  saveOutput = T,
-  pie = T
+  saveOutput = TRUE,
+  pie = TRUE
 )
 }
 \arguments{
@@ -40,9 +40,9 @@ calc_ResidEm_grp(
 
 \item{region}{Select the region. It includes the GCAM 32 geopolitical regions + EU-27 + Global: https://github.com/JGCRI/gcam-doc/blob/gh-pages/overview.md}
 
-\item{saveOutput}{Writes the emission files. By default=T}
+\item{saveOutput}{Writes the emission files. By default=TRUE}
 
-\item{pie}{Produce the maps. By default=F}
+\item{pie}{Produce the maps. By default=FALSE}
 }
 \value{
 Contribution of different groups to pollutant emissions

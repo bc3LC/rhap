@@ -1,6 +1,6 @@
 #' fit_model
 #'
-#'@description
+#' @description
 #' Fit the model using fixed effects model and plm function.
 #'
 #' For the model dplyr::selection, testing and validation see "./rhap/inst/extdata/model_testing.R"
@@ -13,7 +13,6 @@
 #' @return Regression model and coefficients for prediction
 
 fit_model <- function(HIA_var) {
-
   iso <- country_name <- year <- pop <- continent <- dev <- log_AAP <- value <-
     Model <- Scenario <- Region <- Variable <- Unit <- . <- NULL
 
@@ -62,6 +61,4 @@ fit_model <- function(HIA_var) {
   )
 
   return(list(model.fixed, predictable_regions))
-
 }
-

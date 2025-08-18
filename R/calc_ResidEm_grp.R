@@ -23,7 +23,6 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                              scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
                              year, pollutant, region,
                              saveOutput = TRUE, pie = TRUE) {
-
   sector <- scenario <- group <- ghg <- Units <- value <- adj <- Year <-
     Pollutant <- Region <- value_agg <- perc_value <- `GCAM Region` <- . <- NULL
 
@@ -58,26 +57,28 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 
   # Then, load the rgcam project if prj not passed as a parameter:
   if (!is.null(db_path) & !is.null(db_name)) {
-    rlang::inform('Creating project ...')
+    rlang::inform("Creating project ...")
     conn <- rgcam::localDBConn(db_path,
-                               db_name,migabble = FALSE)
+      db_name,
+      migabble = FALSE
+    )
     prj <- suppressWarnings(
       rgcam::addScenario(conn,
-                         prj_name,
-                         scen_name,
-                         paste0(query_path,"/",queries),
-                         saveProj = TRUE)
+        prj_name,
+        scen_name,
+        paste0(query_path, "/", queries),
+        saveProj = TRUE
+      )
     )
-
   } else {
-
-    rlang::inform('Loading project ...')
+    rlang::inform("Loading project ...")
     prj <- rgcam::loadProject(prj_name)
-
   }
   # Consider the final_db_year as the user indicated year or the closes year available in the project file
-  final_db_year<-min(final_db_year,
-                     max(rgcam::getQuery(prj,'nonCO2 emissions by sector (excluding resource production)')$year))
+  final_db_year <- min(
+    final_db_year,
+    max(rgcam::getQuery(prj, "nonCO2 emissions by sector (excluding resource production)")$year)
+  )
 
   if (year > final_db_year) {
     stop(sprintf(
@@ -86,7 +87,7 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     ))
   }
 
-  rlang::inform('Running ...')
+  rlang::inform("Running ...")
 
   # Get emissions by scenario, region, period and group
   em_reg_gr <- rgcam::getQuery(prj, "nonCO2 emissions by sector (excluding resource production)") %>%
@@ -128,70 +129,89 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     em_reg_gr_eu27,
     em_reg_gr_glob
   ) %>%
-    dplyr::rename(Year = `year`,
-           Pollutant = `ghg`,
-           Region = `region`)
+    dplyr::rename(
+      Year = `year`,
+      Pollutant = `ghg`,
+      Region = `region`
+    )
 
   # ----------
   # Filter dataset with user-defined parameters
   em_reg_gr_fin <- em_reg_gr %>%
-    dplyr::filter(Year == year,
-                  Pollutant == pollutant,
-                  Region == region) %>%
+    dplyr::filter(
+      Year == year,
+      Pollutant == pollutant,
+      Region == region
+    ) %>%
     dplyr::group_by(scenario, Region, Year, Pollutant, Units) %>%
     dplyr::mutate(value_agg = sum(value)) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(perc_value = round(value / value_agg , 3)) %>%
+    dplyr::mutate(perc_value = round(value / value_agg, 3)) %>%
     dplyr::select(-value_agg)
 
-  if(saveOutput == TRUE){
+  if (saveOutput == TRUE) {
     # Create the directory if they do not exist:
     if (!dir.exists("output/ResidEm_grp")) dir.create("output/ResidEm_grp")
 
     utils::write.csv(em_reg_gr_fin,
-              file.path('output/ResidEm_grp',
-                        paste0("ResidEm_grp_", unique(em_reg_gr_fin$Region), "_",
-                               unique(em_reg_gr_fin$Year), "_", unique(em_reg_gr_fin$Pollutant), ".csv")),
-              row.names = FALSE, fileEncoding = "UTF-8")
+      file.path(
+        "output/ResidEm_grp",
+        paste0(
+          "ResidEm_grp_", unique(em_reg_gr_fin$Region), "_",
+          unique(em_reg_gr_fin$Year), "_", unique(em_reg_gr_fin$Pollutant), ".csv"
+        )
+      ),
+      row.names = FALSE, fileEncoding = "UTF-8"
+    )
   }
 
 
-  if(pie == TRUE){
-
+  if (pie == TRUE) {
     # Create the directory if they do not exist:
     if (!dir.exists("output/ResidEm_grp")) dir.create("output/ResidEm_grp")
     if (!dir.exists("output/ResidEm_grp/pie_charts")) dir.create("output/ResidEm_grp/pie_charts")
 
-    pl <- ggplot2::ggplot(em_reg_gr_fin,
-                          ggplot2::aes(x="",
-                                       y = value,
-                                       fill = factor(group,
-                                                     levels = c("d1","d2","d3","d4","d5","d6","d7","d8","d9","d10"))))+
+    pl <- ggplot2::ggplot(
+      em_reg_gr_fin,
+      ggplot2::aes(
+        x = "",
+        y = value,
+        fill = factor(group,
+          levels = c("d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9", "d10")
+        )
+      )
+    ) +
       ggplot2::geom_bar(width = 1, stat = "identity") +
       ggplot2::theme_void() +
-      ggplot2::facet_wrap(~ scenario) +
+      ggplot2::facet_wrap(~scenario) +
       ggplot2::labs(x = "", y = "") +
-      ggplot2::theme(legend.title = ggplot2::element_blank(),
-                     legend.position = "bottom",
-                     strip.text = ggplot2::element_text(size = 14)) +
+      ggplot2::theme(
+        legend.title = ggplot2::element_blank(),
+        legend.position = "bottom",
+        strip.text = ggplot2::element_text(size = 14)
+      ) +
       ggplot2::coord_polar("y", start = 0) +
-      ggplot2::scale_fill_manual(values = c("gray20","gray50","#ad440c","#ef8e27","#d01c2a",
-                                   "darkorchid3","#507fab","deepskyblue1","#11d081", "#00931d")) +
-                                     ggplot2::geom_text(ggplot2::aes(label = scales::percent(perc_value)),
-                                                        color = "white",
-                                                        size = 4,
-                                                        position = ggplot2::position_stack(vjust = 0.5))
-    ggplot2::ggsave(pl, file = file.path('output/ResidEm_grp/pie_charts',
-                                         paste0("ResidEm_grp_", unique(em_reg_gr_fin$Region), "_",
-                                                unique(em_reg_gr_fin$Year), "_", unique(em_reg_gr_fin$Pollutant), ".png")),
-                    width = 150, height = 200, units = 'mm')
-
-
+      ggplot2::scale_fill_manual(values = c(
+        "gray20", "gray50", "#ad440c", "#ef8e27", "#d01c2a",
+        "darkorchid3", "#507fab", "deepskyblue1", "#11d081", "#00931d"
+      )) +
+      ggplot2::geom_text(ggplot2::aes(label = scales::percent(perc_value)),
+        color = "white",
+        size = 4,
+        position = ggplot2::position_stack(vjust = 0.5)
+      )
+    ggplot2::ggsave(pl,
+      file = file.path(
+        "output/ResidEm_grp/pie_charts",
+        paste0(
+          "ResidEm_grp_", unique(em_reg_gr_fin$Region), "_",
+          unique(em_reg_gr_fin$Year), "_", unique(em_reg_gr_fin$Pollutant), ".png"
+        )
+      ),
+      width = 150, height = 200, units = "mm"
+    )
   }
 
 
   invisible(em_reg_gr_fin)
-
-
-
 }

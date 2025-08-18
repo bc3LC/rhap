@@ -2,10 +2,32 @@
 % Please edit documentation in R/rhap.R
 \docType{package}
 \name{rhap}
+\alias{rhap-package}
 \alias{rhap}
 \title{rhap}
 \description{
 \itemize{
 \item Github: https://github.com/JGCRI/rhap
 \item Webpage: https://bc3lc.github.io/rhap/}
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/bc3LC/rhap}
+  \item Report bugs at \url{https://github.com/bc3LC/rhap/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Jon Sampedro \email{jon.sampedro@bc3research.org} (\href{https://orcid.org/0000-0002-2277-1530}{ORCID})
+
+Authors:
+\itemize{
+  \item Clàudia Rodés-Bachs \email{claudia.rodes@bc3research.org} (\href{https://orcid.org/0000-0001-6696-7685}{ORCID})
+  \item Steven Smith \email{ssmith@pnnl.gov} (\href{https://orcid.org/0000-0003-3248-5607}{ORCID})
+  \item Manuel Tomas \email{manuel.tomas@bc3research.org} (\href{https://orcid.org/0000-0003-1725-7702}{ORCID})
+  \item Ismael Urrutia \email{iurrutia034@ikasle.ehu.eus}
+  \item Dirk-Jan Van de Ven \email{dj.vandeven@bc3research.org} (\href{https://orcid.org/0000-0001-9120-564X}{ORCID})
+}
+
 }

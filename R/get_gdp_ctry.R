@@ -1,6 +1,6 @@
 #' get_gdp_ctry
 #'
-#'@description
+#' @description
 #' Ancillary function to get country-level GDPpc from SSP database
 #'
 #' SSP database version 3.0.1 updated in 2024
@@ -13,7 +13,6 @@
 #' @return Per capita GDP by country
 
 get_gdp_ctry <- function(ssp) {
-
   iso <- country_name <- year <- pop <- continent <- dev <- variable <- value <-
     Model <- Scenario <- Region <- Variable <- Unit <- region <- scenario <- . <- NULL
 
@@ -29,12 +28,12 @@ get_gdp_ctry <- function(ssp) {
   conv_bil_dol <- 1E9
 
   # Ancillary Functions
-  `%!in%` = Negate(`%in%`)
+  `%!in%` <- Negate(`%in%`)
 
   # First, we read in the population data.
   max_base_year <- rhap::raw.ssp.data %>%
     tidyr::gather(year, value, -Model, -Scenario, -Region, -Variable, -Unit) %>%
-    dplyr::mutate(year=gsub("X", "", year)) %>%
+    dplyr::mutate(year = gsub("X", "", year)) %>%
     dplyr::filter(Scenario == "Historical Reference") %>%
     dplyr::filter(stats::complete.cases(.)) %>%
     dplyr::filter(year == max(year)) %>%
@@ -44,21 +43,21 @@ get_gdp_ctry <- function(ssp) {
 
   ssp.data <- rhap::raw.ssp.data %>%
     tidyr::gather(year, value, -Model, -Scenario, -Region, -Variable, -Unit) %>%
-    dplyr::mutate(year=gsub("X", "", year)) %>%
-    dplyr::filter(year >= 2010, year <= 2100,
-                  grepl(ssp, Scenario)) %>%
+    dplyr::mutate(year = gsub("X", "", year)) %>%
+    dplyr::filter(
+      year >= 2010, year <= 2100,
+      grepl(ssp, Scenario)
+    ) %>%
     dplyr::rename(model = Model, scenario = Scenario, region = Region, variable = Variable, unit = Unit) %>%
     dplyr::filter(year >= max_base_year)
 
   # Extract GDP
   gdp <- tibble::as_tibble(ssp.data) %>%
     dplyr::filter(variable == "GDP|PPP") %>%
-  # Transfrom units to dol2011PPP
+    # Transfrom units to dol2011PPP
     dplyr::mutate(gdp = value * conv_bil_dol * gcamdata::gdp_deflator(2011, 2017)) %>%
     dplyr::select(region, scenario, year, gdp_dol2011_ppp = gdp)
 
 
   invisible(gdp)
-
 }
-

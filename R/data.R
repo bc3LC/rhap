@@ -5,15 +5,15 @@
 #' @format vector
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::panel_pollutants
+#' library(rhap)
+#' rhap::panel_pollutants
 #' }
 "panel_pollutants"
 
 
 #' Panel data
 #'
-#'@description
+#' @description
 #' Create a panel data to fit the econometric model for the analysis. The panel includes information of the different nations of the world and covers the period 1990-2019.
 #'
 #' In terms of variables, the panel includes:
@@ -40,8 +40,8 @@
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::panel_data
+#' library(rhap)
+#' rhap::panel_data
 #' }
 "panel_data"
 
@@ -74,138 +74,138 @@
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::raw.ssp.data
+#' library(rhap)
+#' rhap::raw.ssp.data
 #' }
 "raw.ssp.data"
 
 
-#'GDP-SSP database
+#' GDP-SSP database
 #'
 #' @description Filtered GDP data per SSP1 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::gdp_ctry.SSP1
+#' library(rhap)
+#' rhap::gdp_ctry.SSP1
 #' }
 "gdp_ctry.SSP1"
 
 
-#'GDP-SSP database
+#' GDP-SSP database
 #'
 #' @description Filtered GDP data per SSP2 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::gdp_ctry.SSP2
+#' library(rhap)
+#' rhap::gdp_ctry.SSP2
 #' }
 "gdp_ctry.SSP2"
 
 
-#'GDP-SSP database
+#' GDP-SSP database
 #'
 #' @description Filtered GDP data per SSP3 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::gdp_ctry.SSP3
+#' library(rhap)
+#' rhap::gdp_ctry.SSP3
 #' }
 "gdp_ctry.SSP3"
 
 
-#'GDP-SSP database
+#' GDP-SSP database
 #'
 #' @description Filtered GDP data per SSP4 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::gdp_ctry.SSP4
+#' library(rhap)
+#' rhap::gdp_ctry.SSP4
 #' }
 "gdp_ctry.SSP4"
 
 
-#'GDP-SSP database
+#' GDP-SSP database
 #'
 #' @description Filtered GDP data per SSP5 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::gdp_ctry.SSP5
+#' library(rhap)
+#' rhap::gdp_ctry.SSP5
 #' }
 "gdp_ctry.SSP5"
 
 
-#'Pop-SSP database
+#' Pop-SSP database
 #'
 #' @description Filtered Population data per SSP1 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::pop_ctry.SSP1
+#' library(rhap)
+#' rhap::pop_ctry.SSP1
 #' }
 "pop_ctry.SSP1"
 
 
-#'Pop-SSP database
+#' Pop-SSP database
 #'
 #' @description Filtered Population data per SSP2 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::pop_ctry.SSP2
+#' library(rhap)
+#' rhap::pop_ctry.SSP2
 #' }
 "pop_ctry.SSP2"
 
 
-#'Pop-SSP database
+#' Pop-SSP database
 #'
 #' @description Filtered Population data per SSP3 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::pop_ctry.SSP3
+#' library(rhap)
+#' rhap::pop_ctry.SSP3
 #' }
 "pop_ctry.SSP3"
 
 
-#'Pop-SSP database
+#' Pop-SSP database
 #'
 #' @description Filtered Population data per SSP4 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::pop_ctry.SSP4
+#' library(rhap)
+#' rhap::pop_ctry.SSP4
 #' }
 "pop_ctry.SSP4"
 
 
-#'Pop-SSP database
+#' Pop-SSP database
 #'
 #' @description Filtered Population data per SSP5 (SSP_database_2024.csv).
 #' @source IIASA SSP database
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::pop_ctry.SSP5
+#' library(rhap)
+#' rhap::pop_ctry.SSP5
 #' }
 "pop_ctry.SSP5"
 
@@ -217,8 +217,8 @@
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::adj_ctry
+#' library(rhap)
+#' rhap::adj_ctry
 #' }
 "adj_ctry"
 
@@ -230,8 +230,8 @@
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::ssp_gdp_adj
+#' library(rhap)
+#' rhap::ssp_gdp_adj
 #' }
 "ssp_gdp_adj"
 
@@ -243,8 +243,8 @@
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::adj_ctry_output
+#' library(rhap)
+#' rhap::adj_ctry_output
 #' }
 "adj_ctry_output"
 
@@ -256,8 +256,8 @@
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::adj_ctry_map
+#' library(rhap)
+#' rhap::adj_ctry_map
 #' }
 "adj_ctry_map"
 
@@ -269,8 +269,8 @@
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::hia_adder
+#' library(rhap)
+#' rhap::hia_adder
 #' }
 "hia_adder"
 
@@ -282,8 +282,8 @@
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::all_pollutants
+#' library(rhap)
+#' rhap::all_pollutants
 #' }
 "all_pollutants"
 
@@ -295,7 +295,7 @@
 #' @format .csv
 #' @examples
 #' \dontrun{
-#'  library(rhap);
-#'  rhap::gcam_regions
+#' library(rhap)
+#' rhap::gcam_regions
 #' }
 "gcam_regions"
