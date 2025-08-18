@@ -1,21 +1,22 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://bc3lc.github.io/rhap/404.html</loc></url>
+<url><loc>https://bc3lc.github.io/rhap/CONTRIBUTING.html</loc></url>
+<url><loc>https://bc3lc.github.io/rhap/LICENSE-text.html</loc></url>
+<url><loc>https://bc3lc.github.io/rhap/articles/ResidEm_grp.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/articles/fit_model.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/articles/index.html</loc></url>
-<url><loc>https://bc3lc.github.io/rhap/articles/ResidEm_grp.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/articles/run_rhap.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/authors.html</loc></url>
-<url><loc>https://bc3lc.github.io/rhap/CONTRIBUTING.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/index.html</loc></url>
-<url><loc>https://bc3lc.github.io/rhap/LICENSE-text.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/news/index.html</loc></url>
+<url><loc>https://bc3lc.github.io/rhap/reference/Percen.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/adj_ctry.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/adj_ctry_map.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/adj_ctry_output.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/all_pollutants.html</loc></url>
+<url><loc>https://bc3lc.github.io/rhap/reference/calc_ResidEm_grp.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/calc_hap_impacts.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/calc_hia_adder.html</loc></url>
-<url><loc>https://bc3lc.github.io/rhap/reference/calc_ResidEm_grp.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/create_panel.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/fit_model.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/gcam_regions.html</loc></url>
@@ -30,7 +31,6 @@
 <url><loc>https://bc3lc.github.io/rhap/reference/index.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/panel_data.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/panel_pollutants.html</loc></url>
-<url><loc>https://bc3lc.github.io/rhap/reference/Percen.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/pop_ctry.SSP1.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/pop_ctry.SSP2.html</loc></url>
 <url><loc>https://bc3lc.github.io/rhap/reference/pop_ctry.SSP3.html</loc></url>
