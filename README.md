@@ -83,8 +83,8 @@ Make sure the following software is installed:
 - Run the following in the R Console:
 
    ```r
-   install.packages("devtools")  # Skip if already installed
-   devtools::install_github("bc3LC/rhap")
+   install.packages("remotes")  # Skip if already installed
+   remotes::install_github("bc3LC/rhap")
    ```
 
 ### Option 2: Clone the Repository (Recommended)
@@ -116,9 +116,10 @@ This will create a local copy of the repository.
 - In RStudio, either go to **Build → Install and Restart** (or press **Ctrl + Shift + B**),  
    or load the package manually by running the following code:
 
-```r
-devtools::load_all()
-```
+  ```r
+  install.packages("devtools")  # Skip if already installed
+  devtools::load_all()
+  ```
 
 ###  Run a Baseline Example (Optional)
 
