@@ -1,12 +1,11 @@
-pandoc: 3.1.11
-pkgdown: 1.6.1
+pandoc: 2.19.2
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   fit_model: fit_model.html
   ResidEm_grp: ResidEm_grp.html
   run_rhap: run_rhap.html
-last_built: 2024-12-12T08:47Z
+last_built: 2025-08-18T06:59Z
 urls:
-  reference: https://bc3lc.github.io/rhap//reference
-  article: https://bc3lc.github.io/rhap//articles
-
+  reference: https://bc3lc.github.io/rhap/reference
+  article: https://bc3lc.github.io/rhap/articles

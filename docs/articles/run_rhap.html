@@ -5,20 +5,21 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>run_rhap • rhap</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<title>Running rhap: Calculate household air pollution (HAP) impacts • rhap</title>
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="run_rhap">
-<meta property="og:description" content="rhap">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Running rhap: Calculate household air pollution (HAP) impacts">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+
+
     <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rhap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
 
@@ -40,15 +41,15 @@
 <li>
   <a href="../index.html">
     <span class="fa fa-home"></span>
-     
+
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fas fa-clipboard-list"></span>
-     
+
     Guides
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -66,23 +67,23 @@
 <li>
   <a href="../reference/index.html">
     <span class="fa fa-file-code-o"></span>
-     
+
     Reference
   </a>
 </li>
 <li>
   <a href="../news/index.html">
     <span class="fa fa-newspaper-o"></span>
-     
+
     News
   </a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/bc3LC/rhap">
+  <a href="https://github.com/bc3LC/rhap" class="external-link">
     <span class="fa fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -93,15 +94,16 @@
 </div>
 <!--/.navbar -->
 
-      
 
-      </header><script src="run_rhap_files/header-attrs-2.29/header-attrs.js"></script><div class="row">
+
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>run_rhap</h1>
+      <h1 data-toc-skip>Running rhap: Calculate household air pollution
+(HAP) impacts</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/bc3LC/rhap/blob/master/vignettes/run_rhap.Rmd"><code>vignettes/run_rhap.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/bc3LC/rhap/blob/HEAD/vignettes/run_rhap.Rmd" class="external-link"><code>vignettes/run_rhap.Rmd</code></a></small>
       <div class="hidden name"><code>run_rhap.Rmd</code></div>
 
     </div>
@@ -121,11 +123,11 @@ floorspace. For more details on the methodology and assumptions
 underlying the econometric model used in this calculation, refer to the
 guide on <a href="https://bc3lc.github.io/rhap/articles/fit_model.html">“Fitting the
 Econometric Model”</a>.</p>
-<div id="extraction-of-the-scenario-specific-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#extraction-of-the-scenario-specific-data" class="anchor"></a>Extraction of the scenario-specific data</h3>
+<div class="section level3">
+<h3 id="extraction-of-the-scenario-specific-data">Extraction of the scenario-specific data<a class="anchor" aria-label="anchor" href="#extraction-of-the-scenario-specific-data"></a>
+</h3>
 <p>The function <code>calc_hap_impacts</code> connects to a GCAM
-databases or project file using the <a href="https://github.com/JGCRI/rgcam">rgcam</a> package, designed to
+databases or project file using the <a href="https://github.com/JGCRI/rgcam" class="external-link">rgcam</a> package, designed to
 extract and import GCAM results.</p>
 <p>First, the function extracts direct air pollutant emissions from the
 residential sector for each simulated GCAM scenario, GCAM region,
@@ -134,16 +136,16 @@ emissions are processed and downscaled to the country level using a
 static downscaling approach. This approach leverages gas-specific
 country-level emissions data, specifically using 2017 emissions data
 from the Community Emissions Data System (CEDS), updated for the Global
-Burden of Disease - Major Air Pollution Sources project<a href="https://zenodo.org/record/3754964#.Y5CFtHbMKUl">CEDS-GBD</a>.
+Burden of Disease - Major Air Pollution Sources project<a href="https://zenodo.org/record/3754964#.Y5CFtHbMKUl" class="external-link">CEDS-GBD</a>.
 Additionally, the function applies transformations such as converting
 black carbon and organic carbon emissions into primary PM2.5 to ensure
 comprehensive pollutant accounting.</p>
 <p>The function also extracts per capita floorspace, which is calculated
 endogenously in GCAM by region and period. This calculation relies on a
-Gompertz-type function calibrated with empirical data (<a href="https://iopscience.iop.org/article/10.1088/1748-9326/ac43df/meta">Sampedro
+Gompertz-type function calibrated with empirical data (<a href="https://iopscience.iop.org/article/10.1088/1748-9326/ac43df/meta" class="external-link">Sampedro
 et al 2022</a>), providing a income-driven estimate of future
 residential space per person.</p>
-<p>For per capita GDP, the package loads projections from the <a href="https://data.ece.iiasa.ac.at/ssp/">SSP database version
+<p>For per capita GDP, the package loads projections from the <a href="https://data.ece.iiasa.ac.at/ssp/" class="external-link">SSP database version
 3.0.1</a>,updated in 2024. These GDP projections are scenario-specific,
 corresponding to the Shared Socioeconomic Pathways (SSPs). By default,
 the package utilizes SSP2 (“middle of the road”) projections. However,
@@ -151,9 +153,9 @@ if the GCAM scenario name includes a different SSP designation (e.g.,
 “Reference_SSP3”), the package automatically selects the appropriate
 SSP-specific GDP projections.</p>
 </div>
-<div id="calculations" class="section level3">
-<h3 class="hasAnchor">
-<a href="#calculations" class="anchor"></a>Calculations</h3>
+<div class="section level3">
+<h3 id="calculations">Calculations<a class="anchor" aria-label="anchor" href="#calculations"></a>
+</h3>
 <p>The function estimates health impacts attributable to household air
 pollution (HAP) using an econometric model that incorporates direct
 emissions from the residential sector (BC, OC, NOx, and VOC), per capita
@@ -182,11 +184,11 @@ perform country-level calculations for consistency, this capability can
 provide valuable insights into the distribution of health impacts across
 population segments within regions. Such granularity can aid users in
 understanding intra-regional disparities. This feature is activated by
-setting <code>by_gr = F</code>.</p>
+setting <code>by_gr = FALSE</code>.</p>
 </div>
-<div id="outputs" class="section level3">
-<h3 class="hasAnchor">
-<a href="#outputs" class="anchor"></a>Outputs</h3>
+<div class="section level3">
+<h3 id="outputs">Outputs<a class="anchor" aria-label="anchor" href="#outputs"></a>
+</h3>
 <p>The function calculates health impacts—such as deaths, Years of Life
 Lost (YLLs), or Disability-Adjusted Life Years (DALYs)—attributable to
 household air pollution (HAP) for each country, time period, and GCAM
@@ -198,28 +200,62 @@ analytical needs.</p>
 writes the following csv files in the <code>output/</code>
 sub-directory: <code>[scenario]_HAP_HIAvar.csv</code></p>
 <p>In addition, by setting <code>map</code> to <code>TRUE</code>, the
-function generates damage maps, using the <a href="https://github.com/JGCRI/rmap">rmap</a> package documented in the
-following <a href="https://jgcri.github.io/rmap/">page</a>. The function
+function generates damage maps, using the <a href="https://github.com/JGCRI/rmap" class="external-link">rmap</a> package documented in the
+following <a href="https://jgcri.github.io/rmap/" class="external-link">page</a>. The function
 also generates animations and individual figures.</p>
 </div>
-<div id="example" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(rhap)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a> db_path <span class="ot">&lt;-</span> <span class="st">"path_to_your_gcam_database"</span> <span class="co"># NULL if project file provided</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a> db_name <span class="ot">&lt;-</span> <span class="st">"name of the database"</span> <span class="co"># NULL if project file provided</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a> prj_name<span class="ot">&lt;-</span><span class="st">"name of the project file"</span>, <span class="co"># or name for a project to add extracted results to (any name should work, avoid spaces just in case)</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a> scen_name <span class="ot">&lt;-</span> <span class="st">"name of the GCAM scenario"</span> <span class="co"># or vector names of the GCAM scenarios to be processed</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a> queries <span class="ot">&lt;-</span> <span class="st">"Name of the query file"</span> <span class="co"># (the package includes a default query file that includes all the queries required in every function in the package, "queries_rhap.xml")</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a> </span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a> hap_damages <span class="ot">&lt;-</span> calc_hap_impacts <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">db_path =</span> <span class="cn">NULL</span>, <span class="at">query_path =</span> <span class="st">"./inst/extdata"</span>, <span class="at">db_name =</span> <span class="cn">NULL</span>, prj_name,</span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>                scen_name, <span class="at">queries =</span> <span class="st">"queries_rhap.xml"</span>, <span class="at">final_db_year =</span> <span class="dv">2100</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>                <span class="at">saveOutput =</span> T, <span class="at">map =</span> F, <span class="at">anim =</span> T , <span class="at">HIA_var =</span> <span class="st">"deaths"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>                <span class="at">normalized =</span> F, <span class="at">by_gr =</span> F)</span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a> <span class="fu">head</span>(hap_damages)</span></code></pre></div>
+<div class="section level3">
+<h3 id="step-by-step-example">Step-by-Step Example<a class="anchor" aria-label="anchor" href="#step-by-step-example"></a>
+</h3>
+<p>This example demonstrates how to use the <code>rhap</code> package to
+estimate health impacts from GCAM outputs.</p>
+<div class="section level4">
+<h4 id="install-the-package">1. Install the Package<a class="anchor" aria-label="anchor" href="#install-the-package"></a>
+</h4>
+<p>Follow the <a href="https://github.com/bc3LC/rhap?tab=readme-ov-file#InstallGuide" class="external-link">installation
+guide</a> if you haven’t already.</p>
+</div>
+<div class="section level4">
+<h4 id="load-the-required-libraries">2. Load the Required Libraries<a class="anchor" aria-label="anchor" href="#load-the-required-libraries"></a>
+</h4>
+<ul>
+<li>If you are developing the package (e.g., using RStudio or working
+within the package directory), use:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>Otherwise, if you’ve installed the package, load it normally:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bc3LC/rhap" class="external-link">rhap</a></span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="set-project-and-scenario-names-and-run-the-model">3. Set Project and Scenario Names, and Run the Model<a class="anchor" aria-label="anchor" href="#set-project-and-scenario-names-and-run-the-model"></a>
+</h4>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Set your project and scenario names</span></span>
+<span><span class="va">my_prj_name</span>  <span class="op">&lt;-</span> <span class="fu">rhap</span><span class="fu">::</span><span class="va">test_rhap</span>  <span class="co"># Name of the .dat project file (avoid spaces). Note that rhap::test_rhap loads the example project file included in the package</span></span>
+<span></span>
+<span><span class="va">my_scen_name</span> <span class="op">&lt;-</span> <span class="st">"Reference"</span>       <span class="co"># Name of the GCAM scenario to process (or vector of scenarios)</span></span>
+<span></span>
+<span><span class="co"># Run the RHAP model</span></span>
+<span><span class="va">hap_damages</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_hap_impacts.html">calc_hap_impacts</a></span><span class="op">(</span></span>
+<span>  prj_name     <span class="op">=</span> <span class="va">my_prj_name</span>,</span>
+<span>  scen_name    <span class="op">=</span> <span class="va">my_scen_name</span>,</span>
+<span>  final_db_year <span class="op">=</span> <span class="fl">2050</span>,</span>
+<span>  saveOutput   <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  map          <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  anim         <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  HIA_var      <span class="op">=</span> <span class="st">"deaths"</span>,</span>
+<span>  normalized   <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  by_gr        <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Preview the results</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">hap_damages</span><span class="op">)</span></span></code></pre></div>
+<p>This code will generate a dataset of health impacts and, also produce
+a figure similar to the one shown below:</p>
 <!-------------------------->
 <!-------------------------->
 <p align="center" style="font-size:18px;">
@@ -230,6 +266,7 @@ air pollution in 2050</em>
 <img src="https://raw.githubusercontent.com/bc3LC/rhap/main/vignettes/vignetteFigs/map_base_2050.png"></p>
 <!-------------------------->
 <!-------------------------->
+</div>
 </div>
   </div>
 
@@ -242,17 +279,21 @@ air pollution in 2050</em>
 
 
       <footer><div class="copyright">
-  <p>Developed by Jon Sampedro, Clàudia Rodés-Bachs, Steven Smith, Manuel Tomas, Ismael Urrutia, Dirk-Jan Van de Ven.</p>
+  <p></p>
+<p>Developed by Jon Sampedro, Clàudia Rodés-Bachs, Steven Smith, Manuel Tomas, Ismael Urrutia, Dirk-Jan Van de Ven.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
       </footer>
 </div>
 
-  
+
+
+
 
 
   </body>
