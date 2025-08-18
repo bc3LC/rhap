@@ -25,10 +25,10 @@ test_that("Download db, create project, and run", {
   }
 
   testOutput <- read.csv(file.path(rprojroot::find_root(rprojroot::is_testthat), "output/Reference_HAP_deaths.csv"),
-    fileEncoding = "UTF-8", stringsAsFactors = FALSEALSE
+    fileEncoding = "UTF-8", stringsAsFactors = FALSE
   )
   testResult <- read.csv(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/Reference_HAP_deaths.csv"),
-    fileEncoding = "UTF-8", stringsAsFactors = FALSEALSE
+    fileEncoding = "UTF-8", stringsAsFactors = FALSE
   )
   testOutput$country <- sapply(testOutput$country, decode_ascii)
   testResult$country <- sapply(testResult$country, decode_ascii)
