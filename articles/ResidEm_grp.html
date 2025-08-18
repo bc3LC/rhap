@@ -132,21 +132,25 @@ documentation</a></p>
 <div class="section level3">
 <h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(rhap)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a> db_path <span class="ot">&lt;-</span> <span class="st">"path_to_your_gcam_database"</span> <span class="co"># NULL if project file provided</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a> db_name <span class="ot">&lt;-</span> <span class="st">"name of the database"</span> <span class="co"># NULL if project file provided</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a> prj_name<span class="ot">&lt;-</span><span class="st">"name of the project file"</span>, <span class="co"># or name for a project to add extracted results to (any name should work, avoid spaces just in case)</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a> scen_name <span class="ot">&lt;-</span> <span class="st">"name of the GCAM scenario"</span> <span class="co"># or vector names of the GCAM scenarios to be processed</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a> queries <span class="ot">&lt;-</span> <span class="st">"Name of the query file"</span> <span class="co"># (the package includes a default query file that includes all the queries required in every function in the package, "queries_rhap.xml")</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a> </span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a> bc_india_2050_gr <span class="ot">&lt;-</span> <span class="fu">calc_ResidEm_grp</span>(<span class="at">db_path =</span> <span class="cn">NULL</span>, <span class="at">query_path =</span> <span class="st">"./inst/extdata"</span>, <span class="at">db_name =</span> <span class="cn">NULL</span>, <span class="at">prj_name =</span> <span class="st">"test_gcam7p1.dat"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>                             scen_name, <span class="at">queries =</span> <span class="st">"queries_rhap.xml"</span>, <span class="at">final_db_year =</span> <span class="dv">2100</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>                             <span class="dv">2050</span>, <span class="st">"BC"</span>, <span class="st">"India"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>                             <span class="at">saveOutput =</span> T, <span class="at">pie =</span> T) </span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a> <span class="fu">head</span>(bc_india_2050_gr)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bc3LC/rhap" class="external-link">rhap</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">db_path</span> <span class="op">&lt;-</span> <span class="st">"path_to_your_gcam_database"</span> <span class="co"># NULL if project file provided</span></span>
+<span><span class="va">db_name</span> <span class="op">&lt;-</span> <span class="st">"name of the database"</span> <span class="co"># NULL if project file provided</span></span>
+<span><span class="va">prj_name</span> <span class="op">&lt;-</span> <span class="st">"name of the project file"</span> <span class="co"># or name for a project to add extracted results to (any name should work, avoid spaces just in case)</span></span>
+<span><span class="va">scen_name</span> <span class="op">&lt;-</span> <span class="st">"name of the GCAM scenario"</span> <span class="co"># or vector names of the GCAM scenarios to be processed</span></span>
+<span><span class="va">queries</span> <span class="op">&lt;-</span> <span class="st">"Name of the query file"</span> <span class="co"># (the package includes a default query file that includes all the queries required in every function in the package, "queries_rhap.xml")</span></span>
+<span></span>
+<span><span class="va">bc_india_2050_gr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_ResidEm_grp.html">calc_ResidEm_grp</a></span><span class="op">(</span></span>
+<span>  db_path <span class="op">=</span> <span class="cn">NULL</span>, query_path <span class="op">=</span> <span class="st">"./inst/extdata"</span>, db_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prj_name <span class="op">=</span> <span class="st">"test_gcam7p1.dat"</span>,</span>
+<span>  <span class="va">scen_name</span>, queries <span class="op">=</span> <span class="st">"queries_rhap.xml"</span>, final_db_year <span class="op">=</span> <span class="fl">2100</span>,</span>
+<span>  <span class="fl">2050</span>, <span class="st">"BC"</span>, <span class="st">"India"</span>,</span>
+<span>  saveOutput <span class="op">=</span> <span class="cn">TRUE</span>, pie <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bc_india_2050_gr</span><span class="op">)</span></span></code></pre></div>
 <!-------------------------->
 <!-------------------------->
 <p align="center" style="font-size:18px;">
