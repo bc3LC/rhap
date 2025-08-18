@@ -18,8 +18,8 @@ Pollutants selected to be included in the ecomoetric regression model
 }
 \examples{
 \dontrun{
- library(rhap);
- rhap::panel_pollutants
+library(rhap)
+rhap::panel_pollutants
 }
 }
 \keyword{datasets}

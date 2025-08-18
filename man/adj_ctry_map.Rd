@@ -18,8 +18,8 @@ File to adjust country names and homogenize differences between the output and t
 }
 \examples{
 \dontrun{
- library(rhap);
- rhap::adj_ctry_map
+library(rhap)
+rhap::adj_ctry_map
 }
 }
 \keyword{datasets}

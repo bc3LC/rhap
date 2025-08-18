@@ -18,8 +18,8 @@ File with GDP data for some countries that are not in the updated dataset, but i
 }
 \examples{
 \dontrun{
- library(rhap);
- rhap::ssp_gdp_adj
+library(rhap)
+rhap::ssp_gdp_adj
 }
 }
 \keyword{datasets}

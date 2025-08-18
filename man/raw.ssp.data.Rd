@@ -18,8 +18,8 @@ Country level population and GDP data per SSP (SSP_database_2024.csv).
 }
 \examples{
 \dontrun{
- library(rhap);
- rhap::raw.ssp.data
+library(rhap)
+rhap::raw.ssp.data
 }
 }
 \keyword{datasets}

@@ -38,8 +38,8 @@ In terms of variables, the panel includes:
 }
 \examples{
 \dontrun{
- library(rhap);
- rhap::panel_data
+library(rhap)
+rhap::panel_data
 }
 }
 \keyword{datasets}

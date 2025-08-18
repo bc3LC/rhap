@@ -18,8 +18,8 @@ Bias adder, calculated as the difference between the observed and "predicted" va
 }
 \examples{
 \dontrun{
- library(rhap);
- rhap::hia_adder
+library(rhap)
+rhap::hia_adder
 }
 }
 \keyword{datasets}

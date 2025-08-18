@@ -18,8 +18,8 @@ List of GCAM-32 + EU-27 + Global regions
 }
 \examples{
 \dontrun{
- library(rhap);
- rhap::gcam_regions
+library(rhap)
+rhap::gcam_regions
 }
 }
 \keyword{datasets}

@@ -18,8 +18,8 @@ Filtered Population data per SSP5 (SSP_database_2024.csv).
 }
 \examples{
 \dontrun{
- library(rhap);
- rhap::pop_ctry.SSP5
+library(rhap)
+rhap::pop_ctry.SSP5
 }
 }
 \keyword{datasets}

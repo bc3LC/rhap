@@ -18,8 +18,8 @@ List of pollutants from the residential sector
 }
 \examples{
 \dontrun{
- library(rhap);
- rhap::all_pollutants
+library(rhap)
+rhap::all_pollutants
 }
 }
 \keyword{datasets}

@@ -18,8 +18,8 @@ Filtered GDP data per SSP5 (SSP_database_2024.csv).
 }
 \examples{
 \dontrun{
- library(rhap);
- rhap::gdp_ctry.SSP5
+library(rhap)
+rhap::gdp_ctry.SSP5
 }
 }
 \keyword{datasets}
