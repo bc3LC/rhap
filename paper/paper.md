@@ -105,14 +105,14 @@ The `calc_hap_impacts` function offers flexibility in generating three distinct 
 Users can specify the desired metric by setting the `HIA_var` parameter, with premature mortalities selected by default. 
 The package also offers an optional feature (`by_gr = TRUE`) to estimate health impacts by income decile within each region. While country-level calculations ensure consistency, this feature helps explore intra-regional disparities.
 In terms of outputs, activating the saveOutput parameter enables the function to save results as a Comma-Separated Values (CSV) file in the `output` sub-directory. 
-The function can also generate damage maps and animations by enabling the `map` and `anim` parameters, respectively, based on the rmap package [@khan2022rmap].
+The function can also generate damage maps and animations by enabling the `map` and `anim` parameters, respectively, based on the rmap package [@khan2022rmap], as shown in Figure 2.
 
 ![Premature deaths per 100.000 inhabitants attributable to household air pollution in 2050](map_base_2050.png)
 
 The package includes an additional function, `calc_ResidEm_grp`, which quantifies the contribution of within-region consumer groups (e.g., income deciles) to emissions of various pollutants driving HAP. 
 Users can customize the analysis by specifying the desired region, time period, and pollutant through adjustable parameters. 
 A full list of pollutants that can be analyzed is provided in the dedicated [vignette](https://bc3lc.github.io/rhap/articles/ResidEm_grp.html). 
-This functionality supports targeted assessments of how different consumer groups contribute to HAP emissions within specific contexts, offering valuable insights for research and policy development. 
+This functionality supports targeted assessments of how different consumer groups contribute to HAP emissions within specific contexts, offering valuable insights for research and policy development (see Figure 3 as an example). 
 
 ![Direct BC emissions from the residential sector in India in 2050 by income decile](example_gr.png){width="42.5%"}
 
