@@ -73,7 +73,7 @@ map = TRUE)
 # Statement of need
 
 According to the World Health Organization’s (WHO) [Global Health Observatory]( https://www.who.int/data/gho/data/indicators/indicator-details/GHO/household-air-pollution-attributable-deaths), 
-HAP is one of the major risk factors for human health, particularly in the global South, causing around 3.2 million deaths per year in 2020, including over 237,000 deaths of children under the age of 5. 
+HAP is one of the major risk factors for human health, particularly in the Global South, causing around 3.2 million deaths per year in 2020, including over 237,000 deaths of children under the age of 5. 
 HAP affects human health from pre-conception to old age, leading to noncommunicable diseases including cataract, chronic obstructive pulmonary disease, ischaemic heart disease, lower respiratory infections, lung cancer, neonatal disorders, stroke, and type 2 diabetes [@bennitt2025global]. 
 In addition to its direct health impacts, disproportionately affecting infants and the elderly, household air pollution (HAP) also has broader socioeconomic consequences, 
 such as reduced work productivity [@neidell2023air] and the exacerbation of gender inequalities [@krishnapriya2021improved].
