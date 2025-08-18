@@ -63,8 +63,8 @@ hap_damages <- calc_hap_impacts (db_path,  db_name,
 prj_name,
 scen_name, final_db_year = 2100,
 HIA_var,
-saveOutput = T, 
-map = T) 
+saveOutput = TRUE, 
+map = TRUE) 
 
 
 ```

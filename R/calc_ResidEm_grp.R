@@ -14,15 +14,15 @@
 #' @param year Select the year. 2020:2100
 #' @param pollutant Select the pollutant. List of available gases in "rhap::all_pollutants"
 #' @param region Select the region. It includes the GCAM 32 geopolitical regions + EU-27 + Global: https://github.com/JGCRI/gcam-doc/blob/gh-pages/overview.md
-#' @param saveOutput Writes the emission files. By default=T
-#' @param pie Produce the maps. By default=F
+#' @param saveOutput Writes the emission files. By default=TRUE
+#' @param pie Produce the maps. By default=FALSE
 #' @importFrom magrittr %>%
 #' @export
 
 calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
                              scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
                              year, pollutant, region,
-                             saveOutput = T, pie = T) {
+                             saveOutput = TRUE, pie = TRUE) {
 
   sector <- scenario <- group <- ghg <- Units <- value <- adj <- Year <-
     Pollutant <- Region <- value_agg <- perc_value <- `GCAM Region` <- . <- NULL
@@ -66,7 +66,7 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                          prj_name,
                          scen_name,
                          paste0(query_path,"/",queries),
-                         saveProj = T)
+                         saveProj = TRUE)
     )
 
   } else {
@@ -144,7 +144,7 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     dplyr::mutate(perc_value = round(value / value_agg , 3)) %>%
     dplyr::select(-value_agg)
 
-  if(saveOutput == T){
+  if(saveOutput == TRUE){
     # Create the directory if they do not exist:
     if (!dir.exists("output/ResidEm_grp")) dir.create("output/ResidEm_grp")
 
@@ -152,11 +152,11 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
               file.path('output/ResidEm_grp',
                         paste0("ResidEm_grp_", unique(em_reg_gr_fin$Region), "_",
                                unique(em_reg_gr_fin$Year), "_", unique(em_reg_gr_fin$Pollutant), ".csv")),
-              row.names = F, fileEncoding = "UTF-8")
+              row.names = FALSE, fileEncoding = "UTF-8")
   }
 
 
-  if(pie == T){
+  if(pie == TRUE){
 
     # Create the directory if they do not exist:
     if (!dir.exists("output/ResidEm_grp")) dir.create("output/ResidEm_grp")

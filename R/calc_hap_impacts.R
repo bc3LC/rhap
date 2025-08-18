@@ -11,19 +11,19 @@
 #' @param scen_name Vector names of the GCAM scenarios to be processed
 #' @param queries Name of the GCAM query file. The file by default includes the queries required to run rfasst
 #' @param final_db_year Final year in the GCAM database (this allows to process databases with user-defined "stop periods")
-#' @param saveOutput Writes the emission files. By default=T
-#' @param map Produce the maps. By default = F
-#' @param anim If set to T, produces multi-year animations. By default=T
+#' @param saveOutput Writes the emission files. By default=TRUE
+#' @param map Produce the maps. By default = FALSE
+#' @param anim If set to TRUE, produces multi-year animations. By default=TRUE
 #' @param HIA_var Health metric to be predicted. c("deaths", "yll", "dalys"). By default = deaths
-#' @param normalized Transform the output to "normalized" values. By default = F
-#' @param by_gr Estimate damages at group level. Just for illustrative purposes. By default = F
+#' @param normalized Transform the output to "normalized" values. By default = FALSE
+#' @param by_gr Estimate damages at group level. Just for illustrative purposes. By default = FALSE
 #' @importFrom magrittr %>%
 #' @export
 
 calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
                             scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
-                            saveOutput = T, map = F, anim = T, HIA_var = "deaths",
-                            normalized = F, by_gr = F) {
+                            saveOutput = TRUE, map = FALSE, anim = TRUE, HIA_var = "deaths",
+                            normalized = FALSE, by_gr = FALSE) {
 
   Country <- country <- sector <- scenario <- region <- year <- group <- ghg <-
     Units <- value <- adj <-  value_reg <- dec_share <- Pollutant <- `ISO 3` <-
@@ -104,7 +104,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                          prj_name,
                          scen_name,
                          paste0(query_path,"/",queries),
-                         saveProj = T)
+                         saveProj = TRUE)
     )
 
   } else {
@@ -590,15 +590,15 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                      row.names = FALSE, fileEncoding = "UTF-8")
   }
 
-  if(saveOutput == T) {
+  if(saveOutput == TRUE) {
 
     invisible(lapply(split(output_fin, output_fin$scenario), output.write))
 
   }
 
 
-  # If by group = T, add a complementary estimation at group level
-  if(saveOutput == T & by_gr == T){
+  # If by group = TRUE, add a complementary estimation at group level
+  if(saveOutput == TRUE & by_gr == TRUE){
 
     # Create the directory if they do not exist:
     if (!dir.exists("output/by_gr")) dir.create("output/by_gr")
@@ -630,18 +630,18 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                     pred_value_per_100K_adj = dplyr::if_else(as.numeric(pred_value_per_100K_adj) < 0, 0, as.numeric(pred_value_per_100K_adj))) %>%
       dplyr::select(scenario, country = country_name, group, year, pred_var, pred_value, pred_value_normalized = pred_value_per_100K_adj) %>%
       utils::write.csv(paste0("output/by_gr/", "HAP_" , unique(HIA_var), "_byGR" ,".csv"),
-                       row.names = F, fileEncoding = "UTF-8")
+                       row.names = FALSE, fileEncoding = "UTF-8")
 
   }
 
   # Add map
-  if(map == T){
+  if(map == TRUE){
 
     # Create the directory if they do not exist:
     if (!dir.exists("output/maps")) dir.create("output/maps")
 
     # The variable to be plotted depends on if the user selects or no to use normalized values
-    if(normalized == T){
+    if(normalized == TRUE){
       var_to_plot = "pred_value_normalized"
     } else {
       var_to_plot = "pred_value"
@@ -670,11 +670,11 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       rmap::map(data = output_fin_map %>% dplyr::filter(scenario == sc),
                 folder = paste("output/maps/map",sc,"allYears", sep = '_'),
                 legendType = "pretty",
-                background  = T,
+                background  = TRUE,
                 animate = anim,
                 underLayer = mapCountries,
                 colorNA = "grey92",
-                showNA = T
+                showNA = TRUE
       )
 
       # 2. Reorder folders and rename figures
@@ -714,11 +714,11 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
                   dplyr::rename(class = scenario),
                 folder = paste("output/maps/map","allScen",y, sep = '_'),
                 legendType = "pretty",
-                background  = T,
+                background  = TRUE,
                 animate = anim,
                 underLayer = mapCountries,
                 colorNA = "grey92",
-                showNA = T
+                showNA = TRUE
       )
 
       # 2. Reorder folders and rename figures

@@ -25,23 +25,25 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, eval=F}
+```{r setup, eval=FALSE}
 library(rhap)
 library(magrittr)
 
- db_path <- "path_to_your_gcam_database" # NULL if project file provided
- db_name <- "name of the database" # NULL if project file provided
- prj_name<-"name of the project file", # or name for a project to add extracted results to (any name should work, avoid spaces just in case)
- scen_name <- "name of the GCAM scenario" # or vector names of the GCAM scenarios to be processed
- queries <- "Name of the query file" # (the package includes a default query file that includes all the queries required in every function in the package, "queries_rhap.xml")
- 
- bc_india_2050_gr <- calc_ResidEm_grp(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name = "test_gcam7p1.dat",
-                             scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
-                             2050, "BC", "India",
-                             saveOutput = T, pie = T) 
+db_path <- "path_to_your_gcam_database" # NULL if project file provided
+db_name <- "name of the database" # NULL if project file provided
+prj_name <- "name of the project file" # or name for a project to add extracted results to (any name should work, avoid spaces just in case)
+scen_name <- "name of the GCAM scenario" # or vector names of the GCAM scenarios to be processed
+queries <- "Name of the query file" # (the package includes a default query file that includes all the queries required in every function in the package, "queries_rhap.xml")
 
- head(bc_india_2050_gr)
+bc_india_2050_gr <- calc_ResidEm_grp(
+  db_path = NULL, query_path = "./inst/extdata", db_name = NULL,
+  prj_name = "test_gcam7p1.dat",
+  scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
+  2050, "BC", "India",
+  saveOutput = TRUE, pie = TRUE
+)
 
+head(bc_india_2050_gr)
 ```
 
 <!-------------------------->

@@ -29,7 +29,7 @@ The package provides flexibility to calculate three distinct health impact metri
 * Years of Life Lost (YLLs)
 * Disability-Adjusted Life Years (DALYs)
 
-In addition to country-level estimates, the package offers an optional feature to estimate health impacts by socioeconomic group (e.g., income deciles) within each region. While it is recommended to perform country-level calculations for consistency, this capability can provide valuable insights into the distribution of health impacts across population segments within regions. Such granularity can aid users in understanding intra-regional disparities. This feature is activated by setting `by_gr = F`.
+In addition to country-level estimates, the package offers an optional feature to estimate health impacts by socioeconomic group (e.g., income deciles) within each region. While it is recommended to perform country-level calculations for consistency, this capability can provide valuable insights into the distribution of health impacts across population segments within regions. Such granularity can aid users in understanding intra-regional disparities. This feature is activated by setting `by_gr = FALSE`.
 
 
 ### Outputs
