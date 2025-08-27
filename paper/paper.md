@@ -47,9 +47,9 @@ The `rhap` package is publicly available on GitHub at https://github.com/bc3LC/r
 Comprehensive documentation is also provided and can be accessed [here](https://bc3lc.github.io/rhap/index.html).
 
 ```r
-install.packages("devtools")
-library(devtools)
-devtools::install_github("bc3LC/rhap")
+install.packages("remotes")
+library(remotes)
+remotes::install_github("bc3LC/rhap")
 library(rhap)
 
 db_path <- "path_to_your_gcam_database" # NULL if project file provided
