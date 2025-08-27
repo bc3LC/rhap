@@ -59,13 +59,16 @@ scen_name <- "name of the GCAM scenario" # or vector of names
 HIA_var  <- "deaths" # or YLLs or DALYs
 
  
-hap_damages <- calc_hap_impacts (db_path,  db_name, 
-prj_name,
-scen_name, final_db_year = 2100,
-HIA_var,
-saveOutput = TRUE, 
-map = TRUE) 
-
+hap_damages <- calc_hap_impacts(
+  db_path,
+  db_name,
+  prj_name,
+  scen_name,
+  final_db_year = 2100,
+  HIA_var,
+  saveOutput = TRUE,
+  map = TRUE
+)
 
 ```
 
