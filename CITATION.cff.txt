@@ -1,0 +1,58 @@
+cff-version: "1.2.0"
+authors:
+- family-names: Sampedro
+  given-names: Jon
+  orcid: "https://orcid.org/0000-0002-2277-1530"
+- family-names: Rodés-Bachs
+  given-names: Clàudia
+  orcid: "https://orcid.org/0000-0001-6696-7685"
+- family-names: Smith
+  given-names: Steven J.
+  orcid: "https://orcid.org/0000-0003-3248-5607"
+- family-names: Tomás
+  given-names: Manuel
+  orcid: "https://orcid.org/0000-0003-1725-7702"
+- family-names: Urrutia
+  given-names: Ismael
+- family-names: Ven
+  given-names: Dirk-Jan Van
+  name-particle: de
+  orcid: "https://orcid.org/0000-0001-9120-564X"
+doi: 10.5281/zenodo.16962966
+message: If you use this software, please cite our article in the
+  Journal of Open Source Software.
+preferred-citation:
+  authors:
+  - family-names: Sampedro
+    given-names: Jon
+    orcid: "https://orcid.org/0000-0002-2277-1530"
+  - family-names: Rodés-Bachs
+    given-names: Clàudia
+    orcid: "https://orcid.org/0000-0001-6696-7685"
+  - family-names: Smith
+    given-names: Steven J.
+    orcid: "https://orcid.org/0000-0003-3248-5607"
+  - family-names: Tomás
+    given-names: Manuel
+    orcid: "https://orcid.org/0000-0003-1725-7702"
+  - family-names: Urrutia
+    given-names: Ismael
+  - family-names: Ven
+    given-names: Dirk-Jan Van
+    name-particle: de
+    orcid: "https://orcid.org/0000-0001-9120-564X"
+  date-published: 2025-10-10
+  doi: 10.21105/joss.08091
+  issn: 2475-9066
+  issue: 114
+  journal: Journal of Open Source Software
+  publisher:
+    name: Open Journals
+  start: 8091
+  title: "rhap: A tool to analyze health impacts attributable to
+    household air pollution"
+  type: article
+  url: "https://joss.theoj.org/papers/10.21105/joss.08091"
+  volume: 10
+title: "rhap: A tool to analyze health impacts attributable to household
+  air pollution"
