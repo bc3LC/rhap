@@ -7,6 +7,7 @@
 [![test_coverage](https://github.com/bc3LC/rhap/actions/workflows/test_coverage.yaml/badge.svg)](https://github.com/bc3LC/rhap/actions/workflows/test_coverage.yaml)
 [![codecov](https://codecov.io/gh/bc3LC/rhap/branch/main/graph/badge.svg?token=rC8eIjNwcN)](https://codecov.io/gh/bc3LC/rhap)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16778794.svg)](https://doi.org/10.5281/zenodo.16778794)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.08091/status.svg)](https://doi.org/10.21105/joss.08091)
 
 
 <!-- ------------------------>
