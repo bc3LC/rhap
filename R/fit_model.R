@@ -25,7 +25,7 @@ fit_model <- function(HIA_var, countries = 'All') {
       HIA_var, paste(c("deaths", "yll", "dalys"), collapse = ", ")
     ))
   }
-  if (!countries != 'All') {
+  if (countries != 'All') {
     wrong_countries <- setdiff(countries, unique(rhap::panel_data$country_name))
     if (length(wrong_countries) == 1) {
       stop(sprintf(

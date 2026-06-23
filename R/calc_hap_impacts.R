@@ -81,7 +81,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       by_gr
     ))
   }
-  if (!countries != 'All') {
+  if (countries != 'All') {
     wrong_countries <- setdiff(countries, unique(rhap::panel_data$country_name))
     if (length(wrong_countries) == 1) {
       stop(sprintf(
@@ -673,7 +673,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     # adjust Rou
     dplyr::mutate(country_name = dplyr::if_else(country_name == "Roumania", "Romania", country_name)) %>%
     # remove not predictable regions
-    dplyr::filter(country_name %in% unique(fit_model(HIA_var = HIA_var)[[2]])) %>%
+    dplyr::filter(country_name %in% unique(fit_model(HIA_var = HIA_var, countries = countries)[[2]])) %>%
     dplyr::mutate(across(where(is.numeric), ~ ifelse(is.finite(.), ., NA_real_))) %>%
     tidyr::drop_na()
 

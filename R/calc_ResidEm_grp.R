@@ -34,26 +34,6 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   if (length(pollutant) != 1) stop("Error: Please provide a single pollutant as input to the `calc_ResidEm_grp` function.")
   if (length(region) != 1) stop("Error: Please provide a single region as input to the `calc_ResidEm_grp` function.")
 
-  year <- as.numeric(as.character(year))
-  if (!year %in% c(2021, seq(2020, 2100, 5))) {
-    stop(sprintf(
-      "Error: The specified year '%s' is invalid. Accepted years are: %s. Please rerun the `calc_ResidEm_grp` function with a valid year.",
-      year, paste(sort(2021, seq(2020, 2100, 5)), collapse = ", ")
-    ))
-  }
-  if (!pollutant %in% rhap::all_pollutants) {
-    stop(sprintf(
-      "Error: The specified pollutant '%s' is invalid. Accepted pollutants are: %s. Please rerun the `calc_ResidEm_grp` function with a valid pollutant.",
-      pollutant, paste(rhap::all_pollutants, collapse = ", ")
-    ))
-  }
-  if (!region %in% rhap::gcam_regions) {
-    stop(sprintf(
-      "Error: The specified region '%s' is invalid. Accepted regions are: %s. Please rerun the `calc_ResidEm_grp` function with a valid region.",
-      region, paste(rhap::gcam_regions, collapse = ", ")
-    ))
-  }
-
 
   # Then, load the rgcam project if prj not passed as a parameter:
   if (!is.null(db_path) & !is.null(db_name)) {
@@ -85,6 +65,27 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   years_in_prj  <- setdiff(years_in_prj, NA)
   base_year     <- dplyr::if_else(2021 %in% years_in_prj, 2021, 2015)
   base_year_p   <- dplyr::if_else(base_year == 2021, base_year, 2020)
+
+  # More checks
+  year <- as.numeric(as.character(year))
+  if (!year %in% c(base_year_p, seq(2025, 2100, 5))) {
+    stop(sprintf(
+      "Error: The specified year '%s' is invalid. Accepted years are: %s. Please rerun the `calc_ResidEm_grp` function with a valid year.",
+      year, paste(c(base_year_p, seq(2025, 2100, 5)), collapse = ", ")
+    ))
+  }
+  if (!pollutant %in% rhap::all_pollutants) {
+    stop(sprintf(
+      "Error: The specified pollutant '%s' is invalid. Accepted pollutants are: %s. Please rerun the `calc_ResidEm_grp` function with a valid pollutant.",
+      pollutant, paste(rhap::all_pollutants, collapse = ", ")
+    ))
+  }
+  if (!region %in% rhap::gcam_regions) {
+    stop(sprintf(
+      "Error: The specified region '%s' is invalid. Accepted regions are: %s. Please rerun the `calc_ResidEm_grp` function with a valid region.",
+      region, paste(rhap::gcam_regions, collapse = ", ")
+    ))
+  }
 
 
   if (year > final_db_year) {
