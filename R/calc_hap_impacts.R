@@ -15,6 +15,8 @@
 #' @param map Produce the maps. By default = FALSE
 #' @param anim If set to TRUE, produces multi-year animations. By default=TRUE
 #' @param HIA_var Health metric to be predicted. c("deaths", "yll", "dalys"). By default = deaths
+#' @param countries Target countries over which the model will be fit (defaults to \code{"All"}).
+#' For a complete list of valid country names, check \code{unique(rhap::panel_data$country_name)}.
 #' @param normalized Transform the output to "normalized" values. By default = FALSE
 #' @param by_gr Estimate damages at group level. Just for illustrative purposes. By default = FALSE
 #' @importFrom magrittr %>%
@@ -22,7 +24,7 @@
 
 calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
                              scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
-                             saveOutput = TRUE, map = FALSE, anim = TRUE, HIA_var = "deaths",
+                             saveOutput = TRUE, map = FALSE, anim = TRUE, HIA_var = "deaths", countries = 'All',
                              normalized = FALSE, by_gr = FALSE) {
   Country <- country <- sector <- scenario <- region <- year <- group <- ghg <-
     Units <- value <- adj <- value_reg <- dec_share <- Pollutant <- `ISO 3` <-
@@ -79,7 +81,18 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       by_gr
     ))
   }
-
+  if (!countries != 'All') {
+    wrong_countries <- setdiff(countries, unique(rhap::panel_data$country_name))
+    if (length(wrong_countries) == 1) {
+      stop(sprintf(
+        "Error: The specified country '%s' is invalid. Run `unique(rhap::panel_data$country_name)` to see the accepted country names are. Please rerun the `fit_model` function with valid `coutries`.",
+        wrong_countries))
+    } else if (length(wrong_countries) > 1) {
+      stop(sprintf(
+        "Error: The specified countries '%s' are invalid. Run `unique(rhap::panel_data$country_name)` to see the accepted country names are. Please rerun the `fit_model` function with valid `coutries`.",
+        paste(wrong_countries, collapse = ", ")))
+    }
+  }
 
 
 
@@ -90,7 +103,16 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   CONV_Tg_kt <- 1E3
 
   # Create the directory if they do not exist:
-  if (!dir.exists("output")) dir.create("output")
+  if (countries == 'All') {
+    output_dir <- 'output'
+  } else {
+    list_iso <- rhap::panel_data %>%
+      dplyr::filter(country_name %in% countries) %>%
+      dplyr::pull(iso) %>%
+      unique()
+    output_dir <- paste0('output_', paste(list_iso, collapse = '_'))
+  }
+  if (!dir.exists(output_dir)) dir.create(output_dir)
 
   # Then, load the rgcam project if prj not passed as a parameter:
   if (!is.null(db_path) & !is.null(db_name)) {
@@ -117,6 +139,13 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     max(rgcam::getQuery(prj, "nonCO2 emissions by sector (excluding resource production)")$year)
   )
 
+  # Find last historical year
+  years_in_prj  <- listYears(prj)
+  years_in_prj  <- years_in_prj[!is.na(years_in_prj)]
+  years_in_prj  <- setdiff(years_in_prj, NA)
+  base_year     <- dplyr::if_else(2021 %in% years_in_prj, 2021, 2015)
+  base_year_p   <- dplyr::if_else(base_year == 2021, base_year, 2020)
+
 
   #-----
   # EXTRACT DATA FROM GCAM SCENARIO OUTPUTS
@@ -127,7 +156,11 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   reg_to_ctry <- rhap::Percen %>%
     dplyr::select(region = `GCAM Region`, country = Country) %>%
     dplyr::distinct() %>%
-    dplyr::mutate(country = stringr::str_to_title(country))
+    dplyr::mutate(country = stringr::str_to_title(country),
+    # update regions if necessary
+    region = dplyr::if_else(base_year == 2021 & region == 'Europe_Eastern', 'Ukraine', region)
+  )
+
 
   #  1- Emissions
   em <- rgcam::getQuery(prj, "nonCO2 emissions by sector (excluding resource production)") %>%
@@ -182,7 +215,10 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     tibble::as_tibble() %>%
     dplyr::mutate(
       Pollutant = dplyr::if_else(Pollutant == "POM", "OC", Pollutant),
-      year = as.numeric(as.character(year))
+      year = as.numeric(as.character(year)),
+      # update base year and regions if necessary
+      year = dplyr::if_else(base_year == 2021 & year == 2020, 2021, year),
+      `GCAM Region` = dplyr::if_else(base_year == 2021 & `GCAM Region` == 'Europe_Eastern', 'Ukraine', `GCAM Region`)
     ) %>%
     dplyr::rename(
       region = `GCAM Region`,
@@ -333,12 +369,25 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     dplyr::rename(
       ssp = scenario,
       country = region
+    ) %>%
+    dplyr::mutate(
+      year = as.numeric(year),
+      # update base year if necessary
+      year = dplyr::if_else(base_year == 2021 & year == 2020, 2021, year),
+      year = as.character(year)
     )
+
 
   # Add missing countries
   gdp_adj <- rhap::ssp_gdp_adj %>%
     tidyr::gather(year, value, -Model, -Scenario, -Region, -Variable, -Unit) %>%
-    dplyr::mutate(year = gsub("X", "", year)) %>%
+    dplyr::mutate(
+      year = gsub("X", "", year),
+      # update base year if necessary
+      year = as.numeric(year),
+      year = dplyr::if_else(base_year == 2021 & year == 2020, 2021, year),
+      year = as.character(year)
+    ) %>%
     dplyr::filter(
       year %in% unique(gdp_ctry$year),
       Scenario != "Historical Reference"
@@ -360,6 +409,12 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     dplyr::rename(
       ssp = scenario,
       country = region
+    ) %>%
+    dplyr::mutate(
+      year = as.numeric(year),
+      # update base year if necessary
+      year = dplyr::if_else(base_year == 2021 & year == 2020, 2021, year),
+      year = as.character(year)
     )
 
   # Process Population: Population is evenly distributed across groups, but could be updated
@@ -454,7 +509,12 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       ssp = dplyr::if_else(grepl("SSP5", scenario), "SSP5", ssp)
     ) %>%
     dplyr::select(scenario, ssp, country, year, group, share_gdp) %>%
-    dplyr::mutate(year = as.character(year))
+    dplyr::mutate(
+      year = as.numeric(year),
+      # update base year if necessary
+      year = dplyr::if_else(base_year == 2021 & year == 2020, 2021, year),
+      year = as.character(year)
+    )
 
   # Adjust Taiwan using China's shares
   gdp_share_twn <- gdp_share %>%
@@ -622,7 +682,10 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   # PREDICTION
 
   # Get model to subtract coefficients and predict
-  model.fixed <- fit_model(HIA_var = HIA_var)[[1]]
+  model.fixed <- fit_model(HIA_var = HIA_var, countries = countries)[[1]]
+
+  # Restrict data to selected countries
+  if (countries != 'All') output <- output %>% dplyr::filter(country_name %in% countries)
 
   # Transform data to panel and predict
   output.panel <- plm::pdata.frame(output, index = c("country_name", "year"))
@@ -662,7 +725,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   # Create a function to write the data (by scenario)
   output.write <- function(df) {
     df <- as.data.frame(df)
-    utils::write.csv(df, paste0("output/", unique(df$scenario), "_HAP_", unique(HIA_var), ".csv"),
+    utils::write.csv(df, paste0(output_dir, "/", unique(df$scenario), "_HAP_", unique(HIA_var), ".csv"),
       row.names = FALSE, fileEncoding = "UTF-8"
     )
   }
@@ -675,7 +738,9 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   # If by group = TRUE, add a complementary estimation at group level
   if (saveOutput == TRUE & by_gr == TRUE) {
     # Create the directory if they do not exist:
-    if (!dir.exists("output/by_gr")) dir.create("output/by_gr")
+    if (!dir.exists(file.path(output_dir, "by_gr"))) dir.create(file.path(output_dir, "by_gr"))
+    # Restrict data to selected countries
+    if (countries != 'All') output_gr <- output_gr %>% dplyr::filter(country_name %in% countries)
 
     output.panel.gr <- plm::pdata.frame(output_gr, index = c("country_name", "year"))
 
@@ -710,7 +775,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
         pred_value_per_100K_adj = dplyr::if_else(as.numeric(pred_value_per_100K_adj) < 0, 0, as.numeric(pred_value_per_100K_adj))
       ) %>%
       dplyr::select(scenario, country = country_name, group, year, pred_var, pred_value, pred_value_normalized = pred_value_per_100K_adj) %>%
-      utils::write.csv(paste0("output/by_gr/", "HAP_", unique(HIA_var), "_byGR", ".csv"),
+      utils::write.csv(paste0(file.path(output_dir, "by_gr"), "/HAP_", unique(HIA_var), "_byGR", ".csv"),
         row.names = FALSE, fileEncoding = "UTF-8"
       )
   }
@@ -718,7 +783,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   # Add map
   if (map == TRUE) {
     # Create the directory if they do not exist:
-    if (!dir.exists("output/maps")) dir.create("output/maps")
+    if (!dir.exists(file.path(output_dir, "maps"))) dir.create(file.path(output_dir, "maps"))
 
     # The variable to be plotted depends on if the user selects or no to use normalized values
     if (normalized == TRUE) {
@@ -752,7 +817,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       # 1. Plot
       rmap::map(
         data = output_fin_map %>% dplyr::filter(scenario == sc),
-        folder = paste("output/maps/map", sc, "allYears", sep = "_"),
+        folder = paste(file.path(output_dir, "maps", "map"), sc, "allYears", sep = "_"),
         legendType = "pretty",
         background = TRUE,
         animate = anim,
@@ -764,32 +829,32 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       # 2. Reorder folders and rename figures
       # 2.1. move the allYears figure
       file.rename(
-        from = file.path(paste("output/maps/map", sc, "allYears", sep = "_"), "map_param_PRETTY.png"),
-        to = paste0("output/maps/map_", sc, "_allYears", ".png")
+        from = file.path(paste(file.path(output_dir, "maps", "map"), sc, "allYears", sep = "_"), "map_param_PRETTY.png"),
+        to = paste0(file.path(output_dir, "maps", "map"), "_", sc, "_allYears", ".png")
       )
 
       # 2.2. move all annual figures
-      files_to_move <- list.files(file.path(paste("output/maps/map", sc, "allYears", sep = "_"), "byYear"), full.names = TRUE)
+      files_to_move <- list.files(file.path(paste(file.path(output_dir, "maps", "map"), sc, "allYears", sep = "_"), "byYear"), full.names = TRUE)
       success <- sapply(files_to_move, function(file) {
-        file.rename(file, file.path(paste("output/maps/map", sc, "allYears", sep = "_"), basename(file)))
+        file.rename(file, file.path(paste(file.path(output_dir, "maps", "map"), sc, "allYears", sep = "_"), basename(file)))
       })
 
       # 2.3. remove unnecessary directories and files
       if (all(success)) {
-        unlink(file.path(paste("output/maps/map", sc, "allYears", sep = "_"), "byYear"), recursive = TRUE)
+        unlink(file.path(paste(file.path(output_dir, "maps", "map"), sc, "allYears", sep = "_"), "byYear"), recursive = TRUE)
       } else {
         message("Some files could not be moved. The source folder was not deleted.")
       }
-      unlink(file.path(paste("output/maps/map", sc, "allYears", sep = "_"), "map_param_MEAN_PRETTY.png"), recursive = TRUE)
-      unlink(file.path(paste("output/maps/map", sc, "allYears", sep = "_"), "map_param.csv"), recursive = TRUE)
+      unlink(file.path(paste(file.path(output_dir, "maps", "map"), sc, "allYears", sep = "_"), "map_param_MEAN_PRETTY.png"), recursive = TRUE)
+      unlink(file.path(paste(file.path(output_dir, "maps", "map"), sc, "allYears", sep = "_"), "map_param.csv"), recursive = TRUE)
 
       # 2.4. rename folder
-      if (dir.exists(file.path(paste("output/maps/map", sc, "byYear", sep = "_")))) {
-        unlink(file.path(paste("output/maps/map", sc, "byYear", sep = "_")), recursive = TRUE)
+      if (dir.exists(file.path(paste(file.path(output_dir, "maps", "map"), sc, "byYear", sep = "_")))) {
+        unlink(file.path(paste(file.path(output_dir, "maps", "map"), sc, "byYear", sep = "_")), recursive = TRUE)
       }
       file.rename(
-        file.path(paste("output/maps/map", sc, "allYears", sep = "_")),
-        file.path(paste("output/maps/map", sc, "byYear", sep = "_"))
+        file.path(paste(file.path(output_dir, "maps", "map"), sc, "allYears", sep = "_")),
+        file.path(paste(file.path(output_dir, "maps", "map"), sc, "byYear", sep = "_"))
       )
     }
 
@@ -800,7 +865,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       rmap::map(
         data = output_fin_map %>% dplyr::filter(year == y) %>%
           dplyr::rename(class = scenario),
-        folder = paste("output/maps/map", "allScen", y, sep = "_"),
+        folder = paste(file.path(output_dir, "maps", "map"), "allScen", y, sep = "_"),
         legendType = "pretty",
         background = TRUE,
         animate = anim,
@@ -812,16 +877,16 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       # 2. Reorder folders and rename figures
       # 2.1. remove an intermediate folder
       file.rename(
-        from = file.path(paste("output/maps/map", "allScen", y, sep = "_"), "map_param_PRETTY.png"),
-        to = paste0("output/maps/map_", "allScen_", y, ".png")
+        from = file.path(paste(file.path(output_dir, "maps", "map"), "allScen", y, sep = "_"), "map_param_PRETTY.png"),
+        to = paste0(file.path(output_dir, "maps"), "/map_", "allScen_", y, ".png")
       )
-      unlink(paste("output/maps/map", "allScen", y, sep = "_"), recursive = TRUE)
+      unlink(paste(file.path(output_dir, "maps", "map"), "allScen", y, sep = "_"), recursive = TRUE)
     }
     # 2.2. gather all figures in "map_allScen_byYear" new folder
-    files_to_move <- list.files(path = file.path("output/maps"), pattern = "^map_allScen_", full.names = TRUE)
-    if (!dir.exists("output/maps/map_allScen_byYear")) dir.create("output/maps/map_allScen_byYear")
+    files_to_move <- list.files(path = file.path(file.path(output_dir, "maps")), pattern = "^map_allScen_", full.names = TRUE)
+    if (!dir.exists(file.path(output_dir, "maps", "map_allScen_byYear"))) dir.create(paste0(file.path(output_dir, "maps", "map_allScen_byYear")))
     success <- sapply(files_to_move, function(file) {
-      file.rename(file, file.path("output/maps/map_allScen_byYear", basename(file)))
+      file.rename(file, file.path(file.path(output_dir, "maps", "map_allScen_byYear")), basename(file))
     })
   }
 

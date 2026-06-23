@@ -16,6 +16,7 @@ calc_hap_impacts(
   map = FALSE,
   anim = TRUE,
   HIA_var = "deaths",
+  countries = "All",
   normalized = FALSE,
   by_gr = FALSE
 )
@@ -42,6 +43,9 @@ calc_hap_impacts(
 \item{anim}{If set to TRUE, produces multi-year animations. By default=TRUE}
 
 \item{HIA_var}{Health metric to be predicted. c("deaths", "yll", "dalys"). By default = deaths}
+
+\item{countries}{Target countries over which the model will be fit (defaults to \code{"All"}).
+For a complete list of valid country names, check \code{unique(rhap::panel_data$country_name)}.}
 
 \item{normalized}{Transform the output to "normalized" values. By default = FALSE}
 

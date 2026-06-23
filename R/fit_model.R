@@ -8,11 +8,13 @@
 #' @source  Details on plm estimation can be found here: https://cran.r-project.org/web/packages/plm/plm.pdf#'
 #' @keywords Econometric model; fixed effects
 #' @param HIA_var Health metric to be predicted. c("deaths", "yll", "dalys")
+#' @param countries Target countries over which the model will be fit (defaults to \code{"All"}).
+#' For a complete list of valid country names, check \code{unique(rhap::panel_data$country_name)}.
 #' @importFrom magrittr %>%
 #' @export
 #' @return Regression model and coefficients for prediction
 
-fit_model <- function(HIA_var) {
+fit_model <- function(HIA_var, countries = 'All') {
   iso <- country_name <- year <- pop <- continent <- dev <- log_AAP <- value <-
     Model <- Scenario <- Region <- Variable <- Unit <- . <- NULL
 
@@ -22,6 +24,18 @@ fit_model <- function(HIA_var) {
       "Error: The specified HIA_var '%s' is invalid. Accepted HIA_var are: %s. Please rerun the `fit_model` function with a valid HIA_var.",
       HIA_var, paste(c("deaths", "yll", "dalys"), collapse = ", ")
     ))
+  }
+  if (!countries != 'All') {
+    wrong_countries <- setdiff(countries, unique(rhap::panel_data$country_name))
+    if (length(wrong_countries) == 1) {
+      stop(sprintf(
+        "Error: The specified country '%s' is invalid. Run `unique(rhap::panel_data$country_name)` to see the accepted country names are. Please rerun the `fit_model` function with valid `coutries`.",
+        wrong_countries))
+    } else if (length(wrong_countries) > 1) {
+      stop(sprintf(
+        "Error: The specified countries '%s' are invalid. Run `unique(rhap::panel_data$country_name)` to see the accepted country names are. Please rerun the `fit_model` function with valid `coutries`.",
+        paste(wrong_countries, collapse = ", ")))
+    }
   }
 
   # Adjust the data
@@ -53,12 +67,21 @@ fit_model <- function(HIA_var) {
     "log_gdppc_ppp_dol2011 + log_flsp"
   ))
 
-  model.fixed <- plm::plm(
-    model_formula,
-    data = data,
-    index = c("country_name", "year"),
-    model = "within"
-  )
+  if (countries == 'All') {
+    model.fixed <- plm::plm(
+      model_formula,
+      data = data,
+      index = c("country_name", "year"),
+      model = "within"
+    )
+  } else {
+    data_ctry_full <- data %>% filter(country_name %in% countries)
+    data_ctry_full.panel <- plm::pdata.frame(data_ctry_full, index = c("country_name", "year"))
+    model.fixed <- plm::plm(
+      model_formula,
+      data = data_ctry_full.panel,
+      model = "within")
+  }
 
   return(list(model.fixed, predictable_regions))
 }

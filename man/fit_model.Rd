@@ -7,10 +7,13 @@
 Details on plm estimation can be found here: https://cran.r-project.org/web/packages/plm/plm.pdf#'
 }
 \usage{
-fit_model(HIA_var)
+fit_model(HIA_var, countries = "All")
 }
 \arguments{
 \item{HIA_var}{Health metric to be predicted. c("deaths", "yll", "dalys")}
+
+\item{countries}{Target countries over which the model will be fit (defaults to \code{"All"}).
+For a complete list of valid country names, check \code{unique(rhap::panel_data$country_name)}.}
 }
 \value{
 Regression model and coefficients for prediction
