@@ -35,10 +35,10 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   if (length(region) != 1) stop("Error: Please provide a single region as input to the `calc_ResidEm_grp` function.")
 
   year <- as.numeric(as.character(year))
-  if (!year %in% seq(2020, 2100, 5)) {
+  if (!year %in% c(2021, seq(2020, 2100, 5))) {
     stop(sprintf(
       "Error: The specified year '%s' is invalid. Accepted years are: %s. Please rerun the `calc_ResidEm_grp` function with a valid year.",
-      year, paste(seq(2020, 2100, 5), collapse = ", ")
+      year, paste(sort(2021, seq(2020, 2100, 5)), collapse = ", ")
     ))
   }
   if (!pollutant %in% rhap::all_pollutants) {
@@ -79,11 +79,18 @@ calc_ResidEm_grp <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     final_db_year,
     max(rgcam::getQuery(prj, "nonCO2 emissions by sector (excluding resource production)")$year)
   )
+  # Find last historical year
+  years_in_prj  <- listYears(prj)
+  years_in_prj  <- years_in_prj[!is.na(years_in_prj)]
+  years_in_prj  <- setdiff(years_in_prj, NA)
+  base_year     <- dplyr::if_else(2021 %in% years_in_prj, 2021, 2015)
+  base_year_p   <- dplyr::if_else(base_year == 2021, base_year, 2020)
+
 
   if (year > final_db_year) {
     stop(sprintf(
       "Error: The specified year '%s' is invalid. The database only contains data up to %s. Accepted years are: %s. Please rerun the `calc_ResidEm_grp` function with a valid year.",
-      year, final_db_year, paste(seq(2020, final_db_year, 5), collapse = ", ")
+      year, final_db_year, paste(c(base_year_p, seq(2025, final_db_year, 5)), collapse = ", ")
     ))
   }
 
