@@ -117,4 +117,26 @@ test_that("Download db, create project, and run", {
     ),
     "Error: The specified by_gr '0' is invalid. Accepted by_gr values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid by_gr value."
   )
+  expect_error(
+    calc_hap_impacts(
+      prj_name = prj_name, scen_name = scen_name,
+      final_db_year = 2050, HIA_var = "deaths",
+      countries = "dummy",
+      saveOutput = TRUE, map = FALSE, anim = FALSE,
+      normalized = TRUE, by_gr = TRUE
+    ),
+    "Error: The specified country 'dummy' is invalid. Run `unique(rhap::panel_data$country_name)` to see the accepted country names are. Please rerun the `fit_model` function with valid `coutries`.",
+    fixed = T
+  )
+  expect_error(
+    calc_hap_impacts(
+      prj_name = prj_name, scen_name = scen_name,
+      final_db_year = 2050, HIA_var = "deaths",
+      countries = c("dummy1", "dummy2", "Portugal"),
+      saveOutput = TRUE, map = FALSE, anim = FALSE,
+      normalized = TRUE, by_gr = TRUE
+    ),
+    "Error: The specified countries 'dummy1, dummy2' are invalid. Run `unique(rhap::panel_data$country_name)` to see the accepted country names are. Please rerun the `fit_model` function with valid `coutries`.",
+    fixed = T
+  )
 })

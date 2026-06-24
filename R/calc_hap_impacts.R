@@ -81,7 +81,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       by_gr
     ))
   }
-  if (countries != 'All') {
+  if ((length(countries) == 1 && countries != "All") || (length(countries) != 1 && !any(countries == "All"))) {
     wrong_countries <- setdiff(countries, unique(rhap::panel_data$country_name))
     if (length(wrong_countries) == 1) {
       stop(sprintf(

@@ -17,20 +17,19 @@ jobs:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       GITHUB_PAT: ${{ secrets.GH_RHAP_TOKEN}}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
-      - uses: r-lib/actions/setup-r@v2-branch
+      - uses: r-lib/actions/setup-r@v2
         with:
-          r-version: '4.1'
+          r-version: ${{ matrix.config.r }}
 
-      - uses: r-lib/actions/setup-pandoc@v2-branch
+      - uses: r-lib/actions/setup-pandoc@v2
 
-      - uses: r-lib/actions/setup-tinytex@v2-branch
+      - uses: r-lib/actions/setup-tinytex@v2
 
       - name: Install system libraries
         if: startsWith(matrix.config.os, 'ubuntu')
         run: |
-          sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable
           sudo apt-get update
           sudo apt-get install -y \
             libcurl4-openssl-dev libssl-dev libxml2-dev \
@@ -40,19 +39,31 @@ jobs:
             libfontconfig1-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev \
             libuv1-dev
 
-      - name: Install dependencies
+      - name: Install R dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck", "stringi", "devtools"), repos = "https://cloud.r-project.org")
-          install.packages(c("evaluate"), repos = "https://cloud.r-project.org")
-          install.packages(c("knitr", "rmarkdown", "htmlwidgets", "plm"), repos = "https://cloud.r-project.org")
-          remotes::install_deps(dependencies = TRUE)
+          options(Ncpus = parallel::detectCores())
+          options(repos = c(CRAN = "https://cloud.r-project.org"))
+          install.packages(c("remotes", "rcmdcheck", "covr", "fs", "usethis", "testthat", "devtools"))
+          remotes::install_deps(dependencies = TRUE, upgrade = "never")
         shell: Rscript {0}
 
-      - name: Install GitHub packages
-        run: |
-          remotes::install_github("JGCRI/rmap")
-          remotes::install_github("JGCRI/gcamdata")
+      - name: Install the package
+        run: remotes::install_local(".")
         shell: Rscript {0}
+
+      # - name: Install dependencies
+      #   run: |
+      #     install.packages(c("remotes", "rcmdcheck", "stringi", "devtools"), repos = "https://cloud.r-project.org")
+      #     install.packages(c("evaluate"), repos = "https://cloud.r-project.org")
+      #     install.packages(c("knitr", "rmarkdown", "htmlwidgets", "plm"), repos = "https://cloud.r-project.org")
+      #     remotes::install_deps(dependencies = TRUE)
+      #   shell: Rscript {0}
+      #
+      # - name: Install GitHub packages
+      #   run: |
+      #     remotes::install_github("JGCRI/rmap")
+      #     remotes::install_github("JGCRI/gcamdata")
+      #   shell: Rscript {0}
 
       - name: Check
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--ignore-vignettes", "--no-build-vignettes"), build_args = c("--no-manual", "--ignore-vignettes", "--no-build-vignettes"), error_on = "error")

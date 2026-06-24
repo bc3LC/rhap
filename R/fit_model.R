@@ -25,8 +25,8 @@ fit_model <- function(HIA_var, countries = 'All') {
       HIA_var, paste(c("deaths", "yll", "dalys"), collapse = ", ")
     ))
   }
-  if (countries != 'All') {
-    wrong_countries <- setdiff(countries, unique(rhap::panel_data$country_name))
+  if ((length(countries) == 1 && countries != "All") || (length(countries) != 1)) {
+    wrong_countries <- as.character(setdiff(countries, unique(rhap::panel_data$country_name)))
     if (length(wrong_countries) == 1) {
       stop(sprintf(
         "Error: The specified country '%s' is invalid. Run `unique(rhap::panel_data$country_name)` to see the accepted country names are. Please rerun the `fit_model` function with valid `coutries`.",
@@ -44,7 +44,6 @@ fit_model <- function(HIA_var, countries = 'All') {
     dplyr::mutate(year = as.character(year)) %>%
     dplyr::select(-log_AAP, -log_HDD_value, -log_CDD_value) %>%
     dplyr::filter(stats::complete.cases(.))
-  predictable_regions <- unique(data$country_name)
 
   # dplyr::select the dependent variable (deaths, YLLs, or DALYs)
 
@@ -74,13 +73,17 @@ fit_model <- function(HIA_var, countries = 'All') {
       index = c("country_name", "year"),
       model = "within"
     )
+
+    predictable_regions <- unique(data$country_name)
   } else {
-    data_ctry_full <- data %>% filter(country_name %in% countries)
+    data_ctry_full <- data %>% dplyr::filter(country_name %in% countries)
     data_ctry_full.panel <- plm::pdata.frame(data_ctry_full, index = c("country_name", "year"))
     model.fixed <- plm::plm(
       model_formula,
       data = data_ctry_full.panel,
       model = "within")
+
+    predictable_regions <- unique(data_ctry_full$country_name)
   }
 
   return(list(model.fixed, predictable_regions))

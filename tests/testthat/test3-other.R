@@ -41,9 +41,37 @@ test_that("fit_model", {
   testResult <- get(load(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/fit_model.RData")))
   testthat::expect_equal(testOutput, testResult)
 
+
+  testOutput <- fit_model(HIA_var = "deaths", countries = "Spain")
+  testResult <- get(load(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/fit_model_esp.RData")))
+  testthat::expect_equal(testOutput, testResult)
+
   # error messages
   expect_error(
     fit_model(HIA_var = "Death"),
     "Error: The specified HIA_var 'Death' is invalid. Accepted HIA_var are: deaths, yll, dalys. Please rerun the `fit_model` function with a valid HIA_var."
   )
+
+  expect_error(
+    fit_model(HIA_var = "deaths", countries = "dummy"),
+    "Error: The specified country 'dummy' is invalid. Run `unique(rhap::panel_data$country_name)` to see the accepted country names are. Please rerun the `fit_model` function with valid `coutries`.",
+    fixed = TRUE
+  )
+
+  expect_error(
+    fit_model(HIA_var = "deaths", countries = c("dummy","Zambia","Uzbekistan2")),
+    "Error: The specified countries 'dummy, Uzbekistan2' are invalid. Run `unique(rhap::panel_data$country_name)` to see the accepted country names are. Please rerun the `fit_model` function with valid `coutries`.",
+    fixed = TRUE
+  )
+
 })
+
+
+test_that("listYears", {
+  prj_name <- file.path(rprojroot::find_root(rprojroot::is_testthat), "testInputs", "test_prj_v7p1.dat")
+  prj <- rgcam::loadProject(prj_name)
+
+  prj_years <- listYears(prj)
+  testthat::expect_equal(prj_years, c(1975, 1990, 2005, 2010, 2015, 2020, 2025, 2030, 2035, 2040, 2045, 2050, 2055))
+})
+
