@@ -15,8 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { os: ubuntu-latest, r: 'devel', cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest" }
-
+          - { os: ubuntu-latest, r: 'release' }
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       GITHUB_PAT: ${{ secrets.GH_RHAP_TOKEN }}
@@ -32,20 +31,22 @@ jobs:
       - uses: r-lib/actions/setup-tinytex@v2
 
       - name: Install system libraries
-        if: startsWith(matrix.config.os, 'ubuntu')
-        run: |
-          sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable
-          sudo apt-get update
-          sudo apt-get install -y \
-            libcurl4-openssl-dev libssl-dev libxml2-dev \
-            libudunits2-dev libgdal-dev libgeos-dev libproj-dev \
-            libmagick++-dev libavfilter-dev libharfbuzz-dev libfribidi-dev
+              if: startsWith(matrix.config.os, 'ubuntu')
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y \
+                  libcurl4-openssl-dev libssl-dev libxml2-dev \
+                  libudunits2-dev libgdal-dev libgeos-dev libproj-dev \
+                  libmagick++-dev libavfilter-dev \
+                  libharfbuzz-dev libfribidi-dev \
+                  libfontconfig1-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
 
       - name: Install R dependencies
-        run: |
-          install.packages(c("remotes", "rcmdcheck", "covr"), repos = "https://cloud.r-project.org")
-          remotes::install_deps(dependencies = TRUE)
-        shell: Rscript {0}
+              run: |
+                options(repos = c(CRAN = "https://cloud.r-project.org"))
+                install.packages(c("remotes", "rcmdcheck", "covr", "fs", "usethis"))
+                remotes::install_deps(dependencies = TRUE, upgrade = "never")
+              shell: Rscript {0}
 
       - name: Install the package
         run: |
