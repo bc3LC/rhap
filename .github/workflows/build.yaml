@@ -44,12 +44,17 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
-      - name: Install libraries for rmap and gcamdata
+      - name: Install system libraries
         if: startsWith(matrix.config.os, 'ubuntu')
         run: |
-          sudo add-apt-repository ppa:ubuntugis/ppa
+          sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
           sudo apt-get update
-          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libudunits2-dev libgdal-dev libgeos-dev libproj-dev libavfilter-dev  libmagick++-dev
+          sudo apt-get install -y \
+            libcurl4-openssl-dev libssl-dev libxml2-dev \
+            libudunits2-dev libgdal-dev libgeos-dev libproj-dev \
+            libmagick++-dev libavfilter-dev \
+            libharfbuzz-dev libfribidi-dev \
+            libfontconfig1-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
 
       - name: Install rmap and gcamdata
         if: startsWith(matrix.config.os, 'ubuntu')
