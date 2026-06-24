@@ -41,9 +41,10 @@ jobs:
 
       - name: Install R dependencies
         run: |
+          options(Ncpus = parallel::detectCores())
           options(repos = c(CRAN = "https://cloud.r-project.org"))
           install.packages(c("remotes", "rcmdcheck", "covr", "fs", "usethis", "testthat", "devtools"))
-          remotes::install_deps(dependencies = TRUE)
+          remotes::install_deps(dependencies = TRUE, upgrade = "never")
         shell: Rscript {0}
 
       - name: Install the package

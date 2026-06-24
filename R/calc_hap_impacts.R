@@ -886,7 +886,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     files_to_move <- list.files(path = file.path(file.path(output_dir, "maps")), pattern = "^map_allScen_", full.names = TRUE)
     if (!dir.exists(file.path(output_dir, "maps", "map_allScen_byYear"))) dir.create(paste0(file.path(output_dir, "maps", "map_allScen_byYear")))
     success <- sapply(files_to_move, function(file) {
-      file.rename(file, file.path(file.path(output_dir, "maps", "map_allScen_byYear")), basename(file))
+      file.rename(file, file.path(file.path(output_dir, "maps", "map_allScen_byYear"), basename(file)))
     })
   }
 
