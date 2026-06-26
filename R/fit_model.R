@@ -75,16 +75,19 @@ fit_model <- function(HIA_var, countries = 'All') {
     )
 
     predictable_regions <- unique(data$country_name)
+    data_train <- data
+
   } else {
     data_ctry_full <- data %>% dplyr::filter(country_name %in% countries)
-    data_ctry_full.panel <- plm::pdata.frame(data_ctry_full, index = c("country_name", "year"))
     model.fixed <- plm::plm(
       model_formula,
-      data = data_ctry_full.panel,
+      data = data_ctry_full,
+      index = c("country_name", "year"),
       model = "within")
 
     predictable_regions <- unique(data_ctry_full$country_name)
+    data_train <- data_ctry_full
   }
 
-  return(list(model.fixed, predictable_regions))
+  return(list(model.fixed, predictable_regions, data_train))
 }

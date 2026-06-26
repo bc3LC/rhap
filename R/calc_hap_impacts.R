@@ -1,3 +1,5 @@
+
+
 ##' calc_hap_impacts
 #'
 #'
@@ -37,6 +39,54 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     VOC_per_100k <- `GCAM Region` <- Percentage <- adj_country <- country_map <-
     gdp_pc_dol2011_ppp_gr <- gdp_pc_dol2011_ppp <- mapCountries <- . <- NULL
 
+
+  output <- calc_hap_impacts_preprocess(db_path, query_path, db_name, prj_name,
+                                        scen_name, queries, final_db_year,
+                                        HIA_var, countries)
+
+  output_fin <- calc_hap_impacts_predict(data = output, saveOutput, map, anim,
+                                         HIA_var, countries, normalized, by_gr)
+
+  return(invisible(output_fin))
+
+}
+
+
+
+##' calc_hap_impacts_preprocess
+#'
+#'
+#' Prepare the data from GCAM to latter estimate the health impacts attributable to household air pollution for GCAM scenarios.
+#' Run `calc_hap_impacts_predict` to compute the health estimates
+#' @keywords health impacts, HAP
+#' @return Health impacts attributable to HAP for all the selected years
+#' @param db_path Path to the GCAM database
+#' @param query_path Path to the query file
+#' @param db_name Name of the GCAM database
+#' @param prj_name Name of the rgcam project. This can be an existing project, or, if not, this will be the name
+#' @param scen_name Vector names of the GCAM scenarios to be processed
+#' @param queries Name of the GCAM query file. The file by default includes the queries required to run rfasst
+#' @param final_db_year Final year in the GCAM database (this allows to process databases with user-defined "stop periods")
+#' @param HIA_var Health metric to be predicted. c("deaths", "yll", "dalys"). By default = deaths
+#' @param countries Target countries over which the model will be fit (defaults to \code{"All"}).
+#' For a complete list of valid country names, check \code{unique(rhap::panel_data$country_name)}.
+#' @importFrom magrittr %>%
+#' @export
+
+calc_hap_impacts_preprocess <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
+                                        scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
+                                        HIA_var = "deaths", countries = 'All') {
+  Country <- country <- sector <- scenario <- region <- year <- group <- ghg <-
+    Units <- value <- adj <- value_reg <- dec_share <- Pollutant <- `ISO 3` <-
+    Percentatge <- iso3 <- iso <- ssp <- `gcam-consumer` <- value_adj <- building <-
+    unit <- flsp_m2 <- Model <- Scenario <- Region <- Variable <- Unit <- gdp <-
+    value_agg <- share_pop <- gdp_pc <- gdp_agg <- share_gdp <- gdp_dol2011_ppp <-
+    gdp_dol2011_ppp_gr <- data_name <- country_name <- bias.adder <- pred_value <-
+    pred_var <- pred_value_per_100K <- pred_value_per_100K_adj <- HIA <-
+    PrimPM25 <- NOx <- NMVOC <- OC <- BC <- PrimPM25_per_100k <- NOx_per_100k <-
+    VOC_per_100k <- `GCAM Region` <- Percentage <- adj_country <-
+    gdp_pc_dol2011_ppp_gr <- gdp_pc_dol2011_ppp <- . <- NULL
+
   # Check user input
   if (!HIA_var %in% c("deaths", "yll", "dalys")) {
     stop(sprintf(
@@ -49,36 +99,6 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     stop(sprintf(
       "Error: The specified final_db_year '%s' is invalid. Accepted final_db_year are: %s. Please rerun the calc_hap_impacts function with a valid final_db_year value.",
       final_db_year, paste(seq(2015, 2100, 5), collapse = ", ")
-    ))
-  }
-  if (!is.logical(saveOutput)) {
-    stop(sprintf(
-      "Error: The specified saveOutput '%s' is invalid. Accepted saveOutput values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid saveOutput value.",
-      saveOutput
-    ))
-  }
-  if (!is.logical(map)) {
-    stop(sprintf(
-      "Error: The specified map '%s' is invalid. Accepted map values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid map value.",
-      map
-    ))
-  }
-  if (!is.logical(anim)) {
-    stop(sprintf(
-      "Error: The specified anim '%s' is invalid. Accepted anim values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid anim value.",
-      anim
-    ))
-  }
-  if (!is.logical(normalized)) {
-    stop(sprintf(
-      "Error: The specified normalized '%s' is invalid. Accepted normalized values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid normalized value.",
-      normalized
-    ))
-  }
-  if (!is.logical(by_gr)) {
-    stop(sprintf(
-      "Error: The specified by_gr '%s' is invalid. Accepted by_gr values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid by_gr value.",
-      by_gr
     ))
   }
   if ((length(countries) == 1 && countries != "All") || (length(countries) != 1 && !any(countries == "All"))) {
@@ -102,31 +122,19 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   # Add converter: Teragram to kt
   CONV_Tg_kt <- 1E3
 
-  # Create the directory if they do not exist:
-  if (countries == 'All') {
-    output_dir <- 'output'
-  } else {
-    list_iso <- rhap::panel_data %>%
-      dplyr::filter(country_name %in% countries) %>%
-      dplyr::pull(iso) %>%
-      unique()
-    output_dir <- paste0('output_', paste(list_iso, collapse = '_'))
-  }
-  if (!dir.exists(output_dir)) dir.create(output_dir)
-
   # Then, load the rgcam project if prj not passed as a parameter:
   if (!is.null(db_path) & !is.null(db_name)) {
     rlang::inform("Creating project ...")
     conn <- rgcam::localDBConn(db_path,
-      db_name,
-      migabble = FALSE
+                               db_name,
+                               migabble = FALSE
     )
     prj <- suppressWarnings(
       rgcam::addScenario(conn,
-        prj_name,
-        scen_name,
-        paste0(query_path, "/", queries),
-        saveProj = TRUE
+                         prj_name,
+                         scen_name,
+                         paste0(query_path, "/", queries),
+                         saveProj = TRUE
       )
     )
   } else {
@@ -157,9 +165,9 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     dplyr::select(region = `GCAM Region`, country = Country) %>%
     dplyr::distinct() %>%
     dplyr::mutate(country = stringr::str_to_title(country),
-    # update regions if necessary
-    region = dplyr::if_else(base_year == 2021 & region == 'Europe_Eastern', 'Ukraine', region)
-  )
+                  # update regions if necessary
+                  region = dplyr::if_else(base_year == 2021 & region == 'Europe_Eastern', 'Ukraine', region)
+    )
 
 
   #  1- Emissions
@@ -678,11 +686,126 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     tidyr::drop_na()
 
 
+  # 3 - Return output
+  return(invisible(output))
+}
+
+
+
+##' calc_hap_impacts_predict
+#'
+#'
+#' Run the model to estimate the health impacts attributable to household air pollution for GCAM scenarios.
+#' Notice that the required dataset can be obtained through GCAM or uploaded manually through the `data` parameter
+#' @keywords health impacts, HAP
+#' @return Health impacts attributable to HAP for all the selected years
+#' @param data Dataset with ghg, gdppc and flsp estimates to compute health impacts. Structure defined
+#' as the output of `calc_hap_impacts_preprocess`
+#' @param saveOutput Writes the emission files. By default=TRUE
+#' @param map Produce the maps. By default = FALSE
+#' @param anim If set to TRUE, produces multi-year animations. By default=TRUE
+#' @param HIA_var Health metric to be predicted. c("deaths", "yll", "dalys"). By default = deaths
+#' @param countries Target countries over which the model will be fit (defaults to \code{"All"}).
+#' For a complete list of valid country names, check \code{unique(rhap::panel_data$country_name)}.
+#' @param normalized Transform the output to "normalized" values. By default = FALSE
+#' @param by_gr Estimate damages at group level. Just for illustrative purposes. By default = FALSE
+#' @importFrom magrittr %>%
+#' @export
+
+calc_hap_impacts_predict <- function(data, saveOutput = TRUE, map = FALSE, anim = TRUE,
+                                     HIA_var = "deaths", countries = 'All',
+                                     normalized = FALSE, by_gr = FALSE) {
+  Country <- country <- sector <- scenario <- region <- year <- group <- ghg <-
+    Units <- value <- adj <- value_reg <- dec_share <- Pollutant <- `ISO 3` <-
+    Percentatge <- iso3 <- iso <- ssp <- `gcam-consumer` <- value_adj <- building <-
+    unit <- flsp_m2 <- Model <- Scenario <- Region <- Variable <- Unit <- gdp <-
+    value_agg <- share_pop <- gdp_pc <- gdp_agg <- share_gdp <- gdp_dol2011_ppp <-
+    gdp_dol2011_ppp_gr <- data_name <- country_name <- bias.adder <- pred_value <-
+    pred_var <- pred_value_per_100K <- pred_value_per_100K_adj <- HIA <-
+    PrimPM25 <- NOx <- NMVOC <- OC <- BC <- PrimPM25_per_100k <- NOx_per_100k <-
+    VOC_per_100k <- `GCAM Region` <- Percentage <- adj_country <- country_map <-
+    gdp_pc_dol2011_ppp_gr <- gdp_pc_dol2011_ppp <- mapCountries <- . <- NULL
+
+  # Check user input
+  if (!HIA_var %in% c("deaths", "yll", "dalys")) {
+    stop(sprintf(
+      "Error: The specified HIA_var '%s' is invalid. Accepted HIA_var are: %s. Please rerun the calc_hap_impacts function with a valid HIA_var value.",
+      HIA_var, paste(c("deaths", "yll", "dalys"), collapse = ", ")
+    ))
+  }
+  if (!is.logical(saveOutput)) {
+    stop(sprintf(
+      "Error: The specified saveOutput '%s' is invalid. Accepted saveOutput values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid saveOutput value.",
+      saveOutput
+    ))
+  }
+  if (!is.logical(map)) {
+    stop(sprintf(
+      "Error: The specified map '%s' is invalid. Accepted map values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid map value.",
+      map
+    ))
+  }
+  if (!is.logical(anim)) {
+    stop(sprintf(
+      "Error: The specified anim '%s' is invalid. Accepted anim values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid anim value.",
+      anim
+    ))
+  }
+  if (!is.logical(normalized)) {
+    stop(sprintf(
+      "Error: The specified normalized '%s' is invalid. Accepted normalized values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid normalized value.",
+      normalized
+    ))
+  }
+  if (!is.logical(by_gr)) {
+    stop(sprintf(
+      "Error: The specified by_gr '%s' is invalid. Accepted by_gr values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid by_gr value.",
+      by_gr
+    ))
+  }
+  if(!identical(colnames(data), c('scenario','country_name','year','log_PrimPM25_per_100k','log_NOx_per_100k','log_VOC_per_100k','log_gdppc_ppp_dol2011','log_flsp','pop'))){
+    stop(sprintf(
+      "Error: The specified data is invalid. Run `calc_hap_impacts_preproces` to obtain a valid dataset. Please rerun the calc_hap_impacts_predict function with a valid data input."
+    ))
+  }
+  if ((length(countries) == 1 && countries != "All") || (length(countries) != 1 && !any(countries == "All"))) {
+    wrong_countries <- setdiff(countries, unique(rhap::panel_data$country_name))
+    if (length(wrong_countries) == 1) {
+      stop(sprintf(
+        "Error: The specified country '%s' is invalid. Run `unique(rhap::panel_data$country_name)` to see the accepted country names are. Please rerun the `fit_model` function with valid `coutries`.",
+        wrong_countries))
+    } else if (length(wrong_countries) > 1) {
+      stop(sprintf(
+        "Error: The specified countries '%s' are invalid. Run `unique(rhap::panel_data$country_name)` to see the accepted country names are. Please rerun the `fit_model` function with valid `coutries`.",
+        paste(wrong_countries, collapse = ", ")))
+    }
+  }
+
+
+
+  # Ancillary Functions
+  `%!in%` <- Negate(`%in%`)
+
+  # Create the directory if they do not exist:
+  if (countries == 'All') {
+    output_dir <- 'output'
+  } else {
+    list_iso <- rhap::panel_data %>%
+      dplyr::filter(country_name %in% countries) %>%
+      dplyr::pull(iso) %>%
+      unique()
+    output_dir <- paste0('output_', paste(list_iso, collapse = '_'))
+  }
+  if (!dir.exists(output_dir)) dir.create(output_dir)
+
+
   #-----
   # PREDICTION
+  output <- data
 
   # Get model to subtract coefficients and predict
   model.fixed <- fit_model(HIA_var = HIA_var, countries = countries)[[1]]
+  data_train <- fit_model(HIA_var = HIA_var, countries = countries)[[3]]
 
   # Restrict data to selected countries
   if (countries != 'All') output <- output %>% dplyr::filter(country_name %in% countries)
@@ -690,8 +813,46 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   # Transform data to panel and predict
   output.panel <- plm::pdata.frame(output, index = c("country_name", "year"))
 
-  # Predict
-  output$pred_value <- stats::predict(model.fixed, output.panel)
+  # Predict - manual implementation of stats::predict(model.fixed, output.panel)
+  predict_plm_within <- function(model, train_data, newdata) {
+    # train_data = the original plain data frame used to fit (data)
+    # newdata    = plain data frame to predict on (output)
+
+    coefs    <- coef(model)
+    rhs_vars <- names(coefs)
+
+    # 1. Compute Xβ on TRAINING data
+    X_train <- as.matrix(train_data[, rhs_vars])
+    xb_train <- as.numeric(X_train %*% coefs)
+
+    # 2. Recover fixed effect per country:
+    #    FE_i = mean(y_i) - mean(Xβ_i)   [the within estimator identity]
+    train_data$.xb <- xb_train
+    fe <- tapply(
+      train_data$log_Deaths_per_100k - train_data$.xb,
+      train_data$country_name,
+      mean
+    )
+
+    # 3. Compute Xβ on newdata
+    missing_vars <- setdiff(rhs_vars, names(newdata))
+    if (length(missing_vars) > 0)
+      stop("Missing in newdata: ", paste(missing_vars, collapse = ", "))
+
+    X_new  <- as.matrix(newdata[, rhs_vars])
+    xb_new <- as.numeric(X_new %*% coefs)
+
+    # 4. Look up country FE for each row of newdata
+    country_fe <- fe[as.character(newdata$country_name)]
+
+    if (any(is.na(country_fe))) {
+      warning("Unseen countries — using mean fixed effect as fallback")
+      country_fe[is.na(country_fe)] <- mean(fe)
+    }
+
+    xb_new + as.numeric(country_fe)
+  }
+  output$pred_value <- predict_plm_within(model.fixed, data_train, output)
 
   output_fin <- output %>%
     dplyr::mutate(pred_var = paste0("pred_log_", HIA_var, "_per_100K")) %>%
@@ -726,7 +887,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
   output.write <- function(df) {
     df <- as.data.frame(df)
     utils::write.csv(df, paste0(output_dir, "/", unique(df$scenario), "_HAP_", unique(HIA_var), ".csv"),
-      row.names = FALSE, fileEncoding = "UTF-8"
+                     row.names = FALSE, fileEncoding = "UTF-8"
     )
   }
 
@@ -776,7 +937,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
       ) %>%
       dplyr::select(scenario, country = country_name, group, year, pred_var, pred_value, pred_value_normalized = pred_value_per_100K_adj) %>%
       utils::write.csv(paste0(file.path(output_dir, "by_gr"), "/HAP_", unique(HIA_var), "_byGR", ".csv"),
-        row.names = FALSE, fileEncoding = "UTF-8"
+                       row.names = FALSE, fileEncoding = "UTF-8"
       )
   }
 
@@ -804,7 +965,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
         value = var_to_plot
       ) %>%
       tidyr::complete(tidyr::nesting(scenario, year, pred_var),
-        subRegion = unique(rmap::mapCountries$region)
+                      subRegion = unique(rmap::mapCountries$region)
       )
 
     mapCountries <<- rmap::mapCountries
