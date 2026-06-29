@@ -8,3 +8,7 @@ R/*.txt
 /tests/testthat/testInputs/database_basexdb_ref/*
 /tests/testthat/output
 inst/doc
+/output_esp
+plot*
+*pptx
+*check*
