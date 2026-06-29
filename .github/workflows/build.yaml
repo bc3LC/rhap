@@ -43,7 +43,7 @@ jobs:
         run: |
           options(Ncpus = parallel::detectCores())
           options(repos = c(CRAN = "https://cloud.r-project.org"))
-          install.packages(c("remotes", "rcmdcheck", "covr", "fs", "usethis", "testthat", "devtools"))
+          install.packages(c("remotes", "rcmdcheck", "covr", "fs", "usethis", "testthat")
           remotes::install_deps(dependencies = TRUE, upgrade = "never")
         shell: Rscript {0}
 
@@ -70,5 +70,5 @@ jobs:
         shell: Rscript {0}
 
       - name: Run tests
-        run: devtools::test()
+        run: testthat::test()
         shell: Rscript {0}
