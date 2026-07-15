@@ -37,10 +37,6 @@ fit_model <- function(HIA_var, countries = 'All') {
         paste(wrong_countries, collapse = ", ")))
     }
   }
-  if (countries == 'All') {
-    # List all the available countries if All are considered
-    countries = unique(data$country_name)
-  }
 
   # Adjust the data
   data <- rhap::panel_data %>%
@@ -48,6 +44,11 @@ fit_model <- function(HIA_var, countries = 'All') {
     dplyr::mutate(year = as.character(year)) %>%
     dplyr::select(-log_AAP, -log_HDD_value, -log_CDD_value) %>%
     dplyr::filter(stats::complete.cases(.))
+
+  if (countries == 'All') {
+    # List all the available countries if All are considered
+    countries = unique(data$country_name)
+  }
 
   # dplyr::select the dependent variable (deaths, YLLs, or DALYs)
 
