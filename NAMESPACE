@@ -3,7 +3,7 @@
 export(calc_ResidEm_grp)
 export(calc_hap_impacts)
 export(calc_hap_impacts_predict)
-export(calc_hap_impacts_preprocess)
+export(calc_hap_impacts_preproces)
 export(calc_hia_adder)
 export(create_panel)
 export(fit_model)

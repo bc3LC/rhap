@@ -17,7 +17,7 @@ calc_hap_impacts_predict(
 }
 \arguments{
 \item{data}{Dataset with ghg, gdppc and flsp estimates to compute health impacts. Structure defined
-as the output of `calc_hap_impacts_preprocess`}
+as the output of `calc_hap_impacts_preproces`}
 
 \item{saveOutput}{Writes the emission files. By default=TRUE}
 

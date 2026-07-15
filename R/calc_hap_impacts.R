@@ -40,7 +40,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
     gdp_pc_dol2011_ppp_gr <- gdp_pc_dol2011_ppp <- mapCountries <- . <- NULL
 
 
-  output <- calc_hap_impacts_preprocess(db_path, query_path, db_name, prj_name,
+  output <- calc_hap_impacts_preproces(db_path, query_path, db_name, prj_name,
                                         scen_name, queries, final_db_year,
                                         HIA_var, countries)
 
@@ -53,7 +53,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 
 
 
-##' calc_hap_impacts_preprocess
+##' calc_hap_impacts_preproces
 #'
 #'
 #' Prepare the data from GCAM to latter estimate the health impacts attributable to household air pollution for GCAM scenarios.
@@ -68,14 +68,12 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 #' @param queries Name of the GCAM query file. The file by default includes the queries required to run rfasst
 #' @param final_db_year Final year in the GCAM database (this allows to process databases with user-defined "stop periods")
 #' @param HIA_var Health metric to be predicted. c("deaths", "yll", "dalys"). By default = deaths
-#' @param countries Target countries over which the model will be fit (defaults to \code{"All"}).
 #' For a complete list of valid country names, check \code{unique(rhap::panel_data$country_name)}.
 #' @importFrom magrittr %>%
 #' @export
 
-calc_hap_impacts_preprocess <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
-                                        scen_name, queries = "queries_rhap.xml", final_db_year = 2100,
-                                        HIA_var = "deaths", countries = 'All') {
+calc_hap_impacts_preproces <- function(db_path = NULL, query_path = "./inst/extdata", db_name = NULL, prj_name,
+                                        scen_name, queries = "queries_rhap.xml", final_db_year = 2100, HIA_var = "deaths") {
   Country <- country <- sector <- scenario <- region <- year <- group <- ghg <-
     Units <- value <- adj <- value_reg <- dec_share <- Pollutant <- `ISO 3` <-
     Percentatge <- iso3 <- iso <- ssp <- `gcam-consumer` <- value_adj <- building <-
@@ -101,20 +99,6 @@ calc_hap_impacts_preprocess <- function(db_path = NULL, query_path = "./inst/ext
       final_db_year, paste(seq(2015, 2100, 5), collapse = ", ")
     ))
   }
-  if ((length(countries) == 1 && countries != "All") || (length(countries) != 1 && !any(countries == "All"))) {
-    wrong_countries <- setdiff(countries, unique(rhap::panel_data$country_name))
-    if (length(wrong_countries) == 1) {
-      stop(sprintf(
-        "Error: The specified country '%s' is invalid. Run `unique(rhap::panel_data$country_name)` to see the accepted country names are. Please rerun the `fit_model` function with valid `coutries`.",
-        wrong_countries))
-    } else if (length(wrong_countries) > 1) {
-      stop(sprintf(
-        "Error: The specified countries '%s' are invalid. Run `unique(rhap::panel_data$country_name)` to see the accepted country names are. Please rerun the `fit_model` function with valid `coutries`.",
-        paste(wrong_countries, collapse = ", ")))
-    }
-  }
-
-
 
   # Ancillary Functions
   `%!in%` <- Negate(`%in%`)
@@ -681,7 +665,7 @@ calc_hap_impacts_preprocess <- function(db_path = NULL, query_path = "./inst/ext
     # adjust Rou
     dplyr::mutate(country_name = dplyr::if_else(country_name == "Roumania", "Romania", country_name)) %>%
     # remove not predictable regions
-    dplyr::filter(country_name %in% unique(fit_model(HIA_var = HIA_var, countries = countries)[[2]])) %>%
+    dplyr::filter(country_name %in% unique(rhap::panel_data$country_name)) %>%
     dplyr::mutate(across(where(is.numeric), ~ ifelse(is.finite(.), ., NA_real_))) %>%
     tidyr::drop_na()
 
@@ -700,7 +684,7 @@ calc_hap_impacts_preprocess <- function(db_path = NULL, query_path = "./inst/ext
 #' @keywords health impacts, HAP
 #' @return Health impacts attributable to HAP for all the selected years
 #' @param data Dataset with ghg, gdppc and flsp estimates to compute health impacts. Structure defined
-#' as the output of `calc_hap_impacts_preprocess`
+#' as the output of `calc_hap_impacts_preproces`
 #' @param saveOutput Writes the emission files. By default=TRUE
 #' @param map Produce the maps. By default = FALSE
 #' @param anim If set to TRUE, produces multi-year animations. By default=TRUE
@@ -763,7 +747,9 @@ calc_hap_impacts_predict <- function(data, saveOutput = TRUE, map = FALSE, anim 
       by_gr
     ))
   }
-  if(!identical(colnames(data), c('scenario','country_name','year','log_PrimPM25_per_100k','log_NOx_per_100k','log_VOC_per_100k','log_gdppc_ppp_dol2011','log_flsp','pop'))){
+  if(any(!c('scenario','country_name','year','log_PrimPM25_per_100k',
+            'log_NOx_per_100k','log_VOC_per_100k','log_gdppc_ppp_dol2011',
+            'log_flsp','pop') %in% colnames(data))){
     stop(sprintf(
       "Error: The specified data is invalid. Run `calc_hap_impacts_preproces` to obtain a valid dataset. Please rerun the calc_hap_impacts_predict function with a valid data input."
     ))
@@ -788,6 +774,8 @@ calc_hap_impacts_predict <- function(data, saveOutput = TRUE, map = FALSE, anim 
 
   # Create the directory if they do not exist:
   if (countries == 'All') {
+    # List all the available countries if All are considered
+    countries = unique(data$country_name)
     output_dir <- 'output'
   } else {
     list_iso <- rhap::panel_data %>%
@@ -802,85 +790,101 @@ calc_hap_impacts_predict <- function(data, saveOutput = TRUE, map = FALSE, anim 
   #-----
   # PREDICTION
   output <- data
+  output_fin <- data.frame()
 
-  # Get model to subtract coefficients and predict
-  model.fixed <- fit_model(HIA_var = HIA_var, countries = countries)[[1]]
-  data_train <- fit_model(HIA_var = HIA_var, countries = countries)[[3]]
+  # Loop across all countries to create and use country-specific FE model
+  for (c in countries) {
+    # Get model to subtract coefficients and predict
+    fit_model_output_c <- fit_model(HIA_var = HIA_var, countries = c)
+    # Safe check for non-complete country datasets
+    if (is.null(fit_model_output_c) || length(fit_model_output_c) == 0) next
 
-  # Restrict data to selected countries
-  if (countries != 'All') output <- output %>% dplyr::filter(country_name %in% countries)
+    model.fixed <- fit_model_output_c[[1]]
+    data_train <- fit_model_output_c[[3]]
 
-  # Transform data to panel and predict
-  output.panel <- plm::pdata.frame(output, index = c("country_name", "year"))
+    # Restrict data to selected countries
+    output_c <- output %>% dplyr::filter(country_name == c) %>% mutate(scenario = 'dummy')
 
-  # Predict - manual implementation of stats::predict(model.fixed, output.panel)
-  predict_plm_within <- function(model, train_data, newdata) {
-    # train_data = the original plain data frame used to fit (data)
-    # newdata    = plain data frame to predict on (output)
+    # Transform data to panel and predict
+    output.panel <- plm::pdata.frame(output_c, index = c("country_name", "year"))
 
-    coefs    <- coef(model)
-    rhs_vars <- names(coefs)
+    # Predict - manual implementation of stats::predict(model.fixed, output.panel)
+    predict_plm_within <- function(model, train_data, newdata) {
+      # train_data = the original plain data frame used to fit (data)
+      # newdata    = plain data frame to predict on (output_c)
 
-    # 1. Compute Xβ on TRAINING data
-    X_train <- as.matrix(train_data[, rhs_vars])
-    xb_train <- as.numeric(X_train %*% coefs)
+      coefs    <- coef(model)
+      rhs_vars <- names(coefs)
 
-    # 2. Recover fixed effect per country:
-    #    FE_i = mean(y_i) - mean(Xβ_i)   [the within estimator identity]
-    train_data$.xb <- xb_train
-    fe <- tapply(
-      train_data$log_Deaths_per_100k - train_data$.xb,
-      train_data$country_name,
-      mean
+      # 1. Compute Xβ on TRAINING data
+      X_train <- as.matrix(train_data[, rhs_vars])
+      xb_train <- as.numeric(X_train %*% coefs)
+
+      # 2. Recover fixed effect per country:
+      #    FE_i = mean(y_i) - mean(Xβ_i)   [the within estimator identity]
+      train_data$.xb <- xb_train
+      fe <- tapply(
+        train_data$log_Deaths_per_100k - train_data$.xb,
+        train_data$country_name,
+        mean
+      )
+
+      # 3. Compute Xβ on newdata
+      missing_vars <- setdiff(rhs_vars, names(newdata))
+      if (length(missing_vars) > 0)
+        stop("Missing in newdata: ", paste(missing_vars, collapse = ", "))
+
+      X_new  <- as.matrix(newdata[, rhs_vars])
+      xb_new <- as.numeric(X_new %*% coefs)
+
+      # 4. Look up country FE for each row of newdata
+      country_fe <- fe[as.character(newdata$country_name)]
+
+      if (any(is.na(country_fe))) {
+        warning("Unseen countries — using mean fixed effect as fallback")
+        country_fe[is.na(country_fe)] <- mean(fe)
+      }
+
+      xb_new + as.numeric(country_fe)
+    }
+    output_c$pred_value <- predict_plm_within(model.fixed, data_train, output_c)
+
+    output_fin_c <- output_c %>%
+      dplyr::mutate(pred_var = paste0("pred_log_", HIA_var, "_per_100K")) %>%
+      gcamdata::left_join_error_no_match(
+        rhap::hia_adder %>%
+          tibble::as_tibble() %>%
+          dplyr::filter(HIA == HIA_var) %>%
+          dplyr::select(country_name = country, bias.adder) %>%
+          gcamdata::repeat_add_columns(tibble::tibble(year = unique(output_c$year))),
+        by = c("country_name", "year")
+      ) %>%
+      # dplyr::filter(stats::complete.cases(.)) %>%
+      dplyr::mutate(
+        pred_value_per_100K = exp(pred_value),
+        pred_var = gsub("log_", "", pred_var)
+      ) %>%
+      dplyr::mutate(
+        pred_value_per_100K_adj = pred_value_per_100K + bias.adder,
+        pred_value_per_100K_adj = round(pred_value_per_100K_adj, 2),
+        pred_value = round(pred_value_per_100K_adj * pop / 100000, 0),
+        pred_var = gsub("pred_", "", pred_var),
+        pred_var = gsub("_per_100K", "", pred_var)
+      ) %>%
+      dplyr::mutate(
+        pred_value = dplyr::if_else(as.numeric(pred_value) < 0, 0, as.numeric(pred_value)),
+        pred_value_per_100K_adj = dplyr::if_else(as.numeric(pred_value_per_100K_adj) < 0, 0, as.numeric(pred_value_per_100K_adj))
+      ) %>%
+      dplyr::select(scenario, country = country_name, year, pred_var, pred_value, pred_value_normalized = pred_value_per_100K_adj)
+
+
+    output_fin <- rbind(
+      output_fin,
+      output_fin_c
     )
 
-    # 3. Compute Xβ on newdata
-    missing_vars <- setdiff(rhs_vars, names(newdata))
-    if (length(missing_vars) > 0)
-      stop("Missing in newdata: ", paste(missing_vars, collapse = ", "))
-
-    X_new  <- as.matrix(newdata[, rhs_vars])
-    xb_new <- as.numeric(X_new %*% coefs)
-
-    # 4. Look up country FE for each row of newdata
-    country_fe <- fe[as.character(newdata$country_name)]
-
-    if (any(is.na(country_fe))) {
-      warning("Unseen countries — using mean fixed effect as fallback")
-      country_fe[is.na(country_fe)] <- mean(fe)
-    }
-
-    xb_new + as.numeric(country_fe)
   }
-  output$pred_value <- predict_plm_within(model.fixed, data_train, output)
 
-  output_fin <- output %>%
-    dplyr::mutate(pred_var = paste0("pred_log_", HIA_var, "_per_100K")) %>%
-    gcamdata::left_join_error_no_match(
-      rhap::hia_adder %>%
-        tibble::as_tibble() %>%
-        dplyr::filter(HIA == HIA_var) %>%
-        dplyr::select(country_name = country, bias.adder) %>%
-        gcamdata::repeat_add_columns(tibble::tibble(year = unique(output$year))),
-      by = c("country_name", "year")
-    ) %>%
-    # dplyr::filter(stats::complete.cases(.)) %>%
-    dplyr::mutate(
-      pred_value_per_100K = exp(pred_value),
-      pred_var = gsub("log_", "", pred_var)
-    ) %>%
-    dplyr::mutate(
-      pred_value_per_100K_adj = pred_value_per_100K + bias.adder,
-      pred_value_per_100K_adj = round(pred_value_per_100K_adj, 2),
-      pred_value = round(pred_value_per_100K_adj * pop / 100000, 0),
-      pred_var = gsub("pred_", "", pred_var),
-      pred_var = gsub("_per_100K", "", pred_var)
-    ) %>%
-    dplyr::mutate(
-      pred_value = dplyr::if_else(as.numeric(pred_value) < 0, 0, as.numeric(pred_value)),
-      pred_value_per_100K_adj = dplyr::if_else(as.numeric(pred_value_per_100K_adj) < 0, 0, as.numeric(pred_value_per_100K_adj))
-    ) %>%
-    dplyr::select(scenario, country = country_name, year, pred_var, pred_value, pred_value_normalized = pred_value_per_100K_adj)
 
 
   # Create a function to write the data (by scenario)

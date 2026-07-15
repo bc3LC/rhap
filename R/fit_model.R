@@ -37,6 +37,10 @@ fit_model <- function(HIA_var, countries = 'All') {
         paste(wrong_countries, collapse = ", ")))
     }
   }
+  if (countries == 'All') {
+    # List all the available countries if All are considered
+    countries = unique(data$country_name)
+  }
 
   # Adjust the data
   data <- rhap::panel_data %>%
@@ -66,28 +70,18 @@ fit_model <- function(HIA_var, countries = 'All') {
     "log_gdppc_ppp_dol2011 + log_flsp"
   ))
 
-  if (countries == 'All') {
-    model.fixed <- plm::plm(
-      model_formula,
-      data = data,
-      index = c("country_name", "year"),
-      model = "within"
-    )
+  data_ctry_full <- data %>% dplyr::filter(country_name %in% countries)
+  # Safe check for non-complete country datasets
+  if (nrow(data_ctry_full) == 0) return(NULL)
 
-    predictable_regions <- unique(data$country_name)
-    data_train <- data
+  model.fixed <- plm::plm(
+    model_formula,
+    data = data_ctry_full,
+    index = c("country_name", "year"),
+    model = "within")
 
-  } else {
-    data_ctry_full <- data %>% dplyr::filter(country_name %in% countries)
-    model.fixed <- plm::plm(
-      model_formula,
-      data = data_ctry_full,
-      index = c("country_name", "year"),
-      model = "within")
-
-    predictable_regions <- unique(data_ctry_full$country_name)
-    data_train <- data_ctry_full
-  }
+  predictable_regions <- unique(data_ctry_full$country_name)
+  data_train <- data_ctry_full
 
   return(list(model.fixed, predictable_regions, data_train))
 }
