@@ -151,11 +151,14 @@ calc_hap_impacts_preproces <- function(db_path = NULL, query_path = "./inst/extd
   reg_to_ctry <- rhap::Percen %>%
     dplyr::select(region = `GCAM Region`, country = Country) %>%
     dplyr::distinct() %>%
-    dplyr::mutate(country = stringr::str_to_title(country),
-                  # update regions if necessary
-                  region = dplyr::if_else(base_year == 2021 & ukraine_is_region &
-                                            `GCAM Region` == 'Europe_Eastern', 'Ukraine', region)
-    )
+    dplyr::mutate(country = stringr::str_to_title(country))
+
+  # update regions if necessary
+  if (ukraine_is_region) {
+    reg_to_ctry <- reg_to_ctry %>%
+      dplyr::mutate(region = ifelse(base_year == 2021 & ukraine_is_region &
+                                      `GCAM Region` == 'Europe_Eastern', 'Ukraine', region))
+  }
 
 
   #  1- Emissions
@@ -213,10 +216,16 @@ calc_hap_impacts_preproces <- function(db_path = NULL, query_path = "./inst/extd
       Pollutant = dplyr::if_else(Pollutant == "POM", "OC", Pollutant),
       year = as.numeric(as.character(year)),
       # update base year and regions if necessary
-      year = dplyr::if_else(base_year == 2021 & year == 2020, 2021, year),
-      `GCAM Region` = dplyr::if_else(base_year == 2021 & ukraine_is_region &
-                                       `GCAM Region` == 'Europe_Eastern', 'Ukraine', `GCAM Region`)
-    ) %>%
+      year = dplyr::if_else(base_year == 2021 & year == 2020, 2021, year))
+
+  # update regions if necessary
+  if (ukraine_is_region) {
+    em_ctry_gr <- em_ctry_gr %>%
+      dplyr::mutate(`GCAM Region` = ifelse(base_year == 2021 & ukraine_is_region &
+                                             `GCAM Region` == 'Europe_Eastern', 'Ukraine', `GCAM Region`))
+  }
+
+  em_ctry_gr <- em_ctry_gr %>%
     dplyr::rename(
       region = `GCAM Region`,
       ghg = Pollutant,
