@@ -42,7 +42,7 @@ calc_hap_impacts <- function(db_path = NULL, query_path = "./inst/extdata", db_n
 
   output <- calc_hap_impacts_preproces(db_path, query_path, db_name, prj_name,
                                         scen_name, queries, final_db_year,
-                                        HIA_var, countries)
+                                        HIA_var)
 
   output_fin <- calc_hap_impacts_predict(data = output, saveOutput, map, anim,
                                          HIA_var, countries, normalized, by_gr)
@@ -803,7 +803,7 @@ calc_hap_impacts_predict <- function(data, saveOutput = TRUE, map = FALSE, anim 
     data_train <- fit_model_output_c[[3]]
 
     # Restrict data to selected countries
-    output_c <- output %>% dplyr::filter(country_name == c) %>% mutate(scenario = 'dummy')
+    output_c <- output %>% dplyr::filter(country_name == c)
 
     # Transform data to panel and predict
     output.panel <- plm::pdata.frame(output_c, index = c("country_name", "year"))
