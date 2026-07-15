@@ -772,18 +772,13 @@ calc_hap_impacts_predict <- function(data, saveOutput = TRUE, map = FALSE, anim 
   # Ancillary Functions
   `%!in%` <- Negate(`%in%`)
 
-  # Create the directory if they do not exist:
+  # List all the available countries if All are considered
   if (countries == 'All') {
-    # List all the available countries if All are considered
     countries = unique(data$country_name)
-    output_dir <- 'output'
-  } else {
-    list_iso <- rhap::panel_data %>%
-      dplyr::filter(country_name %in% countries) %>%
-      dplyr::pull(iso) %>%
-      unique()
-    output_dir <- paste0('output_', paste(list_iso, collapse = '_'))
   }
+
+  # Create the directory if they do not exist
+  output_dir <- 'output'
   if (!dir.exists(output_dir)) dir.create(output_dir)
 
 
