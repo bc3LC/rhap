@@ -144,13 +144,17 @@ calc_hap_impacts_preproces <- function(db_path = NULL, query_path = "./inst/extd
 
   rlang::inform("Running rhap ...")
 
+  # Check if Ukraine is considered as an independent region
+  ukraine_is_region <- "Ukraine" %in% rgcam::getQuery(prj, "population by region")$region
+
   # First, create a database to transform from GCAM_region to country-level:
   reg_to_ctry <- rhap::Percen %>%
     dplyr::select(region = `GCAM Region`, country = Country) %>%
     dplyr::distinct() %>%
     dplyr::mutate(country = stringr::str_to_title(country),
                   # update regions if necessary
-                  region = dplyr::if_else(base_year == 2021 & region == 'Europe_Eastern', 'Ukraine', region)
+                  region = dplyr::if_else(base_year == 2021 & ukraine_is_region &
+                                            `GCAM Region` == 'Europe_Eastern', 'Ukraine', region)
     )
 
 
@@ -210,7 +214,8 @@ calc_hap_impacts_preproces <- function(db_path = NULL, query_path = "./inst/extd
       year = as.numeric(as.character(year)),
       # update base year and regions if necessary
       year = dplyr::if_else(base_year == 2021 & year == 2020, 2021, year),
-      `GCAM Region` = dplyr::if_else(base_year == 2021 & `GCAM Region` == 'Europe_Eastern', 'Ukraine', `GCAM Region`)
+      `GCAM Region` = dplyr::if_else(base_year == 2021 & ukraine_is_region &
+                                       `GCAM Region` == 'Europe_Eastern', 'Ukraine', `GCAM Region`)
     ) %>%
     dplyr::rename(
       region = `GCAM Region`,
