@@ -70,5 +70,5 @@ jobs:
         shell: Rscript {0}
 
       - name: Run tests
-        run: testthat::test()
+        run: testthat::test_local()
         shell: Rscript {0}
