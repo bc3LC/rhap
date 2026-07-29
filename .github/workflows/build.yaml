@@ -38,6 +38,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          options(timeout = 600)
           install.packages(c("remotes","rcmdcheck","stringi"), repos = "https://cloud.r-project.org")
           install.packages(c("evaluate"), repos = "https://cloud.r-project.org")
           install.packages(c("knitr","rmarkdown","htmlwidgets", "plm"), repos = "https://cloud.r-project.org")
