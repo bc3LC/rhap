@@ -18,6 +18,8 @@ navbar:
          href: articles/run_rhap.html
       -  text: "Fitting the econometric model"
          href: articles/fit_model.html
+      -  text: "Validating the econometric model"
+         href: articles/model_validation.html
       -  text: "Analyze within-region contributions to HAP"
          href: articles/ResidEm_grp.html
     - icon: fa-file-code-o

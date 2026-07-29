@@ -15,7 +15,7 @@ test_that("Create pie charts", {
     region = "EU-15",
     pie = TRUE
   )
-  testResult <- get(load(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/calc_ResidEm_grp_output_eu15.RData")))
+  testResult <- load_snapshot(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/calc_ResidEm_grp_output_eu15.RData"))
   testthat::expect_equal(testOutput, testResult)
 
   testOutput <- calc_ResidEm_grp(
@@ -26,7 +26,7 @@ test_that("Create pie charts", {
     region = "EU-27",
     pie = TRUE
   )
-  testResult <- get(load(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/calc_ResidEm_grp_output_eu27.RData")))
+  testResult <- load_snapshot(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/calc_ResidEm_grp_output_eu27.RData"))
   testthat::expect_equal(testOutput, testResult)
 
 

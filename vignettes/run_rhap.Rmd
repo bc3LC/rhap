@@ -6,7 +6,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-The primary function provided by this package is `calc_hap_impacts`, which is designed to estimate health impacts attributable to household air pollution (HAP) under various alternative scenarios simulated using the Global Change Analysis Model (GCAM). This function streamlines the process of assessing scenario-specific health outcomes by extracting relevant data from GCAM databases or project files. These relevant data includes key socioeconomic and environmental parameters, such as per capita GDP, emissions of primary PM2.5, NOx, and VOCs, as well as per capita floorspace. For more details on the methodology and assumptions underlying the econometric model used in this calculation, refer to the guide on ["Fitting the Econometric Model"](https://bc3lc.github.io/rhap/articles/fit_model.html). 
+The primary function provided by this package is `calc_hap_impacts`, which is designed to estimate health impacts attributable to household air pollution (HAP) under various alternative scenarios simulated using the Global Change Analysis Model (GCAM). This function streamlines the process of assessing scenario-specific health outcomes by extracting relevant data from GCAM databases or project files. These relevant data includes key socioeconomic and environmental parameters, such as per capita GDP, emissions of primary PM2.5 and NOx, and per capita floorspace. For more details on the methodology and assumptions underlying the econometric model used in this calculation, refer to the guide on ["Fitting the Econometric Model"](https://bc3lc.github.io/rhap/articles/fit_model.html).
 
 ### Extraction of the scenario-specific data
 The function `calc_hap_impacts` connects to a GCAM databases or project file using the [rgcam](https://github.com/JGCRI/rgcam) package, designed to extract and import GCAM results. 
@@ -19,9 +19,9 @@ For per capita GDP, the package loads projections from the [SSP database version
 
 
 ### Calculations
-The function estimates health impacts attributable to household air pollution (HAP) using an econometric model that incorporates direct emissions from the residential sector (BC, OC, NOx, and VOC), per capita GDP, and per capita floorspace as covariates. The model is a fixed-effects model, estimated using cross-regional and multi-year panel data compiled from various different sources. Detailed information on the econometric model, including its formulation and data sources, is available in the dedicated vignette: ["Fitting the Econometric Model"](https://bc3lc.github.io/rhap/articles/fit_model.html).
+The function estimates health impacts attributable to household air pollution (HAP) using an econometric model that incorporates direct emissions from the residential sector (primary PM2.5 and NOx), per capita GDP, per capita floorspace, and a linear year trend as covariates. The model is a fixed-effects model, estimated using cross-regional and multi-year panel data compiled from various different sources. Detailed information on the econometric model, including its formulation, variable selection, and diagnostic testing, is available in the dedicated vignette: ["Fitting the Econometric Model"](https://bc3lc.github.io/rhap/articles/fit_model.html).
 
-To improve accuracy, the health impact predictions incorporate a country-specific "bias adder" parameter, calculated as the difference between observed and estimated values in the final observed year (2019). This adjustment helps align model estimates with observed data for each country.
+To improve accuracy, the health impact predictions incorporate a country-specific, **additive** bias-correction term, computed by `fit_model()` as the mean gap between observed and model-predicted values over the most recent years of the training panel, and added to every prediction. This corrects for the country fixed effect that a fitted `plm` model cannot otherwise apply to new (scenario) data. An additive correction was chosen over the more theoretically obvious multiplicative one after validation against real GBD data showed the multiplicative version performing far worse (see the "Prediction and the bias adder" section of the econometric-model vignette) -- the trade-off is that a small floor is applied to prevent a negative corrected rate.
 
 The package provides flexibility to calculate three distinct health impact metrics associated with HAP:
 
@@ -29,7 +29,7 @@ The package provides flexibility to calculate three distinct health impact metri
 * Years of Life Lost (YLLs)
 * Disability-Adjusted Life Years (DALYs)
 
-In addition to country-level estimates, the package offers an optional feature to estimate health impacts by socioeconomic group (e.g., income deciles) within each region. While it is recommended to perform country-level calculations for consistency, this capability can provide valuable insights into the distribution of health impacts across population segments within regions. Such granularity can aid users in understanding intra-regional disparities. This feature is activated by setting `by_gr = FALSE`.
+In addition to country-level estimates, setting `by_gr = TRUE` reports within-country income-decile group **shares** of population, PM2.5+NOx exposure, and GDP, as a CSV table and a pie-chart snapshot (`output/by_gr/`). This is descriptive only, not a group-level health impact estimate: the regression model is fit on between-country variation, and applying it to within-country decile-level inputs would extrapolate it far outside the variation it was estimated on, with no way to validate the result. For a more detailed, per-pollutant breakdown of group shares, see `calc_ResidEm_grp()`.
 
 
 ### Outputs

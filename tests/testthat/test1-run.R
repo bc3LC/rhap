@@ -13,7 +13,7 @@ test_that("Download db, create project, and run", {
     saveOutput = TRUE, map = TRUE, anim = FALSE,
     normalized = FALSE, by_gr = FALSE
   )
-  testResult <- get(load(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/calc_hap_impacts_output1.RData")))
+  testResult <- load_snapshot(file.path(rprojroot::find_root(rprojroot::is_testthat), "testOutputs/calc_hap_impacts_output1.RData"))
   testthat::expect_equal(nrow(testOutput), nrow(testResult))
 
   # check saved files
@@ -117,4 +117,61 @@ test_that("Download db, create project, and run", {
     ),
     "Error: The specified by_gr '0' is invalid. Accepted by_gr values are: TRUE, FALSE. Please rerun the calc_hap_impacts function with a valid by_gr value."
   )
+
+  # fit_result: a pre-fit model should be reusable across calls for the
+  # same HIA_var, and rejected for a mismatched one.
+  fr <- fit_model(HIA_var = "deaths")
+  testOutput_cached <- calc_hap_impacts(
+    prj_name = prj_name, scen_name = scen_name,
+    final_db_year = 2020, HIA_var = "deaths",
+    saveOutput = FALSE, map = FALSE, anim = FALSE,
+    normalized = FALSE, by_gr = FALSE, fit_result = fr
+  )
+  expect_true(nrow(testOutput_cached) > 0)
+  expect_error(
+    calc_hap_impacts(
+      prj_name = prj_name, scen_name = scen_name,
+      final_db_year = 2020, HIA_var = "yll",
+      saveOutput = FALSE, map = FALSE, anim = FALSE,
+      normalized = FALSE, by_gr = FALSE, fit_result = fr
+    ),
+    "the supplied fit_result was fit for HIA_var = 'deaths', but this call uses HIA_var = 'yll'"
+  )
+
+  # reliability columns: present, and reliability is a valid label over
+  # reliability_ratio's thresholds.
+  expect_true(all(c("reliability_ratio", "reliability") %in% names(testOutput_cached)))
+  expect_true(all(testOutput_cached$reliability %in% c("high", "medium", "low")))
+  expect_true(all(testOutput_cached$reliability_ratio >= 0))
+})
+
+test_that("calc_hap_impacts by_gr = TRUE reports group shares, not group health impacts", {
+  prj_name <- file.path(rprojroot::find_root(rprojroot::is_testthat), "testInputs", "test_prj_v7p1.dat")
+  scen_name <- "Reference"
+
+  calc_hap_impacts(
+    prj_name = prj_name, scen_name = scen_name,
+    final_db_year = 2020, HIA_var = "deaths",
+    saveOutput = TRUE, map = FALSE, anim = FALSE,
+    normalized = FALSE, by_gr = TRUE
+  )
+
+  shares_path <- file.path(rprojroot::find_root(rprojroot::is_testthat), "output/by_gr/shares_byGR.csv")
+  expect_true(file.exists(shares_path))
+
+  shares <- read.csv(shares_path)
+  expect_named(shares, c("scenario", "country", "year", "group", "metric", "share"))
+  expect_setequal(unique(shares$metric), c("population", "exposure", "gdp"))
+  expect_setequal(unique(shares$group), paste0("d", 1:10))
+
+  # Group shares within the same scenario/country/year/metric must sum to
+  # ~1 (they're shares of that country's own group breakdown, not a
+  # cross-country comparison) -- this is the direct check that the shares
+  # redesign (replacing a fabricated group-level health estimate) is
+  # internally consistent.
+  totals <- stats::aggregate(share ~ scenario + country + year + metric, data = shares, FUN = sum)
+  expect_true(all(abs(totals$share - 1) < 0.01))
+
+  pie_path <- file.path(rprojroot::find_root(rprojroot::is_testthat), "output/by_gr/shares_byGR_2020.png")
+  expect_true(file.exists(pie_path))
 })

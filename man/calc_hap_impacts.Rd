@@ -17,7 +17,8 @@ calc_hap_impacts(
   anim = TRUE,
   HIA_var = "deaths",
   normalized = FALSE,
-  by_gr = FALSE
+  by_gr = FALSE,
+  fit_result = NULL
 )
 }
 \arguments{
@@ -45,10 +46,32 @@ calc_hap_impacts(
 
 \item{normalized}{Transform the output to "normalized" values. By default = FALSE}
 
-\item{by_gr}{Estimate damages at group level. Just for illustrative purposes. By default = FALSE}
+\item{by_gr}{Report within-country income-decile group shares of
+population, PM2.5+NOx exposure, and GDP as a CSV table plus a pie-chart
+snapshot at final_db_year (output/by_gr/). Descriptive only -- it does
+not estimate group-level health impacts, since the regression model is
+fit on between-country variation and was never validated against
+within-country/sub-national variation. By default = FALSE}
+
+\item{fit_result}{Optional pre-computed result from fit_model(HIA_var),
+e.g. from a previous call, to reuse instead of refitting the national
+regression from scratch. fit_model() doesn't depend on GCAM scenario
+data at all, so refitting it (including its Driscoll-Kraay vcov, which
+isn't cheap) on every calc_hap_impacts() call is pure waste when
+comparing many scenarios for the same HIA_var. Must have been fit with
+the same HIA_var as this call; a mismatch raises an error rather than
+silently using the wrong model. By default = NULL (fits internally).}
 }
 \value{
-Health impacts attributable to HAP for all the selected years
+Health impacts attributable to HAP for all the selected years, as
+  a tibble of scenario, country, year, pred_var, pred_value,
+  pred_value_normalized, reliability_ratio, and reliability. The last two
+  flag how much of a country's predicted level rests on fit_model()'s
+  bias-adder correction rather than on the regression's own covariates
+  (reliability_ratio = abs(bias.adder)/naive prediction; reliability is a
+  "high"/"medium"/"low" label over that ratio, thresholds 0.5 and 2) --
+  "low" flags a country whose absolute-level prediction the model has
+  little independent basis for, not necessarily a wrong number.
 }
 \description{
 Run the model to estimate the health impacts attributable to household air pollution for GCAM scenarios
