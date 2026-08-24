@@ -4,21 +4,106 @@
 \alias{fit_model}
 \title{fit_model}
 \source{
-Details on plm estimation can be found here: https://cran.r-project.org/web/packages/plm/plm.pdf#'
+Details on plm estimation: https://cran.r-project.org/web/packages/plm/plm.pdf
+
+Driscoll-Kraay SEs: plm::vcovSCC documentation
 }
 \usage{
-fit_model(HIA_var)
+fit_model(HIA_var, n_years = 5)
 }
 \arguments{
 \item{HIA_var}{Health metric to be predicted. c("deaths", "yll", "dalys")}
+
+\item{n_years}{Number of most recent historical years (per country) to
+average over when computing the bias adder. Default 5 — long enough
+to smooth out a single-year shock, short enough to reflect the
+country's current level rather than its full historical average.}
 }
 \value{
-Regression model and coefficients for prediction
+A list: model.fixed (plm object), predictable_regions (character
+  vector of countries in the estimation sample), vcov_dk (Driscoll-Kraay
+  variance-covariance matrix for inference — use this instead of the
+  default plm SEs for confidence intervals / significance testing on
+  this model's coefficients), bias_adder (tibble of country_name,
+  bias.adder, reliability_ratio — bias.adder is the per-country additive
+  level-calibration term, on the per_100k scale, to add to future
+  predictions [do not multiply]; reliability_ratio is
+  abs(bias.adder)/naive_prediction over the calibration window, where a
+  high value flags a country whose absolute-level prediction rests
+  almost entirely on the bias correction rather than the model's
+  covariates, and should be trusted less; replaces rhap::hia_adder),
+  HIA_var (the HIA_var this model was fit for, echoed back so a cached
+  fit_model() result can be validated against a different call site's
+  HIA_var before reuse).
 }
 \description{
-Fit the model using fixed effects model and plm function.
+Fit the model using a fixed effects model (plm, entity within-estimator)
+with a linear year trend, and return Driscoll-Kraay standard errors
+alongside the fitted model.
 
-For the model dplyr::selection, testing and validation see "./rhap/inst/extdata/model_testing.R"
+Model selection notes (see "./rhap/inst/extdata/model_testing.R" for the
+full diagnostic history):
+- Full year fixed effects (factor(year)) over-absorb common trend that
+  overlaps with the pollutant decline across countries, washing out
+  pollutant coefficients almost entirely. A linear year trend gives
+  coefficients consistent with a spline(df=4) and full year-FE
+  specification, so it was preferred for parsimony and because it
+  extrapolates sensibly to future scenario years (unlike year dummies).
+- log_VOC_per_100k was dropped: coefficient is ~0 and non-significant
+  under every specification and SE estimator tested (naive, Arellano
+  clustered, Driscoll-Kraay), and does not survive a joint Wald test
+  either alone or jointly with PM2.5/floorspace.
+- Under Driscoll-Kraay SEs (robust to both serial correlation and
+  cross-sectional dependence — appropriate for a country-year panel
+  with common shocks like oil prices, recessions, and multilateral
+  pollution treaties), only log_NOx_per_100k and log_gdppc_ppp_dol2011
+  are individually significant. log_PrimPM25_per_100k and log_flsp are
+  correctly signed (positive / negative respectively, as expected) but
+  not individually or jointly significant (joint Wald test p = 0.35).
+  They are retained on theoretical grounds (omitted-variable-bias risk
+  from dropping known-relevant regressors) but their point estimates
+  should be treated as directionally informative only, not precise,
+  for any scenario-comparison use of this model's coefficients.
+
+- The country-level bias adder previously stored in the external
+  rhap::hia_adder table is now computed internally from the fitted
+  model itself (see below), so it can never drift out of sync with
+  the coefficients used to produce it. It's calculated the same way
+  predict() will later be used on scenario data — coefficients only,
+  no fixed effect — so the gap it captures is exactly the gap that
+  needs to be added back at prediction time (country fixed effect +
+  any residual model bias), calibrated to recent observed years
+  rather than a single year to avoid baking in a one-off shock.
+
+- The bias adder is ADDITIVE (level scale, per_100k units), not
+  multiplicative, despite log(Y) = X*beta + alpha_i implying alpha_i is
+  technically a multiplicative scalar exp(alpha_i) in levels. A
+  multiplicative geometric-mean correction was tried and is more
+  "correct" in that narrow sense, but performed far worse in practice:
+  validated against real GBD out-of-sample data, it collapsed
+  cross-country correlation from ~0.86 (additive) to ~0.18. The reason
+  is that ~22% of countries (e.g. Uganda) have a common linear year
+  trend that doesn't match their own trajectory, so the gap between
+  the trend-implied (fixed-effect-free) prediction and reality keeps
+  growing even within the training years -- sometimes to a fixed
+  effect worth 1000x+ in levels. A multiplicative correction amplifies
+  that growing gap catastrophically when applied to a slightly
+  different (scenario) year; an additive correction, bounded by the
+  actual scale of the outcome variable, does not. See
+  inst/extdata/model_testing.R for the comparison.
+
+- IMPORTANT: the linear year trend is passed as an explicit numeric
+  column (year_num), not as.numeric(year) inline in the formula.
+  plm::pdata.frame() (used downstream at prediction time) converts
+  the "year" index column into a factor; as.numeric() on a factor
+  returns the factor's level codes, not the original calendar year,
+  and those codes are reassigned per-dataset — so a scenario dataset
+  spanning different years than the training data would get a
+  trend encoding disconnected from the one the coefficient was
+  estimated against. year_num is a plain (non-index) numeric column,
+  so it isn't touched by pdata.frame()'s factor coercion and stays
+  on a consistent calendar-year scale in both training and
+  prediction.
 }
 \keyword{Econometric}
 \keyword{effects}

@@ -1,0 +1,200 @@
+---
+title: "Validating the econometric model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{model_validation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+### Why this vignette exists
+
+The ["Fitting the econometric model"](https://bc3lc.github.io/rhap/articles/fit_model.html) vignette explains *what* `fit_model()` estimates and *why* it's specified the way it is. This vignette is different: it's a reproducible record of *how to check the model is still healthy* -- the diagnostic tests, the real-data validation, and the specification tests that were run (and, in one case, rejected) while hardening the model. Re-run this workflow after any change to `fit_model()`, `panel_data`, or the bias-adder logic in `calc_hap_impacts()`, and before trusting the model's absolute-level predictions for a new use case.
+
+All code below is runnable as written from the package root (`devtools::load_all()` first). Chunks are marked `eval = FALSE` by default because a couple of steps need a real GCAM project file and, for the real-data validation section, an external GBD data export -- see the notes in each section for what to supply.
+
+### 1. Panel structure and multicollinearity
+
+```{r}
+library(dplyr)
+library(plm)
+
+data <- rhap::panel_data %>%
+  dplyr::select(iso, country_name, year, pop, dplyr::starts_with("log"), continent, dev) %>%
+  dplyr::mutate(year = as.character(year)) %>%
+  dplyr::select(-log_AAP, -log_HDD_value, -log_CDD_value) %>%
+  dplyr::filter(stats::complete.cases(.)) %>%
+  dplyr::mutate(year_num = as.numeric(year))
+
+plm::pdim(data, index = c("country_name", "year"))
+# Balanced Panel: n = 165, T = 30, N = 4950 -- no singleton entities/years,
+# which matters because singletons are the most common cause of plm's
+# "empty model" error under effect = "twoways" (not used here, but worth
+# checking before anyone tries it).
+
+model_formula <- log_Deaths_per_100k ~ log_PrimPM25_per_100k + log_NOx_per_100k +
+  log_gdppc_ppp_dol2011 + log_flsp + year_num
+
+car::vif(lm(model_formula, data = data))
+#>  log_PrimPM25_per_100k       log_NOx_per_100k  log_gdppc_ppp_dol2011
+#>                1.768138               1.549074               2.473823
+#>                log_flsp               year_num
+#>                2.226533               1.071704
+# All comfortably < 3 -- no multicollinearity concern.
+```
+
+### 2. Model fit and inference diagnostics
+
+```{r}
+model.fixed <- plm::plm(model_formula, data = data, index = c("country_name", "year"),
+                         model = "within", effect = "individual")
+
+plm::pbgtest(model.fixed)
+#> Breusch-Godfrey/Wooldridge test for serial correlation in panel models
+#> chisq = 4152.2, df = 30, p-value < 2.2e-16
+
+plm::pcdtest(model.fixed, test = "cd")
+#> Pesaran CD test for cross-sectional dependence in panels
+#> z = 22.223, p-value < 2.2e-16
+
+lmtest::bptest(model_formula, data = data, studentize = TRUE)
+#> studentized Breusch-Pagan test
+#> BP = 720.64, df = 5, p-value < 2.2e-16
+```
+
+Serial correlation, cross-sectional dependence, and heteroskedasticity are all rejected at p < 2.2e-16 -- not just theoretical concerns for a country-year panel, but *confirmed present* in this one. That's why `fit_model()` reports Driscoll-Kraay standard errors (`plm::vcovSCC(model.fixed, type = "HC1", maxlag = 4)`, robust to all three simultaneously) rather than naive or country-clustered (Arellano) SEs -- clustering alone doesn't fix cross-sectional dependence.
+
+### 3. Functional form: RESET test and the GDP x PM2.5 interaction
+
+```{r}
+lmtest::resettest(lm(model_formula, data = data), power = 2:3, type = "fitted")
+#> RESET = 792.19, df1 = 2, df2 = 4942, p-value < 2.2e-16
+```
+
+A significant RESET test flags omitted nonlinearity. The natural hypothesis: richer countries might see less marginal harm per unit of PM2.5 (better ventilation, indoor air filtration), i.e. a GDP x PM2.5 interaction. Testing this requires **mean-centering** both variables first -- an uncentered interaction changes what the "main effect" coefficients mean (the effect when the other regressor is exactly zero, i.e. `log(x) = 0`, nowhere near the data), which produces wildly unstable, uninterpretable coefficients that look like a multicollinearity problem but aren't:
+
+```{r}
+data_c <- data %>%
+  dplyr::mutate(
+    pm25_c = log_PrimPM25_per_100k - mean(log_PrimPM25_per_100k),
+    gdp_c = log_gdppc_ppp_dol2011 - mean(log_gdppc_ppp_dol2011)
+  )
+
+m_int <- plm::plm(
+  log_Deaths_per_100k ~ pm25_c + log_NOx_per_100k + gdp_c + log_flsp + year_num + pm25_c:gdp_c,
+  data = data_c, index = c("country_name", "year"), model = "within", effect = "individual"
+)
+vcov_int <- plm::vcovSCC(m_int, type = "HC1", maxlag = 4)
+lmtest::coeftest(m_int, vcov = vcov_int)
+```
+
+Result: the interaction is statistically significant (p < 2.2e-16), not a within-transformation collinearity artifact (auxiliary-regression VIF on the within-demeaned regressors is 1.02-1.09, not inflated), improves within-R² from 0.69 to 0.76, and reduces the RESET statistic from 792 to 438 -- all of which would normally argue for adopting it.
+
+**It was rejected anyway.** The marginal effect of PM2.5, evaluated at different GDP levels, is:
+
+| GDP percentile | Marginal effect of PM2.5 |
+|---|---|
+| 10th (poorest) | -0.50 |
+| 50th (median) | -0.07 |
+| 90th (richest) | +0.29 |
+
+This is backwards from the hypothesis (worse ventilation in poor countries should mean a *larger* positive marginal effect there, not a negative one), and violates the basic prior that more emissions should not translate into fewer deaths -- exactly in the low-income countries where household air pollution matters most. A statistically significant, well-identified relationship that fails an economic-plausibility check is not necessarily wrong, but it's not something to ship without understanding the mechanism, and none was found (the most likely explanation is that the interaction is partly proxying for within-country GDP-correlated time trends the model doesn't otherwise capture, rather than a genuine effect-modification story). **The default model does not include this interaction.** If you want to explore it further, `pm25_c`/`gdp_c` centering and `car::vif()` on the within-demeaned regressors (not the raw pooled data, which can look fine even when the demeaned identifying variation is collinear) are the two steps not to skip.
+
+### 4. The bias-adder: additive vs. multiplicative, and why it matters
+
+`predict()` on a fitted `plm` "within" model omits the entity fixed effect entirely (unavoidable for scenario prediction -- GCAM data has no fixed effect to draw on). `fit_model()` corrects for this with a per-country bias adder, calibrated on the model's own training data. Two functional forms were tested:
+
+```{r}
+train_panel <- plm::pdata.frame(data, index = c("country_name", "year"))
+data$pred_log <- stats::predict(model.fixed, train_panel)
+data$observed_per_100k <- exp(data$log_Deaths_per_100k)
+data$pred_per_100k <- exp(data$pred_log)
+data$resid_per_100k <- data$observed_per_100k - data$pred_per_100k
+data$log_ratio <- data$log_Deaths_per_100k - data$pred_log
+
+n_years <- 5
+bias_additive <- data %>%
+  dplyr::group_by(country_name) %>%
+  dplyr::filter(year_num %in% utils::tail(sort(unique(year_num)), n_years)) %>%
+  dplyr::summarise(bias.adder = mean(resid_per_100k, na.rm = TRUE), .groups = "drop")
+
+bias_multiplicative <- data %>%
+  dplyr::group_by(country_name) %>%
+  dplyr::filter(year_num %in% utils::tail(sort(unique(year_num)), n_years)) %>%
+  dplyr::summarise(bias.factor = exp(mean(log_ratio, na.rm = TRUE)), .groups = "drop")
+```
+
+**In-sample (training data), the multiplicative version looks strictly better**: applying each correction back to the same recent training years, the additive version produces a negative "corrected" rate for 99 of 825 rows (12%), which then gets clamped; the multiplicative version produces zero negative values by construction (it's a ratio of two positive quantities), and has lower MAE (1.10 vs. 1.54 deaths/100k).
+
+**Out-of-sample, against real GBD data, the multiplicative version is far worse** -- see section 5 for the methodology, but the headline: cross-country correlation with observed GBD rates collapses from **0.86 (additive) to 0.18 (multiplicative)**. The reason: `bias_adder$bias.factor` (or the multiplicative version's equivalent) is unbounded, and for ~22% of countries it exceeds 10x; for Uganda specifically it's ~16,000x, because the model's naive (fixed-effect-free) prediction for Uganda is essentially zero (~0.02 deaths/100k) against an actual rate of ~120 -- the model's common linear year trend assumes mortality declines at a rate Uganda's doesn't follow, so the gap between the trend-implied prediction and reality *keeps growing* even within the training years. Multiplying by a correction that large amplifies any small difference between GCAM-scenario-implied inputs and the training panel's real-world inputs catastrophically; an additive correction, bounded by the actual scale of the outcome variable, doesn't. `fit_model()` uses the additive form for exactly this reason, with a floor (1% of the naive prediction) in `calc_hap_impacts()` instead of a hard clamp to 0, to avoid reporting a discontinuous "zero risk" for countries the correction pushes negative.
+
+`fit_model()`'s `bias_adder` also returns `reliability_ratio` (`abs(bias.adder) / naive_prediction`, same calibration window) precisely so this asymmetry is visible downstream: a country with a `reliability` of `"low"` in `calc_hap_impacts()`'s output is one whose absolute-level prediction rests almost entirely on this correction rather than the regression's own covariates -- not necessarily wrong, but not independently corroborated by the model either.
+
+### 5. Real-data validation against GBD
+
+`panel_data` (and therefore the model's training years) tops out at 2019 (GBD 2019-release data). To check the model against something it wasn't fit on, compare its scenario predictions against a newer GBD data release.
+
+**Getting the data**: export from the [GBD Results Tool](https://vizhub.healthdata.org/gbd-results/) with cause = "All causes", risk = "Household air pollution from solid fuels", measure = Deaths/YLLs/DALYs, metric = Rate, sex = Both, location = all countries, and whichever year(s) are available in the release you're checking against. The comparison below used a GBD 2023-release export for year 2023.
+
+```{r}
+gbd <- read.csv("path/to/your/GBD_export.csv") %>%
+  dplyr::filter(sex_name == "Both", metric_name == "Rate") %>%
+  dplyr::mutate(
+    HIA_var = dplyr::case_when(
+      measure_name == "Deaths" ~ "deaths",
+      measure_name == "YLLs (Years of Life Lost)" ~ "yll",
+      measure_name == "DALYs (Disability-Adjusted Life Years)" ~ "dalys"
+    ),
+    iso3 = countrycode::countrycode(location_name, "country.name", "iso3c", warn = FALSE)
+  ) %>%
+  dplyr::filter(!is.na(iso3)) %>%
+  dplyr::select(iso3, HIA_var, gbd_rate = val)
+
+# Run against the package's bundled test GCAM project at its most recent
+# calibrated (non-projected) year, so the model's inputs are as close to
+# real-world 2019-2020 conditions as this test fixture gets.
+model_out <- dplyr::bind_rows(lapply(c("deaths", "yll", "dalys"), function(hv) {
+  calc_hap_impacts(
+    prj_name = "tests/testthat/testInputs/test_prj_v7p1.dat", scen_name = "Reference",
+    final_db_year = 2020, HIA_var = hv,
+    saveOutput = FALSE, map = FALSE, anim = FALSE, normalized = FALSE, by_gr = FALSE
+  ) %>% dplyr::mutate(HIA_var = hv)
+})) %>%
+  dplyr::filter(year == 2020) %>%
+  dplyr::mutate(iso3 = countrycode::countrycode(country, "country.name", "iso3c", warn = FALSE))
+
+comparison <- model_out %>% dplyr::inner_join(gbd, by = c("iso3", "HIA_var"))
+
+comparison %>%
+  dplyr::group_by(HIA_var) %>%
+  dplyr::summarise(
+    n_countries = dplyr::n(),
+    cor = stats::cor(pred_value_normalized, gbd_rate, use = "complete.obs"),
+    mae = mean(abs(pred_value_normalized - gbd_rate)),
+    .groups = "drop"
+  )
+```
+
+**Important caveat**: this compares the model's 2020 prediction against 2023 real-world data -- a 3-year gap, plus the training panel itself is built from an earlier GBD release, so the historical estimates it was fit on don't exactly match the 2023 release's methodology either. Treat this as a directional check (does the model still track reality, in the right ballpark and rank order?), not a precise backtest.
+
+**Results (2020 model vs. 2023 GBD, after fixing the bias-adder to additive)**:
+
+| HIA_var | n countries | correlation | MAE (per 100k) |
+|---|---|---|---|
+| deaths | 160 | 0.855 | 11.9 |
+| yll | 160 | 0.868 | 453 |
+| dalys | 160 | 0.865 | 483 |
+
+Correlation in the mid-0.8s across all three outcomes means the model reproduces the relative cross-country pattern reasonably well (e.g. it correctly identifies North Korea, Myanmar, Haiti, and several Sub-Saharan African countries as the highest-burden countries, with predictions in the right order of magnitude). The remaining gap is concentrated in countries with a `reliability = "low"` flag (see section 4) -- their absolute levels are the least trustworthy part of any given prediction, which is exactly what that flag is for.
+
+### Reproducing this vignette's own numbers
+
+The commands above were run once, standalone, and their output pasted in as static results rather than executed at vignette build time (`eval = FALSE`) -- rebuilding `panel_data` from raw source files and re-running Driscoll-Kraay inference on the full panel takes a few minutes, too slow for a routine `pkgdown` build. Uncomment the chunks and run them directly (from the package root, after `devtools::load_all()`) when actually validating a change to the model.
