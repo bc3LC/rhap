@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rhap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -41,6 +41,9 @@
     </li>
     <li>
       <a href="../articles/fit_model.html">Fitting the econometric model</a>
+    </li>
+    <li>
+      <a href="../articles/model_validation.html">Validating the econometric model</a>
     </li>
     <li>
       <a href="../articles/ResidEm_grp.html">Analyze within-region contributions to HAP</a>
@@ -76,7 +79,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/bc3LC/rhap/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/bc3LC/rhap/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
@@ -87,10 +90,29 @@
 <!-- ------------------------>
 <div class="section level3">
 <h3 id="new-features-0-1-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-1-0"></a></h3>
-</div>
+<ul><li>
+<code><a href="../reference/fit_model.html">fit_model()</a></code> re-specified: linear year trend replaces year fixed effects, NMVOC dropped (non-significant under every specification/SE estimator tested), and Driscoll-Kraay standard errors are now computed and returned (<code>vcov_dk</code>), justified by confirmed serial correlation and cross-sectional dependence in the panel.</li>
+<li>The country-level bias-correction term is now computed internally by <code><a href="../reference/fit_model.html">fit_model()</a></code> from the fitted model itself (<code>bias_adder$bias.adder</code>), replacing the static <code>rhap::hia_adder</code> dataset, which has been removed along with <code>calc_hia_adder()</code>.</li>
+<li>
+<code>by_gr = TRUE</code> in <code><a href="../reference/calc_hap_impacts.html">calc_hap_impacts()</a></code> now reports within-country income-decile group <em>shares</em> of population, PM2.5+NOx exposure, and GDP (table + pie chart), instead of a fabricated group-level health-impact estimate. The regression model is fit on between-country variation only, so applying it to within-country decile inputs was an unvalidated extrapolation; shares of GCAM’s own group-level data carry no such risk.</li>
+<li>
+<code><a href="../reference/fit_model.html">fit_model()</a></code>’s <code>bias_adder</code> now also returns <code>reliability_ratio</code> (and <code><a href="../reference/calc_hap_impacts.html">calc_hap_impacts()</a></code>’s output a derived <code>reliability</code> “high”/“medium”/“low” label), flagging countries whose absolute-level prediction rests mostly on the bias correction rather than the regression’s own covariates – computed already, previously discarded.</li>
+<li>
+<code><a href="../reference/calc_hap_impacts.html">calc_hap_impacts()</a></code> gains a <code>fit_result</code> argument: pass a previously-computed <code>fit_model(HIA_var)</code> result to skip refitting the national regression (including its Driscoll-Kraay vcov) on every call, e.g. when comparing many GCAM scenarios for the same <code>HIA_var</code>.</li>
+<li>Added a new “Validating the econometric model” vignette: a reproducible record of the panel/inference diagnostics, the (rejected) GDP x PM2.5 interaction test, the additive-vs-multiplicative bias-adder investigation, and the GBD real-data validation methodology.</li>
+</ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-1-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-0"></a></h3>
-</div>
+<ul><li>Fixed the country-level bias correction silently clamping a negative “predicted” death/YLL/DALY rate to exactly 0 (occurred for ~12% of observations on the model’s own training data). It now floors at a small fraction of the naive, uncorrected prediction instead. (A multiplicative bias correction, which prevents negative values by construction, was also tried; it was rejected after validation against real GBD data showed it performing far worse than the additive form – see <code><a href="../reference/fit_model.html">fit_model()</a></code>’s documentation and the econometric-model vignette.)</li>
+<li>Fixed <code>fit_model(HIA_var = "yll")</code>: valid input silently resolved to <code>NULL</code> due to a mismatched lookup key (<code>"ylls"</code> vs. <code>"yll"</code>).</li>
+<li>Fixed a rerun of <code>calc_hap_impacts(map = TRUE)</code> against a not-freshly-cleared <code>output/</code> directory failing because the map-output file mover matched, and tried to rename, its own destination folder.</li>
+<li>Fixed several <code>.RData</code> test snapshots (<code>calc_hap_impacts</code>, <code>calc_ResidEm_grp</code> x2, <code>fit_model</code>) being compared vacuously: <code><a href="https://rdrr.io/r/base/load.html" class="external-link">load()</a></code> injects an object under whatever name it was <em>saved</em> as, which for these files happened to match the local variable holding the freshly-computed test result (<code>testOutput</code>), silently overwriting it before <code>expect_equal()</code> ran – so the test was comparing the stale snapshot to itself, regardless of what the function under test actually returned. Also removed the now-redundant, structurally-brittle <code>fit_model</code> snapshot in favor of targeted structural/sign/parameter checks.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="packageperformance-0-1-0">Package/performance<a class="anchor" aria-label="anchor" href="#packageperformance-0-1-0"></a></h3>
+<ul><li>Removed dead code (<code>flsp_pc_gr</code>, <code>flsp_pc_ctry_gr</code>, <code>gdp_pc_ctry_gr</code>) left over from the <code>by_gr</code> redesign.</li>
+<li>GCAM group-level queries (<code>subregional population</code>, <code>subregional income</code>) and their downstream processing now only run when <code>by_gr = TRUE</code> (the shares they feed are otherwise never consumed) – skips two extra GCAM queries and their processing on every default-mode (<code>by_gr = FALSE</code>) call.</li>
+</ul></div>
 </div>
   </div>
 
@@ -106,7 +128,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>

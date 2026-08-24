@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rhap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -59,6 +59,9 @@
     </li>
     <li>
       <a href="articles/fit_model.html">Fitting the econometric model</a>
+    </li>
+    <li>
+      <a href="articles/model_validation.html">Validating the econometric model</a>
     </li>
     <li>
       <a href="articles/ResidEm_grp.html">Analyze within-region contributions to HAP</a>
@@ -239,7 +242,7 @@
 or load the package manually by running the following code:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>  <span class="co"># Skip if already installed</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">load_all</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </li>
 </ul>
 </div>
@@ -263,7 +266,7 @@ or load the package manually by running the following code:</p>
 <!-- ------------------------>
 <!-- ------------------------>
 <p><a href="#Contents">Back to Contents</a></p>
-<p>The primary function offered by this package is <code>calc_hap_impacts</code>, designed to estimate health impacts attributable to household air pollution (HAP) across a range of alternative GCAM scenarios. This function estimates scenario-specific health outcomes by seamlessly extracting and processing relevant data from GCAM databases or project files. The extracted data encompasses critical socioeconomic and environmental parameters, enabling comprehensive analysis of HAP impacts. These parameters include per capita GDP, emissions of key pollutants such as primary PM2.5 (BC+OC), NOx, and VOCs, and per capita floorspace metrics. By integrating these diverse factors, <code>calc_hap_impacts</code> facilitates detailed assessments of how variations in economic development, pollutant emissions, and living conditions influence human health under different policy or technological scenarios.</p>
+<p>The primary function offered by this package is <code>calc_hap_impacts</code>, designed to estimate health impacts attributable to household air pollution (HAP) across a range of alternative GCAM scenarios. This function estimates scenario-specific health outcomes by seamlessly extracting and processing relevant data from GCAM databases or project files. The extracted data encompasses critical socioeconomic and environmental parameters, enabling comprehensive analysis of HAP impacts. These parameters include per capita GDP, emissions of key pollutants such as primary PM2.5 (BC+OC) and NOx, and per capita floorspace metrics. By integrating these diverse factors, <code>calc_hap_impacts</code> facilitates detailed assessments of how variations in economic development, pollutant emissions, and living conditions influence human health under different policy or technological scenarios.</p>
 <p>The package also includes an ancillary function, <code>calc_ResidEm_grp</code>, which determines the contribution of each within-region consumer group to household air pollution (HAP), with results categorized by region, year, and pollutant. Users can customize their analysis by specifying the desired region, time period, and pollutant through adjustable parameters when calling the function. This flexibility enables targeted assessments of how various consumer groups influence HAP across specific contexts, providing valuable insights for research and policy development.</p>
 <!-- ------------------------>
 <!-- ------------------------>
@@ -336,7 +339,7 @@ or load the package manually by running the following code:</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer>

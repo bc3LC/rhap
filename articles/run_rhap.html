@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rhap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -58,6 +58,9 @@
     </li>
     <li>
       <a href="../articles/fit_model.html">Fitting the econometric model</a>
+    </li>
+    <li>
+      <a href="../articles/model_validation.html">Validating the econometric model</a>
     </li>
     <li>
       <a href="../articles/ResidEm_grp.html">Analyze within-region contributions to HAP</a>
@@ -103,7 +106,7 @@
 (HAP) impacts</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/bc3LC/rhap/blob/main/vignettes/run_rhap.Rmd" class="external-link"><code>vignettes/run_rhap.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/bc3LC/rhap/blob/HEAD/vignettes/run_rhap.Rmd" class="external-link"><code>vignettes/run_rhap.Rmd</code></a></small>
       <div class="hidden name"><code>run_rhap.Rmd</code></div>
 
     </div>
@@ -118,10 +121,9 @@ alternative scenarios simulated using the Global Change Analysis Model
 scenario-specific health outcomes by extracting relevant data from GCAM
 databases or project files. These relevant data includes key
 socioeconomic and environmental parameters, such as per capita GDP,
-emissions of primary PM2.5, NOx, and VOCs, as well as per capita
-floorspace. For more details on the methodology and assumptions
-underlying the econometric model used in this calculation, refer to the
-guide on <a href="https://bc3lc.github.io/rhap/articles/fit_model.html">“Fitting the
+emissions of primary PM2.5 and NOx, and per capita floorspace. For more
+details on the methodology and assumptions underlying the econometric
+model used in this calculation, refer to the guide on <a href="https://bc3lc.github.io/rhap/articles/fit_model.html">“Fitting the
 Econometric Model”</a>.</p>
 <div class="section level3">
 <h3 id="extraction-of-the-scenario-specific-data">Extraction of the scenario-specific data<a class="anchor" aria-label="anchor" href="#extraction-of-the-scenario-specific-data"></a>
@@ -158,18 +160,26 @@ SSP-specific GDP projections.</p>
 </h3>
 <p>The function estimates health impacts attributable to household air
 pollution (HAP) using an econometric model that incorporates direct
-emissions from the residential sector (BC, OC, NOx, and VOC), per capita
-GDP, and per capita floorspace as covariates. The model is a
-fixed-effects model, estimated using cross-regional and multi-year panel
-data compiled from various different sources. Detailed information on
-the econometric model, including its formulation and data sources, is
-available in the dedicated vignette: <a href="https://bc3lc.github.io/rhap/articles/fit_model.html">“Fitting the
+emissions from the residential sector (primary PM2.5 and NOx), per
+capita GDP, per capita floorspace, and a linear year trend as
+covariates. The model is a fixed-effects model, estimated using
+cross-regional and multi-year panel data compiled from various different
+sources. Detailed information on the econometric model, including its
+formulation, variable selection, and diagnostic testing, is available in
+the dedicated vignette: <a href="https://bc3lc.github.io/rhap/articles/fit_model.html">“Fitting the
 Econometric Model”</a>.</p>
 <p>To improve accuracy, the health impact predictions incorporate a
-country-specific “bias adder” parameter, calculated as the difference
-between observed and estimated values in the final observed year (2019).
-This adjustment helps align model estimates with observed data for each
-country.</p>
+country-specific, <strong>additive</strong> bias-correction term,
+computed by <code><a href="../reference/fit_model.html">fit_model()</a></code> as the mean gap between observed
+and model-predicted values over the most recent years of the training
+panel, and added to every prediction. This corrects for the country
+fixed effect that a fitted <code>plm</code> model cannot otherwise apply
+to new (scenario) data. An additive correction was chosen over the more
+theoretically obvious multiplicative one after validation against real
+GBD data showed the multiplicative version performing far worse (see the
+“Prediction and the bias adder” section of the econometric-model
+vignette) – the trade-off is that a small floor is applied to prevent a
+negative corrected rate.</p>
 <p>The package provides flexibility to calculate three distinct health
 impact metrics associated with HAP:</p>
 <ul>
@@ -177,14 +187,16 @@ impact metrics associated with HAP:</p>
 <li>Years of Life Lost (YLLs)</li>
 <li>Disability-Adjusted Life Years (DALYs)</li>
 </ul>
-<p>In addition to country-level estimates, the package offers an
-optional feature to estimate health impacts by socioeconomic group
-(e.g., income deciles) within each region. While it is recommended to
-perform country-level calculations for consistency, this capability can
-provide valuable insights into the distribution of health impacts across
-population segments within regions. Such granularity can aid users in
-understanding intra-regional disparities. This feature is activated by
-setting <code>by_gr = FALSE</code>.</p>
+<p>In addition to country-level estimates, setting
+<code>by_gr = TRUE</code> reports within-country income-decile group
+<strong>shares</strong> of population, PM2.5+NOx exposure, and GDP, as a
+CSV table and a pie-chart snapshot (<code>output/by_gr/</code>). This is
+descriptive only, not a group-level health impact estimate: the
+regression model is fit on between-country variation, and applying it to
+within-country decile-level inputs would extrapolate it far outside the
+variation it was estimated on, with no way to validate the result. For a
+more detailed, per-pollutant breakdown of group shares, see
+<code><a href="../reference/calc_ResidEm_grp.html">calc_ResidEm_grp()</a></code>.</p>
 </div>
 <div class="section level3">
 <h3 id="outputs">Outputs<a class="anchor" aria-label="anchor" href="#outputs"></a>
@@ -223,7 +235,7 @@ guide</a> if you haven’t already.</p>
 within the package directory), use:</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">load_all</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Otherwise, if you’ve installed the package, load it normally:</li>
 </ul>
@@ -285,7 +297,7 @@ air pollution in 2050</em>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer>
