@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rhap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -58,6 +58,9 @@
     </li>
     <li>
       <a href="../articles/fit_model.html">Fitting the econometric model</a>
+    </li>
+    <li>
+      <a href="../articles/model_validation.html">Validating the econometric model</a>
     </li>
     <li>
       <a href="../articles/ResidEm_grp.html">Analyze within-region contributions to HAP</a>
@@ -175,8 +178,11 @@ independence and avoid multicollinearity. After evaluating multiple
 models with different variable combinations, the final regression
 includes the following socioeconomic and environmental variables: per
 capita GDP, emissions of primary PM2.5 (comprising BC and OC), nitrogen
-oxides, and non-methane volatile organic compounds (NMVOCs), and per
-capita floor space.</p>
+oxides, and per capita floor space, plus a linear year trend.
+Non-methane volatile organic compounds (NMVOCs) were tested and dropped:
+their coefficient is statistically indistinguishable from zero under
+every specification and standard-error estimator tried, and fails a
+joint significance test both alone and jointly with PM2.5.</p>
 <p>Once the covariates are selected, the variables are first normalized
 by converting them to units per 100,000 inhabitants. This step ensures
 that the scales of the variables are consistent, making them more
@@ -187,22 +193,60 @@ issues related to skewness, and further stabilizes variance, ultimately
 improving the reliability and interpretability of the regression
 model.</p>
 <p>To determine whether to use a fixed or random effects model, we apply
-the Hausmann test. Since the null hypothesis is rejected at conventional
+the Hausman test. Since the null hypothesis is rejected at conventional
 significance levels, this suggests that unobservable individual-specific
 characteristics are correlated with the explanatory variables. As a
 result, we opt for a fixed effects model over a random effects model.
-Note that the estimation is performed using the [plm] (<a href="https://cran.r-project.org/web/packages/plm/plm.pdf" class="external-link uri">https://cran.r-project.org/web/packages/plm/plm.pdf</a>)
+Note that the estimation is performed using the <a href="https://cran.r-project.org/web/packages/plm/plm.pdf" class="external-link">plm</a>
 package.</p>
+<div class="section level4">
+<h4 id="time-trend">Time trend<a class="anchor" aria-label="anchor" href="#time-trend"></a>
+</h4>
+<p>Mortality attributable to HAP has an underlying downward trend over
+1990-2019 that is largely common across countries (driven by factors
+outside the model, such as general improvements in medicine and public
+health infrastructure). Leaving this trend unmodeled risks confounding
+it with the genuinely declining trend in residential pollutant emissions
+over the same period. We compared four ways of controlling for it: no
+trend control, a linear year trend, a flexible spline (4 degrees of
+freedom), and full year fixed effects (year dummies). The linear trend,
+spline, and year-dummy specifications all converge to similar pollutant
+coefficients; only the no-trend-control specification disagrees,
+indicating that the “reasonable-looking” coefficients from that
+specification were actually the biased ones (omitted common-trend bias).
+Full year dummies over-absorb the common trend to the point of washing
+out the pollutant coefficients almost entirely. We use the linear trend:
+it is the most parsimonious option that agrees with the more flexible
+alternatives, and unlike year dummies it extrapolates sensibly to future
+(post-2019) scenario years.</p>
+</div>
+<div class="section level4">
+<h4 id="inference">Inference<a class="anchor" aria-label="anchor" href="#inference"></a>
+</h4>
+<p>Country-year panels of this kind routinely violate the classical
+OLS/within-estimator assumptions used for standard errors: residuals
+from the same country in adjacent years are correlated (serial
+correlation), and global shocks (oil prices, recessions, multilateral
+pollution treaties, pandemics) hit many countries in the same year
+(cross-sectional dependence). We tested for both directly: a
+Breusch-Godfrey/Wooldridge test rejects the no-serial-correlation null
+(p &lt; 0.001), and a Pesaran CD test rejects the
+no-cross-sectional-dependence null (p &lt; 0.001) – so both are actually
+present in this panel, not just theoretical concerns. Naive
+within-estimator standard errors, and even standard errors clustered
+only by country (Arellano), are not valid under cross-sectional
+dependence. We therefore report Driscoll-Kraay standard errors
+(<code><a href="https://rdrr.io/pkg/plm/man/vcovSCC.html" class="external-link">plm::vcovSCC()</a></code>), which are robust to serial correlation,
+cross-sectional dependence, and heteroskedasticity (also confirmed
+present via a Breusch-Pagan test) simultaneously.</p>
 <p>In summary, we estimate health impacts attributable to household air
-pollution using the following fixed effects model. The model includes
-logarithmic and normalized per capita GDP, emissions of primary PM2.5,
-NOx, and VOCs, and per capita floorspace as covariates, with country and
-year specified as index variables:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>D</mi><mi>e</mi><mi>a</mi><mi>t</mi><mi>h</mi><mi>s</mi><mi>p</mi><mi>e</mi><mi>r</mi><mn>100</mn><mi>K</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>=</mo><msub><mi>α</mi><mi>i</mi></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><mi>l</mi><mi>o</mi><mi>g</mi><msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>P</mi><mi>r</mi><mi>i</mi><mi>m</mi><mi>P</mi><mi>M</mi><mn>2.5</mn><mi>p</mi><mi>e</mi><mi>r</mi><mn>100</mn><mi>K</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>β</mi><mn>2</mn></msub><mi>l</mi><mi>o</mi><mi>g</mi><msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mi>O</mi><mi>X</mi><mi>p</mi><mi>e</mi><mi>r</mi><mn>100</mn><mi>K</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>β</mi><mn>3</mn></msub><mi>l</mi><mi>o</mi><mi>g</mi><msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>V</mi><mi>O</mi><mi>C</mi><mi>p</mi><mi>e</mi><mi>r</mi><mn>100</mn><mi>K</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>β</mi><mn>4</mn></msub><mi>l</mi><mi>o</mi><mi>g</mi><msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>G</mi><mi>D</mi><mi>P</mi><mi>p</mi><mi>c</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>β</mi><mn>5</mn></msub><mi>l</mi><mi>o</mi><mi>g</mi><msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>F</mi><mi>L</mi><mi>S</mi><mi>P</mi><mi>p</mi><mi>c</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>e</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">log(Deathsper100K)_{i,t} = \alpha_{i} + \beta_{1}log(PrimPM2.5per100K)_{i,t} + \beta_{2}log(NOXper100K)_{i,t} + \beta_{3}log(VOCper100K)_{i,t} + \beta_{4}log(GDPpc)_{i,t} + \beta_{5}log(FLSPpc)_{i,t} + e_{i,t} </annotation></semantics></math>
+pollution using the following fixed effects model, with country and year
+specified as index variables:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mi>e</mi><mi>a</mi><mi>t</mi><mi>h</mi><mi>s</mi><mi>p</mi><mi>e</mi><mi>r</mi><mn>100</mn><mi>K</mi><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>=</mo><msub><mi>α</mi><mi>i</mi></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mi>r</mi><mi>i</mi><mi>m</mi><mi>P</mi><mi>M</mi><mn>2.5</mn><mi>p</mi><mi>e</mi><mi>r</mi><mn>100</mn><mi>K</mi><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>β</mi><mn>2</mn></msub><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mi>O</mi><mi>X</mi><mi>p</mi><mi>e</mi><mi>r</mi><mn>100</mn><mi>K</mi><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>β</mi><mn>3</mn></msub><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>G</mi><mi>D</mi><mi>P</mi><mi>p</mi><mi>c</mi><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>β</mi><mn>4</mn></msub><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mi>L</mi><mi>S</mi><mi>P</mi><mi>p</mi><mi>c</mi><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>+</mo><mi>γ</mi><mo>⋅</mo><mi>t</mi><mo>+</mo><msub><mi>e</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">log(Deathsper100K)_{i,t} = \alpha_{i} + \beta_{1}log(PrimPM2.5per100K)_{i,t} + \beta_{2}log(NOXper100K)_{i,t} + \beta_{3}log(GDPpc)_{i,t} + \beta_{4}log(FLSPpc)_{i,t} + \gamma \cdot t + e_{i,t} </annotation></semantics></math>
 Where:</p>
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>D</mi><mi>e</mi><mi>a</mi><mi>t</mi><mi>h</mi><mi>s</mi><mi>p</mi><mi>e</mi><mi>r</mi><mn>100</mn><mi>K</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">log(Deathsper100K)_{i,t}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mi>e</mi><mi>a</mi><mi>t</mi><mi>h</mi><mi>s</mi><mi>p</mi><mi>e</mi><mi>r</mi><mn>100</mn><mi>K</mi><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">log(Deathsper100K)_{i,t}</annotation></semantics></math>
 is the dependent variable for region
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
 at period
@@ -213,16 +257,87 @@ is the fixed effect for region
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.</li>
 <li>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\beta_{1}</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\beta_{2}</annotation></semantics></math>,
 …
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\beta_{5}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mn>4</mn></msub><annotation encoding="application/x-tex">\beta_{4}</annotation></semantics></math>
 are the coefficients for the corresponding explanatory variables.</li>
+<li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>
+is the linear year-trend coefficient, with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+the calendar year.</li>
 <li>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>e</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">e_{i,t}</annotation></semantics></math>
 is the error term.</li>
 </ul>
 <p>** Note that the dependent variable can also be set to be YLLs or
 DALYs</p>
+</div>
+<div class="section level4">
+<h4 id="prediction-and-the-bias-adder">Prediction and the bias adder<a class="anchor" aria-label="anchor" href="#prediction-and-the-bias-adder"></a>
+</h4>
+<p><code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> on a fitted <code>plm</code> “within” model
+returns fitted values from the coefficients alone, without the country
+fixed effect
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\alpha_i</annotation></semantics></math>
+– and this is unavoidable for scenario prediction, since GCAM scenario
+data has no fixed effect to draw on. To correct for this,
+<code><a href="../reference/fit_model.html">fit_model()</a></code> also computes a per-country <strong>additive
+bias adder</strong>: the mean of (observed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>−</mi><annotation encoding="application/x-tex">-</annotation></semantics></math>
+coefficient-only-predicted) values, in per-100k units, over the most
+recent years of the training panel. This is added to (not multiplied
+into) every future per-100k prediction for that country.</p>
+<p>This choice was not obvious going in. In a log-linear model,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>X</mi><mi>β</mi><mo>+</mo><msub><mi>α</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">log(Y) = X\beta + \alpha_i</annotation></semantics></math>
+implies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mrow><mi mathvariant="normal">exp</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mi>β</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mrow><mi mathvariant="normal">exp</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>α</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Y = \exp(X\beta) \cdot \exp(\alpha_i)</annotation></semantics></math>
+– the fixed effect is technically a <em>multiplicative</em> scalar in
+levels, not an additive one, which argues for a multiplicative
+(geometric-mean ratio) correction instead. We implemented that version
+and validated it against real GBD data before adopting it – and it
+performed far worse: cross-country correlation with observed 2023 GBD
+rates collapsed from ~0.86 (additive) to ~0.18 (multiplicative), even
+though the multiplicative version looked more accurate on the model’s
+own training data. The reason is that the model’s single common linear
+year trend doesn’t match every country’s own trajectory (mortality in a
+country like Uganda declines far more slowly than the trend assumes), so
+the gap between the trend-implied prediction and reality keeps
+<em>growing</em> even within the training years – for about 22% of
+countries the implied fixed effect exceeds a factor of 10x, and for some
+it exceeds 1000x. A multiplicative correction amplifies that
+already-large, still-growing gap catastrophically the moment it’s
+applied to a slightly different (scenario) year; a correction bounded by
+the actual scale of the outcome variable does not. We therefore use the
+additive form despite its weaker theoretical justification, because it
+is dramatically more reliable in the use this package is actually built
+for.</p>
+<p>The one real failure mode of the additive form is that it can push a
+country’s corrected rate below zero (this happened for ~12% of
+country-year observations on the model’s own training data). Rather than
+clamping that to exactly 0 – which silently reports “zero risk” for a
+country the model has no real basis to call zero –
+<code><a href="../reference/calc_hap_impacts.html">calc_hap_impacts()</a></code> floors the corrected value at a small
+fraction (1%) of the naive, uncorrected prediction, so a low but
+non-degenerate estimate is reported instead.</p>
+</div>
+<div class="section level4">
+<h4 id="known-limitations">Known limitations<a class="anchor" aria-label="anchor" href="#known-limitations"></a>
+</h4>
+<p>A RESET test on the pooled specification rejects correct functional
+form (p &lt; 0.001), and individual country series for deaths, GDP, and
+floorspace show unit-root-like (non-stationary) behavior under an
+intercept-only panel unit-root test – both expected for 30-year
+macro/demographic series, but neither is fully resolved by entity fixed
+effects plus a single <em>common</em> linear trend if countries have
+meaningfully different trends of their own. This is a standard trade-off
+in applied fixed-effects panel work with many countries and a short time
+dimension (T=30), and the model’s cross-country ranking has been
+validated against real GBD data (~0.86 correlation on out-of-sample
+deaths/YLL/DALY rates); but formal cointegration testing or
+country-specific trends were not pursued and would be a reasonable next
+step for anyone using the model’s point coefficients for causal
+interpretation rather than for scenario comparison.</p>
+</div>
 </div>
   </div>
 
@@ -241,7 +356,7 @@ DALYs</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer>

@@ -1,6 +1,6 @@
 Package: rhap
 Title: rhap
-Version: 0.1.0
+Version: 1.2.0
 Authors@R: c(person("Jon", "Sampedro", email = "jon.sampedro@bc3research.org", role = c("aut", "cre"),
 		   comment = c(ORCID ="0000-0002-2277-1530")),
 		   person("Clàudia", "Rodés-Bachs", email = "claudia.rodes@bc3research.org", role = c("aut"),

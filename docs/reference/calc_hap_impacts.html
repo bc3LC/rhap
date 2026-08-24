@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rhap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -41,6 +41,9 @@
     </li>
     <li>
       <a href="../articles/fit_model.html">Fitting the econometric model</a>
+    </li>
+    <li>
+      <a href="../articles/model_validation.html">Validating the econometric model</a>
     </li>
     <li>
       <a href="../articles/ResidEm_grp.html">Analyze within-region contributions to HAP</a>
@@ -98,7 +101,8 @@
 <span>  anim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  HIA_var <span class="op">=</span> <span class="st">"deaths"</span>,</span>
 <span>  normalized <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  by_gr <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  by_gr <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  fit_result <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -155,12 +159,36 @@
 
 
 <dt id="arg-by-gr">by_gr<a class="anchor" aria-label="anchor" href="#arg-by-gr"></a></dt>
-<dd><p>Estimate damages at group level. Just for illustrative purposes. By default = FALSE</p></dd>
+<dd><p>Report within-country income-decile group shares of
+population, PM2.5+NOx exposure, and GDP as a CSV table plus a pie-chart
+snapshot at final_db_year (output/by_gr/). Descriptive only – it does
+not estimate group-level health impacts, since the regression model is
+fit on between-country variation and was never validated against
+within-country/sub-national variation. By default = FALSE</p></dd>
+
+
+<dt id="arg-fit-result">fit_result<a class="anchor" aria-label="anchor" href="#arg-fit-result"></a></dt>
+<dd><p>Optional pre-computed result from fit_model(HIA_var),
+e.g. from a previous call, to reuse instead of refitting the national
+regression from scratch. fit_model() doesn't depend on GCAM scenario
+data at all, so refitting it (including its Driscoll-Kraay vcov, which
+isn't cheap) on every calc_hap_impacts() call is pure waste when
+comparing many scenarios for the same HIA_var. Must have been fit with
+the same HIA_var as this call; a mismatch raises an error rather than
+silently using the wrong model. By default = NULL (fits internally).</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Health impacts attributable to HAP for all the selected years</p>
+    <p>Health impacts attributable to HAP for all the selected years, as
+  a tibble of scenario, country, year, pred_var, pred_value,
+  pred_value_normalized, reliability_ratio, and reliability. The last two
+  flag how much of a country's predicted level rests on fit_model()'s
+  bias-adder correction rather than on the regression's own covariates
+  (reliability_ratio = abs(bias.adder)/naive prediction; reliability is a
+  "high"/"medium"/"low" label over that ratio, thresholds 0.5 and 2) –
+  "low" flags a country whose absolute-level prediction the model has
+  little independent basis for, not necessarily a wrong number.</p>
     </div>
 
   </div>
@@ -175,7 +203,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>
